@@ -3,7 +3,8 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-     <h3>Agregar nuevo cliente o proveedor</h3>
+    <div class="container">
+        <h3>Agregar nuevo cliente o proveedor</h3>
     <div class="row">
         <div class="col-sm-4"></div>
         <div  class="col-sm-4 sfg" >
@@ -35,11 +36,12 @@
             <asp:RadioButton runat="server" Text="Cliente" CssClass="radioL"/>
             <asp:RadioButton runat="server" Text="Proveedor"/>
 
-            <div">
-                <asp:Button CssClass="btn-success" runat="server" Text="asdas" />
+            <div class="row">
+                <asp:Button type="button" ID="Button1" runat="server" Text="Button" class="alert-success" />
             </div>   
         </div>
         <div class="col-sm-4"></div>
+    </div>
     </div>
 </asp:Content>
 
