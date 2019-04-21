@@ -12,8 +12,8 @@ namespace DAO
     public class DAOManejadorSocios
     {
 
-        //Properties.Settings.Default.conexion
-        private SqlConnection conexion = new SqlConnection("");
+        
+        private SqlConnection conexion = new SqlConnection(Properties.Settings.Default.conexion);
 
 
         public String agregarSocio(TOSocioNegocio socio)

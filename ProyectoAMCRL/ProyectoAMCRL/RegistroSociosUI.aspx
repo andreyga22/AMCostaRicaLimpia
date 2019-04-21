@@ -1,10 +1,9 @@
-﻿<%@ Page Language="C#"  MasterPageFile="~/MasterPrincipal.Master" AutoEventWireup="true" CodeBehind="RegistroSociosUI.aspx.cs" Inherits="ProyectoAMCRL.RegistroSociosUI" %>
-
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPrincipal.Master" AutoEventWireup="true" CodeBehind="RegistroSociosUI.aspx.cs" Inherits="ProyectoAMCRL.RegistroSociosUI" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <h3>Agregar nuevo cliente o proveedor</h3>
+     <h3>Agregar nuevo cliente o proveedor</h3>
     <div class="row">
         <div class="col-sm-4"></div>
         <div  class="col-sm-4 sfg" >
@@ -42,8 +41,7 @@
         </div>
         <div class="col-sm-4"></div>
     </div>
-
-
 </asp:Content>
 
-
+<asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
+</asp:Content>
