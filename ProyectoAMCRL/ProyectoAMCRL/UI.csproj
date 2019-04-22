@@ -74,6 +74,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="index.aspx" />
+    <Content Include="ownStyles.css" />
     <Content Include="RegistroSociosUI.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />

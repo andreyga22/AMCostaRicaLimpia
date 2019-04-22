@@ -12,14 +12,20 @@ namespace BL
     {
         private DAOManejadorSocios manejadorDAO = new DAOManejadorSocios();
 
-        public String agregarSocioBL(TOSocioNegocio socioTO)
+        public String agregarSocioBL(BLSocioNegocio socioBL)
         {
-            return manejadorDAO.agregarSocio(socioTO);
+
+            return manejadorDAO.agregarSocio(generarClon(socioBL));
         }
 
-        private BLSocioNegocio generarClon(TOSocioNegocio socioTO)
+        private TOSocioNegocio generarClon(BLSocioNegocio socioBL)
         { //prototype?
-            return new BLSocioNegocio(socioTO.cedula, socioTO.cedula_asociado, socioTO.apellido1, socioTO.apellido2, socioTO.rol);
+            return new TOSocioNegocio(socioBL.cedula, socioBL.cedula_asociado, socioBL.nombre,
+                socioBL.rol, socioBL.apellido1, socioBL.apellido2, socioBL.tel1, socioBL.tel2, socioBL.correo, clonarDir(socioBL.direccion));
+        }
+
+        private TODireccion clonarDir(BLDireccion dir) {
+            return new TODireccion(dir.provincia, dir.canton, dir.distrito, dir.otras_sennas);
         }
 
     }
