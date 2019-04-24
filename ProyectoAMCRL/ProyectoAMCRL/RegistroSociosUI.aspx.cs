@@ -30,8 +30,8 @@ namespace ProyectoAMCRL
                 distritoTB.Text.ToString(), sennas.Text.ToString());
 
             socio.direccion = direccionN;
-            socio.tel1 = telTB.Text.ToString();
-            socio.tel2 = tel2TB.Text.ToString();
+            socio.telHab = int.Parse(telTB.Text.ToString());
+            socio.telPers = int.Parse(tel2TB.Text.ToString());
             socio.correo = correoTB.Text.ToString();
 
             BLManejadorSocios manejador = new BLManejadorSocios();

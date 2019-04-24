@@ -32,7 +32,7 @@ namespace BL
         private TOSocioNegocio generarClon(BLSocioNegocio socioBL)
         { //prototype?
             return new TOSocioNegocio(socioBL.cedula, socioBL.cedula_asociado, socioBL.nombre,
-                socioBL.rol, socioBL.apellido1, socioBL.apellido2, socioBL.tel1, socioBL.tel2, 
+                socioBL.rol, socioBL.apellido1, socioBL.apellido2, socioBL.telHab, socioBL.telPers, 
                 socioBL.correo, clonarDir(socioBL.direccion), socioBL.estado_socio);
         }
 
