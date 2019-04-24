@@ -16,6 +16,11 @@
 .row_registroForm {
 margin-top:1%;
 }
-.cajaTexto {
-    
+
+.info_div {
+    background-color: yellow;
+    width: 100%;
+    text-align: center;
+
 }
+

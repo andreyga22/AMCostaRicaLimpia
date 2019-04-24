@@ -9,6 +9,12 @@
 
 
         <div class="container row_registroForm">
+
+            <div class="info_div" runat="server">
+                <asp:Label runat="server" ID="alertar" ></asp:Label>
+                <asp:Button runat="server" Text="ok" ID="ok_btn"/>
+            </div>
+
             <h4>Registro cliente/proveedor</h4>
             <br>
 
@@ -57,7 +63,7 @@
                      Otras señas<br>
                      <asp:TextBox ID="sennas" runat="server" CssClass="cajaTexto form-control"></asp:TextBox>
                    
-                    <%-- SUBMMIT BUTTON --%>
+                  
                    
                 </div>
 
@@ -78,6 +84,7 @@
                     </div>
                 </div>
             </div>
+              <%-- SUBMMIT BUTTON --%>
              <asp:Button ID="btnRegistrar" type="submmit" runat="server" Text="Registrar" class="btn btn-outline-primary btn-lg " OnClick="btnRegistrar_Click" />
                     <asp:Label ID="info" runat="server"></asp:Label>
         </div>

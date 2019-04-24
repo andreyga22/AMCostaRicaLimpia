@@ -14,6 +14,17 @@ namespace BL
 
         public String agregarSocioBL(BLSocioNegocio socioBL)
         {
+            if (!socioBL.apellido1.Equals("") && socioBL.apellido2.Equals("")
+                || socioBL.apellido1.Equals("") && !socioBL.apellido2.Equals(""))
+            {
+                return "ERROR, debe especificar ambos apellidos";
+            }
+
+            
+          socioBL.cedula_asociado = null;
+
+          socioBL.estado_socio = "ACTIVO";
+
 
             return manejadorDAO.agregarSocio(generarClon(socioBL));
         }
@@ -21,7 +32,8 @@ namespace BL
         private TOSocioNegocio generarClon(BLSocioNegocio socioBL)
         { //prototype?
             return new TOSocioNegocio(socioBL.cedula, socioBL.cedula_asociado, socioBL.nombre,
-                socioBL.rol, socioBL.apellido1, socioBL.apellido2, socioBL.tel1, socioBL.tel2, socioBL.correo, clonarDir(socioBL.direccion));
+                socioBL.rol, socioBL.apellido1, socioBL.apellido2, socioBL.tel1, socioBL.tel2, 
+                socioBL.correo, clonarDir(socioBL.direccion), socioBL.estado_socio);
         }
 
         private TODireccion clonarDir(BLDireccion dir) {

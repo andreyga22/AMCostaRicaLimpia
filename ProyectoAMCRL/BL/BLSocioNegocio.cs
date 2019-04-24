@@ -18,12 +18,13 @@ namespace BL
         public String tel2 { get; set; }
         public String correo { get; set; }
         public BLDireccion direccion { get; set; }
+        public String estado_socio { get; set; }
 
 
         public BLSocioNegocio() { }
         /*para el caso de que se agregue y se asocie inmediatamente*/
         public BLSocioNegocio(String cedula, String cedula_asociado, String nombre,String rol, String apellido1, String apellido2
-            ,String tel1, String tel2, String correo, BLDireccion direccion)
+            ,String tel1, String tel2, String correo, BLDireccion direccion, String estado)
         {
             this.cedula = cedula;
             this.cedula_asociado = cedula_asociado;
@@ -35,6 +36,7 @@ namespace BL
             this.tel2 = tel2;
             this.correo = correo;
             this.direccion = direccion;
+            this.estado_socio = estado;
         }
 
         public BLSocioNegocio(String cedula, String nombre, String rol, String apellido1, String apellido2)
