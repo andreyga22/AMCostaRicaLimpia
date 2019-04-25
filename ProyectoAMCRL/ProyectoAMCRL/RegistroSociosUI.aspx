@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPrincipal.Master" AutoEventWireup="true" CodeBehind="RegistroSociosUI.aspx.cs" Inherits="ProyectoAMCRL.RegistroSociosUI" %>
 
+
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="ownStyles.css" rel="stylesheet" />
 </asp:Content>
@@ -11,9 +13,9 @@
 
 
         <form id="form1" runat="server">
-            <div class="info_div" runat="server">
-                <asp:Label runat="server" ID="alertar"></asp:Label>
-                <asp:Button runat="server" Text="ok" ID="ok_btn" />
+            <br />
+            <div class="row justify-content-center">
+            <asp:Literal ID="lblError" runat="server" Visible="false"></asp:Literal>
             </div>
             <br />
             <br />
@@ -27,7 +29,7 @@
 
             <%-- SECCION 1 --%>
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col-lg-4">
                     <div class="row">
                         <h4>Datos personales</h4>
                     </div>
@@ -64,7 +66,7 @@
                 </div>
 
                 <%-- SECCION 2 --%>
-                <div class="col-sm-4">
+                <div class="col-lg-4">
                     <div class="row">
                         <h4>Ubicacion</h4>
                     </div>
@@ -96,7 +98,7 @@
                     </div>
                 </div>
                 <%-- SECCION 3 (MAPA) --%>
-                <div class="col-sm-4">
+                <div class="col-lg-4">
                     <div class="row">
                         <h4>Contactos</h4>
                     </div>

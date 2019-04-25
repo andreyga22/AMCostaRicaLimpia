@@ -22,22 +22,13 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// alertar control.
+        /// lblError control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label alertar;
-        
-        /// <summary>
-        /// ok_btn control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ok_btn;
+        protected global::System.Web.UI.WebControls.Literal lblError;
         
         /// <summary>
         /// idTB control.

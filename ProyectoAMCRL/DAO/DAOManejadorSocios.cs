@@ -7,26 +7,22 @@ using System.Data.SqlClient;
 using System.Data;
 using TO;
 
-namespace DAO
-{
-    public class DAOManejadorSocios
-    {
+namespace DAO {
+    public class DAOManejadorSocios {
 
-        
+
         private SqlConnection conexion = new SqlConnection(Properties.Settings.Default.conexion);
 
 
-        public String agregarSocio(TOSocioNegocio socio)
-        {
-            String message = "Se ha registrado un nuevo " + socio.rol + ".";
+        public String agregarSocio(TOSocioNegocio socio) {
+            String message = "listo";
             SqlCommand cmd = new SqlCommand("INSERT  INTO SOCIO_NEGOCIO " +
                 "(CEDULA, NOMBRE, ROL_SOCIO, APELLIDO1, APELLIDO2,ESTADO_SOCIO)" +
                 "VALUES" +
                 "(@CED, @NOM, @ROL, @APE1, @APE2, @ESTADO)", conexion);
 
-            try
-            {
-                if (conexion.State == ConnectionState.Closed)
+            try {
+                if(conexion.State == ConnectionState.Closed)
                     conexion.Open();
 
                 cmd.Parameters.AddWithValue("@CED", socio.cedula);
@@ -39,14 +35,20 @@ namespace DAO
                 cmd.ExecuteNonQuery();
 
                 conexion.Close();
+                string m1 = "";
+                string m2 = "";
+                m1 = agregarDireccionSocio(socio.cedula, socio.direccion);
+                m2 = agregarContactosSocio(socio.cedula, socio.telHab, socio.telPers, socio.correo);
+                if(!m1.Equals("")) {
+                    message = m1;
+                } else {
+                    if(!m2.Equals("")) {
+                        message = m2;
+                    }
+                }
 
-                agregarDireccionSocio(socio.cedula, socio.direccion);
-                agregarContactosSocio(socio.cedula, socio.telHab, socio.telPers, socio.correo);
-
-            }
-            catch (SqlException ex)
-            { //podria ser mas especifico
-                return "ERROR. El socio con identificacion "+ socio.cedula + " ya se encuentra registrado";
+        } catch(SqlException ex) { //podria ser mas especifico
+                return "ERROR. El socio con identificacion " + socio.cedula + " ya se encuentra registrado";
             }
             return message;
         }
@@ -54,43 +56,40 @@ namespace DAO
         public String agregarDireccionSocio(String id, TODireccion direccion) {
             String m = "";
 
-            String query = "insert into DIRECCION values(@CED,@PROV,@CAN,@DIST,@SENNAS);";
+            String query = "insert into DIRECCION (cedula, provincia, canton, distrito, otras_sennas) values (@CED,@PROV,@CAN,@DIST,@SENNAS);";
             SqlCommand cmd = new SqlCommand(query, conexion);
 
             try {
 
-                if (conexion.State == ConnectionState.Closed)
+                if(conexion.State == ConnectionState.Closed)
                     conexion.Open();
 
                 cmd.Parameters.AddWithValue("@CED", id);
-                cmd.Parameters.AddWithValue("@PROV", id);
-                cmd.Parameters.AddWithValue("@CAN", id);
-                cmd.Parameters.AddWithValue("@DIST", id);
-                cmd.Parameters.AddWithValue("@SENNAS", id);
+                cmd.Parameters.AddWithValue("@PROV", direccion.provincia);
+                cmd.Parameters.AddWithValue("@CAN", direccion.canton);
+                cmd.Parameters.AddWithValue("@DIST", direccion.distrito);
+                cmd.Parameters.AddWithValue("@SENNAS", direccion.otras_sennas);
 
                 cmd.ExecuteNonQuery();
 
                 conexion.Close();
 
-            }
-            catch (SqlException ex) {
-                return "ERROR";
+        } catch(SqlException ex) {
+                return "Error al insertar la direccion";
             }
             return m;
         }
 
 
-        public String agregarContactosSocio(String id, Int64 telHab, Int64 telPer, String email)
-        {
+        public String agregarContactosSocio(String id, Int64 telHab, Int64 telPer, String email) {
             String m = "";
 
-            String query = "insert  into CONTACTOS values(@CED,@TEL_HAB,@TEL_PERS,@EMAIL);";
+            String query = "insert  into CONTACTOS (cedula, telefono_hab, telefono_pers, email)values(@CED,@TEL_HAB,@TEL_PERS,@EMAIL);";
             SqlCommand cmd = new SqlCommand(query, conexion);
 
-            try
-            {
+            try {
 
-                if (conexion.State == ConnectionState.Closed)
+                if(conexion.State == ConnectionState.Closed)
                     conexion.Open();
 
                 cmd.Parameters.AddWithValue("@CED", id);
@@ -102,10 +101,8 @@ namespace DAO
 
                 conexion.Close();
 
-            }
-            catch (SqlException ex)
-            {
-                return "ERROR";
+            } catch(SqlException ex) {
+                return "Error al insertar los contactos del socio";
             }
             return m;
         }
