@@ -3,7 +3,16 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-     <h3>Agregar nuevo cliente o proveedor</h3>
+    <div class="row">
+    <div class="col-sm-8" style="background-color:rgba(33, 161, 106, 0.70)">
+    <h3>Agregar nuevo cliente o proveedor</h3>
+    </div> 
+    <div class="col-sm-4 center">
+         <asp:Button CssClass="btn-success" runat="server" Text="FActuras" />
+         <asp:Button CssClass="btn-success" runat="server" Text="Asociar" />
+    </div>
+    </div>
+    
     <div class="row">
         <div class="col-sm-4"></div>
         <div  class="col-sm-4 sfg" >
