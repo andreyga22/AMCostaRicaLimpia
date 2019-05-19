@@ -69,6 +69,7 @@
   <ItemGroup>
     <Content Include="Ajustes.aspx" />
     <Content Include="Bodega.aspx" />
+    <Content Include="BusquedaFacturas.aspx" />
     <Content Include="Compra_Venta.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
@@ -133,6 +134,13 @@
     </Compile>
     <Compile Include="Bodega.aspx.designer.cs">
       <DependentUpon>Bodega.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BusquedaFacturas.aspx.cs">
+      <DependentUpon>BusquedaFacturas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BusquedaFacturas.aspx.designer.cs">
+      <DependentUpon>BusquedaFacturas.aspx</DependentUpon>
     </Compile>
     <Compile Include="Compra_Venta.aspx.cs">
       <DependentUpon>Compra_Venta.aspx</DependentUpon>
