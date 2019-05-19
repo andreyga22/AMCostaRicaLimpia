@@ -10,7 +10,7 @@
 namespace ProyectoAMCRL {
     
     
-    public partial class Ajustes {
+    public partial class Bodega {
         
         /// <summary>
         /// form1 control.
@@ -31,58 +31,67 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.Literal lblError;
         
         /// <summary>
-        /// materialDd control.
+        /// codigoTb control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList materialDd;
+        protected global::System.Web.UI.WebControls.TextBox codigoTb;
         
         /// <summary>
-        /// pesoTb control.
+        /// nombreTB control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox pesoTb;
+        protected global::System.Web.UI.WebControls.TextBox nombreTB;
         
         /// <summary>
-        /// unidadMDd control.
+        /// provinciaTb control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList unidadMDd;
+        protected global::System.Web.UI.WebControls.TextBox provinciaTb;
         
         /// <summary>
-        /// bodegaDd control.
+        /// cantonTb control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList bodegaDd;
+        protected global::System.Web.UI.WebControls.TextBox cantonTb;
         
         /// <summary>
-        /// aumentaRb control.
+        /// distritoTb control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList aumentaRb;
+        protected global::System.Web.UI.WebControls.TextBox distritoTb;
         
         /// <summary>
-        /// razonTb control.
+        /// otrasTb control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox razonTb;
+        protected global::System.Web.UI.WebControls.TextBox otrasTb;
+        
+        /// <summary>
+        /// activaCb control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox activaCb;
         
         /// <summary>
         /// btnGuardar control.
