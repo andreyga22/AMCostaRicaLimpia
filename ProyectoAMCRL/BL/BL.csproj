@@ -42,7 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLDireccion.cs" />
+    <Compile Include="BLManejadorCompras.cs" />
     <Compile Include="BLManejadorSocios.cs" />
+    <Compile Include="BLManejadorVentas.cs" />
     <Compile Include="BLSocioNegocio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -26,7 +26,8 @@ namespace DAO.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.;Initial Catalog=AMCRL;Integrated Security=True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=LAPTOP-RL91DK19\\MYSQLSERVER;Initial Catalog=AMCRL;Integrated Security" +
+            "=True")]
         public string conexion {
             get {
                 return ((string)(this["conexion"]));
