@@ -116,16 +116,48 @@
             <br />
 
 
-            <asp:GridView ID="ajustesGv" runat="server">
-                <Columns>
-                    <asp:BoundField DataField="Aluminio" HeaderText="Material" />
-                    <asp:BoundField HeaderText="Peso" />
-                    <asp:BoundField HeaderText="Unidad Medida" />
-                    <asp:BoundField HeaderText="Bodega" />
-                    <asp:BoundField HeaderText="Acción" />
-                </Columns>
-            </asp:GridView>
-
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Material</th>
+                        <th scope="col">Peso</th>
+                        <th scope="col">Unidad de Medida</th>
+                        <th scope="col">Bodega</th>
+                        <th scope="col">Acción</th>
+                        <th scope="col">Fecha</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Aluminio</td>
+                        <td>20</td>
+                        <td>KG</td>
+                        <td>Bodega001</td>
+                        <td>Aum</td>
+                        <td>15/07/2015</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Cobre</td>
+                        <td>75</td>
+                        <td>KG</td>
+                        <td>Bodega001</td>
+                        <td>Aum</td>
+                        <td>10/07/2015</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Lata</td>
+                        <td>10</td>
+                        <td>KG</td>
+                        <td>Bodega001</td>
+                        <td>Dis</td>
+                        <td>15/06/2015</td>
+                    </tr>
+                </tbody>
+            </table>
 
 
             <br />
