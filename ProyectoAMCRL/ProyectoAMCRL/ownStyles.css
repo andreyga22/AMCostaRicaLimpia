@@ -1,0 +1,26 @@
+﻿body {
+}
+
+#divSubmmitReg {
+    display: inline;
+    /*margin-left: 15%;*/
+    margin-bottom: 3%;
+    margin-top: 3%;
+    background-color:red;
+}
+
+.btn-lg {
+    margin-top:2%;
+}
+
+.row_registroForm {
+margin-top:1%;
+}
+
+.info_div {
+    background-color: yellow;
+    width: 100%;
+    text-align: center;
+
+}
+

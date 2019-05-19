@@ -41,8 +41,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BLProveedor.cs" />
+    <Compile Include="BLDireccion.cs" />
+    <Compile Include="BLManejadorCompras.cs" />
+    <Compile Include="BLManejadorSocios.cs" />
+    <Compile Include="BLManejadorVentas.cs" />
+    <Compile Include="BLSocioNegocio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DAO\DAO.csproj">
+      <Project>{e96b91a7-fd63-40c1-93bf-58209bae2125}</Project>
+      <Name>DAO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TO\TO.csproj">
+      <Project>{c6d2e0f3-7638-4c58-8d94-acb4da5ab7ee}</Project>
+      <Name>TO</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
