@@ -12,8 +12,6 @@ namespace ProyectoAMCRL
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            alertar.Visible = false;
-            ok_btn.Visible = false;
         }
 
         protected void btnRegistrar_Click(object sender, EventArgs e)
@@ -36,10 +34,13 @@ namespace ProyectoAMCRL
 
             BLManejadorSocios manejador = new BLManejadorSocios();
 
-            alertar.Text = manejador.agregarSocioBL(socio); ;
-            alertar.Visible = true;
-            ok_btn.Visible = true;
-
+            string message = manejador.agregarSocioBL(socio);
+            if(message.Equals("listo")) {
+                lblError.Text = "<br /><br /><div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong> Guardado con éxito.</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+            } else {
+                lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>" + message + "</strong> Por favor intentelo de nuevo.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+            }
+            lblError.Visible = true;
         }
     }
 }

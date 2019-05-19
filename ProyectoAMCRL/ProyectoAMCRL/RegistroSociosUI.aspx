@@ -1,96 +1,189 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPrincipal.Master" AutoEventWireup="true" CodeBehind="RegistroSociosUI.aspx.cs" Inherits="ProyectoAMCRL.RegistroSociosUI" %>
 
+
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="ownStyles.css" rel="stylesheet" />
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <form id="form1" runat="server">
+
+    <div class="container">
 
 
-        <div class="container row_registroForm">
 
-            <div class="info_div" runat="server">
-                <asp:Label runat="server" ID="alertar" ></asp:Label>
-                <asp:Button runat="server" Text="ok" ID="ok_btn"/>
+        <form id="form1" runat="server">
+            <br />
+            <div class="row justify-content-center">
+            <asp:Literal ID="lblError" runat="server" Visible="false"></asp:Literal>
             </div>
-
-            <h4>Registro cliente/proveedor</h4>
-            <br>
-
+            <br />
+            <br />
             <div class="row">
-                <%-- SECCION 1 --%>
-                <div class="col-sm-4">
-                    <%-- ROL --%>
-                    <asp:RadioButtonList id="rolRadios" runat="server" RepeatDirection="Horizontal" CellPadding="5" CssClass="d-inline">
-                        <asp:ListItem>Cliente</asp:ListItem>
-                        <asp:ListItem>Proveedor</asp:ListItem>
-                    </asp:RadioButtonList>
+                <h4>Registro cliente/proveedor</h4>
+            </div>
+            <br />
+            <br />
+            <br />
 
-                    <div class="form-group">
-                         Identificacion<br>
-                        <asp:TextBox ID="idTB" runat="server" CssClass="cajaTexto form-control"></asp:TextBox>
-                    </div>
-                    <div class="form-group">
-                        Nombre<br>
-                        <asp:TextBox ID="nombreTB" runat="server" CssClass="cajaTexto  form-control"></asp:TextBox>
-                      
-                    </div>
-                    <div class="form-group">
-                        Primer apellido <br>
-                        <asp:TextBox ID="ape1TB" runat="server" CssClass="cajaTexto form-control"></asp:TextBox>
-                       
-                    </div>
-                    <div class="form-group">
-                         Segundo apellido<br>
-                        <asp:TextBox ID="ape2TB" runat="server" CssClass="cajaTexto form-control"></asp:TextBox>                       
-                    </div>   
 
+            <%-- SECCION 1 --%>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="row">
+                        <h4>Datos personales</h4>
+                    </div>
+                    <br />
+                    <br />
+
+                    
+
+
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="idTB">Identificación</label>
+                            <asp:TextBox type="text" ID="idTB" class="form-control" runat="server"></asp:TextBox>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="nombreTB">Nombre</label>
+                            <asp:TextBox type="text" ID="nombreTB" class="form-control" runat="server"></asp:TextBox>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="ape1TB">Primer apellido</label>
+                            <asp:TextBox type="text" ID="ape1TB" class="form-control" runat="server"></asp:TextBox>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="ape2TB">Primer apellido</label>
+                            <asp:TextBox type="text" ID="ape2TB" class="form-control" runat="server"></asp:TextBox>
+                        </div>
+                    </div>
                 </div>
 
                 <%-- SECCION 2 --%>
-                <div class="col-sm-4" id="ubicationForm" ">
+                <div class="col-lg-4">
+                    <div class="row">
+                        <h4>Ubicacion</h4>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="provinciaTB">Provincia</label>
+                            <asp:TextBox type="text" ID="provinciaTB" class="form-control" runat="server"></asp:TextBox>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="cantonTB">Cantón</label>
+                            <asp:TextBox type="text" ID="cantonTB" class="form-control" runat="server"></asp:TextBox>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="distritoTB">Distrito</label>
+                            <asp:TextBox type="text" ID="distritoTB" class="form-control" runat="server"></asp:TextBox>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="sennas">Otras Señas</label>
+                            <asp:TextBox type="text" ID="sennas" class="form-control" runat="server"></asp:TextBox>
+                        </div>
+                    </div>
+                </div>
+                <%-- SECCION 3 (MAPA) --%>
+                <div class="col-lg-4">
+                    <div class="row">
+                        <h4>Contactos</h4>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="telTB">Teléfono</label>
+                            <asp:TextBox type="text" ID="telTB" class="form-control" runat="server"></asp:TextBox>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="tel2TB">Teléfono 2</label>
+                            <asp:TextBox type="text" ID="tel2TB" class="form-control" runat="server"></asp:TextBox>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="correoTB">Correo electrónico</label>
+                            <asp:TextBox type="email" ID="correoTB" class="form-control" runat="server"></asp:TextBox>
+                        </div>
+                    </div>
 
-                    <h4>Ubicacion</h4>
-                     Provincia<br>
-                     <asp:TextBox ID="provinciaTB" runat="server" CssClass="cajaTexto form-control"></asp:TextBox>
-
-                     Canton<br>
-                     <asp:TextBox ID="cantonTB" runat="server" CssClass="cajaTexto form-control"></asp:TextBox>
-
-                     Distrito<br>
-                     <asp:TextBox ID="distritoTB" runat="server" CssClass="cajaTexto form-control"></asp:TextBox>
-                     Otras señas<br>
-                     <asp:TextBox ID="sennas" runat="server" CssClass="cajaTexto form-control"></asp:TextBox>
-                   
-                  
-                   
+                    <%-- ROL --%>
+                    <div class="row">
+                        <div class="form-group">
+                            <asp:RadioButtonList ID="rolRadios" runat="server" RepeatDirection="Horizontal" CellPadding="5" CssClass="d-inline">
+                                <asp:ListItem>Cliente</asp:ListItem>
+                                <asp:ListItem>Proveedor</asp:ListItem>
+                            </asp:RadioButtonList>
+                        </div>
+                    </div>
                 </div>
 
-                <%-- SECCION 3 (MAPA) --%>
-                <div class="col-sm-4">
-                     <h4>Contactos</h4>
-                    <div class="form-group">
-                        Teléfono<br>
-                        <asp:TextBox ID="telTB" runat="server" MaxLength="8" ViewStateMode="Enabled" CssClass="cajaTexto form-control"></asp:TextBox>
-                    </div>
-                    <div class="form-group">
-                        Teléfono2<br>
-                        <asp:TextBox ID="tel2TB" runat="server" MaxLength="8" ViewStateMode="Enabled" CssClass="cajaTexto form-control"></asp:TextBox>
-                    </div>
-                    <div class="form-group">
-                        Correo<br>
-                        <asp:TextBox ID="correoTB" runat="server" MaxLength="8" ViewStateMode="Enabled" CssClass="cajaTexto form-control"></asp:TextBox>
-                    </div>
+            </div>
+            <br />
+                <br />
+            <br />
+            <%-- SUBMMIT BUTTON --%>
+            <div class="row justify-content-center">
+                <div class="form-group">
+                    <asp:Button ID="btnRegistrar" type="submmit" runat="server" Text="Registrar" class="btn btn-outline-primary btn-lg " OnClick="btnRegistrar_Click" />
                 </div>
             </div>
-              <%-- SUBMMIT BUTTON --%>
-             <asp:Button ID="btnRegistrar" type="submmit" runat="server" Text="Registrar" class="btn btn-outline-primary btn-lg " OnClick="btnRegistrar_Click" />
-                    <asp:Label ID="info" runat="server"></asp:Label>
-        </div>
-    </form>
+            <asp:Label ID="info" runat="server"></asp:Label>
+            <br />
+            <br />
+            <br />
 
+
+
+
+
+
+
+
+
+
+
+
+
+        </form>
+
+    </div>
 </asp:Content>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
 </asp:Content>
