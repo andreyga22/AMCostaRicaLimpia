@@ -10,11 +10,8 @@
 
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="PaginaPrincipal.aspx">Principal</a></li>
-                <li class="breadcrumb-item"><a href="expediente.aspx">Expediente</a></li>
-                <li class="breadcrumb-item"><a href="ListaConsultas.aspx">Lista Consultas</a></li>
-                <li class="breadcrumb-item"><a href="Consulta.aspx">Consulta</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Ficha Paramédico</li>
+                <li class="breadcrumb-item"><a href="Principal.aspx">Principal</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Ajustes de inventario</li>
             </ol>
         </nav>
 
