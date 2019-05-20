@@ -52,7 +52,7 @@
                         <asp:TextBox class="form-control" ID="montoMax" runat="server" type="number" CssClass="btn btn-light" placeholder="Monto máximo" />
                     </div>
                 </div>
-                <div class="col-lg-2">
+                <div class="col-lg-2 offset-1">
                     <div class="form-group">
                         <label for="materialCb">Material</label>
                         <asp:CheckBox ID="materialCb" type="checkbox" runat="server" />
@@ -66,7 +66,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-2">
                     <label for="ubicacionCb">Ubicación</label>
                     <asp:CheckBox ID="ubicacionCb" type="checkbox" runat="server" />
                     <br>

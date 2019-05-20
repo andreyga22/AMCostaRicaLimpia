@@ -56,7 +56,7 @@
 
                    
             </table>
-                  <div class="form-group">
+                  <div class="row justify-content-center">
                     <asp:Button ID="btnAgregar" type="submmit" runat="server" Text="Agregar" class="btn btn-outline-primary btn-lg" />
                 </div>
 

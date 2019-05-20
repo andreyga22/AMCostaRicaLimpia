@@ -88,7 +88,6 @@
     <Content Include="images\moneda.jpg" />
     <Content Include="images\reportes.png" />
     <Content Include="images\socios.png" />
-    <Content Include="index.aspx" />
     <Content Include="Materiales.aspx" />
     <Content Include="Monedas.aspx" />
     <Content Include="ownStyles.css" />
@@ -190,13 +189,6 @@
     </Compile>
     <Compile Include="Cuentas.aspx.designer.cs">
       <DependentUpon>Cuentas.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="index.aspx.cs">
-      <DependentUpon>index.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="index.aspx.designer.cs">
-      <DependentUpon>index.aspx</DependentUpon>
     </Compile>
     <Compile Include="MasterPrincipal.Master.cs">
       <DependentUpon>MasterPrincipal.Master</DependentUpon>
