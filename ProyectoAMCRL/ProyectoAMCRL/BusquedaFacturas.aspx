@@ -7,15 +7,15 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
-    <div class="container">
-
-        <nav aria-label="breadcrumb">
+    <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="Principal.aspx">Principal</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Busqueda Facturas</li>
             </ol>
         </nav>
+    <div class="container">
+
+        
 
         <form id="form1" runat="server">
             <br />
@@ -144,7 +144,7 @@
             <br />
             <table class="table table-bordered">
                 <thead>
-                    <tr>
+                    <tr class="tabla_encabezado">
                         <th scope="col">#</th>
                         <th scope="col">Código Factura</th>
                         <th scope="col">Fecha</th>
