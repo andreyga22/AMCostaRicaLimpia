@@ -7,69 +7,63 @@
 
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-            <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="PaginaPrincipal.aspx">Principal</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Reportes</li>
-            </ol>
-        </nav>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="PaginaPrincipal.aspx">Principal</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Reportes</li>
+        </ol>
+    </nav>
     <div class="container">
         <form id="form1" runat="server">
 
-            <br />
             <div class="row justify-content-center">
                 <asp:Literal ID="lblError" runat="server" Visible="false"></asp:Literal>
             </div>
-            <br />
-            <br />
-            <div class="row">
-                <h4>Reporte</h4>
-            </div>
-            <br />
-            <div class="row">
-                <asp:DropDownList class="btn btn-light dropdown-toggle" type="dropdown" ata-toggle="dropdown" aria-haspopup="true" aria-expanded="false" AutoPostBack="True" ID="DropDownList1" runat="server">
-                    <asp:ListItem>Entradas</asp:ListItem>
-                    <asp:ListItem>Salidas</asp:ListItem>
-                    <asp:ListItem>Entradas y Salidas</asp:ListItem>
-                </asp:DropDownList>
+            <br>
 
-                <div class="row offset-8">
-                    <asp:Button ID="Actualizarbtn" runat="server" Text="Actualizar" />
-                    <div />
-                    <br />
-                </div>
-            </div>
-            <br />
-            <br />
             <div class="row">
-                <div class="col-3">
+                <h4 class="font-weight-bold">Reporte</h4>
+            </div>
+            <%-- FILTROS --%>
+            <br>
+            <div class="row float-right">
+                <asp:DropDownList class="btn btn-light dropdown-toggle" type="dropdown" ata-toggle="dropdown" aria-haspopup="true" aria-expanded="false" AutoPostBack="True" ID="DropDownList1" runat="server">
+                    <asp:ListItem>Reporte ventas y compras</asp:ListItem>
+                    <asp:ListItem>Reporte ventas</asp:ListItem>
+                    <asp:ListItem>Reporte compras</asp:ListItem>
+                </asp:DropDownList>
+            </div>
+            <br>
+            <h5>Seleccione las secciones que desea agregar al reporte:</h5>
+            <br>
+            <div class="row">
+                <div class="col-4">
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="checkbox" id="bodegasCB" value="bodegas">
-                        <label class="form-check-label" for="inlineCheckbox1">Bodegas</label>
+                        <label class="form-check-label" for="inlineCheckbox1">Incluir bodegas</label>
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-4">
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="checkbox" id="materialesCB" value="materiales">
-                        <label class="form-check-label" for="inlineCheckbox2">Materiales</label>
+                        <label class="form-check-label" for="inlineCheckbox2">Incluir materiales</label>
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-4">
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="checkbox" id="sociosCB" value="socios">
-                        <label class="form-check-label" for="inlineCheckbox3">Socios</label>
+                        <label class="form-check-label" for="inlineCheckbox3">Incluir socios</label>
                     </div>
                 </div>
-                <div class="col-3">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="rangoFech" value="fechas">
-                        <label class="form-check-label" for="inlineCheckbox4">Rango de Fechas</label>
-                    </div>
-                </div>
-                <br />
-                <br />
             </div>
-
+            <br>
+            <%-- FILTRO FECHAS --%>
+            <div class="row" style="margin-left: 0.2%">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="rangoFech" value="fechas">
+                    <label class="form-check-label font-weight-bold" for="inlineCheckbox4">Rango de Fechas</label>
+                </div>
+            </div>
             <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
             <div class="row">
                 <div class="col-6">
@@ -111,12 +105,12 @@
                         <br />
                     </div>
                 </div>
-                <br />
-                <div class="col-3">
-                    <label class="font-weight-bold campo_izquierda" for="fechaActLabel">Fecha Actual: </label>
-                    <asp:Label class="datosLbl" runat="server" ID="fechaActDatLabel">19/5/2019</asp:Label>
-                </div>
-                <table class="table table-bordered">
+            </div>
+            <br />
+            <div class="row float-right" style="border: 1px solid #ccc4c4; margin-right: 0.1%">
+                <asp:Label runat="server" ID="fechaActDatLabel">Fecha actual: 19/5/2019</asp:Label>
+            </div>
+            <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th scope="col">Especificacion</th>
@@ -128,61 +122,69 @@
                     <tr>
                         <th scope="row">General</th>
                         <td>
-                            Entradas totales: 500000
-                            Compras totales: 500000
-                            Entradas por ajustes: 000
+                            <p><strong>Entradas totales:</strong> 500000₡</p>
+                            <p><strong>Ventas totales:</strong> 500000₡</p>
+                            <p><strong>Entradas por ajustes:</strong> 00₡</p>
                         </td>
                         <td>
-                            Entradas totales: 500000
-                            Compras totales: 500000
-                            Entradas por ajustes: 000
-
+                            <p><strong>Salidas totales:</strong> 500000₡</p>
+                            <p><strong>Compras totales:</strong> 500000₡</p>
+                            <p><strong>Salidas por ajustes:</strong> 00₡</p>
                         </td>
                     </tr>
                     <tr>
                         <th scope="row">Bodegas</th>
                         <td>
-                            Bodegas:
-                            BODEGAS-1: San Ramon
-                            -Entradas totales: 5000
+                            <p><strong>Bodegas con mayor ventas:</strong></p>
+                            <ul>
+                                <li>
+                                    <p><strong>BODEGA-1: San Ramon:</strong> 200000₡</p>
+                                </li>
+                                <li>
+                                    <p><strong>BODEGA-2: Naranjo:</strong> 300000₡</p>
+                                </li>
+                            </ul>
                         </td>
                         <td>
-                           Bodegas:
-                           BODEGAS-1: San Ramon
-                           -Salidas totales: 5000 
+                            <p><strong>Bodegas con más compras:</strong></p>
+                            <ul>
+                                <li>
+                                    <p><strong>BODEGA-1: San Ramon:</strong> 400000₡</p>
+                                </li>
+                            </ul>
                         </td>
                     </tr>
                     <tr>
                         <th scope="row">Materiales</th>
                         <td>
-                            Materiales:
-                            Aluminio:
-                            Total comprado: 5000
-                            Total comprado: 7000
+                            <p><strong>Materiales más vendidos:</strong></p>
+                            <ul>
+                                <li>Total vendido Aluminio: 50000₡</li>
+                                <li>Total vendido Cobre: 70000₡</li>
+                            </ul>
                         </td>
                         <td>
-                            Materiales:
-                            Aluminio:
-                            Total comprado: 5000
-                            Total comprado: 7000
+                            <p><strong>Materiales más comprados:</strong></p>
+                            <ul>
+                                <li>Total comprado Aluminio: 57000₡</li>
+                                <li>Total comprado Hierro: 85000₡</li>
+                            </ul>
                         </td>
                     </tr>
                     <tr>
                         <th scope="row">Socios</th>
-                        <td>
-                            Socios:
-                            Proveedor con mas compras registradas
-                            12344 Juan Perez juan@gmail.com
-                        </td>
-                        <td>
-                            Socios:
+                        <td>Socios:
                             Cliente con mayor frecuencia en ventas 
                             12355 Pedro Gomez pedro@gmail.com
+                        </td>
+                        <td>Socios:
+                            Proveedor con mas compras registradas
+                            12344 Juan Perez juan@gmail.com
+                            
                         </td>
                     </tr>
                 </tbody>
             </table>
-            </div>
 
         </form>
     </div>
