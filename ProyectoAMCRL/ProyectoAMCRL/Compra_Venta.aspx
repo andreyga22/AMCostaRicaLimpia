@@ -35,14 +35,15 @@
 
             <div class="row">
                 <div id="divFuncionPagina" class="cell col-9" style="">
-                    <h4 id="funcionPaginaLabel">Compra</h4>
+                    <h4 id="funcionPaginaLabel" class="font-weight-bold">Compra</h4>
                 </div>
                 <div id="fecha" class="row col-3">
                     <h5 style="margin-right: 10%;">Fecha: </h5>
                     <h5 id="fechaLabel">4/5/19</h5>
                 </div>
             </div>
-
+            <br>
+             <br>
             <label class="font-weight-bold">AM Costa Rica Limpia</label>
             <br>
             <div class="row">
@@ -61,31 +62,33 @@
                     <asp:Label class="campo" runat="server" ID="Label2">0111</asp:Label>
                     <br>
                     <label class="font-weight-bold campoIzq" for="telLabel">Moneda: </label>
-                    <asp:DropDownList ID="monedas" runat="server"></asp:DropDownList>
+                    <asp:DropDownList ID="monedas" runat="server" CssClass="btn dropdown btn-light"></asp:DropDownList>
                     <%-- <asp:Label class="campo" runat="server" ID="Label3">COL</asp:Label>--%>
                 </div>
             </div>
+             <br>
+             <br>
             <h5 class="font-weight-bold">Datos del socio</h5>
-
+            <br>
             <%-- SECCION 2 --%>
             <div class="container">
                 <div class="row">
                     <div class="col-3">
-                        <asp:TextBox type="text" Height="90%" ID="nomIdeSocio" class="form-control" runat="server" OnClick="this.value=''"
-                            Text="sadfsadf"></asp:TextBox>
+                        <asp:TextBox type="text"  class="form-control" Height="90%" ID="nomIdeSocio" runat="server" placeholder="Nombre o identificación"
+                           ></asp:TextBox>
                     </div>
                     <div class="col-6">
-                        <asp:Button Height="90%" CssClass="btn-success" runat="server" Text="Buscar" />
+                        <asp:Button Height="90%" CssClass="btn btn-success" runat="server" Text="Buscar" />
 
                     </div>
                     <div class="col-3">
                         <asp:LinkButton ID="LinkButton1" runat="server">Proveedor nuevo? Agregar</asp:LinkButton>
                     </div>
                 </div>
-                <div class="overflow-auto" style="height: 100px; width: 100%; border: 3px solid black;">
+                <div class="overflow-auto" style="height: 180px; width: 100%; border: 3px solid black;">
                     <table class="table-sm table-bordered table-hover" style="width: 100%">
                         <thead>
-                            <tr style="background-color: #62a770">
+                            <tr class="tabla_encabezado">
                                 <th scope="col">#</th>
                                 <th scope="col">Identificacion</th>
                                 <th scope="col">Nombre</th>
@@ -100,7 +103,7 @@
                                 <td>Jorge González</td>
                                 <td>88775566</td>
                                 <td>
-                                    <asp:Button Height="100%" CssClass="btn-success" runat="server" Text="Buscar" />
+                                    <asp:Button Height="100%" CssClass="btn btn-link" runat="server" Text="Buscar" />
                                 </td>
                             </tr>
                             <tr>
@@ -109,7 +112,7 @@
                                 <td>Julio Jaramillo</td>
                                 <td>88775566</td>
                                 <td>
-                                    <asp:Button Height="100%" CssClass="btn-success" runat="server" Text="Buscar" />
+                                    <asp:Button Height="100%" CssClass="btn btn-link" runat="server" Text="Buscar" />
                                 </td>
                             </tr>
                             <tr>
@@ -118,7 +121,7 @@
                                 <td>Selena Gomez</td>
                                 <td>88775566</td>
                                 <td>
-                                    <asp:Button Height="100%" CssClass="btn-success" runat="server" Text="Buscar" />
+                                    <asp:Button Height="100%" CssClass="btn btn-link" runat="server" Text="Buscar" />
                                 </td>
                             </tr>
                         </tbody>
@@ -126,10 +129,11 @@
                 </div>
             </div>
             <br>
+             <br>
             <h5 class="font-weight-bold">Detalles de compra</h5>
-
+            <br>
             <%-- SECCION 3 --%>
-            <div class="overflow-auto" style="height: 100px; width: 100%;">
+            <div class="overflow-auto" style="height: 180px; width: 100%;">
                 <table class="table-sm" style="width: 100%">
                     <thead>
                         <tr>
@@ -144,24 +148,27 @@
                         <tr>
                             <%-- PRODUCTOS --%>
                             <td>
-                                <asp:DropDownList ID="productos" runat="server"></asp:DropDownList>
+                                <asp:DropDownList ID="productos" runat="server" CssClass="btn dropup btn-light"></asp:DropDownList>
                             </td>
                             <%-- CANTIDAD --%>
                             <td>
-                                <asp:TextBox ID="cantidadM" runat="server" type="number" />
+                                <asp:TextBox ID="cantidadM" runat="server" type="number" CssClass="btn btn-light"/>
 
                             </td>
                             <%-- UNIDAD --%>
                             <td>
-                                <asp:DropDownList ID="unidades" runat="server"></asp:DropDownList>
+                                <asp:DropDownList ID="unidades" runat="server" CssClass="btn dropup btn-light"></asp:DropDownList>
                             </td>
                             <%-- PRECIO UNIDAD --%>
                             <td>
-                                <asp:TextBox ID="precioUnidades" runat="server" type="number" />
+                                <asp:TextBox ID="precioUnidades" runat="server" type="number"  CssClass="btn btn-light"/>
                             </td>
                             <%-- TOTAL  --%>
                             <td>
-                                <asp:TextBox ID="total" runat="server" type="number" />
+                                <asp:TextBox ID="total" runat="server" type="number" CssClass="btn btn-light"/>
+                            </td>
+                            <td>
+                                <asp:Button Height="100%" CssClass="btn btn-link" ForeColor="red" runat="server" Text="Quitar línea" />
                             </td>
                         </tr>
                     </tbody>
