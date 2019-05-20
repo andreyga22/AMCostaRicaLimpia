@@ -88,6 +88,7 @@
     <Content Include="ownStyles.css" />
     <Content Include="Principal.aspx" />
     <Content Include="RegistroSociosUI.aspx" />
+    <Content Include="ReporteGrafico.aspx" />
     <Content Include="Reporte_General.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -226,6 +227,13 @@
     </Compile>
     <Compile Include="RegistroSociosUI.aspx.designer.cs">
       <DependentUpon>RegistroSociosUI.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ReporteGrafico.aspx.cs">
+      <DependentUpon>ReporteGrafico.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReporteGrafico.aspx.designer.cs">
+      <DependentUpon>ReporteGrafico.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reporte_General.aspx.cs">
       <DependentUpon>Reporte_General.aspx</DependentUpon>
