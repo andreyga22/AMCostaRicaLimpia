@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPrincipal.Master" AutoEventWireup="true" CodeBehind="BusquedaBodegas.aspx.cs" Inherits="ProyectoAMCRL.BusquedaBodegas" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    link href="ownStyles.css" rel="stylesheet" />
+    <link href="ownStyles.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
