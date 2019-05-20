@@ -115,7 +115,7 @@
 
             <table class="table table-bordered">
                 <thead>
-                    <tr>
+                    <tr class="tabla_encabezado">
                         <th scope="col">#</th>
                         <th scope="col">Material</th>
                         <th scope="col">Peso</th>
