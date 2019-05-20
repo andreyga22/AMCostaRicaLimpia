@@ -81,7 +81,13 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Cuentas.aspx" />
+    <Content Include="images\compra.png" />
+    <Content Include="images\facturas.png" />
+    <Content Include="images\inventario.png" />
     <Content Include="images\logo.jpeg" />
+    <Content Include="images\moneda.jpg" />
+    <Content Include="images\reportes.png" />
+    <Content Include="images\socios.png" />
     <Content Include="index.aspx" />
     <Content Include="Materiales.aspx" />
     <Content Include="Monedas.aspx" />

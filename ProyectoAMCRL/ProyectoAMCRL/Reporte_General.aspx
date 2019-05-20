@@ -35,7 +35,8 @@
             </div>
             <br>
             <h5>Seleccione las secciones que desea agregar al reporte:</h5>
-            <br>
+            <br />
+            <br />
             <div class="row">
                 <div class="col-4">
                     <div class="form-check form-check-inline">
