@@ -81,6 +81,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="images\logo.jpeg" />
     <Content Include="index.aspx" />
+    <Content Include="Materiales.aspx" />
+    <Content Include="Monedas.aspx" />
     <Content Include="ownStyles.css" />
     <Content Include="Principal.aspx" />
     <Content Include="RegistroSociosUI.aspx" />
@@ -178,6 +180,20 @@
     </Compile>
     <Compile Include="MasterPrincipal.Master.designer.cs">
       <DependentUpon>MasterPrincipal.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Materiales.aspx.cs">
+      <DependentUpon>Materiales.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Materiales.aspx.designer.cs">
+      <DependentUpon>Materiales.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Monedas.aspx.cs">
+      <DependentUpon>Monedas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Monedas.aspx.designer.cs">
+      <DependentUpon>Monedas.aspx</DependentUpon>
     </Compile>
     <Compile Include="Principal.aspx.cs">
       <DependentUpon>Principal.aspx</DependentUpon>
