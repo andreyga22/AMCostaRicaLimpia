@@ -85,7 +85,7 @@
                         <asp:LinkButton ID="LinkButton1" runat="server">Proveedor nuevo? Agregar</asp:LinkButton>
                     </div>
                 </div>
-                <div class="overflow-auto" style="height: 180px; width: 100%; border: 3px solid black;">
+                <div class="overflow-auto" style="height: 180px; width: 100%; ">
                     <table class="table-sm table-bordered table-hover" style="width: 100%">
                         <thead>
                             <tr class="tabla_encabezado">
@@ -103,7 +103,7 @@
                                 <td>Jorge González</td>
                                 <td>88775566</td>
                                 <td>
-                                    <asp:Button Height="100%" CssClass="btn btn-link" runat="server" Text="Buscar" />
+                                    <asp:Button Height="100%" CssClass="btn btn-link" runat="server" Text="Abrir detalle" />
                                 </td>
                             </tr>
                             <tr>
@@ -112,7 +112,7 @@
                                 <td>Julio Jaramillo</td>
                                 <td>88775566</td>
                                 <td>
-                                    <asp:Button Height="100%" CssClass="btn btn-link" runat="server" Text="Buscar" />
+                                    <asp:Button Height="100%" CssClass="btn btn-link" runat="server" Text="Abrir detalle" />
                                 </td>
                             </tr>
                             <tr>
@@ -121,7 +121,7 @@
                                 <td>Selena Gomez</td>
                                 <td>88775566</td>
                                 <td>
-                                    <asp:Button Height="100%" CssClass="btn btn-link" runat="server" Text="Buscar" />
+                                    <asp:Button Height="100%" CssClass="btn btn-link" runat="server" Text="Abrir detalle" />
                                 </td>
                             </tr>
                         </tbody>
