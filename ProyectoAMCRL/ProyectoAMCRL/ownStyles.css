@@ -21,6 +21,18 @@ margin-top:1%;
     background-color: yellow;
     width: 100%;
     text-align: center;
-
 }
 
+#fecha { 
+border:1px solid #969696;
+border-radius:4px;
+text-align:center;
+}
+
+.campo {
+margin-left:10%;
+}
+
+.campoIzq {
+width:25%;
+}

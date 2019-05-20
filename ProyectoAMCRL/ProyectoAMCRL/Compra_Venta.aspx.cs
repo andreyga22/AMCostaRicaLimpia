@@ -10,10 +10,20 @@ namespace ProyectoAMCRL
 {
     public partial class Compra_Venta : System.Web.UI.Page
     {
+
+        List<BLSocioNegocio> socios = new List<BLSocioNegocio>();
         protected void Page_Load(object sender, EventArgs e)
         {
+            productos.Items.Add("COBRE");
+            productos.Items.Add("LATA");
+            productos.Items.Add("HIERRO");
+            productos.Items.Add("ALUMINIO");
 
+            unidades.Items.Add("KG");
+            unidades.Items.Add("TONELADA");
 
+            monedas.Items.Add("COL");
+            monedas.Items.Add("USD");
 
         }
 
@@ -21,7 +31,7 @@ namespace ProyectoAMCRL
         {
             BLManejadorCompras manejadorCompras = new BLManejadorCompras();
            
-            la.Text = manejadorCompras.guadarDetallesCompraBL();
+            //la.Text = manejadorCompras.guadarDetallesCompraBL();
         }
 
 
