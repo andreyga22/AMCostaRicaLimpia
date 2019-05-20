@@ -80,6 +80,7 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Cuentas.aspx" />
     <Content Include="images\logo.jpeg" />
     <Content Include="index.aspx" />
     <Content Include="Materiales.aspx" />
@@ -174,6 +175,13 @@
     </Compile>
     <Compile Include="Compra_Venta.aspx.designer.cs">
       <DependentUpon>Compra_Venta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cuentas.aspx.cs">
+      <DependentUpon>Cuentas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cuentas.aspx.designer.cs">
+      <DependentUpon>Cuentas.aspx</DependentUpon>
     </Compile>
     <Compile Include="index.aspx.cs">
       <DependentUpon>index.aspx</DependentUpon>
