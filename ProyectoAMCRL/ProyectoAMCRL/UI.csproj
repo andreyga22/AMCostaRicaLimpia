@@ -69,6 +69,7 @@
   <ItemGroup>
     <Content Include="Ajustes.aspx" />
     <Content Include="Bodega.aspx" />
+    <Content Include="AdministrarBodegas.aspx" />
     <Content Include="BusquedaFacturas.aspx" />
     <Content Include="Compra_Venta.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
@@ -134,6 +135,13 @@
     </Compile>
     <Compile Include="Bodega.aspx.designer.cs">
       <DependentUpon>Bodega.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdministrarBodegas.aspx.cs">
+      <DependentUpon>AdministrarBodegas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdministrarBodegas.aspx.designer.cs">
+      <DependentUpon>AdministrarBodegas.aspx</DependentUpon>
     </Compile>
     <Compile Include="BusquedaFacturas.aspx.cs">
       <DependentUpon>BusquedaFacturas.aspx</DependentUpon>

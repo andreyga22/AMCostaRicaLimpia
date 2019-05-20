@@ -17,13 +17,23 @@
         </ol>
     </nav>
 
+      
+
         <form id="form1" runat="server">
             <br />
+                 <div class="form-row">
+          <div class="form-group offset-sm-11">
+                    <asp:Button ID="btnFactur" type="submmit" runat="server" Text="Facturas" class="btn btn-outline-primary btn-lg " />
+            </div>
+            <div class="form-group offset-sm-11">
+                    <asp:Button ID="btnAsociar" type="submmit" runat="server" Text="Asociar" class="btn btn-outline-primary btn-lg "/>
+            </div>
+        </div>
+
             <div class="row justify-content-center">
             <asp:Literal ID="lblError" runat="server" Visible="false"></asp:Literal>
             </div>
-            <br />
-            <br />
+
             <div class="row">
                 <h4>Registro cliente/proveedor</h4>
             </div>
@@ -31,8 +41,8 @@
             <br />
             <br />
 
-
             <%-- SECCION 1 --%>
+        
             <div class="row">
                 <div class="col-lg-4">
                     <div class="row">
@@ -40,9 +50,16 @@
                     </div>
                     <br />
                     <br />
-
-                    
-
+                         <div class="row">
+                        <div class="form-group">
+                             <label for="rolRadios">Rol</label>
+                            <br />
+                            <asp:RadioButtonList ID="radioTipoSocio" runat="server" RepeatDirection="Horizontal" CellPadding="5" CssClass="d-inline">
+                                <asp:ListItem>Persona</asp:ListItem>
+                                <asp:ListItem>Cliente</asp:ListItem>
+                            </asp:RadioButtonList>
+                        </div>
+                    </div>
 
                     <div class="row">
                         <div class="form-group">
@@ -161,42 +178,10 @@
             <br />
             <br />
             <br />
-
-
-
-
-
-
-
-
-
-
-
-
-
         </form>
 
     </div>
 </asp:Content>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
 </asp:Content>
