@@ -70,7 +70,9 @@
     <Content Include="Ajustes.aspx" />
     <Content Include="Asociar_Socio.aspx" />
     <Content Include="Bodega.aspx" />
+    <Content Include="AdministrarBodegas.aspx" />
     <Content Include="BusquedaFacturas.aspx" />
+    <Content Include="BusquedaSocios.aspx" />
     <Content Include="Compra_Venta.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
@@ -78,8 +80,11 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Cuentas.aspx" />
     <Content Include="images\logo.jpeg" />
     <Content Include="index.aspx" />
+    <Content Include="Materiales.aspx" />
+    <Content Include="Monedas.aspx" />
     <Content Include="ownStyles.css" />
     <Content Include="Principal.aspx" />
     <Content Include="RegistroSociosUI.aspx" />
@@ -144,6 +149,13 @@
     <Compile Include="Bodega.aspx.designer.cs">
       <DependentUpon>Bodega.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AdministrarBodegas.aspx.cs">
+      <DependentUpon>AdministrarBodegas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdministrarBodegas.aspx.designer.cs">
+      <DependentUpon>AdministrarBodegas.aspx</DependentUpon>
+    </Compile>
     <Compile Include="BusquedaFacturas.aspx.cs">
       <DependentUpon>BusquedaFacturas.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -151,12 +163,26 @@
     <Compile Include="BusquedaFacturas.aspx.designer.cs">
       <DependentUpon>BusquedaFacturas.aspx</DependentUpon>
     </Compile>
+    <Compile Include="BusquedaSocios.aspx.cs">
+      <DependentUpon>BusquedaSocios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BusquedaSocios.aspx.designer.cs">
+      <DependentUpon>BusquedaSocios.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Compra_Venta.aspx.cs">
       <DependentUpon>Compra_Venta.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Compra_Venta.aspx.designer.cs">
       <DependentUpon>Compra_Venta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cuentas.aspx.cs">
+      <DependentUpon>Cuentas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cuentas.aspx.designer.cs">
+      <DependentUpon>Cuentas.aspx</DependentUpon>
     </Compile>
     <Compile Include="index.aspx.cs">
       <DependentUpon>index.aspx</DependentUpon>
@@ -171,6 +197,20 @@
     </Compile>
     <Compile Include="MasterPrincipal.Master.designer.cs">
       <DependentUpon>MasterPrincipal.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Materiales.aspx.cs">
+      <DependentUpon>Materiales.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Materiales.aspx.designer.cs">
+      <DependentUpon>Materiales.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Monedas.aspx.cs">
+      <DependentUpon>Monedas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Monedas.aspx.designer.cs">
+      <DependentUpon>Monedas.aspx</DependentUpon>
     </Compile>
     <Compile Include="Principal.aspx.cs">
       <DependentUpon>Principal.aspx</DependentUpon>
