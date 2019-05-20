@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Ajustes.aspx" />
+    <Content Include="Asociar_Socio.aspx" />
     <Content Include="Bodega.aspx" />
     <Content Include="BusquedaFacturas.aspx" />
     <Content Include="Compra_Venta.aspx" />
@@ -127,6 +128,13 @@
     </Compile>
     <Compile Include="Ajustes.aspx.designer.cs">
       <DependentUpon>Ajustes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Asociar_Socio.aspx.cs">
+      <DependentUpon>Asociar_Socio.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Asociar_Socio.aspx.designer.cs">
+      <DependentUpon>Asociar_Socio.aspx</DependentUpon>
     </Compile>
     <Compile Include="Bodega.aspx.cs">
       <DependentUpon>Bodega.aspx</DependentUpon>
