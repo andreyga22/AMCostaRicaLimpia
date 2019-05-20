@@ -12,21 +12,28 @@
 
         <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="PaginaPrincipal.aspx">Principal</a></li>
-            <li class="breadcrumb-item"><a href="expediente.aspx">Expediente</a></li>
-            <li class="breadcrumb-item"><a href="ListaConsultas.aspx">Lista Consultas</a></li>
-            <li class="breadcrumb-item"><a href="Consulta.aspx">Consulta</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Ficha Paramédico</li>
+            <li class="breadcrumb-item"><a href="Principal.aspx">Principal</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Registrar y Modificar Socio</li>
         </ol>
     </nav>
 
+      
+
         <form id="form1" runat="server">
             <br />
+                 <div class="form-row">
+          <div class="form-group offset-sm-11">
+                    <asp:Button ID="btnFactur" type="submmit" runat="server" Text="Facturas" class="btn btn-outline-primary btn-lg " />
+            </div>
+            <div class="form-group offset-sm-11">
+                    <asp:Button ID="btnAsociar" type="submmit" runat="server" Text="Asociar" class="btn btn-outline-primary btn-lg "/>
+            </div>
+        </div>
+
             <div class="row justify-content-center">
             <asp:Literal ID="lblError" runat="server" Visible="false"></asp:Literal>
             </div>
-            <br />
-            <br />
+
             <div class="row">
                 <h4>Registro cliente/proveedor</h4>
             </div>
@@ -34,8 +41,8 @@
             <br />
             <br />
 
-
             <%-- SECCION 1 --%>
+        
             <div class="row">
                 <div class="col-lg-4">
                     <div class="row">
@@ -43,9 +50,16 @@
                     </div>
                     <br />
                     <br />
-
-                    
-
+                         <div class="row">
+                        <div class="form-group">
+                             <label for="rolRadios">Rol</label>
+                            <br />
+                            <asp:RadioButtonList ID="radioTipoSocio" runat="server" RepeatDirection="Horizontal" CellPadding="5" CssClass="d-inline">
+                                <asp:ListItem>Persona</asp:ListItem>
+                                <asp:ListItem>Cliente</asp:ListItem>
+                            </asp:RadioButtonList>
+                        </div>
+                    </div>
 
                     <div class="row">
                         <div class="form-group">
@@ -71,12 +85,17 @@
                             <asp:TextBox type="text" ID="ape2TB" class="form-control" runat="server"></asp:TextBox>
                         </div>
                     </div>
+
+                      <div class="row">
+                    <label for="activaCb">Activado</label>
+                    <asp:CheckBox ID="activaCb" type="checkbox" runat="server" />
+                </div>
                 </div>
 
                 <%-- SECCION 2 --%>
                 <div class="col-lg-4">
                     <div class="row">
-                        <h4>Ubicacion</h4>
+                        <h4>Ubicación</h4>
                     </div>
                     <br />
                     <br />
@@ -105,6 +124,7 @@
                         </div>
                     </div>
                 </div>
+
                 <%-- SECCION 3 (MAPA) --%>
                 <div class="col-lg-4">
                     <div class="row">
@@ -114,13 +134,13 @@
                     <br />
                     <div class="row">
                         <div class="form-group">
-                            <label for="telTB">Teléfono</label>
+                            <label for="telTB">Teléfono Habitación</label>
                             <asp:TextBox type="text" ID="telTB" class="form-control" runat="server"></asp:TextBox>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group">
-                            <label for="tel2TB">Teléfono 2</label>
+                            <label for="tel2TB">Teléfono Personal</label>
                             <asp:TextBox type="text" ID="tel2TB" class="form-control" runat="server"></asp:TextBox>
                         </div>
                     </div>
@@ -134,6 +154,8 @@
                     <%-- ROL --%>
                     <div class="row">
                         <div class="form-group">
+                             <label for="rolRadios">Rol</label>
+                            <br />
                             <asp:RadioButtonList ID="rolRadios" runat="server" RepeatDirection="Horizontal" CellPadding="5" CssClass="d-inline">
                                 <asp:ListItem>Cliente</asp:ListItem>
                                 <asp:ListItem>Proveedor</asp:ListItem>
@@ -156,42 +178,10 @@
             <br />
             <br />
             <br />
-
-
-
-
-
-
-
-
-
-
-
-
-
         </form>
 
     </div>
 </asp:Content>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
 </asp:Content>

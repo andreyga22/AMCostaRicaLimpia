@@ -33,6 +33,14 @@ text-align:center;
 margin-left:10%;
 }
 
+.datosLbl{
+    margin-left: 10%;
+}
+
+.campo_izquierda {
+    width: 40%;
+}
+
 .campoIzq {
 width:25%;
 }
