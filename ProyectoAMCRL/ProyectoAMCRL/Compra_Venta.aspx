@@ -78,7 +78,7 @@
                            ></asp:TextBox>
                     </div>
                     <div class="col-6">
-                        <asp:Button Height="90%" CssClass="btn btn-success" runat="server" Text="Buscar" />
+                        <asp:Button class="btn btn-outline-secondary" runat="server" Text="Buscar" Width="15%"/>
 
                     </div>
                     <div class="col-3">
@@ -175,7 +175,7 @@
                 </table>
             </div>
             <div class="align-content-center" style="text-align:center">
-                <asp:Button runat="server" Text="Agregar linea" CssClass="btn btn-info" />
+                <asp:Button runat="server" Text="Agregar linea" CssClass="btn btn-outline-secondary" Width="15%"/>
             </div>
             <br>
             <br>
