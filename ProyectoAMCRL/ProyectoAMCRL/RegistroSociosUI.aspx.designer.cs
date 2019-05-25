@@ -22,6 +22,15 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
+        /// lblError control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal lblError;
+        
+        /// <summary>
         /// btnFactur control.
         /// </summary>
         /// <remarks>
@@ -40,22 +49,13 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.Button btnAsociar;
         
         /// <summary>
-        /// lblError control.
+        /// rolRadios control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal lblError;
-        
-        /// <summary>
-        /// radioTipoSocio control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList radioTipoSocio;
+        protected global::System.Web.UI.WebControls.RadioButtonList rolRadios;
         
         /// <summary>
         /// idTB control.
@@ -164,15 +164,6 @@ namespace ProyectoAMCRL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox correoTB;
-        
-        /// <summary>
-        /// rolRadios control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList rolRadios;
         
         /// <summary>
         /// btnRegistrar control.
