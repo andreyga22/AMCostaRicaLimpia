@@ -49,6 +49,7 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DataVisualization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -85,6 +86,7 @@
     <Content Include="images\facturas.png" />
     <Content Include="images\inventario.png" />
     <Content Include="images\logo.jpeg" />
+    <Content Include="images\logo.png" />
     <Content Include="images\moneda.jpg" />
     <Content Include="images\reportes.png" />
     <Content Include="images\socios.png" />

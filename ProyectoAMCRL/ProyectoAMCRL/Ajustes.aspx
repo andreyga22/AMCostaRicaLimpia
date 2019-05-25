@@ -5,15 +5,15 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="Principal.aspx">Principal</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Ajustes de inventario</li>
+        </ol>
+    </nav>
     <div class="container">
 
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="Principal.aspx">Principal</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Ajustes de inventario</li>
-            </ol>
-        </nav>
+
 
         <form id="form1" runat="server">
             <br />
@@ -90,11 +90,6 @@
 
             </div>
 
-
-
-
-
-
             <div class="col-lg">
                 <div class="form-group">
                     <label for="razonTb">Razón de ajuste</label>
@@ -103,9 +98,7 @@
             </div>
 
             <div class="row justify-content-center">
-                <div class="form-group">
-                    <asp:Button ID="btnGuardar" type="submmit" runat="server" Text="Guardar" class="btn btn-outline-primary btn-lg" />
-                </div>
+                <asp:Button ID="btnGuardar" type="submit" runat="server" Text="Guardar" class="btn btn-outline-info" Width="15%" />
             </div>
             <br />
             <br />
@@ -113,9 +106,9 @@
             <br />
 
 
-            <table class="table table-bordered">
-                <thead>
-                    <tr class="tabla_encabezado">
+            <table class="table table-bordered ">
+                <thead class="tabla_encabezado">
+                    <tr>
                         <th scope="col">#</th>
                         <th scope="col">Material</th>
                         <th scope="col">Peso</th>
