@@ -93,7 +93,7 @@
                             </asp:DropDownList></td>
                         <td>
                             <div class="form-group">
-                                <asp:Button ID="btnVer1" type="submmit" runat="server" Text="Ver" class="btn" style="background-color:#8DAA9D"/>
+                                <asp:Button ID="btnVer1" type="submmit" runat="server" Text="Ver" class="btn btn-info"/>
                             </div>
                         </td>
                     </tr>
@@ -109,7 +109,7 @@
                             </asp:DropDownList></td>
                         <td>
                             <div class="form-group">
-                                <asp:Button ID="btnVer2" type="submmit" runat="server" Text="Ver" class="btn" style="background-color:#8DAA9D"/>
+                                <asp:Button ID="btnVer2" type="submmit" runat="server" Text="Ver" class="btn btn-info"/>
                             </div>
                         </td>
                     </tr>
@@ -127,7 +127,7 @@
                             </asp:DropDownList></td>
                         <td>
                             <div class="form-group">
-                                <asp:Button ID="btnVer3" type="submmit" runat="server" Text="Ver" class="btn" style="background-color:#8DAA9D"/>
+                                <asp:Button ID="btnVer3" type="submmit" runat="server" Text="Ver" class="btn btn-info"/>
                             </div>
                         </td>
                     </tr>
@@ -136,7 +136,7 @@
 
             </table>
             <div class="row justify-content-center">
-                <asp:Button ID="btnAgregar" type="submmit" runat="server" Text="Guardar" class="btn btn-outline-info" Width="15%"/>
+                <asp:Button ID="btnAgregar" type="submmit" runat="server" Text="Guardar" class="btn btn-info" Width="15%"/>
             </div>
 
             <br />

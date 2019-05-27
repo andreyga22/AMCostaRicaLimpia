@@ -6,15 +6,15 @@
     /*margin-left: 15%;*/
     margin-bottom: 3%;
     margin-top: 3%;
-    background-color:red;
+    background-color: red;
 }
 
 .btn-lg {
-    margin-top:2%;
+    margin-top: 2%;
 }
 
 .row_registroForm {
-margin-top:1%;
+    margin-top: 1%;
 }
 
 .info_div {
@@ -23,17 +23,17 @@ margin-top:1%;
     text-align: center;
 }
 
-#fecha { 
-/*border:1px solid #969696;
+#fecha {
+    /*border:1px solid #969696;
 border-radius:4px;*/
-text-align:center;
+    text-align: center;
 }
 
 .campo {
-margin-left:10%;
+    margin-left: 10%;
 }
 
-.datosLbl{
+.datosLbl {
     margin-left: 10%;
 }
 
@@ -42,9 +42,51 @@ margin-left:10%;
 }
 
 .campoIzq {
-width:25%;
+    width: 25%;
 }
 
 .tabla_encabezado {
     background-color: #94BD8B;
 }
+
+/*Nuevos botones*/
+
+.btn-info {
+    color: black;
+    background-color: #94BD8B;
+    border-color: #94BD8B
+}
+
+    .btn-info:hover {
+        color: black;
+        background-color: #8bb083;
+        border-color: #8bb083
+    }
+
+    .btn-info:focus,
+    .btn-info.focus {
+        box-shadow: 0 0 0 .2rem rgba(91, 194, 194, 0.5)
+    }
+
+    .btn-info.disabled,
+    .btn-info:disabled {
+        color: black;
+        background-color: #8bb083;
+        border-color: #8bb083
+    }
+
+    .btn-info:not(:disabled):not(.disabled):active,
+    .btn-info:not(:disabled):not(.disabled).active,
+    .show > .btn-info.dropdown-toggle {
+        color: black;
+        background-color: #8bb083;
+        border-color: #8bb083
+    }
+
+        .btn-info:not(:disabled):not(.disabled):active:focus,
+        .btn-info:not(:disabled):not(.disabled).active:focus,
+        .show > .btn-info.dropdown-toggle:focus {
+            box-shadow: 0 0 0 .2rem rgba(91, 194, 194, 0.5)
+        }
+
+/*Fin nuevos botones*/

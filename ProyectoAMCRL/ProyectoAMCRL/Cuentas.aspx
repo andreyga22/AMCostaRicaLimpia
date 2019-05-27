@@ -84,7 +84,7 @@
             <br>
             <br>
             <div class="align-content-center" style="text-align:center">
-                <asp:Button runat="server" Text="Guardar cambios" class="btn btn-outline-info" Width="15%" />
+                <asp:Button runat="server" Text="Guardar cambios" class="btn btn-info" Width="15%" />
             </div>
         </form>
     </div>

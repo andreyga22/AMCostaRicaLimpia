@@ -188,7 +188,7 @@
             </table>
                         <%-- SUBMMIT BUTTON --%>
             <div class="row justify-content-center">
-                <asp:Button ID="btnDescargar" type="submit" runat="server" Text="Descargar" class="btn btn-outline-info" Width="15%"/>
+                <asp:Button ID="btnDescargar" type="submit" runat="server" Text="Descargar" class="btn btn-info" Width="15%"/>
             </div>
             <br />
             <br />

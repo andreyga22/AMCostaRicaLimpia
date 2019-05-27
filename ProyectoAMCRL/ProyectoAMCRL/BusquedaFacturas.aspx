@@ -180,7 +180,7 @@
             <br />
 
             <div class="row justify-content-center">
-                    <asp:Button ID="btnGuardar" type="submmit" runat="server" Text="Guardar" class="btn btn-outline-info" Width="15%" />
+                    <asp:Button ID="btnGuardar" type="submmit" runat="server" Text="Guardar" class="btn btn-info" Width="15%" />
             </div>
             <br />
             <br />

@@ -150,7 +150,7 @@
                     <br />
             <%-- SUBMMIT BUTTON --%>
             <div class="row justify-content-center">
-                <asp:Button ID="btnRegistrar" type="submit" runat="server" Text="Guardar" class="btn btn-outline-info" Width="15%" OnClick="btnRegistrar_Click" />
+                <asp:Button ID="btnRegistrar" type="submit" runat="server" Text="Guardar" class="btn btn-info" Width="15%" OnClick="btnRegistrar_Click" />
             </div>
             <asp:Label ID="info" runat="server"></asp:Label>
             <br />
