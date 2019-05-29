@@ -54,14 +54,14 @@
 
 
                 <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
-
+               <%-- Height="190px" Width="350px" Font-Size="9pt"--%>
                 <div class="row">
                 <div class="col-6">
                     Fecha inicio:<br />
                     <div style="text-align: center">
                         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                             <ContentTemplate>
-                                <asp:Calendar ID="CalendFechaIni" runat="server" BackColor="White" BorderColor="White" BorderWidth="1px" Font-Names="Verdana" Font-Size="9pt" ForeColor="Black" Height="190px" NextPrevFormat="FullMonth" Width="350px" SelectedDate="11/25/2018 12:21:25">
+                                <asp:Calendar ID="CalendFechaIni" runat="server" BackColor="White" BorderColor="White" BorderWidth="1px" Font-Names="Verdana" ForeColor="Black"  NextPrevFormat="FullMonth" Font-Size="XX-Small">
                                     <DayHeaderStyle Font-Bold="True" Font-Size="8pt" />
                                     <NextPrevStyle Font-Bold="True" Font-Size="8pt" ForeColor="#333333" VerticalAlign="Bottom" />
                                     <OtherMonthDayStyle ForeColor="#999999" />
@@ -144,7 +144,7 @@
             <br />
             <table class="table table-bordered">
                 <thead>
-                    <tr class="tabla_encabezado">
+                    <tr class="tabla_encabezado" style="background-color:#94BD8B">
                         <th scope="col">#</th>
                         <th scope="col">Código Factura</th>
                         <th scope="col">Fecha</th>
@@ -176,14 +176,11 @@
                     </tr>
                 </tbody>
             </table>
-
             <br />
             <br />
 
             <div class="row justify-content-center">
-                <div class="form-group">
-                    <asp:Button ID="btnGuardar" type="submmit" runat="server" Text="Guardar" class="btn btn-outline-primary btn-lg" />
-                </div>
+                    <asp:Button ID="btnGuardar" type="submmit" runat="server" Text="Guardar" class="btn btn-info" Width="15%" />
             </div>
             <br />
             <br />

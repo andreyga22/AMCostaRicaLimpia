@@ -81,13 +81,10 @@
                         </tbody>
                     </table>
             </div>
-            <div class="row float-right">
-                <asp:Button Height="100%" CssClass="btn btn-link" runat="server" Text="+ Añadir cuenta" />
-            </div>
             <br>
             <br>
             <div class="align-content-center" style="text-align:center">
-                <asp:Button runat="server" Text="Guardar cambios" CssClass="btn btn-info" />
+                <asp:Button runat="server" Text="Guardar cambios" class="btn btn-info" Width="15%" />
             </div>
         </form>
     </div>

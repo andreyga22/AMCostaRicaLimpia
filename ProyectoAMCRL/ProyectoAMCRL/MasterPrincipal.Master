@@ -18,8 +18,8 @@
 <body>
   <%--  <form id="form1" runat="server">--%>
       
-        <nav style="background-color:#8DAA9D" class="navbar navbar-expand-lg navbar-light">
-            <asp:Image ID="Image1" runat="server" ImageUrl="~/images/logo.jpeg" Height="75px" Width="75px" />
+        <nav style="background-color:#94BD8B" class="navbar navbar-expand-lg navbar-light">
+            <asp:Image ID="Image1" runat="server" ImageUrl="~/images/logo.png" Height="75px" Width="75px" />
             <%--<a class="navbar-brand" href="#">AM Costa Rica Limpia</a>--%>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>

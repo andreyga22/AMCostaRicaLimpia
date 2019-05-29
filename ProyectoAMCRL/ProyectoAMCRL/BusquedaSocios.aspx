@@ -89,10 +89,10 @@
             </div>
              <br />
             <div class="row justify-content-center">
-                <div class="form-group">
-                    <asp:Button ID="btnGuardar" type="submmit" runat="server" Text="Actualizar búsqueda" class="btn btn-primary" />
-                </div>
+                    <asp:Button ID="btnGuardar" type="submit" runat="server" Text="Actualizar búsqueda" class="btn btn-outline-secondary" Width="15%"/>
             </div>
+            <br />
+            <br />
              <%-- SECCION 2 --%>
             <div class="overflow-auto" style="height: 180px; width: 100%;">
                 <table class="table-sm table-bordered table-hover" style="width: 100%">
