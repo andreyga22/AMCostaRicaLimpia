@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6de199f7ae814ba3a58ad72768f916d7" Name="Diagram1">
+        <EntityTypeShape EntityType="AMCRLModel.AJUSTE" Width="1.5" PointX="10.5" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AMCRLModel.BODEGA" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AMCRLModel.COMPRA" Width="1.5" PointX="5.25" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AMCRLModel.CONTACTO" Width="1.5" PointX="5.25" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="AMCRLModel.CREDENCIALE" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AMCRLModel.DETALLE_COMPRA" Width="1.5" PointX="10.5" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AMCRLModel.DETALLE_VENTA" Width="1.5" PointX="10.5" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AMCRLModel.DIRECCION" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AMCRLModel.MATERIAL" Width="1.5" PointX="6" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AMCRLModel.MONEDA" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AMCRLModel.SOCIO_NEGOCIO" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AMCRLModel.STOCK" Width="1.5" PointX="8.25" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AMCRLModel.VENTA" Width="1.5" PointX="8.25" PointY="9.125" IsExpanded="true" />
+        <AssociationConnector Association="AMCRLModel.FK_AJUSTE_AFECTA_A_STOCK" ManuallyRouted="false" />
+        <AssociationConnector Association="AMCRLModel.FK_BODEGA_SE_UBICA__DIRECCIO" ManuallyRouted="false" />
+        <AssociationConnector Association="AMCRLModel.FK_COMPRA_ENTRA_A_BODEGA" ManuallyRouted="false" />
+        <AssociationConnector Association="AMCRLModel.FK_STOCK_TIENE_UN_BODEGA" ManuallyRouted="false" />
+        <AssociationConnector Association="AMCRLModel.FK_VENTA_SALE_DE_BODEGA" ManuallyRouted="false" />
+        <AssociationConnector Association="AMCRLModel.FK_COMPRA_C_REGISTR_MONEDA" ManuallyRouted="false" />
+        <AssociationConnector Association="AMCRLModel.FK_COMPRA_REALIZADA_SOCIO_NE" ManuallyRouted="false" />
+        <AssociationConnector Association="AMCRLModel.FK_DETALLE__CONTIENE_COMPRA" ManuallyRouted="false" />
+        <AssociationConnector Association="AMCRLModel.FK_CONTACTO_POSEE_SOCIO_NE" ManuallyRouted="false" />
+        <AssociationConnector Association="AMCRLModel.FK_DETALLE__INTEGRADA_MATERIAL" ManuallyRouted="false" />
+        <AssociationConnector Association="AMCRLModel.FK_DETALLE__CONTIENE__MATERIAL" ManuallyRouted="false" />
+        <AssociationConnector Association="AMCRLModel.FK_DETALLE__INCLUYE_VENTA" ManuallyRouted="false" />
+        <AssociationConnector Association="AMCRLModel.FK_SOCIO_NEGOCIO_DIRECCION" ManuallyRouted="false" />
+        <AssociationConnector Association="AMCRLModel.FK_STOCK_ALMACENA_MATERIAL" ManuallyRouted="false" />
+        <AssociationConnector Association="AMCRLModel.FK_VENTA_V_REGISTR_MONEDA" ManuallyRouted="false" />
+        <AssociationConnector Association="AMCRLModel.FK_VENTA_ADQUIRIDA_SOCIO_NE" ManuallyRouted="false" />
+        <AssociationConnector Association="AMCRLModel.Asociasociones" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

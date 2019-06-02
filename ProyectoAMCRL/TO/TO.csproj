@@ -45,6 +45,7 @@
     <Compile Include="TODetalleCompra.cs" />
     <Compile Include="TODetalleVenta.cs" />
     <Compile Include="TODireccion.cs" />
+    <Compile Include="TOMaterial.cs" />
     <Compile Include="TOSocioNegocio.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

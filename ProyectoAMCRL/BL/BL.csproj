@@ -45,7 +45,9 @@
     <Compile Include="BLManejadorCompras.cs" />
     <Compile Include="BLManejadorSocios.cs" />
     <Compile Include="BLManejadorVentas.cs" />
+    <Compile Include="BLMaterial.cs" />
     <Compile Include="BLSocioNegocio.cs" />
+    <Compile Include="BLManejadorMateriales.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

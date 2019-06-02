@@ -1,0 +1,1072 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="AMCRLModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AJUSTE">
+          <Key>
+            <PropertyRef Name="ID_AJUSTE" />
+          </Key>
+          <Property Name="RAZON" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="PESO_AJUSTE" Type="numeric" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="MOVIMIENTO_A" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="ID_AJUSTE" Type="numeric" Precision="10" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_STOCK" Type="int" Nullable="false" />
+          <Property Name="Fecha_Ajuste" Type="date" />
+        </EntityType>
+        <EntityType Name="Asociasociones">
+          <Key>
+            <PropertyRef Name="Socio" />
+            <PropertyRef Name="Asociado" />
+          </Key>
+          <Property Name="Socio" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Asociado" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BODEGA">
+          <Key>
+            <PropertyRef Name="ID_BODEGA" />
+          </Key>
+          <Property Name="ID_BODEGA" Type="numeric" Precision="8" Scale="0" Nullable="false" />
+          <Property Name="COD_DIRECCION" Type="numeric" Precision="5" Scale="0" Nullable="false" />
+          <Property Name="NOMBRE_BOD" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="COMPRA">
+          <Key>
+            <PropertyRef Name="COD_COMPRA" />
+          </Key>
+          <Property Name="COD_COMPRA" Type="numeric" Precision="10" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_BODEGA" Type="numeric" Precision="8" Scale="0" Nullable="false" />
+          <Property Name="CEDULA" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="ID_MONEDA" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="MONTO_TOTAL_C" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="Fecha_Compra" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CONTACTOS">
+          <Key>
+            <PropertyRef Name="ID_CONTACTOS" />
+          </Key>
+          <Property Name="ID_CONTACTOS" Type="numeric" Precision="10" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CEDULA" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="TELEFONO_HAB" Type="numeric" Precision="10" Scale="0" />
+          <Property Name="TELEFONO_PERS" Type="numeric" Precision="10" Scale="0" />
+          <Property Name="EMAIL" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CREDENCIALES">
+          <Key>
+            <PropertyRef Name="ID_Usuario" />
+          </Key>
+          <Property Name="ID_Usuario" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="CLAVE" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="ROL" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="ESTADO" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="Nombre_usuario" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DETALLE_COMPRA">
+          <Key>
+            <PropertyRef Name="COD_LINEA_C" />
+          </Key>
+          <Property Name="COD_LINEA_C" Type="numeric" Precision="10" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="COD_COMPRA" Type="numeric" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="COD_MATERIAL" Type="numeric" Precision="5" Scale="0" Nullable="false" />
+          <Property Name="KILOS_COMPRA" Type="numeric" Precision="8" Scale="2" />
+          <Property Name="MONTO_LINEA_C" Type="numeric" Precision="8" Scale="2" />
+        </EntityType>
+        <EntityType Name="DETALLE_VENTA">
+          <Key>
+            <PropertyRef Name="COD_LINEA" />
+          </Key>
+          <Property Name="COD_LINEA" Type="numeric" Precision="10" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="COD_VENTA" Type="numeric" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="COD_MATERIAL" Type="numeric" Precision="5" Scale="0" Nullable="false" />
+          <Property Name="MONTO_LINEA_V" Type="numeric" Precision="8" Scale="2" />
+          <Property Name="KILOS_VENTA" Type="numeric" Precision="8" Scale="2" />
+        </EntityType>
+        <EntityType Name="DIRECCION">
+          <Key>
+            <PropertyRef Name="COD_DIRECCION" />
+          </Key>
+          <Property Name="COD_DIRECCION" Type="numeric" Precision="5" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PROVINCIA" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="CANTON" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="DISTRITO" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="OTRAS_SENNAS" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="MATERIAL">
+          <Key>
+            <PropertyRef Name="COD_MATERIAL" />
+          </Key>
+          <Property Name="COD_MATERIAL" Type="numeric" Precision="5" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOMBRE_MATERIAL" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="PRECIO_KILO" Type="numeric" Precision="8" Scale="2" />
+        </EntityType>
+        <EntityType Name="MONEDA">
+          <Key>
+            <PropertyRef Name="ID_MONEDA" />
+          </Key>
+          <Property Name="ID_MONEDA" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="DETALLE_MONEDA" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EQUIVALENCIA_COLON" Type="numeric" Precision="7" Scale="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SOCIO_NEGOCIO">
+          <Key>
+            <PropertyRef Name="CEDULA" />
+          </Key>
+          <Property Name="CEDULA" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="NOMBRE" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ROL_SOCIO" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="APELLIDO1" Type="varchar" MaxLength="25" />
+          <Property Name="APELLIDO2" Type="varchar" MaxLength="25" />
+          <Property Name="ESTADO_SOCIO" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="COD_DIRECCION" Type="numeric" Precision="5" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="STOCK">
+          <Key>
+            <PropertyRef Name="ID_STOCK" />
+          </Key>
+          <Property Name="ID_STOCK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="COD_MATERIAL" Type="numeric" Precision="5" Scale="0" Nullable="false" />
+          <Property Name="ID_BODEGA" Type="numeric" Precision="8" Scale="0" Nullable="false" />
+          <Property Name="KILOS_STOCK" Type="numeric" Precision="23" Scale="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VENTA">
+          <Key>
+            <PropertyRef Name="COD_VENTA" />
+          </Key>
+          <Property Name="COD_VENTA" Type="numeric" Precision="10" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CEDULA" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="ID_BODEGA" Type="numeric" Precision="8" Scale="0" Nullable="false" />
+          <Property Name="ID_MONEDA" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="MONTO_TOTAL_V" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="Fecha_Venta" Type="date" />
+        </EntityType>
+        <Association Name="FK_AJUSTE_AFECTA_A_STOCK">
+          <End Role="STOCK" Type="Self.STOCK" Multiplicity="1" />
+          <End Role="AJUSTE" Type="Self.AJUSTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STOCK">
+              <PropertyRef Name="ID_STOCK" />
+            </Principal>
+            <Dependent Role="AJUSTE">
+              <PropertyRef Name="ID_STOCK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Asociasociones_SOCIO_NEGOCIO">
+          <End Role="SOCIO_NEGOCIO" Type="Self.SOCIO_NEGOCIO" Multiplicity="1" />
+          <End Role="Asociasociones" Type="Self.Asociasociones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SOCIO_NEGOCIO">
+              <PropertyRef Name="CEDULA" />
+            </Principal>
+            <Dependent Role="Asociasociones">
+              <PropertyRef Name="Socio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Asociasociones_SOCIO_NEGOCIO1">
+          <End Role="SOCIO_NEGOCIO" Type="Self.SOCIO_NEGOCIO" Multiplicity="1" />
+          <End Role="Asociasociones" Type="Self.Asociasociones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SOCIO_NEGOCIO">
+              <PropertyRef Name="CEDULA" />
+            </Principal>
+            <Dependent Role="Asociasociones">
+              <PropertyRef Name="Asociado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BODEGA_SE_UBICA__DIRECCIO">
+          <End Role="DIRECCION" Type="Self.DIRECCION" Multiplicity="1" />
+          <End Role="BODEGA" Type="Self.BODEGA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DIRECCION">
+              <PropertyRef Name="COD_DIRECCION" />
+            </Principal>
+            <Dependent Role="BODEGA">
+              <PropertyRef Name="COD_DIRECCION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_COMPRA_C_REGISTR_MONEDA">
+          <End Role="MONEDA" Type="Self.MONEDA" Multiplicity="1" />
+          <End Role="COMPRA" Type="Self.COMPRA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MONEDA">
+              <PropertyRef Name="ID_MONEDA" />
+            </Principal>
+            <Dependent Role="COMPRA">
+              <PropertyRef Name="ID_MONEDA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_COMPRA_ENTRA_A_BODEGA">
+          <End Role="BODEGA" Type="Self.BODEGA" Multiplicity="1" />
+          <End Role="COMPRA" Type="Self.COMPRA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BODEGA">
+              <PropertyRef Name="ID_BODEGA" />
+            </Principal>
+            <Dependent Role="COMPRA">
+              <PropertyRef Name="ID_BODEGA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_COMPRA_REALIZADA_SOCIO_NE">
+          <End Role="SOCIO_NEGOCIO" Type="Self.SOCIO_NEGOCIO" Multiplicity="1" />
+          <End Role="COMPRA" Type="Self.COMPRA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SOCIO_NEGOCIO">
+              <PropertyRef Name="CEDULA" />
+            </Principal>
+            <Dependent Role="COMPRA">
+              <PropertyRef Name="CEDULA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTACTO_POSEE_SOCIO_NE">
+          <End Role="SOCIO_NEGOCIO" Type="Self.SOCIO_NEGOCIO" Multiplicity="1" />
+          <End Role="CONTACTOS" Type="Self.CONTACTOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SOCIO_NEGOCIO">
+              <PropertyRef Name="CEDULA" />
+            </Principal>
+            <Dependent Role="CONTACTOS">
+              <PropertyRef Name="CEDULA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DETALLE__CONTIENE__MATERIAL">
+          <End Role="MATERIAL" Type="Self.MATERIAL" Multiplicity="1" />
+          <End Role="DETALLE_VENTA" Type="Self.DETALLE_VENTA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MATERIAL">
+              <PropertyRef Name="COD_MATERIAL" />
+            </Principal>
+            <Dependent Role="DETALLE_VENTA">
+              <PropertyRef Name="COD_MATERIAL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DETALLE__CONTIENE_COMPRA">
+          <End Role="COMPRA" Type="Self.COMPRA" Multiplicity="1" />
+          <End Role="DETALLE_COMPRA" Type="Self.DETALLE_COMPRA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COMPRA">
+              <PropertyRef Name="COD_COMPRA" />
+            </Principal>
+            <Dependent Role="DETALLE_COMPRA">
+              <PropertyRef Name="COD_COMPRA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DETALLE__INCLUYE_VENTA">
+          <End Role="VENTA" Type="Self.VENTA" Multiplicity="1" />
+          <End Role="DETALLE_VENTA" Type="Self.DETALLE_VENTA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VENTA">
+              <PropertyRef Name="COD_VENTA" />
+            </Principal>
+            <Dependent Role="DETALLE_VENTA">
+              <PropertyRef Name="COD_VENTA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DETALLE__INTEGRADA_MATERIAL">
+          <End Role="MATERIAL" Type="Self.MATERIAL" Multiplicity="1" />
+          <End Role="DETALLE_COMPRA" Type="Self.DETALLE_COMPRA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MATERIAL">
+              <PropertyRef Name="COD_MATERIAL" />
+            </Principal>
+            <Dependent Role="DETALLE_COMPRA">
+              <PropertyRef Name="COD_MATERIAL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SOCIO_NEGOCIO_DIRECCION">
+          <End Role="DIRECCION" Type="Self.DIRECCION" Multiplicity="1" />
+          <End Role="SOCIO_NEGOCIO" Type="Self.SOCIO_NEGOCIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DIRECCION">
+              <PropertyRef Name="COD_DIRECCION" />
+            </Principal>
+            <Dependent Role="SOCIO_NEGOCIO">
+              <PropertyRef Name="COD_DIRECCION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STOCK_ALMACENA_MATERIAL">
+          <End Role="MATERIAL" Type="Self.MATERIAL" Multiplicity="1" />
+          <End Role="STOCK" Type="Self.STOCK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MATERIAL">
+              <PropertyRef Name="COD_MATERIAL" />
+            </Principal>
+            <Dependent Role="STOCK">
+              <PropertyRef Name="COD_MATERIAL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STOCK_TIENE_UN_BODEGA">
+          <End Role="BODEGA" Type="Self.BODEGA" Multiplicity="1" />
+          <End Role="STOCK" Type="Self.STOCK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BODEGA">
+              <PropertyRef Name="ID_BODEGA" />
+            </Principal>
+            <Dependent Role="STOCK">
+              <PropertyRef Name="ID_BODEGA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VENTA_ADQUIRIDA_SOCIO_NE">
+          <End Role="SOCIO_NEGOCIO" Type="Self.SOCIO_NEGOCIO" Multiplicity="1" />
+          <End Role="VENTA" Type="Self.VENTA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SOCIO_NEGOCIO">
+              <PropertyRef Name="CEDULA" />
+            </Principal>
+            <Dependent Role="VENTA">
+              <PropertyRef Name="CEDULA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VENTA_SALE_DE_BODEGA">
+          <End Role="BODEGA" Type="Self.BODEGA" Multiplicity="1" />
+          <End Role="VENTA" Type="Self.VENTA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BODEGA">
+              <PropertyRef Name="ID_BODEGA" />
+            </Principal>
+            <Dependent Role="VENTA">
+              <PropertyRef Name="ID_BODEGA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VENTA_V_REGISTR_MONEDA">
+          <End Role="MONEDA" Type="Self.MONEDA" Multiplicity="1" />
+          <End Role="VENTA" Type="Self.VENTA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MONEDA">
+              <PropertyRef Name="ID_MONEDA" />
+            </Principal>
+            <Dependent Role="VENTA">
+              <PropertyRef Name="ID_MONEDA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AMCRLModelStoreContainer">
+          <EntitySet Name="AJUSTE" EntityType="Self.AJUSTE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Asociasociones" EntityType="Self.Asociasociones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BODEGA" EntityType="Self.BODEGA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="COMPRA" EntityType="Self.COMPRA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CONTACTOS" EntityType="Self.CONTACTOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CREDENCIALES" EntityType="Self.CREDENCIALES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DETALLE_COMPRA" EntityType="Self.DETALLE_COMPRA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DETALLE_VENTA" EntityType="Self.DETALLE_VENTA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DIRECCION" EntityType="Self.DIRECCION" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MATERIAL" EntityType="Self.MATERIAL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MONEDA" EntityType="Self.MONEDA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SOCIO_NEGOCIO" EntityType="Self.SOCIO_NEGOCIO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="STOCK" EntityType="Self.STOCK" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VENTA" EntityType="Self.VENTA" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AJUSTE_AFECTA_A_STOCK" Association="Self.FK_AJUSTE_AFECTA_A_STOCK">
+            <End Role="STOCK" EntitySet="STOCK" />
+            <End Role="AJUSTE" EntitySet="AJUSTE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Asociasociones_SOCIO_NEGOCIO" Association="Self.FK_Asociasociones_SOCIO_NEGOCIO">
+            <End Role="SOCIO_NEGOCIO" EntitySet="SOCIO_NEGOCIO" />
+            <End Role="Asociasociones" EntitySet="Asociasociones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Asociasociones_SOCIO_NEGOCIO1" Association="Self.FK_Asociasociones_SOCIO_NEGOCIO1">
+            <End Role="SOCIO_NEGOCIO" EntitySet="SOCIO_NEGOCIO" />
+            <End Role="Asociasociones" EntitySet="Asociasociones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BODEGA_SE_UBICA__DIRECCIO" Association="Self.FK_BODEGA_SE_UBICA__DIRECCIO">
+            <End Role="DIRECCION" EntitySet="DIRECCION" />
+            <End Role="BODEGA" EntitySet="BODEGA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COMPRA_C_REGISTR_MONEDA" Association="Self.FK_COMPRA_C_REGISTR_MONEDA">
+            <End Role="MONEDA" EntitySet="MONEDA" />
+            <End Role="COMPRA" EntitySet="COMPRA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COMPRA_ENTRA_A_BODEGA" Association="Self.FK_COMPRA_ENTRA_A_BODEGA">
+            <End Role="BODEGA" EntitySet="BODEGA" />
+            <End Role="COMPRA" EntitySet="COMPRA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COMPRA_REALIZADA_SOCIO_NE" Association="Self.FK_COMPRA_REALIZADA_SOCIO_NE">
+            <End Role="SOCIO_NEGOCIO" EntitySet="SOCIO_NEGOCIO" />
+            <End Role="COMPRA" EntitySet="COMPRA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTACTO_POSEE_SOCIO_NE" Association="Self.FK_CONTACTO_POSEE_SOCIO_NE">
+            <End Role="SOCIO_NEGOCIO" EntitySet="SOCIO_NEGOCIO" />
+            <End Role="CONTACTOS" EntitySet="CONTACTOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DETALLE__CONTIENE__MATERIAL" Association="Self.FK_DETALLE__CONTIENE__MATERIAL">
+            <End Role="MATERIAL" EntitySet="MATERIAL" />
+            <End Role="DETALLE_VENTA" EntitySet="DETALLE_VENTA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DETALLE__CONTIENE_COMPRA" Association="Self.FK_DETALLE__CONTIENE_COMPRA">
+            <End Role="COMPRA" EntitySet="COMPRA" />
+            <End Role="DETALLE_COMPRA" EntitySet="DETALLE_COMPRA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DETALLE__INCLUYE_VENTA" Association="Self.FK_DETALLE__INCLUYE_VENTA">
+            <End Role="VENTA" EntitySet="VENTA" />
+            <End Role="DETALLE_VENTA" EntitySet="DETALLE_VENTA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DETALLE__INTEGRADA_MATERIAL" Association="Self.FK_DETALLE__INTEGRADA_MATERIAL">
+            <End Role="MATERIAL" EntitySet="MATERIAL" />
+            <End Role="DETALLE_COMPRA" EntitySet="DETALLE_COMPRA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SOCIO_NEGOCIO_DIRECCION" Association="Self.FK_SOCIO_NEGOCIO_DIRECCION">
+            <End Role="DIRECCION" EntitySet="DIRECCION" />
+            <End Role="SOCIO_NEGOCIO" EntitySet="SOCIO_NEGOCIO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STOCK_ALMACENA_MATERIAL" Association="Self.FK_STOCK_ALMACENA_MATERIAL">
+            <End Role="MATERIAL" EntitySet="MATERIAL" />
+            <End Role="STOCK" EntitySet="STOCK" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STOCK_TIENE_UN_BODEGA" Association="Self.FK_STOCK_TIENE_UN_BODEGA">
+            <End Role="BODEGA" EntitySet="BODEGA" />
+            <End Role="STOCK" EntitySet="STOCK" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VENTA_ADQUIRIDA_SOCIO_NE" Association="Self.FK_VENTA_ADQUIRIDA_SOCIO_NE">
+            <End Role="SOCIO_NEGOCIO" EntitySet="SOCIO_NEGOCIO" />
+            <End Role="VENTA" EntitySet="VENTA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VENTA_SALE_DE_BODEGA" Association="Self.FK_VENTA_SALE_DE_BODEGA">
+            <End Role="BODEGA" EntitySet="BODEGA" />
+            <End Role="VENTA" EntitySet="VENTA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VENTA_V_REGISTR_MONEDA" Association="Self.FK_VENTA_V_REGISTR_MONEDA">
+            <End Role="MONEDA" EntitySet="MONEDA" />
+            <End Role="VENTA" EntitySet="VENTA" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AMCRLModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AJUSTE">
+          <Key>
+            <PropertyRef Name="ID_AJUSTE" />
+          </Key>
+          <Property Name="RAZON" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PESO_AJUSTE" Type="Decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="MOVIMIENTO_A" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID_AJUSTE" Type="Decimal" Precision="10" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_STOCK" Type="Int32" Nullable="false" />
+          <Property Name="Fecha_Ajuste" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="STOCK" Relationship="Self.FK_AJUSTE_AFECTA_A_STOCK" FromRole="AJUSTE" ToRole="STOCK" />
+        </EntityType>
+        <EntityType Name="BODEGA">
+          <Key>
+            <PropertyRef Name="ID_BODEGA" />
+          </Key>
+          <Property Name="ID_BODEGA" Type="Decimal" Precision="8" Scale="0" Nullable="false" />
+          <Property Name="COD_DIRECCION" Type="Decimal" Precision="5" Scale="0" Nullable="false" />
+          <Property Name="NOMBRE_BOD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="DIRECCION" Relationship="Self.FK_BODEGA_SE_UBICA__DIRECCIO" FromRole="BODEGA" ToRole="DIRECCION" />
+          <NavigationProperty Name="COMPRAs" Relationship="Self.FK_COMPRA_ENTRA_A_BODEGA" FromRole="BODEGA" ToRole="COMPRA" />
+          <NavigationProperty Name="STOCKs" Relationship="Self.FK_STOCK_TIENE_UN_BODEGA" FromRole="BODEGA" ToRole="STOCK" />
+          <NavigationProperty Name="VENTAs" Relationship="Self.FK_VENTA_SALE_DE_BODEGA" FromRole="BODEGA" ToRole="VENTA" />
+        </EntityType>
+        <EntityType Name="COMPRA">
+          <Key>
+            <PropertyRef Name="COD_COMPRA" />
+          </Key>
+          <Property Name="COD_COMPRA" Type="Decimal" Precision="10" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_BODEGA" Type="Decimal" Precision="8" Scale="0" Nullable="false" />
+          <Property Name="CEDULA" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID_MONEDA" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MONTO_TOTAL_C" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Fecha_Compra" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="BODEGA" Relationship="Self.FK_COMPRA_ENTRA_A_BODEGA" FromRole="COMPRA" ToRole="BODEGA" />
+          <NavigationProperty Name="MONEDA" Relationship="Self.FK_COMPRA_C_REGISTR_MONEDA" FromRole="COMPRA" ToRole="MONEDA" />
+          <NavigationProperty Name="SOCIO_NEGOCIO" Relationship="Self.FK_COMPRA_REALIZADA_SOCIO_NE" FromRole="COMPRA" ToRole="SOCIO_NEGOCIO" />
+          <NavigationProperty Name="DETALLE_COMPRA" Relationship="Self.FK_DETALLE__CONTIENE_COMPRA" FromRole="COMPRA" ToRole="DETALLE_COMPRA" />
+        </EntityType>
+        <EntityType Name="CONTACTO">
+          <Key>
+            <PropertyRef Name="ID_CONTACTOS" />
+          </Key>
+          <Property Name="ID_CONTACTOS" Type="Decimal" Precision="10" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CEDULA" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TELEFONO_HAB" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="TELEFONO_PERS" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SOCIO_NEGOCIO" Relationship="Self.FK_CONTACTO_POSEE_SOCIO_NE" FromRole="CONTACTOS" ToRole="SOCIO_NEGOCIO" />
+        </EntityType>
+        <EntityType Name="CREDENCIALE">
+          <Key>
+            <PropertyRef Name="ID_Usuario" />
+          </Key>
+          <Property Name="ID_Usuario" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CLAVE" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ROL" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ESTADO" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nombre_usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DETALLE_COMPRA">
+          <Key>
+            <PropertyRef Name="COD_LINEA_C" />
+          </Key>
+          <Property Name="COD_LINEA_C" Type="Decimal" Precision="10" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="COD_COMPRA" Type="Decimal" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="COD_MATERIAL" Type="Decimal" Precision="5" Scale="0" Nullable="false" />
+          <Property Name="KILOS_COMPRA" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="MONTO_LINEA_C" Type="Decimal" Precision="8" Scale="2" />
+          <NavigationProperty Name="COMPRA" Relationship="Self.FK_DETALLE__CONTIENE_COMPRA" FromRole="DETALLE_COMPRA" ToRole="COMPRA" />
+          <NavigationProperty Name="MATERIAL" Relationship="Self.FK_DETALLE__INTEGRADA_MATERIAL" FromRole="DETALLE_COMPRA" ToRole="MATERIAL" />
+        </EntityType>
+        <EntityType Name="DETALLE_VENTA">
+          <Key>
+            <PropertyRef Name="COD_LINEA" />
+          </Key>
+          <Property Name="COD_LINEA" Type="Decimal" Precision="10" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="COD_VENTA" Type="Decimal" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="COD_MATERIAL" Type="Decimal" Precision="5" Scale="0" Nullable="false" />
+          <Property Name="MONTO_LINEA_V" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="KILOS_VENTA" Type="Decimal" Precision="8" Scale="2" />
+          <NavigationProperty Name="MATERIAL" Relationship="Self.FK_DETALLE__CONTIENE__MATERIAL" FromRole="DETALLE_VENTA" ToRole="MATERIAL" />
+          <NavigationProperty Name="VENTA" Relationship="Self.FK_DETALLE__INCLUYE_VENTA" FromRole="DETALLE_VENTA" ToRole="VENTA" />
+        </EntityType>
+        <EntityType Name="DIRECCION">
+          <Key>
+            <PropertyRef Name="COD_DIRECCION" />
+          </Key>
+          <Property Name="COD_DIRECCION" Type="Decimal" Precision="5" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PROVINCIA" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CANTON" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DISTRITO" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="OTRAS_SENNAS" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="BODEGAs" Relationship="Self.FK_BODEGA_SE_UBICA__DIRECCIO" FromRole="DIRECCION" ToRole="BODEGA" />
+          <NavigationProperty Name="SOCIO_NEGOCIO" Relationship="Self.FK_SOCIO_NEGOCIO_DIRECCION" FromRole="DIRECCION" ToRole="SOCIO_NEGOCIO" />
+        </EntityType>
+        <EntityType Name="MATERIAL">
+          <Key>
+            <PropertyRef Name="COD_MATERIAL" />
+          </Key>
+          <Property Name="COD_MATERIAL" Type="Decimal" Precision="5" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOMBRE_MATERIAL" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PRECIO_KILO" Type="Decimal" Precision="8" Scale="2" />
+          <NavigationProperty Name="DETALLE_COMPRA" Relationship="Self.FK_DETALLE__INTEGRADA_MATERIAL" FromRole="MATERIAL" ToRole="DETALLE_COMPRA" />
+          <NavigationProperty Name="DETALLE_VENTA" Relationship="Self.FK_DETALLE__CONTIENE__MATERIAL" FromRole="MATERIAL" ToRole="DETALLE_VENTA" />
+          <NavigationProperty Name="STOCKs" Relationship="Self.FK_STOCK_ALMACENA_MATERIAL" FromRole="MATERIAL" ToRole="STOCK" />
+        </EntityType>
+        <EntityType Name="MONEDA">
+          <Key>
+            <PropertyRef Name="ID_MONEDA" />
+          </Key>
+          <Property Name="ID_MONEDA" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DETALLE_MONEDA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EQUIVALENCIA_COLON" Type="Decimal" Precision="7" Scale="3" Nullable="false" />
+          <NavigationProperty Name="COMPRAs" Relationship="Self.FK_COMPRA_C_REGISTR_MONEDA" FromRole="MONEDA" ToRole="COMPRA" />
+          <NavigationProperty Name="VENTAs" Relationship="Self.FK_VENTA_V_REGISTR_MONEDA" FromRole="MONEDA" ToRole="VENTA" />
+        </EntityType>
+        <EntityType Name="SOCIO_NEGOCIO">
+          <Key>
+            <PropertyRef Name="CEDULA" />
+          </Key>
+          <Property Name="CEDULA" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NOMBRE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ROL_SOCIO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="APELLIDO1" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="APELLIDO2" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADO_SOCIO" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="COD_DIRECCION" Type="Decimal" Precision="5" Scale="0" Nullable="false" />
+          <NavigationProperty Name="COMPRAs" Relationship="Self.FK_COMPRA_REALIZADA_SOCIO_NE" FromRole="SOCIO_NEGOCIO" ToRole="COMPRA" />
+          <NavigationProperty Name="CONTACTOS" Relationship="Self.FK_CONTACTO_POSEE_SOCIO_NE" FromRole="SOCIO_NEGOCIO" ToRole="CONTACTOS" />
+          <NavigationProperty Name="DIRECCION" Relationship="Self.FK_SOCIO_NEGOCIO_DIRECCION" FromRole="SOCIO_NEGOCIO" ToRole="DIRECCION" />
+          <NavigationProperty Name="VENTAs" Relationship="Self.FK_VENTA_ADQUIRIDA_SOCIO_NE" FromRole="SOCIO_NEGOCIO" ToRole="VENTA" />
+          <NavigationProperty Name="SOCIO_NEGOCIO1" Relationship="Self.Asociasociones" FromRole="SOCIO_NEGOCIO" ToRole="SOCIO_NEGOCIO1" />
+          <NavigationProperty Name="SOCIO_NEGOCIO2" Relationship="Self.Asociasociones" FromRole="SOCIO_NEGOCIO1" ToRole="SOCIO_NEGOCIO" />
+        </EntityType>
+        <EntityType Name="STOCK">
+          <Key>
+            <PropertyRef Name="ID_STOCK" />
+          </Key>
+          <Property Name="ID_STOCK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="COD_MATERIAL" Type="Decimal" Precision="5" Scale="0" Nullable="false" />
+          <Property Name="ID_BODEGA" Type="Decimal" Precision="8" Scale="0" Nullable="false" />
+          <Property Name="KILOS_STOCK" Type="Decimal" Precision="23" Scale="3" Nullable="false" />
+          <NavigationProperty Name="AJUSTEs" Relationship="Self.FK_AJUSTE_AFECTA_A_STOCK" FromRole="STOCK" ToRole="AJUSTE" />
+          <NavigationProperty Name="BODEGA" Relationship="Self.FK_STOCK_TIENE_UN_BODEGA" FromRole="STOCK" ToRole="BODEGA" />
+          <NavigationProperty Name="MATERIAL" Relationship="Self.FK_STOCK_ALMACENA_MATERIAL" FromRole="STOCK" ToRole="MATERIAL" />
+        </EntityType>
+        <EntityType Name="VENTA">
+          <Key>
+            <PropertyRef Name="COD_VENTA" />
+          </Key>
+          <Property Name="COD_VENTA" Type="Decimal" Precision="10" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CEDULA" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID_BODEGA" Type="Decimal" Precision="8" Scale="0" Nullable="false" />
+          <Property Name="ID_MONEDA" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MONTO_TOTAL_V" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Fecha_Venta" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="BODEGA" Relationship="Self.FK_VENTA_SALE_DE_BODEGA" FromRole="VENTA" ToRole="BODEGA" />
+          <NavigationProperty Name="DETALLE_VENTA" Relationship="Self.FK_DETALLE__INCLUYE_VENTA" FromRole="VENTA" ToRole="DETALLE_VENTA" />
+          <NavigationProperty Name="MONEDA" Relationship="Self.FK_VENTA_V_REGISTR_MONEDA" FromRole="VENTA" ToRole="MONEDA" />
+          <NavigationProperty Name="SOCIO_NEGOCIO" Relationship="Self.FK_VENTA_ADQUIRIDA_SOCIO_NE" FromRole="VENTA" ToRole="SOCIO_NEGOCIO" />
+        </EntityType>
+        <Association Name="FK_AJUSTE_AFECTA_A_STOCK">
+          <End Role="STOCK" Type="Self.STOCK" Multiplicity="1" />
+          <End Role="AJUSTE" Type="Self.AJUSTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STOCK">
+              <PropertyRef Name="ID_STOCK" />
+            </Principal>
+            <Dependent Role="AJUSTE">
+              <PropertyRef Name="ID_STOCK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BODEGA_SE_UBICA__DIRECCIO">
+          <End Role="DIRECCION" Type="Self.DIRECCION" Multiplicity="1" />
+          <End Role="BODEGA" Type="Self.BODEGA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DIRECCION">
+              <PropertyRef Name="COD_DIRECCION" />
+            </Principal>
+            <Dependent Role="BODEGA">
+              <PropertyRef Name="COD_DIRECCION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_COMPRA_ENTRA_A_BODEGA">
+          <End Role="BODEGA" Type="Self.BODEGA" Multiplicity="1" />
+          <End Role="COMPRA" Type="Self.COMPRA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BODEGA">
+              <PropertyRef Name="ID_BODEGA" />
+            </Principal>
+            <Dependent Role="COMPRA">
+              <PropertyRef Name="ID_BODEGA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STOCK_TIENE_UN_BODEGA">
+          <End Role="BODEGA" Type="Self.BODEGA" Multiplicity="1" />
+          <End Role="STOCK" Type="Self.STOCK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BODEGA">
+              <PropertyRef Name="ID_BODEGA" />
+            </Principal>
+            <Dependent Role="STOCK">
+              <PropertyRef Name="ID_BODEGA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VENTA_SALE_DE_BODEGA">
+          <End Role="BODEGA" Type="Self.BODEGA" Multiplicity="1" />
+          <End Role="VENTA" Type="Self.VENTA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BODEGA">
+              <PropertyRef Name="ID_BODEGA" />
+            </Principal>
+            <Dependent Role="VENTA">
+              <PropertyRef Name="ID_BODEGA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_COMPRA_C_REGISTR_MONEDA">
+          <End Role="MONEDA" Type="Self.MONEDA" Multiplicity="1" />
+          <End Role="COMPRA" Type="Self.COMPRA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MONEDA">
+              <PropertyRef Name="ID_MONEDA" />
+            </Principal>
+            <Dependent Role="COMPRA">
+              <PropertyRef Name="ID_MONEDA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_COMPRA_REALIZADA_SOCIO_NE">
+          <End Role="SOCIO_NEGOCIO" Type="Self.SOCIO_NEGOCIO" Multiplicity="1" />
+          <End Role="COMPRA" Type="Self.COMPRA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SOCIO_NEGOCIO">
+              <PropertyRef Name="CEDULA" />
+            </Principal>
+            <Dependent Role="COMPRA">
+              <PropertyRef Name="CEDULA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DETALLE__CONTIENE_COMPRA">
+          <End Role="COMPRA" Type="Self.COMPRA" Multiplicity="1" />
+          <End Role="DETALLE_COMPRA" Type="Self.DETALLE_COMPRA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COMPRA">
+              <PropertyRef Name="COD_COMPRA" />
+            </Principal>
+            <Dependent Role="DETALLE_COMPRA">
+              <PropertyRef Name="COD_COMPRA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTACTO_POSEE_SOCIO_NE">
+          <End Role="SOCIO_NEGOCIO" Type="Self.SOCIO_NEGOCIO" Multiplicity="1" />
+          <End Role="CONTACTOS" Type="Self.CONTACTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SOCIO_NEGOCIO">
+              <PropertyRef Name="CEDULA" />
+            </Principal>
+            <Dependent Role="CONTACTOS">
+              <PropertyRef Name="CEDULA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DETALLE__INTEGRADA_MATERIAL">
+          <End Role="MATERIAL" Type="Self.MATERIAL" Multiplicity="1" />
+          <End Role="DETALLE_COMPRA" Type="Self.DETALLE_COMPRA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MATERIAL">
+              <PropertyRef Name="COD_MATERIAL" />
+            </Principal>
+            <Dependent Role="DETALLE_COMPRA">
+              <PropertyRef Name="COD_MATERIAL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DETALLE__CONTIENE__MATERIAL">
+          <End Role="MATERIAL" Type="Self.MATERIAL" Multiplicity="1" />
+          <End Role="DETALLE_VENTA" Type="Self.DETALLE_VENTA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MATERIAL">
+              <PropertyRef Name="COD_MATERIAL" />
+            </Principal>
+            <Dependent Role="DETALLE_VENTA">
+              <PropertyRef Name="COD_MATERIAL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DETALLE__INCLUYE_VENTA">
+          <End Role="VENTA" Type="Self.VENTA" Multiplicity="1" />
+          <End Role="DETALLE_VENTA" Type="Self.DETALLE_VENTA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VENTA">
+              <PropertyRef Name="COD_VENTA" />
+            </Principal>
+            <Dependent Role="DETALLE_VENTA">
+              <PropertyRef Name="COD_VENTA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SOCIO_NEGOCIO_DIRECCION">
+          <End Role="DIRECCION" Type="Self.DIRECCION" Multiplicity="1" />
+          <End Role="SOCIO_NEGOCIO" Type="Self.SOCIO_NEGOCIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DIRECCION">
+              <PropertyRef Name="COD_DIRECCION" />
+            </Principal>
+            <Dependent Role="SOCIO_NEGOCIO">
+              <PropertyRef Name="COD_DIRECCION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STOCK_ALMACENA_MATERIAL">
+          <End Role="MATERIAL" Type="Self.MATERIAL" Multiplicity="1" />
+          <End Role="STOCK" Type="Self.STOCK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MATERIAL">
+              <PropertyRef Name="COD_MATERIAL" />
+            </Principal>
+            <Dependent Role="STOCK">
+              <PropertyRef Name="COD_MATERIAL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VENTA_V_REGISTR_MONEDA">
+          <End Role="MONEDA" Type="Self.MONEDA" Multiplicity="1" />
+          <End Role="VENTA" Type="Self.VENTA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MONEDA">
+              <PropertyRef Name="ID_MONEDA" />
+            </Principal>
+            <Dependent Role="VENTA">
+              <PropertyRef Name="ID_MONEDA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VENTA_ADQUIRIDA_SOCIO_NE">
+          <End Role="SOCIO_NEGOCIO" Type="Self.SOCIO_NEGOCIO" Multiplicity="1" />
+          <End Role="VENTA" Type="Self.VENTA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SOCIO_NEGOCIO">
+              <PropertyRef Name="CEDULA" />
+            </Principal>
+            <Dependent Role="VENTA">
+              <PropertyRef Name="CEDULA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Asociasociones">
+          <End Role="SOCIO_NEGOCIO" Type="Self.SOCIO_NEGOCIO" Multiplicity="*" />
+          <End Role="SOCIO_NEGOCIO1" Type="Self.SOCIO_NEGOCIO" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="AMCRLEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AJUSTEs" EntityType="Self.AJUSTE" />
+          <EntitySet Name="BODEGAs" EntityType="Self.BODEGA" />
+          <EntitySet Name="COMPRAs" EntityType="Self.COMPRA" />
+          <EntitySet Name="CONTACTOS" EntityType="Self.CONTACTO" />
+          <EntitySet Name="CREDENCIALES" EntityType="Self.CREDENCIALE" />
+          <EntitySet Name="DETALLE_COMPRA" EntityType="Self.DETALLE_COMPRA" />
+          <EntitySet Name="DETALLE_VENTA" EntityType="Self.DETALLE_VENTA" />
+          <EntitySet Name="DIRECCIONs" EntityType="Self.DIRECCION" />
+          <EntitySet Name="MATERIALs" EntityType="Self.MATERIAL" />
+          <EntitySet Name="MONEDAs" EntityType="Self.MONEDA" />
+          <EntitySet Name="SOCIO_NEGOCIO" EntityType="Self.SOCIO_NEGOCIO" />
+          <EntitySet Name="STOCKs" EntityType="Self.STOCK" />
+          <EntitySet Name="VENTAs" EntityType="Self.VENTA" />
+          <AssociationSet Name="FK_AJUSTE_AFECTA_A_STOCK" Association="Self.FK_AJUSTE_AFECTA_A_STOCK">
+            <End Role="STOCK" EntitySet="STOCKs" />
+            <End Role="AJUSTE" EntitySet="AJUSTEs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BODEGA_SE_UBICA__DIRECCIO" Association="Self.FK_BODEGA_SE_UBICA__DIRECCIO">
+            <End Role="DIRECCION" EntitySet="DIRECCIONs" />
+            <End Role="BODEGA" EntitySet="BODEGAs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COMPRA_ENTRA_A_BODEGA" Association="Self.FK_COMPRA_ENTRA_A_BODEGA">
+            <End Role="BODEGA" EntitySet="BODEGAs" />
+            <End Role="COMPRA" EntitySet="COMPRAs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STOCK_TIENE_UN_BODEGA" Association="Self.FK_STOCK_TIENE_UN_BODEGA">
+            <End Role="BODEGA" EntitySet="BODEGAs" />
+            <End Role="STOCK" EntitySet="STOCKs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VENTA_SALE_DE_BODEGA" Association="Self.FK_VENTA_SALE_DE_BODEGA">
+            <End Role="BODEGA" EntitySet="BODEGAs" />
+            <End Role="VENTA" EntitySet="VENTAs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COMPRA_C_REGISTR_MONEDA" Association="Self.FK_COMPRA_C_REGISTR_MONEDA">
+            <End Role="MONEDA" EntitySet="MONEDAs" />
+            <End Role="COMPRA" EntitySet="COMPRAs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COMPRA_REALIZADA_SOCIO_NE" Association="Self.FK_COMPRA_REALIZADA_SOCIO_NE">
+            <End Role="SOCIO_NEGOCIO" EntitySet="SOCIO_NEGOCIO" />
+            <End Role="COMPRA" EntitySet="COMPRAs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DETALLE__CONTIENE_COMPRA" Association="Self.FK_DETALLE__CONTIENE_COMPRA">
+            <End Role="COMPRA" EntitySet="COMPRAs" />
+            <End Role="DETALLE_COMPRA" EntitySet="DETALLE_COMPRA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTACTO_POSEE_SOCIO_NE" Association="Self.FK_CONTACTO_POSEE_SOCIO_NE">
+            <End Role="SOCIO_NEGOCIO" EntitySet="SOCIO_NEGOCIO" />
+            <End Role="CONTACTOS" EntitySet="CONTACTOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DETALLE__INTEGRADA_MATERIAL" Association="Self.FK_DETALLE__INTEGRADA_MATERIAL">
+            <End Role="MATERIAL" EntitySet="MATERIALs" />
+            <End Role="DETALLE_COMPRA" EntitySet="DETALLE_COMPRA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DETALLE__CONTIENE__MATERIAL" Association="Self.FK_DETALLE__CONTIENE__MATERIAL">
+            <End Role="MATERIAL" EntitySet="MATERIALs" />
+            <End Role="DETALLE_VENTA" EntitySet="DETALLE_VENTA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DETALLE__INCLUYE_VENTA" Association="Self.FK_DETALLE__INCLUYE_VENTA">
+            <End Role="VENTA" EntitySet="VENTAs" />
+            <End Role="DETALLE_VENTA" EntitySet="DETALLE_VENTA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SOCIO_NEGOCIO_DIRECCION" Association="Self.FK_SOCIO_NEGOCIO_DIRECCION">
+            <End Role="DIRECCION" EntitySet="DIRECCIONs" />
+            <End Role="SOCIO_NEGOCIO" EntitySet="SOCIO_NEGOCIO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STOCK_ALMACENA_MATERIAL" Association="Self.FK_STOCK_ALMACENA_MATERIAL">
+            <End Role="MATERIAL" EntitySet="MATERIALs" />
+            <End Role="STOCK" EntitySet="STOCKs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VENTA_V_REGISTR_MONEDA" Association="Self.FK_VENTA_V_REGISTR_MONEDA">
+            <End Role="MONEDA" EntitySet="MONEDAs" />
+            <End Role="VENTA" EntitySet="VENTAs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VENTA_ADQUIRIDA_SOCIO_NE" Association="Self.FK_VENTA_ADQUIRIDA_SOCIO_NE">
+            <End Role="SOCIO_NEGOCIO" EntitySet="SOCIO_NEGOCIO" />
+            <End Role="VENTA" EntitySet="VENTAs" />
+          </AssociationSet>
+          <AssociationSet Name="Asociasociones" Association="Self.Asociasociones">
+            <End Role="SOCIO_NEGOCIO" EntitySet="SOCIO_NEGOCIO" />
+            <End Role="SOCIO_NEGOCIO1" EntitySet="SOCIO_NEGOCIO" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AMCRLModelStoreContainer" CdmEntityContainer="AMCRLEntities">
+          <EntitySetMapping Name="AJUSTEs">
+            <EntityTypeMapping TypeName="AMCRLModel.AJUSTE">
+              <MappingFragment StoreEntitySet="AJUSTE">
+                <ScalarProperty Name="RAZON" ColumnName="RAZON" />
+                <ScalarProperty Name="PESO_AJUSTE" ColumnName="PESO_AJUSTE" />
+                <ScalarProperty Name="MOVIMIENTO_A" ColumnName="MOVIMIENTO_A" />
+                <ScalarProperty Name="ID_AJUSTE" ColumnName="ID_AJUSTE" />
+                <ScalarProperty Name="ID_STOCK" ColumnName="ID_STOCK" />
+                <ScalarProperty Name="Fecha_Ajuste" ColumnName="Fecha_Ajuste" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BODEGAs">
+            <EntityTypeMapping TypeName="AMCRLModel.BODEGA">
+              <MappingFragment StoreEntitySet="BODEGA">
+                <ScalarProperty Name="ID_BODEGA" ColumnName="ID_BODEGA" />
+                <ScalarProperty Name="COD_DIRECCION" ColumnName="COD_DIRECCION" />
+                <ScalarProperty Name="NOMBRE_BOD" ColumnName="NOMBRE_BOD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="COMPRAs">
+            <EntityTypeMapping TypeName="AMCRLModel.COMPRA">
+              <MappingFragment StoreEntitySet="COMPRA">
+                <ScalarProperty Name="COD_COMPRA" ColumnName="COD_COMPRA" />
+                <ScalarProperty Name="ID_BODEGA" ColumnName="ID_BODEGA" />
+                <ScalarProperty Name="CEDULA" ColumnName="CEDULA" />
+                <ScalarProperty Name="ID_MONEDA" ColumnName="ID_MONEDA" />
+                <ScalarProperty Name="MONTO_TOTAL_C" ColumnName="MONTO_TOTAL_C" />
+                <ScalarProperty Name="Fecha_Compra" ColumnName="Fecha_Compra" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CONTACTOS">
+            <EntityTypeMapping TypeName="AMCRLModel.CONTACTO">
+              <MappingFragment StoreEntitySet="CONTACTOS">
+                <ScalarProperty Name="ID_CONTACTOS" ColumnName="ID_CONTACTOS" />
+                <ScalarProperty Name="CEDULA" ColumnName="CEDULA" />
+                <ScalarProperty Name="TELEFONO_HAB" ColumnName="TELEFONO_HAB" />
+                <ScalarProperty Name="TELEFONO_PERS" ColumnName="TELEFONO_PERS" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CREDENCIALES">
+            <EntityTypeMapping TypeName="AMCRLModel.CREDENCIALE">
+              <MappingFragment StoreEntitySet="CREDENCIALES">
+                <ScalarProperty Name="ID_Usuario" ColumnName="ID_Usuario" />
+                <ScalarProperty Name="CLAVE" ColumnName="CLAVE" />
+                <ScalarProperty Name="ROL" ColumnName="ROL" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="Nombre_usuario" ColumnName="Nombre_usuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DETALLE_COMPRA">
+            <EntityTypeMapping TypeName="AMCRLModel.DETALLE_COMPRA">
+              <MappingFragment StoreEntitySet="DETALLE_COMPRA">
+                <ScalarProperty Name="COD_LINEA_C" ColumnName="COD_LINEA_C" />
+                <ScalarProperty Name="COD_COMPRA" ColumnName="COD_COMPRA" />
+                <ScalarProperty Name="COD_MATERIAL" ColumnName="COD_MATERIAL" />
+                <ScalarProperty Name="KILOS_COMPRA" ColumnName="KILOS_COMPRA" />
+                <ScalarProperty Name="MONTO_LINEA_C" ColumnName="MONTO_LINEA_C" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DETALLE_VENTA">
+            <EntityTypeMapping TypeName="AMCRLModel.DETALLE_VENTA">
+              <MappingFragment StoreEntitySet="DETALLE_VENTA">
+                <ScalarProperty Name="COD_LINEA" ColumnName="COD_LINEA" />
+                <ScalarProperty Name="COD_VENTA" ColumnName="COD_VENTA" />
+                <ScalarProperty Name="COD_MATERIAL" ColumnName="COD_MATERIAL" />
+                <ScalarProperty Name="MONTO_LINEA_V" ColumnName="MONTO_LINEA_V" />
+                <ScalarProperty Name="KILOS_VENTA" ColumnName="KILOS_VENTA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DIRECCIONs">
+            <EntityTypeMapping TypeName="AMCRLModel.DIRECCION">
+              <MappingFragment StoreEntitySet="DIRECCION">
+                <ScalarProperty Name="COD_DIRECCION" ColumnName="COD_DIRECCION" />
+                <ScalarProperty Name="PROVINCIA" ColumnName="PROVINCIA" />
+                <ScalarProperty Name="CANTON" ColumnName="CANTON" />
+                <ScalarProperty Name="DISTRITO" ColumnName="DISTRITO" />
+                <ScalarProperty Name="OTRAS_SENNAS" ColumnName="OTRAS_SENNAS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MATERIALs">
+            <EntityTypeMapping TypeName="AMCRLModel.MATERIAL">
+              <MappingFragment StoreEntitySet="MATERIAL">
+                <ScalarProperty Name="COD_MATERIAL" ColumnName="COD_MATERIAL" />
+                <ScalarProperty Name="NOMBRE_MATERIAL" ColumnName="NOMBRE_MATERIAL" />
+                <ScalarProperty Name="PRECIO_KILO" ColumnName="PRECIO_KILO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MONEDAs">
+            <EntityTypeMapping TypeName="AMCRLModel.MONEDA">
+              <MappingFragment StoreEntitySet="MONEDA">
+                <ScalarProperty Name="ID_MONEDA" ColumnName="ID_MONEDA" />
+                <ScalarProperty Name="DETALLE_MONEDA" ColumnName="DETALLE_MONEDA" />
+                <ScalarProperty Name="EQUIVALENCIA_COLON" ColumnName="EQUIVALENCIA_COLON" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SOCIO_NEGOCIO">
+            <EntityTypeMapping TypeName="AMCRLModel.SOCIO_NEGOCIO">
+              <MappingFragment StoreEntitySet="SOCIO_NEGOCIO">
+                <ScalarProperty Name="CEDULA" ColumnName="CEDULA" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="ROL_SOCIO" ColumnName="ROL_SOCIO" />
+                <ScalarProperty Name="APELLIDO1" ColumnName="APELLIDO1" />
+                <ScalarProperty Name="APELLIDO2" ColumnName="APELLIDO2" />
+                <ScalarProperty Name="ESTADO_SOCIO" ColumnName="ESTADO_SOCIO" />
+                <ScalarProperty Name="COD_DIRECCION" ColumnName="COD_DIRECCION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STOCKs">
+            <EntityTypeMapping TypeName="AMCRLModel.STOCK">
+              <MappingFragment StoreEntitySet="STOCK">
+                <ScalarProperty Name="ID_STOCK" ColumnName="ID_STOCK" />
+                <ScalarProperty Name="COD_MATERIAL" ColumnName="COD_MATERIAL" />
+                <ScalarProperty Name="ID_BODEGA" ColumnName="ID_BODEGA" />
+                <ScalarProperty Name="KILOS_STOCK" ColumnName="KILOS_STOCK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VENTAs">
+            <EntityTypeMapping TypeName="AMCRLModel.VENTA">
+              <MappingFragment StoreEntitySet="VENTA">
+                <ScalarProperty Name="COD_VENTA" ColumnName="COD_VENTA" />
+                <ScalarProperty Name="CEDULA" ColumnName="CEDULA" />
+                <ScalarProperty Name="ID_BODEGA" ColumnName="ID_BODEGA" />
+                <ScalarProperty Name="ID_MONEDA" ColumnName="ID_MONEDA" />
+                <ScalarProperty Name="MONTO_TOTAL_V" ColumnName="MONTO_TOTAL_V" />
+                <ScalarProperty Name="Fecha_Venta" ColumnName="Fecha_Venta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Asociasociones" TypeName="AMCRLModel.Asociasociones" StoreEntitySet="Asociasociones">
+            <EndProperty Name="SOCIO_NEGOCIO">
+              <ScalarProperty Name="CEDULA" ColumnName="Socio" />
+            </EndProperty>
+            <EndProperty Name="SOCIO_NEGOCIO1">
+              <ScalarProperty Name="CEDULA" ColumnName="Asociado" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

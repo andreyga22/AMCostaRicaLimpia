@@ -8,36 +8,33 @@
     </script>
     <script type="text/javascript">
         function lineaNueva() {
-
-
             alert("asdas");
-            //var table = document.getElementById("tablaDetalles"); // find table to append to
-            //var newRow = table.insertRow(1);
-            //var newRow = document.getElementById("clon"); // find row to copy
-            //newRow = row.cloneNode(true); // copy children too
-
-
         }
 
     </script>
-
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <nav id="migajasNav" aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="PaginaPrincipal.aspx">Inicio</a></li>
-            <li class="breadcrumb-item"><a href="#">Compras</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Registrar nueva compra</li>
-        </ol>
-    </nav>
+<asp:Content ID="Content2" ContentPlaceHolderID="breadcrumbBodyHolder" runat="server">
+            <li class="breadcrumb-item active">Compras</li>
+            <li class="breadcrumb-item active">Registrar nueva compra</li>
+</asp:Content>
 
+<asp:Content ID="Content5" ContentPlaceHolderID="sideNavBody" runat="server">
+   <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+</asp:Content>
+
+<asp:Content ID="Content4" ContentPlaceHolderID="body" runat="server">
+<div class="row justify-content-center" style="background-color:red">
+       <asp:Literal ID="lblError" runat="server" Visible="false"></asp:Literal>
+</div>
     <div class="container">
-        <form runat="server">
-            <div class="row justify-content-center">
-                <asp:Literal ID="lblError" runat="server" Visible="false"></asp:Literal>
-            </div>
-
             <div class="row">
                 <div id="divFuncionPagina" class="cell col-9" style="">
                     <h4 id="funcionPaginaLabel" class="font-weight-bold">Compra</h4>
@@ -184,9 +181,5 @@
             </div>
             <br>
             <br>
-        </form>
     </div>
-</asp:Content>
-
-<asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
 </asp:Content>
