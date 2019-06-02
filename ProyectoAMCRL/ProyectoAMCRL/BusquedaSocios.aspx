@@ -182,10 +182,5 @@
                 </tbody>
             </table>
         </div>
-
-        <br />
-        <br />
-        </form>
-
     </div>
 </asp:Content>

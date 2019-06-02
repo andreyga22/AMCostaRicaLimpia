@@ -179,7 +179,5 @@
             <div class="align-content-center" style="text-align:center">
                 <asp:Button runat="server" Text="Registrar compra" usesubmitbehavior="true" CssClass="btn btn-info" />
             </div>
-            <br>
-            <br>
     </div>
 </asp:Content>

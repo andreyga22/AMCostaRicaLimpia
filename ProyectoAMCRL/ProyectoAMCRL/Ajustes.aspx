@@ -13,11 +13,12 @@
         <asp:Literal ID="lblError" runat="server" Visible="false"></asp:Literal>
     </div>
     <div class="container">
-        <%--            <br />
+        <%--<br />
             <div class="row">
                 <h4>Ajustes de Inventario</h4>
             </div>
             <br />--%>
+
         <%-- SECCION 1 --%>
         <div class="row">
             <h5>Nuevo ajuste</h5>
