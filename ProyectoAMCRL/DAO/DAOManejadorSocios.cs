@@ -13,6 +13,8 @@ namespace DAO {
 
         private SqlConnection conexion = new SqlConnection(Properties.Settings.Default.conexion);
 
+        AMCRLEntities context = new AMCRLEntities(); 
+
 
         public String agregarSocio(TOSocioNegocio socio) {
             String message = "listo";
@@ -106,6 +108,19 @@ namespace DAO {
             }
             return m;
         }
+
+        public void prueba() {
+
+            MATERIAL m = new MATERIAL
+            {
+                COD_MATERIAL = 1,
+                NOMBRE_MATERIAL = "LATON HIERRO",
+                PRECIO_KILO = 2500
+            };
+        }
+
+
+
 
     }
 }

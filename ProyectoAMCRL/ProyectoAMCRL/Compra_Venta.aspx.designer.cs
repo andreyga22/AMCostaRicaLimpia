@@ -85,48 +85,66 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.LinkButton LinkButton1;
         
         /// <summary>
-        /// productos control.
+        /// productosTB control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList productos;
+        protected global::System.Web.UI.WebControls.DropDownList productosTB;
         
         /// <summary>
-        /// cantidadM control.
+        /// cantidadTB control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox cantidadM;
+        protected global::System.Web.UI.WebControls.TextBox cantidadTB;
         
         /// <summary>
-        /// unidades control.
+        /// unidadTB control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList unidades;
+        protected global::System.Web.UI.WebControls.DropDownList unidadTB;
         
         /// <summary>
-        /// precioUnidades control.
+        /// precioUnidadTB control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox precioUnidades;
+        protected global::System.Web.UI.WebControls.TextBox precioUnidadTB;
         
         /// <summary>
-        /// total control.
+        /// agregarDetalleBTN control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox total;
+        protected global::System.Web.UI.WebControls.Button agregarDetalleBTN;
+        
+        /// <summary>
+        /// labelC control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelC;
+        
+        /// <summary>
+        /// tablaDetalles control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Table tablaDetalles;
     }
 }

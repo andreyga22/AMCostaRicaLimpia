@@ -31,8 +31,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,14 +50,69 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AJUSTE.cs">
+      <DependentUpon>ModeloAMCRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BODEGA.cs">
+      <DependentUpon>ModeloAMCRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="COMPRA.cs">
+      <DependentUpon>ModeloAMCRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CONTACTO.cs">
+      <DependentUpon>ModeloAMCRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CREDENCIALE.cs">
+      <DependentUpon>ModeloAMCRL.tt</DependentUpon>
+    </Compile>
     <Compile Include="DAOManejadorCompras.cs" />
+    <Compile Include="DAOManejadorMateriales.cs" />
     <Compile Include="DAOManejadorSocios.cs" />
     <Compile Include="DAOManejadorVentas.cs" />
+    <Compile Include="DETALLE_COMPRA.cs">
+      <DependentUpon>ModeloAMCRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DETALLE_VENTA.cs">
+      <DependentUpon>ModeloAMCRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DIRECCION.cs">
+      <DependentUpon>ModeloAMCRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MATERIAL.cs">
+      <DependentUpon>ModeloAMCRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModeloAMCRL.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModeloAMCRL.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModeloAMCRL.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModeloAMCRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModeloAMCRL.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModeloAMCRL.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="MONEDA.cs">
+      <DependentUpon>ModeloAMCRL.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="SOCIO_NEGOCIO.cs">
+      <DependentUpon>ModeloAMCRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="STOCK.cs">
+      <DependentUpon>ModeloAMCRL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VENTA.cs">
+      <DependentUpon>ModeloAMCRL.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -59,10 +123,33 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <EntityDeploy Include="ModeloAMCRL.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModeloAMCRL.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="ModeloAMCRL.edmx.diagram">
+      <DependentUpon>ModeloAMCRL.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ModeloAMCRL.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModeloAMCRL.edmx</DependentUpon>
+      <LastGenOutput>ModeloAMCRL.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="ModeloAMCRL.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModeloAMCRL.edmx</DependentUpon>
+      <LastGenOutput>ModeloAMCRL.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

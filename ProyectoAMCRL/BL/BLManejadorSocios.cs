@@ -12,6 +12,7 @@ namespace BL
     {
         private DAOManejadorSocios manejadorDAO = new DAOManejadorSocios();
 
+
         public String agregarSocioBL(BLSocioNegocio socioBL)
         {
             if (!socioBL.apellido1.Equals("") && socioBL.apellido2.Equals("")
@@ -39,6 +40,25 @@ namespace BL
         private TODireccion clonarDir(BLDireccion dir) {
             return new TODireccion(dir.provincia, dir.canton, dir.distrito, dir.otras_sennas);
         }
+
+
+       public List<BLSocioNegocio> cargarLista()
+        {
+            List<BLSocioNegocio> socios = new List<BLSocioNegocio>();
+            String[] nombres = {"Juan", "Pedro", "Carla", "Gaby", "Jorge", "Emilia",
+            "Sofia", "Pancho", "Carmen", "Luis"};
+            for (int i = 0; i < 10; i++)
+            {
+                BLSocioNegocio s = new BLSocioNegocio();
+                s.cedula = "CED00" + i;
+                s.nombre = nombres[i];
+                s.correo = nombres[i] + "@gmail.com";
+                s.telPers = i * 100 + (i * 10);
+                socios.Add(s);
+            }
+            return socios;
+        }
+
 
     }
 }

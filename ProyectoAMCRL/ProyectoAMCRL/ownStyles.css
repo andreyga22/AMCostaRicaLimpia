@@ -46,6 +46,9 @@ border-radius:4px;*/
 }
 
 .tabla_encabezado {
+    background-color: #8DAA9D;
+    font-weight:bold;
+}
     background-color: #94BD8B;
 }
 
@@ -90,3 +93,7 @@ border-radius:4px;*/
         }
 
 /*Fin nuevos botones*/
+
+.filtroCell {
+    padding-left: 5%;
+}

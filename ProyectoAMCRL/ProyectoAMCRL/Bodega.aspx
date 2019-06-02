@@ -6,88 +6,56 @@
     <link href="ownStyles.css" rel="stylesheet" />
 </asp:Content>
 
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="Principal.aspx">Principal</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Registro Bodega</li>
-            </ol>
-        </nav>
+<asp:Content ID="Content2" ContentPlaceHolderID="breadcrumbBodyHolder" runat="server">
+    <li class="breadcrumb-item active">Registro Bodega</li>
+</asp:Content>
+
+<asp:Content ID="Content4" ContentPlaceHolderID="body" runat="server">
+    <div class="row justify-content-center" style="background-color: red">
+        <asp:Literal ID="lblError" runat="server" Visible="false"></asp:Literal>
+    </div>
     <div class="container">
+        <div class="row">
+            <h4>Registro de bodega</h4>
+        </div>
+        <br />
+        <div class="col-10 offset-1 justify-content-center">
 
-        <form id="form1" runat="server">
-            <br />
-            <div class="row justify-content-center">
-                <asp:Literal ID="lblError" runat="server" Visible="false"></asp:Literal>
+            <div class="form-group">
+                <label for="codigoTb">Código Bodega</label>
+                <asp:TextBox type="text" ID="codigoTb" class="form-control" runat="server"></asp:TextBox>
             </div>
-            <br />
-            <br />
-            <div class="row">
-                <h4>Registro de bodega</h4>
+            <div class="form-group">
+                <label for="nombreTb">Nombre Bodega</label>
+                <asp:TextBox type="text" ID="nombreTB" class="form-control" runat="server"></asp:TextBox>
             </div>
-            <br />
-            <br />
-            <br />
-            <div class="col-10 offset-1 justify-content-center">
-
-                <div class="form-group">
-                    <label for="codigoTb">Código Bodega</label>
-                    <asp:TextBox type="text" ID="codigoTb" class="form-control" runat="server"></asp:TextBox>
-                </div>
-                <div class="form-group">
-                    <label for="nombreTb">Nombre Bodega</label>
-                    <asp:TextBox type="text" ID="nombreTB" class="form-control" runat="server"></asp:TextBox>
-                </div>
-                <div class="form-group">
-                    <label for="provinciaTb">Provincia</label>
-                    <asp:TextBox type="text" ID="provinciaTb" class="form-control" runat="server"></asp:TextBox>
-                </div>
-                <div class="form-group">
-                    <label for="cantonTb">Cantón</label>
-                    <asp:TextBox type="text" ID="cantonTb" class="form-control" runat="server"></asp:TextBox>
-                </div>
-                <div class="form-group">
-                    <label for="distritoTb">Distrito</label>
-                    <asp:TextBox type="text" ID="distritoTb" class="form-control" runat="server"></asp:TextBox>
-                </div>
-                <div class="form-group">
-                    <label for="otrasTb">Otras Señas</label>
-                    <asp:TextBox type="text" ID="otrasTb" class="form-control" runat="server"></asp:TextBox>
-                </div>
-                <div class="form-group">
-                    <label for="activaCb">Activado</label>
-                    <asp:CheckBox ID="activaCb" type="checkbox" runat="server" />
-                </div>
-
+            <div class="form-group">
+                <label for="provinciaTb">Provincia</label>
+                <asp:TextBox type="text" ID="provinciaTb" class="form-control" runat="server"></asp:TextBox>
             </div>
-            <br />
-            <br />
-            <br />
-            <%-- SUBMMIT BUTTON --%>
-            <div class="row justify-content-center">
-                <div class="form-group">
-                    <asp:Button ID="btnGuardar" type="submit" runat="server" Text="Guardar" class="btn btn-info" Width="15%"/>
-                </div>
+            <div class="form-group">
+                <label for="cantonTb">Cantón</label>
+                <asp:TextBox type="text" ID="cantonTb" class="form-control" runat="server"></asp:TextBox>
             </div>
-            <br />
-            <br />
-            <br />
-
-
-
-
-
-
-
-
-
-
-
-
-
-        </form>
-
+            <div class="form-group">
+                <label for="distritoTb">Distrito</label>
+                <asp:TextBox type="text" ID="distritoTb" class="form-control" runat="server"></asp:TextBox>
+            </div>
+            <div class="form-group">
+                <label for="otrasTb">Otras Señas</label>
+                <asp:TextBox type="text" ID="otrasTb" class="form-control" runat="server"></asp:TextBox>
+            </div>
+            <div class="form-group">
+                <label for="activaCb">Activado</label>
+                <asp:CheckBox ID="activaCb" type="checkbox" runat="server" />
+            </div>
+        </div>
+        <%-- SUBMMIT BUTTON --%>
+        <div class="row justify-content-center">
+            <div class="form-group">
+                <asp:Button ID="btnGuardar" type="submit" runat="server" Text="Guardar" class="btn btn-info" />
+            </div>
+        </div>
     </div>
 </asp:Content>
-<asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
-</asp:Content>
+
