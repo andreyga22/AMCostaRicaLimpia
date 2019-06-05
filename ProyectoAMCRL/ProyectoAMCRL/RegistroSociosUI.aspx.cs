@@ -27,7 +27,7 @@ namespace ProyectoAMCRL
                 socio.rol = rolRadios.SelectedValue.ToString();
 
                 BLDireccion direccionN = new BLDireccion(provinciaTB.Text.ToString(), cantonTB.Text.ToString(),
-                    distritoTB.Text.ToString(), sennas.Text.ToString());
+                    distritoTB.Text.ToString(), sennas.Text.ToString(), 0);
 
                 socio.direccion = direccionN;
                 socio.telHab = int.Parse(telTB.Text.ToString());
