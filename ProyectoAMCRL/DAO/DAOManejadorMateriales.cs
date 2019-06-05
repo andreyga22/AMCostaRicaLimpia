@@ -31,7 +31,7 @@ namespace DAO
             throw new NotImplementedException();
         }
 
-        public string actualizarMaterialDAO(int v1, int cod, string v2, string nom, string v3, string precio)
+        public string actualizarMaterialDAO(int cod, string nom, string precio)
         {
             throw new NotImplementedException();
         }

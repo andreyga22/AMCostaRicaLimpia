@@ -13,7 +13,7 @@ namespace DAO {
 
 
 
-        private SqlConnection conexion = new SqlConnection(Properties.Settings.Default.conexionAnd);
+        private SqlConnection conexion = new SqlConnection(Properties.Settings.Default.conexion);
 
 
         public void guardarModificarBodega(TOBodega bod) {
