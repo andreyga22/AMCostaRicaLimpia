@@ -16,5 +16,20 @@ namespace BL
             return manejador.obtenerMateriales();
         }
 
+        public double traerCantidadVendidaBL(String idM) {
+            double resultado = 0;
+            resultado = manejador.traerCantidadVendidaDAO(Int32.Parse(idM));
+            return resultado;
+        }
+
+        public string registrarMaterialBL(string nom, string precio)
+        {
+            return manejador.registrarMaterialDAO(nom, precio);
+        }
+
+        public string actualizarMaterialBL(int cod, string nom, string precio)
+        {
+            return manejador.actualizarMaterialDAO(int cod, string nom, string precio);
+        }
     }
 }

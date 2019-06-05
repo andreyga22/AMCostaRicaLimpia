@@ -27,9 +27,9 @@
 <body>
 
     <nav style="background-color: #94BD8B" class="navbar navbar-expand-lg navbar-light">
-        <asp:Image ID="Image1" runat="server" ImageUrl="~/images/logo.png" Height="75px" Width="75px" />
+        <asp:Image ID="Image1" runat="server" ImageUrl="~/images/logo.png" Height="75px" Width="75px"/>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+        <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent" style="width: 100%">
@@ -47,7 +47,7 @@
     <%-- BREADCRUMB --%>
     <nav aria-label="breadcrumb" style="display: block; width: 100%; margin-bottom: 0%;">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="Principal.aspx">Principal</a></li>
+            <li class="breadcrumb-item"><a href="Principal2.aspx">Principal</a></li>
             <asp:ContentPlaceHolder ID="breadcrumbBodyHolder" runat="server">
             </asp:ContentPlaceHolder>
         </ol>
@@ -56,28 +56,27 @@
     <%-- BODY --%>
     <form id="form1" class="row" runat="server" style="height: 100%; width: 100%;">
         <%-- SIDE NAV --%>
-        <div class="col-lg-2" style="background-color: lightgray; color: rgba(16, 73, 19, 0.88); padding-left:2%; height: 100%; margin-bottom:0">
+        <div class="col-lg-2 flex-column-reverse" style="background-color: lightgray; color: rgba(16, 73, 19, 0.88); padding-left:2%; height: 100%; margin-bottom:0">
             <h6 class="font-weight-bolder"><i class="material-icons" style="margin-right: 5%; margin-top: 5%;">group</i>Socios</h6>
-            <a class="dropdown-item" href="#">Agregar socio</a>
-            <a class="dropdown-item" href="#">Busqueda socios</a>
+            <a class="dropdown-item" href="RegistroSociosUI.aspx">Agregar socio</a>
+            <a class="dropdown-item" href="BusquedaSocios.aspx">Busqueda socios</a>
             <div class="dropdown-divider"></div>
             <h6 class="font-weight-bolder"><i class='fas fa-comment-dollar' style="margin-right: 5%; margin-top: 5%;"></i>Compras/Ventas</h6>
-            <a class="dropdown-item" href="#">Registrar compra</a>
-            <a class="dropdown-item" href="#">Registrar venta</a>
+            <a class="dropdown-item" href="Compra_Venta.aspx?action=c">Registrar compra</a>
+            <a class="dropdown-item" href="Compra_Venta.aspx?action=v">Registrar venta</a>
             <a class="dropdown-item" href="#">Busqueda facturas</a>
             <div class="dropdown-divider"></div>
             <h6 class="font-weight-bolder"><i class="fas fa-boxes" style="margin-right: 5%; margin-top: 5%;"></i>Inventario</h6>
-            <a class="dropdown-item" href="#">Busqueda bodegas</a>
-            <a class="dropdown-item" href="#">Materiales</a>
-            <a class="dropdown-item" href="#">Ajustes</a>
+            <a class="dropdown-item" href="AdministrarBodegas.aspx">Busqueda bodegas</a>
+            <a class="dropdown-item" href="AdministrarMateriales.aspx">Materiales</a>
+            <a class="dropdown-item" href="Ajustes.aspx">Ajustes</a>
             <div class="dropdown-divider"></div>
             <h6 class="font-weight-bolder"><i class="fa fa-line-chart" style="margin-right: 5%; margin-top: 5%;"></i>Reportes</h6>
-            <a class="dropdown-item" href="#">Busqueda bodegas</a>
-            <a class="dropdown-item" href="#">Materiales</a>
-            <a class="dropdown-item" href="#">Ajustes</a>
+            <a class="dropdown-item" href="Reporte_General.aspx">Reporte General</a>
+            <a class="dropdown-item" href="ReporteGrafico.aspx">Reporte Gráfico</a>
             <div class="dropdown-divider"></div>
             <h6 class="font-weight-bolder"><i class="fa fa-line-chart" style="margin-right: 5%; margin-top: 5%;"></i>Otros</h6>
-            <a class="dropdown-item" href="#">Monedas</a>
+            <a class="dropdown-item" href="Monedas.aspx">Monedas</a>
             <a class="dropdown-item" href="#" style="margin-bottom: 70px">Unidades medida</a>
             <asp:ContentPlaceHolder ID="sideNavBody" runat="server">
             </asp:ContentPlaceHolder>

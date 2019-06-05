@@ -96,11 +96,12 @@
     <Content Include="images\moneda.jpg" />
     <Content Include="images\reportes.png" />
     <Content Include="images\socios.png" />
-    <Content Include="Materiales.aspx" />
+    <Content Include="AdministrarMateriales.aspx" />
     <Content Include="Monedas.aspx" />
     <Content Include="ownStyles.css" />
     <Content Include="Principal.aspx" />
     <Content Include="Principal2.aspx" />
+    <Content Include="RegistroMateriales.aspx" />
     <Content Include="RegistroSociosUI.aspx" />
     <Content Include="ReporteGrafico.aspx" />
     <Content Include="Reporte_General.aspx" />
@@ -206,12 +207,12 @@
     <Compile Include="MasterPrincipal.Master.designer.cs">
       <DependentUpon>MasterPrincipal.Master</DependentUpon>
     </Compile>
-    <Compile Include="Materiales.aspx.cs">
-      <DependentUpon>Materiales.aspx</DependentUpon>
+    <Compile Include="AdministrarMateriales.aspx.cs">
+      <DependentUpon>AdministrarMateriales.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Materiales.aspx.designer.cs">
-      <DependentUpon>Materiales.aspx</DependentUpon>
+    <Compile Include="AdministrarMateriales.aspx.designer.cs">
+      <DependentUpon>AdministrarMateriales.aspx</DependentUpon>
     </Compile>
     <Compile Include="Monedas.aspx.cs">
       <DependentUpon>Monedas.aspx</DependentUpon>
@@ -235,6 +236,13 @@
       <DependentUpon>Principal2.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegistroMateriales.aspx.cs">
+      <DependentUpon>RegistroMateriales.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RegistroMateriales.aspx.designer.cs">
+      <DependentUpon>RegistroMateriales.aspx</DependentUpon>
+    </Compile>
     <Compile Include="RegistroSociosUI.aspx.cs">
       <DependentUpon>RegistroSociosUI.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
