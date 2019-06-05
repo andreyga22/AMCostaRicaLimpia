@@ -65,6 +65,7 @@
     <Compile Include="CREDENCIALE.cs">
       <DependentUpon>ModeloAMCRL.tt</DependentUpon>
     </Compile>
+    <Compile Include="DAOBodegas.cs" />
     <Compile Include="DAOManejadorCompras.cs" />
     <Compile Include="DAOManejadorMateriales.cs" />
     <Compile Include="DAOManejadorSocios.cs" />

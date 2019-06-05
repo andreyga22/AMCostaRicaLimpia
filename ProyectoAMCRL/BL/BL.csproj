@@ -41,7 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLBodega.cs" />
+    <Compile Include="BLBodegaTabla.cs" />
     <Compile Include="BLDireccion.cs" />
+    <Compile Include="BLManejadorBodega.cs" />
     <Compile Include="BLManejadorCompras.cs" />
     <Compile Include="BLManejadorSocios.cs" />
     <Compile Include="BLManejadorVentas.cs" />

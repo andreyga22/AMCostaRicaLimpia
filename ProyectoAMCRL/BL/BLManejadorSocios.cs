@@ -38,7 +38,7 @@ namespace BL
         }
 
         private TODireccion clonarDir(BLDireccion dir) {
-            return new TODireccion(dir.provincia, dir.canton, dir.distrito, dir.otras_sennas);
+            return new TODireccion(dir.provincia, dir.canton, dir.distrito, dir.otras_sennas, dir.cod_direccion);
         }
 
 
