@@ -106,8 +106,10 @@
 
     <div class="row" style="margin-left: 10px">
         <div class="form-group">
-            <label for="palabraTb">Palabra Clave</label>
-            <asp:CheckBox ID="CheckSocio" type="checkbox" runat="server" />
+            <%--<label for="palabraTb">Palabra Clave</label>--%>
+<%--             <label><input class="form-check-input" type="checkbox" id="checkPalabra" value="">Palabra Clave</label>--%>
+             <label for="chckPalab">Palabra Clave</label>
+             <asp:CheckBox ID="chckPalab" type="checkbox" runat="server" />
             <asp:TextBox type="text" ID="palabraTb" class="form-control" runat="server" TextMode="SingleLine" placeholder="Código o socio"></asp:TextBox>
         </div>
   <%--      <div class="form-group">
@@ -119,9 +121,9 @@
 
           <div class="row" style="margin-left: 10px">
         <div class="form-group">
-        <%--    <label for="fechasCb">Fecha</label>
-            <asp:CheckBox ID="fechasCb" type="checkbox" runat="server" />--%>
-             <label><input class="form-check-input" type="checkbox" id="fechasCb" value="">Fecha</label>
+            <label for="fechasCb">Fecha</label>
+            <asp:CheckBox ID="fechasCb" type="checkbox" runat="server" />
+             <label><%--<input class="form-check-input" type="checkbox" id="fechasCb" value="">--%>Fecha</label>
         </div>
     </div>
 
@@ -171,7 +173,7 @@
     </div>
          <%--</div>--%>
     <%-- SECCION 1 FILTROS--%>
-    <h5>Seleccione uno o más filtros:</h5>
+    <%--<h5>Seleccione uno o más filtros:</h5>--%>
     <div class="row" id="barraFiltros">
         <%--  <div class="col-lg-2" style="background-color:lightgrey">
                     <label for="palabraTb">Palabra Clave</label>
@@ -180,8 +182,9 @@
                 </div>--%>
         <%-- FILTRO MONTOS --%>
         <div class="filtroCell col-lg-3">
-            <label>
-                <input class="form-check-input" type="checkbox" id="montosCb" value="">Monto en facturas</label>
+            <%--<label><input class="form-check-input" type="checkbox" id="montosCb" value="">Monto en facturas</label>--%>
+                  <label for="montosCb">Rol</label>
+             <asp:CheckBox ID="montosCb" type="checkbox" runat="server" />
             <div class="row" id="divMontos">
                 <asp:TextBox ID="montoMinimo" Height="30px" runat="server" type="number" CssClass="btn btn-light" Width="90%" placeholder="Máximo" />
                 <asp:TextBox ID="montoMax" Height="30px" runat="server" type="number" CssClass="btn btn-light" Width="90%" placeholder="Mínimo" />
@@ -190,8 +193,7 @@
         <%-- FILTRO MATERIALES --%>
         <div class="col-lg-3 filtroCell">
             <div class="form-group">
-                <label>
-                    <input class="form-check-input" type="checkbox" id="materialesCb" value="">Material</label>
+                <label> <input class="form-check-input" type="checkbox" id="materialesCb" value="">Material</label>
                 <div class="row" id="divMateriales">
                     <asp:DropDownList class="btn btn-light" Height="40px" ID="materialDd" runat="server" Width="90%" AutoPostBack="false">
                         <asp:ListItem>Aluminio</asp:ListItem>
@@ -202,7 +204,7 @@
             </div>
         </div>
         <%-- FILTRO UBICACION --%>
-        <div class="col-lg-3 filtroCell">
+<%--        <div class="col-lg-3 filtroCell">
             <label>
                 <input class="form-check-input" type="checkbox" id="ubicacionCb" value="">Ubicación</label>
             <div class="row" id="divUbicaciones">
@@ -210,11 +212,13 @@
                 <asp:TextBox class="form-control" ID="TextBox2" runat="server" Width="90%" type="text" Height="30px" CssClass="btn btn-light" placeholder="Cantón" />
                 <asp:TextBox class="form-control" ID="TextBox3" runat="server" Width="90%" type="text" Height="30px" CssClass="btn btn-light" placeholder="Distrito" />
             </div>
-        </div>
+        </div>--%>
         <%-- FILTRO ROL --%>
         <div class="col-lg-3 filtroCell">
-            <label>
-                <input class="form-check-input" type="checkbox" id="rolCb" value="">Rol</label>
+        <%--    <label>
+                <input class="form-check-input" type="checkbox" id="rolCb" value="">Rol</label>--%>
+              <label for="rolCb">Rol</label>
+             <asp:CheckBox ID="rolCb" type="checkbox" runat="server" />
             <div style="width: 100%" class="rolDiv">
                 <asp:RadioButton GroupName="MeasurementSystem" runat="server" Text="PROVEEDOR" />
             </div>
@@ -225,7 +229,7 @@
     </div>
          <br />
          <div class="row justify-content-center">
-            <asp:Button ID="btnActualizar" type="submit" runat="server" Text="Actualizar búsqueda" class="btn btn-outline-secondary" />
+            <asp:Button ID="btnActualizar" type="submit" runat="server" Text="Actualizar búsqueda" class="btn btn-outline-secondary" OnClick="btnActualizar_Click" />
         </div>
 
     <br />
@@ -264,10 +268,11 @@
             </tr>
         </tbody>
     </table>--%>
-         <asp:GridView ID="gridFacturas" AutoGenerateSelectButton="True" runat="server" OnSelectedIndexChanged="gridFact_SelectedIndexChanged"></asp:GridView>
-    <div class="row justify-content-center">
+         <asp:GridView ID="gridFacturas" class="table table-bordered" AutoGenerateSelectButton="True" runat="server" OnSelectedIndexChanged="gridFact_SelectedIndexChanged"></asp:GridView>
+         <br />
+   <%-- <div class="row justify-content-center">
         <asp:Button ID="btnGuardar" type="submmit" runat="server" Text="Guardar" class="btn btn-info" Width="15%" />
-    </div>
+    </div>--%>
          </div>
 </asp:Content>
 

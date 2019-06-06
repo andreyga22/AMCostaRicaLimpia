@@ -85,5 +85,18 @@ namespace ProyectoAMCRL
                 //lblMensaje.Visible = true;
             }
         }
+
+        protected void btnActualizar_Click(object sender, EventArgs e)
+        {
+            if (chckPalab.Checked)
+            {
+                
+            }
+            if(fechasCb.Checked)
+            {
+                
+            }
+
+        }
     }
 }
