@@ -10,9 +10,9 @@ namespace BL
     {
         public int codigoM { get; set; }
         public String nombreMaterial { get; set; }
-        public int precioKilo { get; set; }
+        public double precioKilo { get; set; }
 
-        public BLMaterial(int codigoM, String nombreMaterial, int precioKilo)
+        public BLMaterial(int codigoM, String nombreMaterial, double precioKilo)
         {
             this.codigoM = codigoM;
             this.nombreMaterial = nombreMaterial;

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using DAO;
+using TO;
 
 namespace BL
 {
@@ -22,14 +23,21 @@ namespace BL
             return resultado;
         }
 
-        public string registrarMaterialBL(string nom, string precio)
+        public string registrarActualizarMaterialBL(string code, string nom, string precioT)
         {
-            return manejador.registrarMaterialDAO(nom, precio);
-        }
+            int codigo;
+            try {
+               codigo = Int32.Parse(code);
+            }
+            catch (Exception ex) {
+                codigo = -1;
+            }
+           
 
-        public string actualizarMaterialBL(int cod, string nom, string precio)
-        {
-            return manejador.actualizarMaterialDAO( cod,  nom,  precio);
+            double precio = Double.Parse(precioT);
+            TOMaterial m = new TOMaterial(codigo, nom, precio);
+            
+            return manejador.registrarActualizarMaterialDAO(m);
         }
     }
 }

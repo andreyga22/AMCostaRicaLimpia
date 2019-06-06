@@ -26,15 +26,66 @@ namespace DAO
             return ds;
         }
 
-        public string registrarMaterialDAO(string nom, string precio)
-        {
-            throw new NotImplementedException();
+        public string registrarActualizarMaterialDAO(TOMaterial material){
+
+            String msg = "";
+            using (conexion)
+            {
+                conexion.Open();
+
+                //Se inicializa la transaccion local
+                SqlTransaction transaction = conexion.BeginTransaction();
+
+                //Se asigna un comando a la transaccion
+                SqlCommand command = conexion.CreateCommand();
+                command.Transaction = transaction;
+
+                //TEXTO SQL 
+                String sqlActualizarRegistrar =
+                 "begin tran " +
+                 "if exists(select * from MATERIAL with (updlock, serializable) where COD_MATERIAL = @COD) " +
+                 "begin update MATERIAL set NOMBRE_MATERIAL = @NOMBRE, PRECIO_KILO = @PRECIO where COD_MATERIAL = @COD; end " +
+                 "else " +
+                 "begin insert into MATERIAL(NOMBRE_MATERIAL, PRECIO_KILO) values (@NOMBRE, @PRECIO); " +
+                 "end commit tran";
+
+                try{
+                    //REGISTRO MATERIAL
+                    command.CommandText = sqlActualizarRegistrar;
+
+                    command.Parameters.AddWithValue("@COD", material.codigoM); 
+                    command.Parameters.AddWithValue("@NOMBRE", material.nombreMaterial);
+                    command.Parameters.AddWithValue("@PRECIO", material.precioKilo);
+                    command.ExecuteNonQuery();
+
+                    //COMMIT A LA TRANSACCION
+                    transaction.Commit();
+                    return "Operación efectuada correctamente";
+
+                }
+                catch (Exception ex)
+                {
+
+                    msg = "Ocurrió un error en la operación, contacte al administrador. Error: " + ex.Source;
+
+                    try{
+                        // Se intenta hacer rollback de la transaccion
+                        transaction.Rollback();
+                    }
+                    catch (Exception exRollback)
+                    {
+                        // Throws an InvalidOperationException if the connection 
+                        // is closed or the transaction has already been rolled 
+                        // back on the server.
+                        return (exRollback.Message);
+                    }
+
+                }//EXCEPCION
+                return msg;
+            }//CONEXION
+
         }
 
-        public string actualizarMaterialDAO(int cod, string nom, string precio)
-        {
-            throw new NotImplementedException();
-        }
 
         public double traerCantidadVendidaDAO(int v)
         {
@@ -42,7 +93,8 @@ namespace DAO
 
             String sql = "SELECT SUM(KILOS_COMPRA) AS TOTAL FROM DETALLE_COMPRA WHERE COD_MATERIAL = " + v;
             using (conexion) {
-                //try {
+                try
+                {
                     conexion.Open();
 
                     SqlCommand cmd = new SqlCommand(sql, conexion);
@@ -51,10 +103,12 @@ namespace DAO
                 {
                         res = (Double)reader.GetDecimal(0);
                     }
-                //} catch (Exception e) {
-                    
-                //    return -1;
-                //}  
+                }
+                catch (Exception e)
+                {
+
+                    return 0;
+                }
             }
               
             return res;

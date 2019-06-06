@@ -36,7 +36,9 @@ namespace ProyectoAMCRL
                     materialLabel.Text = nombreTB.Text;
                     fijarCantidad(escondidillo.Value);
                     btnGuardarActualizar.Text = "Actualizar";
-                    
+                    breadLabel.Text = "Actualización";
+
+
                 }
         }
 
@@ -48,19 +50,24 @@ namespace ProyectoAMCRL
 
         protected void btnGuardarActualizar_Click(object sender, EventArgs e)
         {
+            String cod = escondidillo.Value;
             String nom = nombreTB.Text;
             String precio = precioKgTB.Text;
             String m = "";
 
-            if (btnGuardarActualizar.Text.Equals("Guardar"))
-            {
-                m = manejador.registrarMaterialBL(nom, precio);
+            m = manejador.registrarActualizarMaterialBL(cod, nom, precio);
 
+            if (m.Equals("Operación efectuada correctamente"))
+            {
+
+                lblError.Text = "<br /><br /><div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>"+ m + "</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                lblError.Visible = true;
             }
             else {
-                int cod = Int32.Parse(escondidillo.Value);
-                m = manejador.actualizarMaterialBL( cod, nom, precio);
+                lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>" + m + "</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                lblError.Visible = true;
             }
+
         }
     }
 }

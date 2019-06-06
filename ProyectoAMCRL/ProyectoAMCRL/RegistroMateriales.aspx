@@ -3,17 +3,22 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="breadcrumbBodyHolder" runat="server">
+    <li class="breadcrumb-item"><a href="AdministrarMateriales.aspx">Materiales</a></li>
+    <li class="breadcrumb-item"><asp:Label id="breadLabel" runat="server">Nuevo</asp:Label></li>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="sideNavBody" runat="server">
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="body" runat="server">
+     <div class="row justify-content-center">
+        <asp:Literal ID="lblError" runat="server" Visible="false"></asp:Literal>
+    </div>
     <br>
     <div class="row">
         <div class="col-4" style="margin-left: 2%">
             <asp:Label runat="server" ID="labelAccion" CssClass="h5">Nuevo material</asp:Label>
             <br>
             <br>
-            <asp:HiddenField runat="server" ID="escondidillo" />
+            <asp:HiddenField runat="server" ID="escondidillo" Value=""/>
             <div class="row">
                 <asp:TextBox type="text" ID="nombreTB" class="form-control" runat="server" TextMode="SingleLine" placeholder="Nombre">
                 </asp:TextBox>

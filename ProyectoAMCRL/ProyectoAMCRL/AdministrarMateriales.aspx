@@ -5,7 +5,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css'>
 
-
+    <%-- TABLA JQUERY --%>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
@@ -14,16 +14,16 @@
 
 
     <script>
-        $(document).ready(function () {
-            $("#inputBusqueda").on("keyup", function () {
-                var value = $(this).val().toLowerCase();
-                $("#cuerpoTabla tr").filter(function () {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                });
-            });
-        });
+        //$(document).ready(function () {
+        //    $("#inputBusqueda").on("keyup", function () {
+        //        var value = $(this).val().toLowerCase();
+        //        $("#cuerpoTabla tr").filter(function () {
+        //            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        //        });
+        //    });
+        //});
 
-
+        //CONSULTA JQUERY
         $(document).ready(function () {
             $('#tablaMateriales2').DataTable({
                 "language": {
@@ -33,22 +33,22 @@
         });
 
 
-        function addSpanPresionado() {
-            $("#divCamposNuevoMaterial").show();
-            $("#addSpan").hide();
-            $("#cancelSpan").show();
-        }
+        //function addSpanPresionado() {
+        //    $("#divCamposNuevoMaterial").show();
+        //    $("#addSpan").hide();
+        //    $("#cancelSpan").show();
+        //}
 
-        function cancelSpanPresionado() {
-            $("#divCamposNuevoMaterial").hide();
-            $("#cancelSpan").hide();
-            $("#addSpan").show();
-        }
+        //function cancelSpanPresionado() {
+        //    $("#divCamposNuevoMaterial").hide();
+        //    $("#cancelSpan").hide();
+        //    $("#addSpan").show();
+        //}
 
-        function ocultarDivs() {
-            $("#divCamposNuevoMaterial").hide();
-            $("#cancelSpan").hide();
-        }
+        //function ocultarDivs() {
+        //    $("#divCamposNuevoMaterial").hide();
+        //    $("#cancelSpan").hide();
+        //}
 
         function abrirDetalleClick(id) {
             var info = id.split(".");
