@@ -84,6 +84,7 @@ namespace ProyectoAMCRL {
             }
             tablaPlaceHolder.Controls.Add(new Literal { Text = cuerpoTablaHTML.ToString() });
 
+
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)
