@@ -25,9 +25,39 @@ namespace DAO
 
             return ds;
         }
-            
 
+        public string registrarMaterialDAO(string nom, string precio)
+        {
+            throw new NotImplementedException();
+        }
 
+        public string actualizarMaterialDAO(int cod, string nom, string precio)
+        {
+            throw new NotImplementedException();
+        }
 
+        public double traerCantidadVendidaDAO(int v)
+        {
+            double res = 0;
+
+            String sql = "SELECT SUM(KILOS_COMPRA) AS TOTAL FROM DETALLE_COMPRA WHERE COD_MATERIAL = " + v;
+            using (conexion) {
+                //try {
+                    conexion.Open();
+
+                    SqlCommand cmd = new SqlCommand(sql, conexion);
+                    SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                        res = (Double)reader.GetDecimal(0);
+                    }
+                //} catch (Exception e) {
+                    
+                //    return -1;
+                //}  
+            }
+              
+            return res;
+        }
     }
 }

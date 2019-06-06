@@ -53,7 +53,7 @@
         <%-- SUBMMIT BUTTON --%>
         <div class="row justify-content-center">
             <div class="form-group">
-                <asp:Button ID="btnGuardar" type="submit" runat="server" Text="Guardar" class="btn btn-info" />
+                <asp:Button ID="btnGuardar" type="submit" runat="server" Text="Guardar" class="btn btn-info" OnClick="btnGuardar_Click" />
             </div>
         </div>
     </div>
