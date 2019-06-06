@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TOAjuste.cs" />
     <Compile Include="TOBodega.cs" />
     <Compile Include="TOBodegaTabla.cs" />
     <Compile Include="TODetalleCompra.cs" />
@@ -49,6 +50,7 @@
     <Compile Include="TODireccion.cs" />
     <Compile Include="TOMaterial.cs" />
     <Compile Include="TOSocioNegocio.cs" />
+    <Compile Include="TOVenta.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

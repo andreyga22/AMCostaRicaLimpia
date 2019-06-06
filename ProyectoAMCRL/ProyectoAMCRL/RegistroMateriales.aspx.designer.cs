@@ -10,7 +10,16 @@
 namespace ProyectoAMCRL {
     
     
-    public partial class Materiales {
+    public partial class RegistroMateriales {
+        
+        /// <summary>
+        /// breadLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label breadLabel;
         
         /// <summary>
         /// lblError control.
@@ -22,13 +31,22 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.Literal lblError;
         
         /// <summary>
-        /// LinkButton1 control.
+        /// labelAccion control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton LinkButton1;
+        protected global::System.Web.UI.WebControls.Label labelAccion;
+        
+        /// <summary>
+        /// escondidillo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField escondidillo;
         
         /// <summary>
         /// nombreTB control.
@@ -49,30 +67,39 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.TextBox precioKgTB;
         
         /// <summary>
-        /// nuevoBTN control.
+        /// btnGuardarActualizar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button nuevoBTN;
+        protected global::System.Web.UI.WebControls.Button btnGuardarActualizar;
         
         /// <summary>
-        /// GridView1 control.
+        /// accionMaterialLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridView1;
+        protected global::System.Web.UI.WebControls.Label accionMaterialLabel;
         
         /// <summary>
-        /// SqlDataSource1 control.
+        /// materialLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
+        protected global::System.Web.UI.WebControls.Label materialLabel;
+        
+        /// <summary>
+        /// cantidadLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label cantidadLabel;
     }
 }
