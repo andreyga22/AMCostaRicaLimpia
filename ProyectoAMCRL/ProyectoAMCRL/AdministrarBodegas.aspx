@@ -10,7 +10,7 @@
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="body" runat="server">
-    <div class="row justify-content-center" style="background-color: red">
+    <div class="row justify-content-center">
         <asp:Literal ID="lblError" runat="server" Visible="false"></asp:Literal>
     </div>
     <div class="container">
@@ -30,7 +30,7 @@
                 </asp:UpdatePanel>
             </div>
             <div class="col-5">
-                <asp:Button ID="btnAgregar" runat="server" Text="Nuevo" class="btn btn-info" />
+                <asp:Button ID="btnAgregar" runat="server" Text="Nuevo" class="btn btn-info" OnClick="btnAgregar_Click" />
             </div>
         </div>
         <br />
