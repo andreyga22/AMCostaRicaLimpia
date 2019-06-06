@@ -50,6 +50,7 @@
     <Compile Include="TODireccion.cs" />
     <Compile Include="TOMaterial.cs" />
     <Compile Include="TOSocioNegocio.cs" />
+    <Compile Include="TOVenta.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

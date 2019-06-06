@@ -44,6 +44,7 @@
     <Compile Include="BLAjuste.cs" />
     <Compile Include="BLBodega.cs" />
     <Compile Include="BLBodegaTabla.cs" />
+    <Compile Include="BLCompra.cs" />
     <Compile Include="BLDireccion.cs" />
     <Compile Include="BLManejadorAjustes.cs" />
     <Compile Include="BLManejadorBodega.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="BLMaterial.cs" />
     <Compile Include="BLSocioNegocio.cs" />
     <Compile Include="BLManejadorMateriales.cs" />
+    <Compile Include="BLVenta.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
