@@ -26,8 +26,8 @@ namespace DAO.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=LAPTOP-RL91DK19\\MYSQLSERVER;Initial Catalog=AMCRL;Integrated Security" +
-            "=True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-AIBNIQS\\SQLEXPRESS;Initial Catalog=AMCRL;Integrated Security=" +
+            "True;")]
         public string conexion {
             get {
                 return ((string)(this["conexion"]));
@@ -42,6 +42,16 @@ namespace DAO.Properties {
         public string conexionAnd {
             get {
                 return ((string)(this["conexionAnd"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=ws8.win.arvixe.com;Initial Catalog=amcostar_db1;User Id=amcostar_user" +
+            "db;Password=aMCRL.03;")]
+        public string conexionHost {
+            get {
+                return ((string)(this["conexionHost"]));
             }
         }
     }

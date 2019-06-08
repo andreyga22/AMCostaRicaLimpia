@@ -66,6 +66,7 @@
       <DependentUpon>ModeloAMCRL.tt</DependentUpon>
     </Compile>
     <Compile Include="DAOBodegas.cs" />
+    <Compile Include="DAOCuentas.cs" />
     <Compile Include="DAOManejadorAjustes.cs" />
     <Compile Include="DAOManejadorCompras.cs" />
     <Compile Include="DAOManejadorMateriales.cs" />

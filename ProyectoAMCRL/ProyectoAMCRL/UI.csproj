@@ -89,7 +89,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
-    <Content Include="Cuentas.aspx" />
+    <Content Include="AdministrarCuentas.aspx" />
+    <Content Include="Cuenta.aspx" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="images\compra.png" />
     <Content Include="images\facturas.png" />
@@ -201,12 +202,19 @@
     <Compile Include="Compra_Venta.aspx.designer.cs">
       <DependentUpon>Compra_Venta.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Cuentas.aspx.cs">
-      <DependentUpon>Cuentas.aspx</DependentUpon>
+    <Compile Include="AdministrarCuentas.aspx.cs">
+      <DependentUpon>AdministrarCuentas.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Cuentas.aspx.designer.cs">
-      <DependentUpon>Cuentas.aspx</DependentUpon>
+    <Compile Include="AdministrarCuentas.aspx.designer.cs">
+      <DependentUpon>AdministrarCuentas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cuenta.aspx.cs">
+      <DependentUpon>Cuenta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cuenta.aspx.designer.cs">
+      <DependentUpon>Cuenta.aspx</DependentUpon>
     </Compile>
     <Compile Include="MasterPrincipal.Master.cs">
       <DependentUpon>MasterPrincipal.Master</DependentUpon>
