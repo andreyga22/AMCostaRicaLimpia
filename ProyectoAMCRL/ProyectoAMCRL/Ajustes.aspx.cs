@@ -27,20 +27,23 @@ namespace ProyectoAMCRL {
 
             }
             cargarTabla();
-           
+
         }
 
         private void cargarMateriales()
-        {
-            DataSet materialesDS = manejadorM.listarMaterialesBL();
+        {                           // se debe tomar el valor el sesion de la bodega
+            DataSet materialesDS = manejadorM.listarMaterialesEnBodegaBL("B01"); // <--------
+            stock_id_escondido.Value = Convert.ToString(materialesDS.Tables[0].Rows[0]["ID_STOCK"]);
+
             foreach (DataRow dr in materialesDS.Tables[0].Rows)
             {
                 ListItem item = new ListItem();
                 
                 String codigo = Convert.ToString(dr["COD_MATERIAL"]);
                 String nombre = Convert.ToString(dr["NOMBRE_MATERIAL"]);
+                String id_stock = Convert.ToString(dr["ID_STOCK"]);
                 item.Text = nombre;
-                item.Value = codigo;
+                item.Value = codigo+"-"+ id_stock;
                 materialDD.Items.Add(item);
             }
         }
@@ -89,23 +92,32 @@ namespace ProyectoAMCRL {
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
-            
 
-            if (!string.IsNullOrEmpty(pesoTB.Text)) {
+
+            if (!string.IsNullOrEmpty(pesoTB.Text) || radioAccion.SelectedItem != null)
+            {
                 String m = "";
-                                         //id_bod, peso, material, unidad, accion, razon
-                m = manejador.registrarAjusteBL(1, pesoTB.Text, materialDD.SelectedItem.Value, unidadTB.SelectedItem.Text, radioAccion.SelectedItem.Value, razonTb.Text);
+                //id_bod, peso, material, unidad, accion, razon
+                String[] materialInfo = materialDD.SelectedItem.Value.Split('-');
+                String idMaterial = materialInfo[0];
+                String idStockMaterial = materialInfo[1];
+
+                m = manejador.registrarAjusteBL("B01", idMaterial, idStockMaterial, pesoTB.Text, unidadTB.SelectedItem.Text, radioAccion.SelectedItem.Value, razonTb.Text);
 
                 if (m.Equals("Operación efectuada correctamente"))
                 {
-                    lblError.Text = "<br /><br /><div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>" + m + "</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                    lblError.Text = "<br /><br /><div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>" + m + "</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\" onclick=\"cerrarError()\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                     lblError.Visible = true;
                 }
                 else
                 {
-                    lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>" + m + "</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                    lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>" + m + "</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\" onclick=\"cerrarError()\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                     lblError.Visible = true;
                 }
+            }
+            else {
+                lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>Datos incompletos, intente de nuevo</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\" onclick=\"cerrarError()\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                lblError.Visible = true;
             }
 
 

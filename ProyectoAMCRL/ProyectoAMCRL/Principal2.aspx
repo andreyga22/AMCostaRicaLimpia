@@ -47,7 +47,7 @@
             <h6 class="font-weight-bolder">Estado stock</h6>
             <asp:Chart ID="Chart2" runat="server" DataSourceID="SqlDataSource1" Height="320px" Width="325px">
                 <Series>
-                    <asp:Series ChartType="Doughnut" Name="Series1" XValueMember="NOMBRE_MATERIAL" YValueMembers="ID_BODEGA">
+                    <asp:Series ChartType="Pie" Name="Series1" XValueMember="NOMBRE_MATERIAL" YValueMembers="KILOS_STOCK">
                     </asp:Series>
                 </Series>
                 <ChartAreas>

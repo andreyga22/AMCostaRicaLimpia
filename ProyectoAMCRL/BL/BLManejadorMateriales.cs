@@ -16,6 +16,11 @@ namespace BL
         public DataSet listarMaterialesBL() {
             return manejador.obtenerMateriales();
         }
+        
+
+       public DataSet listarMaterialesEnBodegaBL(String idBodega){
+            return manejador.obtenerMaterialesEnBodegaActual(idBodega);
+        }
 
         public double traerCantidadVendidaBL(String idM) {
             double resultado = 0;
