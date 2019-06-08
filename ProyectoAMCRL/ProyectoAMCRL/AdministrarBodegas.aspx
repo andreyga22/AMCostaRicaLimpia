@@ -25,7 +25,7 @@
             <div class="col-4">
                 <asp:UpdatePanel ID="UpdatePanel2" runat="server">
                     <ContentTemplate>
-                        <asp:TextBox type="text" ID="palabraTb" class="form-control" runat="server" TextMode="SingleLine" placeholder="Buscar" OnTextChanged="palabraTb_TextChanged"></asp:TextBox>
+                        <asp:TextBox type="text" ID="palabraTb" class="form-control" runat="server" TextMode="SingleLine" placeholder="Buscar" OnTextChanged="palabraTb_TextChanged" AutoPostBack="true" OnKeyDown="txt_Item_Number_KeyDown"></asp:TextBox>
                     </ContentTemplate>
                 </asp:UpdatePanel>
             </div>
@@ -39,7 +39,7 @@
             <div class="col-12">
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                     <ContentTemplate>
-                        <asp:GridView class="table table-hover table-bordered table-striped" ID="gridBodegas" runat="server" AllowSorting="True" AllowPaging="True" OnPageIndexChanging="gridBodegas_PageIndexChanging" OnSorting="gridBodegas_Sorting" PageSize="5" AutoGenerateSelectButton="True" OnSelectedIndexChanged="gridBodegas_SelectedIndexChanged">
+                        <asp:GridView class="table table-hover table-bordered table-striped" ID="gridBodegas" runat="server" AllowSorting="True" AllowPaging="True" OnPageIndexChanging="gridBodegas_PageIndexChanging" OnSorting="gridBodegas_Sorting" PageSize="5" AutoGenerateSelectButton="True" OnSelectedIndexChanged="gridBodegas_SelectedIndexChanged" OnKeyDown="">
                             <HeaderStyle BackColor="#94BD8B" />
                             <PagerSettings FirstPageText="Inicio" LastPageText="Fin" Mode="NumericFirstLast" PageButtonCount="4" />
                             <PagerStyle HorizontalAlign="Right" />

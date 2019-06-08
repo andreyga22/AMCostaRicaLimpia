@@ -22,6 +22,15 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.Literal lblError;
         
         /// <summary>
+        /// identi control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl identi;
+        
+        /// <summary>
         /// idTB control.
         /// </summary>
         /// <remarks>
@@ -29,6 +38,15 @@ namespace ProyectoAMCRL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox idTB;
+        
+        /// <summary>
+        /// contra control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl contra;
         
         /// <summary>
         /// contraTb control.
@@ -40,6 +58,15 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.TextBox contraTb;
         
         /// <summary>
+        /// nombre control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl nombre;
+        
+        /// <summary>
         /// nombreTB control.
         /// </summary>
         /// <remarks>
@@ -47,6 +74,15 @@ namespace ProyectoAMCRL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox nombreTB;
+        
+        /// <summary>
+        /// rol control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl rol;
         
         /// <summary>
         /// rolDd control.
@@ -58,6 +94,15 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.DropDownList rolDd;
         
         /// <summary>
+        /// estado control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl estado;
+        
+        /// <summary>
         /// estadoRb control.
         /// </summary>
         /// <remarks>
@@ -65,6 +110,42 @@ namespace ProyectoAMCRL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButtonList estadoRb;
+        
+        /// <summary>
+        /// nueva control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl nueva;
+        
+        /// <summary>
+        /// nuevaTb control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox nuevaTb;
+        
+        /// <summary>
+        /// repetir control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl repetir;
+        
+        /// <summary>
+        /// repetirTb control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox repetirTb;
         
         /// <summary>
         /// btnGuardar control.

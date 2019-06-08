@@ -10,12 +10,20 @@ using System.Data;
 
 namespace BL {
     public class BLManejadorCuentas {
-        public void guardarModificarCuenta(BLCuenta cuenta) {
+        public void guardarCuenta(BLCuenta cuenta) {
             //try {
             new DAOCuentas().guardarCuenta(convert(cuenta));
             //} catch(Exception) {
             //    throw;
             //}
+        }
+
+        public void modificarCuenta(BLCuenta cuenta ) {
+            new DAOCuentas().modificarCuenta(convert(cuenta));
+        }
+
+        public void modificarContrasena(BLCuenta cuenta, String nueva) {
+            new DAOCuentas().modificarContrasena(convert(cuenta), nueva);
         }
 
         //public List<BLBodegaTabla> listaCuentas() {
@@ -27,9 +35,9 @@ namespace BL {
         //    return listaBL;
         //}
 
-        //public DataTable buscar(string busqueda) {
-        //    return new DAOBodegas().buscar(busqueda);
-        //}
+        public DataTable buscar(string busqueda) {
+            return new DAOCuentas().buscar(busqueda);
+        }
 
         //public BLBodega consultarBodega(String id) {
         //    return convert(new DAOBodegas().consultarBodega(id));

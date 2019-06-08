@@ -10,7 +10,7 @@ namespace DAO {
     public class DAOCuentas {
 
 
-        private SqlConnection conexion = new SqlConnection(Properties.Settings.Default.conexionAnd);
+        private SqlConnection conexion = new SqlConnection(Properties.Settings.Default.conexionHost);
 
 
         public void guardarCuenta(TOCuenta cuenta) {
@@ -211,9 +211,9 @@ namespace DAO {
         public DataTable buscar(string busqueda) {
             using(conexion) {
                 SqlCommand cmd = conexion.CreateCommand();
-                string sql = "select b.ID_BODEGA, b.NOMBRE_BOD, d.DISTRITO, b.ESTADO_BODEGA from bodega b join direccion d on b.COD_DIRECCION = d.COD_DIRECCION";
+                string sql = "select id_usuario, rol, estado, nombre_usuario from credenciales";
                 if(!string.IsNullOrEmpty(busqueda)) {
-                    sql += " WHERE (b.ID_BODEGA LIKE @pal + '%')  or (b.NOMBRE_BOD LIKE @pal + '%') or (d.DISTRITO LIKE @pal + '%');";
+                    sql += " WHERE (id_usuario LIKE '%' + @pal + '%')  or (rol LIKE '%' + @pal + '%') or (estado LIKE '%' + @pal + '%') or (nombre_usuario LIKE '%' + @pal + '%');";
                     cmd.Parameters.AddWithValue("@pal", busqueda);
                 }
                 cmd.CommandText = sql;
