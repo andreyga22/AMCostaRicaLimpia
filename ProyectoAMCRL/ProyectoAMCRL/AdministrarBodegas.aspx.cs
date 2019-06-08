@@ -60,5 +60,10 @@ namespace ProyectoAMCRL {
             Session["idBodega"] = id;
             Response.Redirect("Bodega.aspx");
         }
+
+        protected void btnAgregar_Click(object sender, EventArgs e) {
+            Session["idBodega"] = null;
+            Response.Redirect("Bodega.aspx");
+        }
     }
 }
