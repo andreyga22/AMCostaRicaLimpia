@@ -82,17 +82,6 @@
     <li class="breadcrumb-item active">Busqueda Facturas</li>
 </asp:Content>
 
-<%-- SE AGREGAN MAS LINEAS PARA QUE CALCE EL TAMAÑO --%>
-<asp:Content ID="Content4" ContentPlaceHolderID="sideNavBody" runat="server">
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-</asp:Content>
-
 <asp:Content ID="Content3" ContentPlaceHolderID="body" runat="server">
     <div class="row justify-content-center" style="background-color: red">
         <asp:Literal ID="lblError" runat="server" Visible="false"></asp:Literal>

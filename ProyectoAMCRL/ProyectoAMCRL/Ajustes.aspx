@@ -11,7 +11,6 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 
-
     <script>
 
         $(document).ready(function () {
@@ -59,18 +58,12 @@
     <li class="breadcrumb-item active">Ajustes de inventario</li>
 </asp:Content>
 
-<asp:Content ID="Content4" ContentPlaceHolderID="sideNavBody" runat="server">
-    <br>
-    <br>
-    <br>
-    <br>
-</asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="body" runat="server">
+   
     <div class="row justify-content-center" id="errorDiv">
         <asp:Literal ID="lblError" runat="server" Visible="false"></asp:Literal>
     </div>
-    <br>
     <div style="float: right;">
         <label class="h6">Bodega:</label>
         <asp:Label runat="server" CssClass="h6">B001</asp:Label>
