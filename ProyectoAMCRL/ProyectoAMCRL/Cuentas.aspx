@@ -8,9 +8,6 @@
     <li class="breadcrumb-item active">Cuentas</li>
 </asp:Content>
 
-<asp:Content ID="Content3" ContentPlaceHolderID="sideNavBody" runat="server">
-</asp:Content>
-
 <asp:Content ID="Content4" ContentPlaceHolderID="body" runat="server">
     <div class="row justify-content-center" style="background-color: red">
         <asp:Literal ID="lblError" runat="server" Visible="false"></asp:Literal>

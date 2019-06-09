@@ -8,9 +8,6 @@
     <li class="breadcrumb-item active">Reportes</li>
 </asp:Content>
 
-<asp:Content ID="Content3" ContentPlaceHolderID="sideNavBody" runat="server">
-</asp:Content>
-
 <asp:Content ID="Content4" ContentPlaceHolderID="body" runat="server">
     <div class="row justify-content-center">
         <asp:Literal ID="lblError" runat="server" Visible="false"></asp:Literal>

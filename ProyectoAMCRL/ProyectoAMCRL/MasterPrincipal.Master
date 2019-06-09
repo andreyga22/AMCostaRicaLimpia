@@ -21,11 +21,7 @@
     <link href="sideNavStyle.css" rel="stylesheet" />
 
     <!-- Font Awesome JS -->
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"></script>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
@@ -51,9 +47,11 @@
 
         <!-- SIDEBAR  -->
         <nav id="sidebar">
-
+            <div class="justify-content-center row"; style="margin-top:10px; width:75%; margin-left:15%">
+           
+            <asp:Image ID="Image1" runat="server" ImageUrl="~/images/logo.png" Height="60px" Width="60px"/>
             
-
+            </div>
             <ul class="list-unstyled components">
 
                 <li class="active">
@@ -68,7 +66,7 @@
 
                 <li class="active">
                     <a href="#comprasSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                        <i class="fa fa-balance-scale"></i>Compras</a>
+                        <i class="fa fa-coins"></i>Compras</a>
                     <ul class="collapse list-unstyled" id="comprasSubmenu">
                         <li><a href="#">Registrar compra</a></li>
                         <li><a href="#">Busqueda facturas</a></li>
@@ -78,7 +76,7 @@
 
                 <li class="active">
                     <a href="#ventasSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                        <i class="fa fa-balance-scale"></i>Ventas</a>
+                        <i class="fa fa-coins"></i>Ventas</a>
                     <ul class="collapse list-unstyled" id="ventasSubmenu">
                         <li><a href="#">Registrar venta</a></li>
                         <li><a href="#">Busqueda facturas</a></li>
@@ -99,7 +97,7 @@
 
                 <li class="active">
                     <a href="#reportesSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                        <i class="fa fa-tasks"></i>Reportes</a>
+                        <i class="fas fa-chart-line"></i>Reportes</a>
                     <ul class="collapse list-unstyled" id="reportesSubmenu">
                         <li><a href="#">Reporte General</a></li>
                         <li> <a href="#">Reporte Gráfico</a></li>
@@ -109,13 +107,16 @@
 
                 <li class="active">
                     <a href="#otrosSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                        <i class="fa fa-archive"></i>Otros</a>
+                        <i class="fa fa-cog"></i>Otros</a>
                     <ul class="collapse list-unstyled" id="otrosSubmenu">
                         <li><a href="#">Monedas</a></li>
                         <li> <a href="#">Unidades medida</a></li>
                     </ul>
                 </li>
             </ul>
+
+            
+
         </nav>
 
         <%-- CONTENT --%>
@@ -125,7 +126,7 @@
             <nav aria-label="breadcrumb" style="display: block; width: 100%; margin-top: 0%;">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <button type="button" id="sidebarCollapse" class="btn btn-sm btn-light">
+                        <button type="button" id="sidebarCollapse" class="btn btn-sm btn-info">
                             <i class="fas fa-align-left"></i>
                             <span>Menú</span>
                         </button>
@@ -133,7 +134,14 @@
                     <li class="breadcrumb-item"><a href="Principal2.aspx">Principal</a></li>
                     <asp:ContentPlaceHolder ID="breadcrumbBodyHolder" runat="server">
                     </asp:ContentPlaceHolder>
-                </ol>
+                    <div class="col" style="width:100%">
+                     <div style="float:right;">
+                          <button class="btn btn-secondary btn-sm" onclick="alert('weeeenaaas')">
+                              <i class="fas fa-sign-out-alt" style="margin-right: 4%"></i>
+                              Salir</button>
+                     </div>
+                     </div>
+                    </ol>
             </nav>
             <%-- BODY --%>
             <form runat="server">
