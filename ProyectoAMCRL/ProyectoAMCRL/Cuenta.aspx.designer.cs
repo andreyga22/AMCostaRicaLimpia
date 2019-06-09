@@ -10,114 +10,150 @@
 namespace ProyectoAMCRL {
     
     
-    public partial class Principal {
+    public partial class Cuenta {
         
         /// <summary>
-        /// imagenSocios control.
+        /// lblError control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imagenSocios;
+        protected global::System.Web.UI.WebControls.Literal lblError;
         
         /// <summary>
-        /// sociosDrop control.
+        /// identi control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList sociosDrop;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl identi;
         
         /// <summary>
-        /// imagenCompraVenta control.
+        /// idTB control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imagenCompraVenta;
+        protected global::System.Web.UI.WebControls.TextBox idTB;
         
         /// <summary>
-        /// compraVentaDrop control.
+        /// contra control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList compraVentaDrop;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl contra;
         
         /// <summary>
-        /// imagenInventario control.
+        /// contraTb control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imagenInventario;
+        protected global::System.Web.UI.WebControls.TextBox contraTb;
         
         /// <summary>
-        /// inventarioDrop control.
+        /// nombre control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList inventarioDrop;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl nombre;
         
         /// <summary>
-        /// imagenFacturas control.
+        /// nombreTB control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imagenFacturas;
+        protected global::System.Web.UI.WebControls.TextBox nombreTB;
         
         /// <summary>
-        /// facturasDrop control.
+        /// rol control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList facturasDrop;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl rol;
         
         /// <summary>
-        /// imagenReportes control.
+        /// rolDd control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imagenReportes;
+        protected global::System.Web.UI.WebControls.DropDownList rolDd;
         
         /// <summary>
-        /// reportesDrop control.
+        /// estado control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList reportesDrop;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl estado;
         
         /// <summary>
-        /// imagenOtros control.
+        /// estadoRb control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imagenOtros;
+        protected global::System.Web.UI.WebControls.RadioButtonList estadoRb;
         
         /// <summary>
-        /// DropDownList1 control.
+        /// nueva control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl nueva;
+        
+        /// <summary>
+        /// nuevaTb control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox nuevaTb;
+        
+        /// <summary>
+        /// repetir control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl repetir;
+        
+        /// <summary>
+        /// repetirTb control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox repetirTb;
+        
+        /// <summary>
+        /// btnGuardar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnGuardar;
     }
 }
