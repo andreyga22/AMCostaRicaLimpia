@@ -43,6 +43,7 @@
     </asp:ContentPlaceHolder>
 </head>
 <body>
+     <form runat="server">
     <div class="wrapper">
 
         <!-- SIDEBAR  -->
@@ -136,6 +137,7 @@
                     </asp:ContentPlaceHolder>
                     <div class="col" style="width:100%">
                      <div style="float:right;">
+
                           <button class="btn btn-secondary btn-sm" onclick="alert('weeeenaaas')">
                               <i class="fas fa-sign-out-alt" style="margin-right: 4%"></i>
                               Salir</button>
@@ -144,11 +146,12 @@
                     </ol>
             </nav>
             <%-- BODY --%>
-            <form runat="server">
+           
                 <asp:ContentPlaceHolder ID="body" runat="server">
                 </asp:ContentPlaceHolder>
-            </form>
+           
         </div>
     </div>
+  </form>
 </body>
 </html>
