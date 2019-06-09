@@ -45,12 +45,12 @@
     <Compile Include="TOAjuste.cs" />
     <Compile Include="TOBodega.cs" />
     <Compile Include="TOBodegaTabla.cs" />
-    <Compile Include="TODetalleCompra.cs" />
-    <Compile Include="TODetalleVenta.cs" />
+    <Compile Include="TODetalleFactura.cs" />
     <Compile Include="TODireccion.cs" />
     <Compile Include="TOMaterial.cs" />
+    <Compile Include="TOMoneda.cs" />
     <Compile Include="TOSocioNegocio.cs" />
-    <Compile Include="TOVenta.cs" />
+    <Compile Include="TOFactura.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
