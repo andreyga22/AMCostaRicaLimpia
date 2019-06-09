@@ -67,9 +67,6 @@
   <li class="breadcrumb-item"><a href="AdministrarMateriales.aspx">Materiales</a></li>
 </asp:Content>
 
-<asp:Content ID="Content5" ContentPlaceHolderID="sideNavBody" runat="server">
-</asp:Content>
-
 <asp:Content ID="Content4" ContentPlaceHolderID="body" runat="server">
     <div class="row justify-content-center" style="background-color: red">
         <asp:Literal ID="lblError" runat="server" Visible="false"></asp:Literal>

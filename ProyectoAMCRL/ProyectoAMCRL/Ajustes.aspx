@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPrincipal.Master" AutoEventWireup="true" CodeBehind="Ajustes.aspx.cs" Inherits="ProyectoAMCRL.Ajustes" %>
+﻿<%@ Page Title="AMCRL" Language="C#" MasterPageFile="~/MasterPrincipal.Master" AutoEventWireup="true" CodeBehind="Ajustes.aspx.cs" Inherits="ProyectoAMCRL.Ajustes" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script src="jquery-3.4.0.min.js"></script>
@@ -10,7 +10,6 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
-
 
     <script>
 
@@ -40,6 +39,11 @@
             });
         });
 
+        function cerrarError() {
+              $("#errorDiv").hide();
+        }
+            
+
         function ocultarDivNuevoAjuste() {
             $("#nuevoAjusteDiv").hide();
             $("#cancelSpan").hide();
@@ -54,24 +58,19 @@
     <li class="breadcrumb-item active">Ajustes de inventario</li>
 </asp:Content>
 
-<asp:Content ID="Content4" ContentPlaceHolderID="sideNavBody" runat="server">
-    <br>
-    <br>
-    <br>
-    <br>
-</asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="body" runat="server">
-    <div class="row justify-content-center" style="background-color: red">
+   
+    <div class="row justify-content-center" id="errorDiv">
         <asp:Literal ID="lblError" runat="server" Visible="false"></asp:Literal>
     </div>
-    <br>
     <div style="float: right;">
         <label class="h6">Bodega:</label>
         <asp:Label runat="server" CssClass="h6">B001</asp:Label>
     </div>
 
     <div class="container">
+        <asp:HiddenField runat="server" ID="stock_id_escondido"/>
         <%--  <input class="btn btn-link" type="button" id="nuevoAjusteBTN2" value="Nuevo ajuste" style="float: right">--%>
         <div>
             <span id="addSpan" class="btn btn-light font-weight-bolder" style="width: 125px"><i class="fa fa-plus" style='color: forestgreen; margin-right: 5px'></i>Añadir</span>
@@ -85,7 +84,7 @@
             <div class="row" id="barraFiltros">
                 <%-- PESO --%>
                 <div class="filtroCell col-lg-2">
-                    <label>Peso</label>
+                    <label class="font-weight-bolder">Peso</label>
                     <div class="row" id="divPeso">
                         <asp:TextBox ID="pesoTB" runat="server" type="number" CssClass="btn btn-light" Width="90%" placeholder="Kg" />
                     </div>
@@ -93,7 +92,7 @@
                 <%-- MATERIALES --%>
                 <div class="col-lg-2 filtroCell">
                     <div class="form-group">
-                        <label>Material</label>
+                        <label class="font-weight-bolder">Material</label>
                         <div class="row" id="divMateriales">
                             <asp:DropDownList ID="materialDD" AutoPostBack="false" runat="server" CssClass="btn dropup btn-light">
                             </asp:DropDownList>
@@ -102,7 +101,7 @@
                 </div>
                 <%-- UNIDAD--%>
                 <div class="col-lg-2 filtroCell">
-                    <label>Unidad</label>
+                    <label class="font-weight-bolder">Unidad</label>
                     <div class="row" id="divUbicaciones">
                         <div class="d-sm-table-cell" style="margin-left: 2%">
                             <asp:DropDownList ID="unidadTB" runat="server" CssClass="btn dropup btn-light"></asp:DropDownList>
@@ -111,15 +110,16 @@
                 </div>
                 <%-- ACCION --%>
                 <div class="col-lg-2 filtroCell">
-                    <label>Acción</label>
+                    <label class="font-weight-bolder">Tipo</label>
+                    <br>
                     <asp:RadioButtonList ID="radioAccion" runat="server" RepeatLayout="Flow">
-                        <asp:ListItem Value="1">Aumentar</asp:ListItem>
-                        <asp:ListItem Value="0">Disminuir</asp:ListItem>
+                        <asp:ListItem Value="1">ENTRADA</asp:ListItem>
+                        <asp:ListItem Value="0">SALIDA</asp:ListItem>
                     </asp:RadioButtonList>
                 </div>
                 <%-- BODEGA --%>
                 <div class="col-lg-2 filtroCell">
-                    <label>Bodega</label>
+                    <label class="font-weight-bolder">Bodega</label>
                     <asp:DropDownList class="btn btn-light dropdown-toggle" type="dropdown" ata-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ID="bodegasDrop" runat="server" AutoPostBack="True">
                     </asp:DropDownList>
                 </div>
@@ -127,7 +127,7 @@
             <%-- RAZON --%>
             <div class="col-lg">
                 <div class="form-group">
-                    <label for="razonTb">Razón de ajuste</label>
+                    <label for="razonTb" class="font-weight-bolder">Razón de ajuste</label>
                     <asp:TextBox type="text" ID="razonTb" class="form-control" runat="server" TextMode="MultiLine"></asp:TextBox>
                 </div>
                 <asp:Button ID="btnGuardar" type="button" runat="server" Text="Guardar" class="btn btn-info" Width="15%" OnClick="btnGuardar_Click" />

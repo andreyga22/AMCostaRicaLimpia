@@ -10,10 +10,6 @@
     <li class="breadcrumb-item active">Registrar y Modificar Socio</li>
 </asp:Content>
 
-<asp:Content ID="Content5" ContentPlaceHolderID="sideNavBody" runat="server">
-    <br><br>
-</asp:Content>
-
 <asp:Content ID="Content4" ContentPlaceHolderID="body" runat="server">
     <div class="row justify-content-center">
         <asp:Literal ID="lblError" runat="server" Visible="false"></asp:Literal>

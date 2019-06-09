@@ -26,6 +26,22 @@ namespace DAO
             return ds;
         }
 
+        public DataSet obtenerMaterialesEnBodegaActual(String id_bodega)
+        {
+
+            String sql = "select s.ID_STOCK, m.COD_MATERIAL, m.NOMBRE_MATERIAL, m.PRECIO_KILO from MATERIAL m, STOCK s " +
+                "where(m.COD_MATERIAL = s.COD_MATERIAL and s.ID_BODEGA = @ID_BOD);";
+
+            SqlCommand cmd = new SqlCommand(sql, conexion);
+            cmd.Parameters.AddWithValue("@ID_BOD", "B01");
+            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            sda.SelectCommand = cmd;
+            DataSet ds = new DataSet("materialesEnBodega");
+            sda.Fill(ds);
+
+            return ds;
+        }
+
         public string registrarActualizarMaterialDAO(TOMaterial material){
 
             String msg = "";

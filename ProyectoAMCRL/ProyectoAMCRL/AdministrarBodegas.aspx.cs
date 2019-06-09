@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 using BL;
 using System.Data.SqlClient;
 using System.Configuration;
-
+using System.Windows.Forms;
 
 namespace ProyectoAMCRL {
     public partial class BusquedaBodegas : System.Web.UI.Page {
@@ -59,6 +59,17 @@ namespace ProyectoAMCRL {
             string id = gridBodegas.SelectedRow.Cells[1].Text;
             Session["idBodega"] = id;
             Response.Redirect("Bodega.aspx");
+        }
+
+        protected void btnAgregar_Click(object sender, EventArgs e) {
+            Session["idBodega"] = null;
+            Response.Redirect("Bodega.aspx");
+        }
+
+        private void txt_Item_Number_KeyDown(object sender, KeyEventArgs e) {
+            if(e.KeyCode == Keys.Enter) {
+                this.buscar();
+            }
         }
     }
 }

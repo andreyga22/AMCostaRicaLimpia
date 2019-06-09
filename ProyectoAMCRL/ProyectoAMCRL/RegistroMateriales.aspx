@@ -6,8 +6,7 @@
     <li class="breadcrumb-item"><a href="AdministrarMateriales.aspx">Materiales</a></li>
     <li class="breadcrumb-item"><asp:Label id="breadLabel" runat="server">Nuevo</asp:Label></li>
 </asp:Content>
-<asp:Content ID="Content3" ContentPlaceHolderID="sideNavBody" runat="server">
-</asp:Content>
+
 <asp:Content ID="Content4" ContentPlaceHolderID="body" runat="server">
      <div class="row justify-content-center">
         <asp:Literal ID="lblError" runat="server" Visible="false"></asp:Literal>
@@ -51,7 +50,7 @@
                   
                 </div>
                 <div class="col-sm-3" style="padding-left: 10%; padding-top: 4%">
-                    <i class='fas fa-award' style='font-size: 150px; color: black'></i>
+                    <i class=' fas fa-award' style='font-size: 150px; color: black'></i>
                 </div>
             </div>
         </div>

@@ -5,9 +5,9 @@
     <Setting Name="conexion" Type="(Connection string)" Scope="Application">
       <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Data Source=DESKTOP-AIBNIQS\SQLEXPRESS;Initial Catalog=AMCRL;Integrated Security=True&lt;/ConnectionString&gt;
+  &lt;ConnectionString&gt;Data Source=LAPTOP-RL91DK19\MYSQLSERVER;Initial Catalog=AMCRL;Integrated Security=True;&lt;/ConnectionString&gt;
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Data Source=DESKTOP-AIBNIQS\SQLEXPRESS;Initial Catalog=AMCRL;Integrated Security=True</Value>
+      <Value Profile="(Default)">Data Source=LAPTOP-RL91DK19\MYSQLSERVER;Initial Catalog=AMCRL;Integrated Security=True;</Value>
     </Setting>
     <Setting Name="conexionAnd" Type="(Connection string)" Scope="Application">
       <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
@@ -16,13 +16,8 @@
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">Data Source=DESKTOP-0FUBBQQ\SQLEXPRESS;Initial Catalog=AMCRL;Integrated Security=True</Value>
     </Setting>
-    <Setting Name="conexionMel" Type="(Connection string)" Scope="Application">
-      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Data Source=DESKTOP-AIBNIQS\SQLEXPRESS;Initial Catalog=AMCRL;Integrated Security=True&lt;/ConnectionString&gt;
-  &lt;ProviderName /&gt;
-&lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Data Source=DESKTOP-AIBNIQS\SQLEXPRESS;Initial Catalog=AMCRL;Integrated Security=True</Value>
+    <Setting Name="conexionHost" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Data Source=ws8.win.arvixe.com;Initial Catalog=amcostar_db1;User Id=amcostar_userdb;Password=aMCRL.03;</Value>
     </Setting>
   </Settings>
 </SettingsFile>

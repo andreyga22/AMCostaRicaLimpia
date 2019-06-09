@@ -6,17 +6,14 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data;
 using TO;
-
 namespace DAO {
-    public class DAOBodegas {
-
-
+    public class DAOCuentas {
 
 
         private SqlConnection conexion = new SqlConnection(Properties.Settings.Default.conexionHost);
 
 
-        public void guardarModificarBodega(TOBodega bod) {
+        public void guardarCuenta(TOCuenta cuenta) {
 
 
             using(conexion) {
@@ -34,39 +31,105 @@ namespace DAO {
                 //try {
 
                 sentencia.CommandText =
-                "begin tran if exists(select * from direccion with (updlock, serializable) where cod_direccion = @cod) begin update direccion set provincia = @prov, canton= @cant, distrito= @dist, otras_sennas= @otras where cod_Direccion = @cod; end else begin insert into direccion(provincia, canton, distrito, otras_sennas) values(@prov, @cant, @dist, @otras); end commit tran";
-                sentencia.Parameters.AddWithValue("@cod", bod.direccion.cod_direccion);
-                sentencia.Parameters.AddWithValue("@prov", bod.direccion.provincia);
-                sentencia.Parameters.AddWithValue("@cant", bod.direccion.canton);
-                sentencia.Parameters.AddWithValue("@dist", bod.direccion.distrito);
-                sentencia.Parameters.AddWithValue("@otras", bod.direccion.otras_sennas);
+                "insert into credenciales(id_usuario, clave, rol, estado, nombre_usuario) values(@id_usuario, @clave, @rol, @estado, @nombre_usuario);";
+                sentencia.Parameters.AddWithValue("@id_usuario", cuenta.id_usuario);
+                sentencia.Parameters.AddWithValue("@clave", cuenta.clave);
+                string rol = "";
+                if(cuenta.rol.Equals("Activado")) {
+                    rol = "a";
+                } else {
+                    rol = "d";
+                }
+                sentencia.Parameters.AddWithValue("@rol", rol);
+                sentencia.Parameters.AddWithValue("@estado", cuenta.estado);
+                sentencia.Parameters.AddWithValue("@nombre_usuario", cuenta.nombre_usuario);
                 sentencia.ExecuteNonQuery();
 
-                int resul = 0;
-
-                string select = "select cod_direccion from direccion where otras_sennas = @otras;";
-                sentencia.CommandText = select;
-
-                SqlDataReader reader = sentencia.ExecuteReader();
-                if(reader.HasRows) {
-                    while(reader.Read()) {
-                        resul = reader.GetInt32(0);
-                    }
+                // Commit the transaction.
+                sqlTran.Commit();
+                if(conexion.State != ConnectionState.Closed) {
+                    conexion.Close();
                 }
-                reader.Close();
+                //} catch(Exception) {
+                //    try {
+                //        // Attempt to roll back the transaction.
+                //        sqlTran.Rollback();
+                //    } catch(Exception) {
+                //        throw;
+                //    }
+                //}
+            }
+        }
 
-                // Execute two separate commands.
+        public void modificarCuenta(TOCuenta cuenta) {
+
+
+            using(conexion) {
+                if(conexion.State != ConnectionState.Open) {
+                    conexion.Open();
+                }
+
+                // Start a local transaction.
+                SqlTransaction sqlTran = conexion.BeginTransaction();
+
+                // Enlist a command in the current transaction.
+                SqlCommand sentencia = conexion.CreateCommand();
+                sentencia.Transaction = sqlTran;
+
+                //try {
+
                 sentencia.CommandText =
-                 "begin tran if exists(select * from Bodega with (updlock, serializable) where id_bodega = @codigo) begin update bodega set nombre_bod = @nombre, estado_bodega = @estado, cod_direccion = @cod_dir where id_bodega = @codigo; end else begin insert into bodega(id_bodega, nombre_bod, estado_bodega, cod_direccion) values (@codigo, @nombre, @estado, @cod_dir); end commit tran";
-                sentencia.Parameters.AddWithValue("@codigo", bod.codigo);
-                sentencia.Parameters.AddWithValue("@nombre", bod.nombre);
-                sentencia.Parameters.AddWithValue("@estado", bod.estado);
-                if(bod.direccion.cod_direccion != 0) {
-                    sentencia.Parameters.AddWithValue("@cod_dir", bod.direccion.cod_direccion);
+                "update credenciales set rol= @rol, estado= @estado, nombre_usuario= @nombre_usuario where id_usuario = @id_usuario;";
+                sentencia.Parameters.AddWithValue("@id_usuario", cuenta.id_usuario);
+                string rol = "";
+                if(cuenta.rol.Equals("Activado")) {
+                    rol = "a";
                 } else {
-                    sentencia.Parameters.AddWithValue("@cod_dir", resul);
+                    rol = "d";
+                }
+                sentencia.Parameters.AddWithValue("@rol", rol);
+                sentencia.Parameters.AddWithValue("@estado", cuenta.estado);
+                sentencia.Parameters.AddWithValue("@nombre_usuario", cuenta.nombre_usuario);
+                sentencia.ExecuteNonQuery();
+
+                // Commit the transaction.
+                sqlTran.Commit();
+                if(conexion.State != ConnectionState.Closed) {
+                    conexion.Close();
+                }
+                //} catch(Exception) {
+                //    try {
+                //        // Attempt to roll back the transaction.
+                //        sqlTran.Rollback();
+                //    } catch(Exception) {
+                //        throw;
+                //    }
+                //}
+            }
+        }
+
+        public void modificarContrasena(TOCuenta cuenta, string nueva) {
+
+
+            using(conexion) {
+                if(conexion.State != ConnectionState.Open) {
+                    conexion.Open();
                 }
 
+                // Start a local transaction.
+                SqlTransaction sqlTran = conexion.BeginTransaction();
+
+                // Enlist a command in the current transaction.
+                SqlCommand sentencia = conexion.CreateCommand();
+                sentencia.Transaction = sqlTran;
+
+                //try {
+
+                sentencia.CommandText =
+                "update credenciales set clave= @nueva where (id_usuario = @id_usuario) and (clave = @clave);";
+                sentencia.Parameters.AddWithValue("@id_usuario", cuenta.id_usuario);
+                sentencia.Parameters.AddWithValue("@clave", nueva);
+                sentencia.Parameters.AddWithValue("@nueva", cuenta.clave);
                 sentencia.ExecuteNonQuery();
 
                 // Commit the transaction.
@@ -148,9 +211,9 @@ namespace DAO {
         public DataTable buscar(string busqueda) {
             using(conexion) {
                 SqlCommand cmd = conexion.CreateCommand();
-                string sql = "select b.ID_BODEGA, b.NOMBRE_BOD, d.DISTRITO, b.ESTADO_BODEGA from bodega b join direccion d on b.COD_DIRECCION = d.COD_DIRECCION";
+                string sql = "select id_usuario, rol, estado, nombre_usuario from credenciales";
                 if(!string.IsNullOrEmpty(busqueda)) {
-                    sql += " WHERE (b.ID_BODEGA LIKE '%' + @pal + '%')  or (b.NOMBRE_BOD LIKE '%' + @pal + '%') or (d.DISTRITO LIKE '%' + @pal + '%');";
+                    sql += " WHERE (id_usuario LIKE '%' + @pal + '%')  or (rol LIKE '%' + @pal + '%') or (estado LIKE '%' + @pal + '%') or (nombre_usuario LIKE '%' + @pal + '%');";
                     cmd.Parameters.AddWithValue("@pal", busqueda);
                 }
                 cmd.CommandText = sql;
@@ -195,5 +258,6 @@ namespace DAO {
             }
             return Bodega;
         }
+
     }
 }
