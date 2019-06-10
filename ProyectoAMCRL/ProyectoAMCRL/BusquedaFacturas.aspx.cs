@@ -17,6 +17,7 @@ namespace ProyectoAMCRL
             //try
             //{
                 cargarGrid();
+            Session["idFactura"] = "";
                 //lblError.Visible = false;
             //}
             //catch (Exception)
@@ -28,19 +29,22 @@ namespace ProyectoAMCRL
 
         private void cargarGrid()
         {
-            try
-            {
-                List<BLVenta> listFacturas = new BLManejadorVentas().facturasVentas();
-
+            //try
+            //{
+                List<BLFactura> listFacturas = new BLManejadorFacturas().facturasVentas();
+               
                 //listaConsultaGV.Columns[1].Visible = false;
                 gridFacturas.DataSource = listFacturas;
 
                 gridFacturas.DataBind();
                 gridFacturas.HeaderRow.Cells[1].Text = "Código Factura";
+                gridFacturas.HeaderRow.Cells[2].Text = "Bodega";
+                gridFacturas.HeaderRow.Cells[3].Text = "Moneda";
                 gridFacturas.HeaderRow.Cells[4].Text = "Cédula";
                 gridFacturas.HeaderRow.Cells[5].Text = "Monto";
                 gridFacturas.HeaderRow.Cells[6].Text = "Fecha";
-                gridFacturas.HeaderRow.Cells[7].Text = "Socio";
+                gridFacturas.HeaderRow.Cells[7].Text = "Tipo Factura";
+                gridFacturas.HeaderRow.Cells[8].Text = "Socio";
 
                 foreach (GridViewRow row in gridFacturas.Rows)
                 {
@@ -58,13 +62,19 @@ namespace ProyectoAMCRL
                 for (int i = 0; i < gridFacturas.Rows.Count; i++)
                 {
                     gridFacturas.Rows[i].Cells[3].Visible = false;
-                }
             }
-            catch (Exception)
+
+            gridFacturas.HeaderRow.Cells[7].Visible = false;
+            for (int i = 0; i < gridFacturas.Rows.Count; i++)
             {
-                lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>Error al cargar los datos de la lista. </strong>Por favor recargue la página o vuelva a la página principal.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
-                lblError.Visible = true;
+                gridFacturas.Rows[i].Cells[7].Visible = false;
             }
+            //}
+            //catch (Exception)
+            //{
+            //    lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>Error al cargar los datos de la lista. </strong>Por favor recargue la página o vuelva a la página principal.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+            //    lblError.Visible = true;
+            //}
 
         }
 
@@ -73,11 +83,9 @@ namespace ProyectoAMCRL
         {
             try
             {
-                //string id = gridEmpl.SelectedRow.Cells[1].Text;
-                //BLManejadorEmpleado manejEmpleado = new BLManejadorEmpleado();
-                //BLEmpleado empleado = manejEmpleado.obtenerEmpleado(id);
-                //manejEmpleado.crearActualizarEmpleado(new BLEmpleado(empleado.id, empleado.contrasenna, empleado.rol, empleado.nombreEmpleado, !empleado.estado));
-                //Response.Redirect("Administrador.aspx");
+                string id = gridFacturas.SelectedRow.Cells[1].Text;
+                Session["idFactura"] = id;
+                Response.Redirect("Factura.aspx");
             }
             catch (Exception)
             {
@@ -88,13 +96,10 @@ namespace ProyectoAMCRL
 
         protected void btnActualizar_Click(object sender, EventArgs e)
         {
-            if (chckPalab.Checked)
+            if((!String.IsNullOrEmpty(montoMinimo.Text) || (!String.IsNullOrWhiteSpace(montoMinimo.Text))) &&
+                (!String.IsNullOrEmpty(montoMax.Text) || (!String.IsNullOrWhiteSpace(montoMax.Text))))
             {
-                
-            }
-            if(fechasCb.Checked)
-            {
-                
+
             }
 
         }
