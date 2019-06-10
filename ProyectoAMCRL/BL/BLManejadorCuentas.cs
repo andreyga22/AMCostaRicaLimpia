@@ -22,8 +22,8 @@ namespace BL {
             new DAOCuentas().modificarCuenta(convert(cuenta));
         }
 
-        public void modificarContrasena(BLCuenta cuenta, String nueva) {
-            new DAOCuentas().modificarContrasena(convert(cuenta), nueva);
+        public void modificarContrasena(string id, string vieja, String nueva) {
+            new DAOCuentas().modificarContrasena(id, vieja, nueva);
         }
 
         //public List<BLBodegaTabla> listaCuentas() {

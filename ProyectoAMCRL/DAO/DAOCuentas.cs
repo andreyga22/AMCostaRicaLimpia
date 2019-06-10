@@ -108,7 +108,7 @@ namespace DAO {
             }
         }
 
-        public void modificarContrasena(TOCuenta cuenta, string nueva) {
+        public void modificarContrasena(string id, string vieja, string nueva) {
 
 
             using(conexion) {
@@ -127,9 +127,9 @@ namespace DAO {
 
                 sentencia.CommandText =
                 "update credenciales set clave= @nueva where (id_usuario = @id_usuario) and (clave = @clave);";
-                sentencia.Parameters.AddWithValue("@id_usuario", cuenta.id_usuario);
+                sentencia.Parameters.AddWithValue("@id_usuario", id);
                 sentencia.Parameters.AddWithValue("@clave", nueva);
-                sentencia.Parameters.AddWithValue("@nueva", cuenta.clave);
+                sentencia.Parameters.AddWithValue("@nueva", vieja);
                 sentencia.ExecuteNonQuery();
 
                 // Commit the transaction.
