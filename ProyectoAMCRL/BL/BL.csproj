@@ -53,12 +53,14 @@
     <Compile Include="BLManejadorCuentas.cs" />
     <Compile Include="BLManejadorSocios.cs" />
     <Compile Include="BLManejadorFacturas.cs" />
+    <Compile Include="BLManejadorUnidades.cs" />
     <Compile Include="BLMaterial.cs" />
     <Compile Include="BLMoneda.cs" />
     <Compile Include="BLSocioNegocio.cs" />
     <Compile Include="BLManejadorMateriales.cs" />
     <Compile Include="BLCuenta.cs" />
     <Compile Include="BLFactura.cs" />
+    <Compile Include="BLUnidad.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
