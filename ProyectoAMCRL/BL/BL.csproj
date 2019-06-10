@@ -44,6 +44,7 @@
     <Compile Include="BLAjuste.cs" />
     <Compile Include="BLBodega.cs" />
     <Compile Include="BLBodegaTabla.cs" />
+    <Compile Include="BLContactos.cs" />
     <Compile Include="BLDetalleFactura.cs" />
     <Compile Include="BLDireccion.cs" />
     <Compile Include="BLManejadorAjustes.cs" />
@@ -52,12 +53,14 @@
     <Compile Include="BLManejadorCuentas.cs" />
     <Compile Include="BLManejadorSocios.cs" />
     <Compile Include="BLManejadorFacturas.cs" />
+    <Compile Include="BLManejadorUnidades.cs" />
     <Compile Include="BLMaterial.cs" />
     <Compile Include="BLMoneda.cs" />
     <Compile Include="BLSocioNegocio.cs" />
     <Compile Include="BLManejadorMateriales.cs" />
     <Compile Include="BLCuenta.cs" />
     <Compile Include="BLFactura.cs" />
+    <Compile Include="BLUnidad.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -70,5 +73,6 @@
       <Name>TO</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

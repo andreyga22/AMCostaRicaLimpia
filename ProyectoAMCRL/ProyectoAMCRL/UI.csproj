@@ -93,6 +93,7 @@
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="AdministrarCuentas.aspx" />
     <Content Include="Cuenta.aspx" />
+    <Content Include="DetalleAjuste.aspx" />
     <Content Include="Factura.aspx" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="images\compra.png" />
@@ -155,7 +156,9 @@
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="sideNavStyle.css" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Ajustes.aspx.cs">
@@ -220,6 +223,13 @@
     </Compile>
     <Compile Include="Cuenta.aspx.designer.cs">
       <DependentUpon>Cuenta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DetalleAjuste.aspx.cs">
+      <DependentUpon>DetalleAjuste.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DetalleAjuste.aspx.designer.cs">
+      <DependentUpon>DetalleAjuste.aspx</DependentUpon>
     </Compile>
     <Compile Include="Factura.aspx.cs">
       <DependentUpon>Factura.aspx</DependentUpon>
