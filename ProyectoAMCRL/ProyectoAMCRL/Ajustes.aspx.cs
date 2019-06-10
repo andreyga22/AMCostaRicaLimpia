@@ -12,19 +12,24 @@ namespace ProyectoAMCRL {
 
         BLManejadorAjustes manejador = new BLManejadorAjustes();
         BLManejadorMateriales manejadorM = new BLManejadorMateriales();
+        BLManejadorUnidades manejadorU = new BLManejadorUnidades();
+        BLManejadorBodega manejadorB = new BLManejadorBodega();
 
         protected void Page_Load(object sender, EventArgs e) {
 
             if (!IsPostBack) {
 
-                unidadTB.Items.Add("KG");
-                unidadTB.Items.Add("TONELADA");
-                unidadTB.Items.Add("TARIMA");
-
-                bodegasDrop.Items.Add("B001");
+                // linea para cambiar el estilo del cursor en evento click
+                btnGuardar.Attributes.Add("onclick", "document.body.style.cursor = 'wait';");
+                cargarUnidadesBodegas();
                 cargarMateriales();
 
+                if(Request.QueryString.Get("res") == "1"){
+                    lblError.Text = "<br /><br /><div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>" + "Ajuste registrado" + "</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\" onclick=\"cerrarError()\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                    lblError.Visible = true;
+                }
 
+                    
             }
             cargarTabla();
 
@@ -33,18 +38,27 @@ namespace ProyectoAMCRL {
         private void cargarMateriales()
         {                           // se debe tomar el valor el sesion de la bodega
             DataSet materialesDS = manejadorM.listarMaterialesEnBodegaBL("B01"); // <--------
-            stock_id_escondido.Value = Convert.ToString(materialesDS.Tables[0].Rows[0]["ID_STOCK"]);
 
-            foreach (DataRow dr in materialesDS.Tables[0].Rows)
+            if (materialesDS.Tables[0].Rows.Count == 0){
+
+                lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>" + "No existen materiales registrados para la bodega actual" + "</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\" onclick=\"cerrarError()\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                lblError.Visible = true;
+            }
+            else
             {
-                ListItem item = new ListItem();
-                
-                String codigo = Convert.ToString(dr["COD_MATERIAL"]);
-                String nombre = Convert.ToString(dr["NOMBRE_MATERIAL"]);
-                String id_stock = Convert.ToString(dr["ID_STOCK"]);
-                item.Text = nombre;
-                item.Value = codigo+"-"+ id_stock;
-                materialDD.Items.Add(item);
+                stock_id_escondido.Value = Convert.ToString(materialesDS.Tables[0].Rows[0]["ID_STOCK"]);
+
+                foreach (DataRow dr in materialesDS.Tables[0].Rows)
+                {
+                    ListItem item = new ListItem();
+
+                    String codigo = Convert.ToString(dr["COD_MATERIAL"]);
+                    String nombre = Convert.ToString(dr["NOMBRE_MATERIAL"]);
+                    String id_stock = Convert.ToString(dr["ID_STOCK"]);
+                    item.Text = nombre;
+                    item.Value = codigo + "-" + id_stock;
+                    materialDD.Items.Add(item);
+                }
             }
         }
 
@@ -76,6 +90,8 @@ namespace ProyectoAMCRL {
                 String stock = Convert.ToString(dr["ID_STOCK"]);
                 String idAjuste = Convert.ToString(dr["ID_AJUSTE"]);
 
+                String btnHTML2 = "<a href='#' data-toggle='popover' data-placement='left' title='Detalle ajuste' data-html='true' data-content='Some content "+ idAjuste+" popover'>Ver</a>";
+
                 String btnHTML = "<input id='" + idAjuste + "' type='button' class='btn btn-sm btn-link' value='Ver' onclick='abrirDetalleClick(this.id)'>";
                 String filaHTML = "<tr>" +
                 "<td>" + fechaInfo + "</td>" +
@@ -102,12 +118,13 @@ namespace ProyectoAMCRL {
                 String idMaterial = materialInfo[0];
                 String idStockMaterial = materialInfo[1];
 
-                m = manejador.registrarAjusteBL("B01", idMaterial, idStockMaterial, pesoTB.Text, unidadTB.SelectedItem.Text, radioAccion.SelectedItem.Value, razonTb.Text);
+                m = manejador.registrarAjusteBL(bodegasDrop.SelectedItem.Value, idMaterial, idStockMaterial, pesoTB.Text, unidadTB.SelectedItem.Value, radioAccion.SelectedItem.Value, razonTb.Text);
 
                 if (m.Equals("Operación efectuada correctamente"))
                 {
-                    lblError.Text = "<br /><br /><div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>" + m + "</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\" onclick=\"cerrarError()\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
-                    lblError.Visible = true;
+                  
+                    Response.Redirect(Request.Url.ToString()+"?res=1");
+                    
                 }
                 else
                 {
@@ -118,11 +135,27 @@ namespace ProyectoAMCRL {
             else {
                 lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>Datos incompletos, intente de nuevo</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\" onclick=\"cerrarError()\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                 lblError.Visible = true;
+            }                  
+        }
+
+        private void cargarUnidadesBodegas() {
+            List<BLUnidad> unidades = manejadorU.unidades;
+
+            foreach (BLUnidad u in unidades)
+            {
+                ListItem item = new ListItem(u.nombre, u.equivalencia.ToString());
+                unidadTB.Items.Add(item);
             }
 
-
-
-                            
+            List<BLBodegaTabla> bodegas = manejadorB.listaBodegas();
+            foreach (BLBodegaTabla b in bodegas)
+            {
+                
+                ListItem item = new ListItem(b.nombre, b.codigo);
+                bodegasDrop.Items.Add(item);
+            }
         }
+
+
     }
 }

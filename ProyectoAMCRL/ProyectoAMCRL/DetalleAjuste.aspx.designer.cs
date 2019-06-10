@@ -10,60 +10,69 @@
 namespace ProyectoAMCRL {
     
     
-    public partial class MasterPrincipal {
+    public partial class DetalleAjuste {
         
         /// <summary>
-        /// head control.
+        /// lblError control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder head;
+        protected global::System.Web.UI.WebControls.Literal lblError;
         
         /// <summary>
-        /// Image1 control.
+        /// labelFecha control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image1;
+        protected global::System.Web.UI.WebControls.Label labelFecha;
         
         /// <summary>
-        /// cuentasLb control.
+        /// labelTipo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton cuentasLb;
+        protected global::System.Web.UI.WebControls.Label labelTipo;
         
         /// <summary>
-        /// contrasenaLb control.
+        /// labelBodega control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton contrasenaLb;
+        protected global::System.Web.UI.WebControls.Label labelBodega;
         
         /// <summary>
-        /// breadcrumbBodyHolder control.
+        /// labelMaterial control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder breadcrumbBodyHolder;
+        protected global::System.Web.UI.WebControls.Label labelMaterial;
         
         /// <summary>
-        /// body control.
+        /// labelCantidad control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder body;
+        protected global::System.Web.UI.WebControls.Label labelCantidad;
+        
+        /// <summary>
+        /// razonTb control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox razonTb;
     }
 }

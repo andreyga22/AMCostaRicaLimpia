@@ -26,7 +26,7 @@
     <div class="container">
             <div class="row">
                 <div id="divFuncionPagina" class="cell col-9" style="">
-                    <h4 id="funcionPaginaLabel" class="font-weight-bold">Compra</h4>
+                    <asp:Label Text="Nueva compra" runat="server" id="funcionPaginaLabel" class="h6 font-weight-bold"/>
                 </div>
                 <div id="fecha" class="row col-3">
                     <h5 style="margin-right: 10%;">Fecha: </h5>
@@ -40,7 +40,7 @@
             <div class="row">
                 <div class="col-lg-6">
                     <label class="font-weight-bold campoIzq" for="telLabel">Número telefónico: </label>
-                    <asp:Label class="campo" runat="server" ID="telLabel">87885522</asp:Label>
+                    <asp:Label CssClass="campo" runat="server" ID="telLabel">87885522</asp:Label>
                     <br>
                     <label class="font-weight-bold campoIzq" for="telLabel">Bodega: </label>
                     <asp:Label class="campo" runat="server" ID="Label1">Bodega San Ramon</asp:Label>
@@ -68,7 +68,7 @@
                            ></asp:TextBox>
                     </div>
                     <div class="col-lg-6">
-                        <asp:Button CssClass="btn btn-success" runat="server" Text="Buscar" />
+                        <asp:Button ID="btnBuscarSocio" CssClass="btn btn-success" runat="server" Text="Buscar" OnClick="btnBuscarSocio_Click"/>
 
                     </div>
                     <div class="col-lg-3">

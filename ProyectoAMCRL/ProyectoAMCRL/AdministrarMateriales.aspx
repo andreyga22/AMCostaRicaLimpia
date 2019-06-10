@@ -68,7 +68,7 @@
 </asp:Content>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="body" runat="server">
-    <div class="row justify-content-center" style="background-color: red">
+    <div class="row justify-content-center">
         <asp:Literal ID="lblError" runat="server" Visible="false"></asp:Literal>
     </div>
     <br>

@@ -12,7 +12,7 @@ namespace DAO {
     {
 
 
-        private SqlConnection conexion = new SqlConnection(Properties.Settings.Default.conexion);
+        private SqlConnection conexion = new SqlConnection(Properties.Settings.Default.conexionHost);
 
         AMCRLEntities context = new AMCRLEntities();
 

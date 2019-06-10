@@ -76,13 +76,22 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.TextBox otrasTb;
         
         /// <summary>
-        /// activaCb control.
+        /// estado control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox activaCb;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl estado;
+        
+        /// <summary>
+        /// estadoRb control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButtonList estadoRb;
         
         /// <summary>
         /// btnGuardar control.

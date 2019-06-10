@@ -11,24 +11,47 @@ using BL;
 namespace ProyectoAMCRL {
     public partial class Cuenta : System.Web.UI.Page {
         protected void Page_Load(object sender, EventArgs e) {
-            string accionCuenta = Convert.ToString((Int32)Session["accionCuenta"]);
-            if(accionCuenta.Equals("0")) { //guardar por primera vez
-                identi.Visible = true;
-                contra.Visible = true;
-                nombre.Visible = true;
-                rol.Visible = true;
-                estado.Visible = true;
-            } else {
-                if(accionCuenta.Equals("1")) { //modificar cuenta
+            if(!IsPostBack) {
+                string accionCuenta = Convert.ToString((Int32)Session["accionCuenta"]);
+                if(accionCuenta.Equals("0")) { //guardar por primera vez
                     identi.Visible = true;
-                    idTB.Enabled = false;
+                    contra.Visible = true;
                     nombre.Visible = true;
                     rol.Visible = true;
                     estado.Visible = true;
-                } else { //cambiar contrasena
-                    contra.Visible = true;
-                    nueva.Visible = true;
-                    repetir.Visible = true;
+                } else {
+                    if(accionCuenta.Equals("1")) { //modificar cuenta
+                        identi.Visible = true;
+                        idTB.Enabled = false;
+                        nombre.Visible = true;
+                        rol.Visible = true;
+                        estado.Visible = true;
+                        BLManejadorCuentas man = new BLManejadorCuentas();
+                        string id = (String)Session["idCuenta"];
+                        BLCuenta cuenta = man.consultarCuenta(id);
+                        idTB.Text = cuenta.id_usuario;
+                        nombreTB.Text = cuenta.nombre_usuario;
+                        string roli = cuenta.rol;
+                        int r = 0;
+                        if(roli.Equals("a")) {
+                            r = 1;
+                        } else {
+                            r = 0;
+                        }
+                        rolDd.SelectedIndex = r;
+                        Boolean ess = cuenta.estado;
+                        int est = 0;
+                        if(ess) {
+                            est = 0;
+                        } else {
+                            est = 1;
+                        }
+                        estadoRb.SelectedIndex = est;
+                    } else { //cambiar contrasena
+                        contra.Visible = true;
+                        nueva.Visible = true;
+                        repetir.Visible = true;
+                    }
                 }
             }
         }
@@ -46,7 +69,7 @@ namespace ProyectoAMCRL {
                 } else {
                     estadoB = false;
                 }
-                BLCuenta cuenta = new BLCuenta(idTB.Text.Trim(), securepass, nombreTB.Text.Trim(), estadoB, estadoRb.SelectedItem.Text.Trim());
+                BLCuenta cuenta = new BLCuenta(idTB.Text.Trim(), securepass, nombreTB.Text.Trim(), estadoRb.SelectedItem.Text.Trim(), estadoB);
                 BLManejadorCuentas man = new BLManejadorCuentas();
                 man.guardarCuenta(cuenta);
                 lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong>Se guardó la cuenta correctamente.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
@@ -55,14 +78,21 @@ namespace ProyectoAMCRL {
             } else {
                 if(accionCuenta.Equals("1")) { //modificar cuenta
 
-                    String estado = estadoRb.SelectedValue;
+                    int estado = estadoRb.SelectedIndex;
                     Boolean estadoB = true;
-                    if(estado.Equals("Activado")) {
+                    if(estado == 0) {
                         estadoB = true;
                     } else {
                         estadoB = false;
                     }
-                    BLCuenta cuenta = new BLCuenta(idTB.Text.Trim(), "", nombreTB.Text.Trim(), estadoB, estadoRb.SelectedItem.Text.Trim());
+                    int rr = rolDd.SelectedIndex;
+                    String rola = "";
+                    if(rr == 0) {
+                        rola = "r";
+                    } else {
+                        rola = "a";
+                    }
+                    BLCuenta cuenta = new BLCuenta(idTB.Text.Trim(), "", nombreTB.Text.Trim(), rola, estadoB);
                     BLManejadorCuentas man = new BLManejadorCuentas();
                     man.modificarCuenta(cuenta);
                     lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong>Se guardó la cuenta correctamente.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
@@ -79,7 +109,7 @@ namespace ProyectoAMCRL {
                     } else {
                         estadoB = false;
                     }
-                    BLCuenta cuenta = new BLCuenta(idTB.Text.Trim(), viejaC, nombreTB.Text.Trim(), estadoB, estadoRb.SelectedItem.Text.Trim());
+                    BLCuenta cuenta = new BLCuenta(idTB.Text.Trim(), viejaC, nombreTB.Text.Trim(), estadoRb.SelectedItem.Text.Trim(), estadoB );
                     BLManejadorCuentas man = new BLManejadorCuentas();
                     man.modificarContrasena(cuenta, nuevaC);
                     lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong>Se guardó la cuenta correctamente.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
@@ -88,7 +118,7 @@ namespace ProyectoAMCRL {
             }
 
 
-            
+
             //} else {
             //    BLBodega bodega = new BLBodega(codigoTb.Text.Trim(), nombreTB.Text.Trim(), activaCb.Checked, new BLDireccion(provinciaTb.Text.Trim(), cantonTb.Text.Trim(), distritoTb.Text.Trim(), otrasTb.Text.Trim(), 0));
             //    BLManejadorBodega man = new BLManejadorBodega();

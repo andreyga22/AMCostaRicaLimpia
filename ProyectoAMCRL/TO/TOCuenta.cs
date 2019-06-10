@@ -9,17 +9,17 @@ namespace TO {
         public string id_usuario;
         public string clave;
         public string nombre_usuario;
-        public Boolean estado;
         public string rol;
+        public Boolean estado;
 
         public TOCuenta() { }
 
-        public TOCuenta(string id_usuario, string clave, string nombre_usuario, Boolean estado, string rol) {
+        public TOCuenta(string id_usuario, string clave, string nombre_usuario, string rol, Boolean estado) {
             this.id_usuario = id_usuario;
             this.clave = clave;
             this.nombre_usuario = nombre_usuario;
-            this.estado = estado;
             this.rol = rol;
+            this.estado = estado;
         }
     }
 }
