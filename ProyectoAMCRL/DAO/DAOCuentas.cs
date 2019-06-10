@@ -82,10 +82,10 @@ namespace DAO {
                 "update credenciales set rol= @rol, estado= @estado, nombre_usuario= @nombre_usuario where id_usuario = @id_usuario;";
                 sentencia.Parameters.AddWithValue("@id_usuario", cuenta.id_usuario);
                 string rol = "";
-                if(cuenta.rol.Equals("Activado")) {
+                if(cuenta.rol.Equals("a")) {
                     rol = "a";
                 } else {
-                    rol = "d";
+                    rol = "r";
                 }
                 sentencia.Parameters.AddWithValue("@rol", rol);
                 sentencia.Parameters.AddWithValue("@estado", cuenta.estado);
@@ -211,7 +211,7 @@ namespace DAO {
         public DataTable buscar(string busqueda) {
             using(conexion) {
                 SqlCommand cmd = conexion.CreateCommand();
-                string sql = "select id_usuario, rol, estado, nombre_usuario from credenciales";
+                string sql = "select id_usuario, nombre_usuario, rol, estado from credenciales";
                 if(!string.IsNullOrEmpty(busqueda)) {
                     sql += " WHERE (id_usuario LIKE '%' + @pal + '%')  or (rol LIKE '%' + @pal + '%') or (estado LIKE '%' + @pal + '%') or (nombre_usuario LIKE '%' + @pal + '%');";
                     cmd.Parameters.AddWithValue("@pal", busqueda);
@@ -221,17 +221,40 @@ namespace DAO {
                 using(SqlDataAdapter sda = new SqlDataAdapter(cmd)) {
                     DataTable dt = new DataTable();
                     sda.Fill(dt);
+
+                    foreach(DataRow dr in dt.Rows) // search whole table
+{
+                        if(dr["rol"].Equals("a")) // if id==2
+                        {
+                            dr["rol"] = "Administrador"; //change the name
+                                                    //break; break or not depending on you
+                        } else {
+                            if(dr["rol"].Equals("r")) {
+                                dr["rol"] = "Regular";
+                            }
+                        }
+
+                        //if((Boolean)dr["estado"] == true)
+                        //{
+                        //    dr["estado"] = "Activado";
+
+                        //} else {
+                        //    if((Boolean)dr["estado"] == false) {
+                        //        dr["estado"] = "Desactivado";
+                        //    }
+                        //}
+                    }
+
                     return dt;
                 }
             }
         }
 
-        public TOBodega consultarBodega(String idBodega) {
+        public TOCuenta consultarCuenta(String idCuenta) {
 
-            TOBodega Bodega = new TOBodega();
-            TODireccion dir = new TODireccion();
-            SqlCommand buscar = new SqlCommand("SELECT * FROM Bodega b join direccion d on b.cod_direccion = d.cod_direccion WHERE id_bodega = @id;", conexion);
-            buscar.Parameters.AddWithValue("@id", idBodega);
+            TOCuenta cuenta = new TOCuenta();
+            SqlCommand buscar = new SqlCommand("SELECT id_usuario, nombre_usuario, rol, estado FROM credenciales WHERE id_usuario = @id;", conexion);
+            buscar.Parameters.AddWithValue("@id", idCuenta);
 
             if(conexion.State != ConnectionState.Open) {
                 conexion.Open();
@@ -240,23 +263,17 @@ namespace DAO {
             SqlDataReader reader = buscar.ExecuteReader();
             if(reader.HasRows) {
                 while(reader.Read()) {
-                    Bodega.codigo = reader.GetString(0);
-                    Bodega.nombre = reader.GetString(1);
-                    Bodega.estado = reader.GetBoolean(2);
-                    dir.cod_direccion = reader.GetInt32(3);
-                    dir.cod_direccion = reader.GetInt32(4);
-                    dir.provincia = reader.GetString(5);
-                    dir.canton = reader.GetString(6);
-                    dir.distrito = reader.GetString(7);
-                    dir.otras_sennas = reader.GetString(8);
-                    Bodega.direccion = dir;
+                    cuenta.id_usuario = reader.GetString(0);
+                    cuenta.nombre_usuario = reader.GetString(1);
+                    cuenta.rol = reader.GetString(2);
+                    cuenta.estado = reader.GetBoolean(3);
                 }
             }
 
             if(conexion.State != ConnectionState.Closed) {
                 conexion.Close();
             }
-            return Bodega;
+            return cuenta;
         }
 
     }
