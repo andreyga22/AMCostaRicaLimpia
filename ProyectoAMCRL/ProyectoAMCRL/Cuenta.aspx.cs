@@ -102,16 +102,11 @@ namespace ProyectoAMCRL {
 
                     string nuevaC = FormsAuthentication.HashPasswordForStoringInConfigFile(nuevaTb.Text.Trim(), "MD5");
                     string viejaC = FormsAuthentication.HashPasswordForStoringInConfigFile(contraTb.Text.Trim(), "MD5");
-                    String estado = estadoRb.SelectedValue;
-                    Boolean estadoB = true;
-                    if(estado.Equals("Activado")) {
-                        estadoB = true;
-                    } else {
-                        estadoB = false;
-                    }
-                    BLCuenta cuenta = new BLCuenta(idTB.Text.Trim(), viejaC, nombreTB.Text.Trim(), estadoRb.SelectedItem.Text.Trim(), estadoB );
+                    string repetir = FormsAuthentication.HashPasswordForStoringInConfigFile(repetirTb.Text.Trim(), "MD5");
+                    
+                    //BLCuenta cuenta = new BLCuenta(idTB.Text.Trim(), viejaC, nombreTB.Text.Trim(), estadoRb.SelectedItem.Text.Trim(), estadoB );
                     BLManejadorCuentas man = new BLManejadorCuentas();
-                    man.modificarContrasena(cuenta, nuevaC);
+                    man.modificarContrasena("andreyga", viejaC, nuevaC);
                     lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong>Se guardó la cuenta correctamente.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                     lblError.Visible = true;
                 }
