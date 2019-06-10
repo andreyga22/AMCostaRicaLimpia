@@ -45,10 +45,17 @@
                 <label for="otrasTb">Otras Señas</label>
                 <asp:TextBox type="text" ID="otrasTb" class="form-control" runat="server"></asp:TextBox>
             </div>
-            <div class="form-group">
+            <div class="form-group" id="estado" runat="server">
+                <label for="estadoRb">Estado</label>
+                <asp:RadioButtonList ID="estadoRb" runat="server" class="form-control" RepeatDirection="Horizontal">
+                    <asp:ListItem Selected="True">Activado</asp:ListItem>
+                    <asp:ListItem>Desactivado</asp:ListItem>
+                </asp:RadioButtonList>
+            </div>
+            <%--<div class="form-group">
                 <label for="activaCb">Activado</label>
                 <asp:CheckBox ID="activaCb" type="checkbox" runat="server" />
-            </div>
+            </div>--%>
         </div>
         <%-- SUBMMIT BUTTON --%>
         <div class="row justify-content-center">

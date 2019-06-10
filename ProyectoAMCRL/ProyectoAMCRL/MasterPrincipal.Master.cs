@@ -11,9 +11,14 @@ namespace ProyectoAMCRL {
 
         }
 
-        protected void link_ajustes_Click(object sender, EventArgs e) {
+        protected void contrasenaLb_Click(object sender, EventArgs e) {
             Session["accionCuenta"] = 2;
             Response.Redirect("Cuenta.aspx");
+        }
+
+        protected void cuentasLb_Click(object sender, EventArgs e) {
+            Session["accionCuenta"] = null;
+            Response.Redirect("AdministrarCuentas.aspx");
         }
     }
 }

@@ -39,9 +39,9 @@ namespace BL {
             return new DAOCuentas().buscar(busqueda);
         }
 
-        //public BLBodega consultarBodega(String id) {
-        //    return convert(new DAOBodegas().consultarBodega(id));
-        //}
+        public BLCuenta consultarCuenta(String id) {
+            return convert(new DAOCuentas().consultarCuenta(id));
+        }
 
         //private BLBodegaTabla convert(TOBodegaTabla bod) {
         //    return new BLBodegaTabla(bod.codigo, bod.nombre, bod.estado, bod.distrito);
@@ -52,11 +52,11 @@ namespace BL {
         //}
 
         private BLCuenta convert(TOCuenta cuenta) {
-            return new BLCuenta(cuenta.id_usuario, cuenta.clave, cuenta.nombre_usuario, cuenta.estado, cuenta.rol);
+            return new BLCuenta(cuenta.id_usuario, cuenta.clave, cuenta.nombre_usuario, cuenta.rol, cuenta.estado);
         }
 
         private TOCuenta convert(BLCuenta cuenta) {
-            return new TOCuenta(cuenta.id_usuario, cuenta.clave, cuenta.nombre_usuario, cuenta.estado, cuenta.rol);
+            return new TOCuenta(cuenta.id_usuario, cuenta.clave, cuenta.nombre_usuario, cuenta.rol, cuenta.estado);
         }
 
         //private BLDireccion convert(TODireccion dir) {

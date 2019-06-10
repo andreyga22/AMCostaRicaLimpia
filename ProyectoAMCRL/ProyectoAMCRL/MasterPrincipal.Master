@@ -113,7 +113,26 @@
                         <li><a href="Monedas.aspx">Monedas</a></li>
                         <li> <a href="#">Unidades medida</a></li>
                     </ul>
+                    <br />
                 </li>
+
+                <li class="active">
+                    <a href="#cuentasSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fa fa-cog"></i>Cuentas de usuario</a>
+                    <ul class="collapse list-unstyled" id="cuentasSubmenu">
+                        <li><asp:LinkButton ID="cuentasLb" runat="server" OnClick="cuentasLb_Click">Administrar cuentas</asp:LinkButton></li>
+                    </ul>
+                    <br />
+                </li>
+
+                <li class="active">
+                    <a href="#configSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fa fa-cog"></i>Configuracion</a>
+                    <ul class="collapse list-unstyled" id="configSubmenu">
+                        <li><asp:LinkButton ID="contrasenaLb" runat="server" OnClick="contrasenaLb_Click">Cambiar contraseña</asp:LinkButton></li>
+                    </ul>
+                </li>
+
             </ul>
         </nav>
 

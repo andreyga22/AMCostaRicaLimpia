@@ -21,16 +21,16 @@
                 <h4>Administrar Bodegas</h4>
             </div>
         </div>
-        <div class="row">
-            <div class="col-4">
+        <div class="row justify-content-center">
+            <div class="col-3 offset-7">
                 <asp:UpdatePanel ID="UpdatePanel2" runat="server">
                     <ContentTemplate>
                         <asp:TextBox type="text" ID="palabraTb" class="form-control" runat="server" TextMode="SingleLine" placeholder="Buscar" OnTextChanged="palabraTb_TextChanged" AutoPostBack="true" OnKeyDown="txt_Item_Number_KeyDown"></asp:TextBox>
                     </ContentTemplate>
                 </asp:UpdatePanel>
             </div>
-            <div class="col-5">
-                <asp:Button ID="btnAgregar" runat="server" Text="Nuevo" class="btn btn-info" OnClick="btnAgregar_Click"/>
+            <div class="col-1">
+                <asp:Button ID="btnAgregar" runat="server" Text="Nuevo" class="btn btn-info" Width="180%" OnClick="btnAgregar_Click"/>
             </div>
         </div>
         <br />
