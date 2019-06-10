@@ -12,7 +12,7 @@ namespace DAO
     public class DAOManejadorMoneda
     {
 
-        private SqlConnection conexion = new SqlConnection(Properties.Settings.Default.conexionMel);
+        private SqlConnection conexion = new SqlConnection(Properties.Settings.Default.conexionHost);
 
         public TOMoneda buscarMonedaId(string idMoneda)
         {

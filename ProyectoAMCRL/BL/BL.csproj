@@ -48,8 +48,6 @@
     <Compile Include="BLDireccion.cs" />
     <Compile Include="BLManejadorAjustes.cs" />
     <Compile Include="BLManejadorBodega.cs" />
-    <Compile Include="BLManejadorCompras.cs" />
-    <Compile Include="BLManejadorDetalleVenta.cs" />
     <Compile Include="BLManejadorMoneda.cs" />
     <Compile Include="BLManejadorCuentas.cs" />
     <Compile Include="BLManejadorSocios.cs" />
@@ -58,7 +56,6 @@
     <Compile Include="BLMoneda.cs" />
     <Compile Include="BLSocioNegocio.cs" />
     <Compile Include="BLManejadorMateriales.cs" />
-    <Compile Include="BLVenta.cs" />
     <Compile Include="BLCuenta.cs" />
     <Compile Include="BLFactura.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

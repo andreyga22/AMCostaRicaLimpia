@@ -93,7 +93,6 @@
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="AdministrarCuentas.aspx" />
     <Content Include="Cuenta.aspx" />
-    <Content Include="Cuentas.aspx" />
     <Content Include="Factura.aspx" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="images\compra.png" />

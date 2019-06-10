@@ -29,8 +29,8 @@ namespace ProyectoAMCRL
 
         private void cargarGrid()
         {
-            try
-            {
+            //try
+            //{
                 List<BLFactura> listFacturas = new BLManejadorFacturas().facturasVentas();
                
                 //listaConsultaGV.Columns[1].Visible = false;
@@ -63,14 +63,20 @@ namespace ProyectoAMCRL
                 {
                     gridFacturas.Rows[i].Cells[3].Visible = false;
             }
-        }
-            catch (Exception)
-            {
-                lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>Error al cargar los datos de la lista. </strong>Por favor recargue la página o vuelva a la página principal.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
-                lblError.Visible = true;
-            }
 
-}
+            gridFacturas.HeaderRow.Cells[7].Visible = false;
+            for (int i = 0; i < gridFacturas.Rows.Count; i++)
+            {
+                gridFacturas.Rows[i].Cells[7].Visible = false;
+            }
+            //}
+            //catch (Exception)
+            //{
+            //    lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>Error al cargar los datos de la lista. </strong>Por favor recargue la página o vuelva a la página principal.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+            //    lblError.Visible = true;
+            //}
+
+        }
 
 
         protected void gridFact_SelectedIndexChanged(object sender, EventArgs e)

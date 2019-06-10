@@ -12,7 +12,7 @@ namespace DAO
     public class DAOManejadorFacturas
     {
 
-        private SqlConnection conexion = new SqlConnection(Properties.Settings.Default.conexionMel);
+        private SqlConnection conexion = new SqlConnection(Properties.Settings.Default.conexionHost);
 
         private List<TODetalleFactura> listaDetalles = new List<TODetalleFactura>();
 
@@ -88,8 +88,8 @@ namespace DAO
                         venta.cedula = Convert.ToString(table.Rows[x]["CEDULA"]);
                         venta.id_Bodega = Convert.ToString(table.Rows[x]["ID_BODEGA"]);
                         venta.id_Moneda = Convert.ToString(table.Rows[x]["ID_MONEDA"]);
-                        venta.monto_Total = Convert.ToDouble(table.Rows[x]["MONTO_TOTAL_V"]);
-                        venta.fecha = Convert.ToDateTime(table.Rows[x]["FECHA_VENTA"]);
+                        venta.monto_Total = Convert.ToDouble(table.Rows[x]["MONTO_TOTAL"]);
+                        venta.fecha = Convert.ToDateTime(table.Rows[x]["FECHA_FACTURA"]);
                         venta.tipo = Convert.ToString(table.Rows[x]["TIPO"]);
                         venta.nombreCompleto = Convert.ToString(table.Rows[x]["NOMBRE"]) + " " + Convert.ToString(table.Rows[x]["APELLIDO1"]) + " " + Convert.ToString(table.Rows[x]["APELLIDO2"]);
 

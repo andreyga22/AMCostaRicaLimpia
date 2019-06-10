@@ -24,9 +24,15 @@ namespace ProyectoAMCRL
                 lblNombre.Text = blFactura.nombreCompleto;
                 lblMoneda.Text = manejMond.buscarMonedaId(blFactura.id_Moneda).detalleMoneda;
                 lblDireccion.Text = "Naranjo, Alajuela";
-                lblTitulo.Text = "Factura de Venta*";
+                if (blFactura.tipo.Equals("V"))
+                {
+                    lblTitulo.Text = "Factura de Venta";
+                } else
+                {
+                    lblTitulo.Text = "Factura de Compra";
+                }
 
-                List<BLDetalleFactura> listDetalle = new BLManejadorDetalleVenta().listaDetalleVenta(id);
+                List<BLDetalleFactura> listDetalle = new BLManejadorFacturas().listaDetalle(id);
 
                 gridDetalle.DataSource = listDetalle;
 
