@@ -14,38 +14,38 @@ namespace ProyectoAMCRL
         List<BLSocioNegocio> sociosD = new List<BLSocioNegocio>();
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack) {
-                sociosD = manejadorSocios.cargarLista();
-                cargarTabla();
-            }
+            //if (!IsPostBack) {
+            //    sociosD = manejadorSocios.cargarLista();
+            //    cargarTabla();
+            //}
 
 
         }
 
-        private void cargarTabla() {
-            foreach (BLSocioNegocio socio in sociosD) {
+        //private void cargarTabla() {
+        //    foreach (BLSocioNegocio socio in sociosD) {
               
-                TableCell idCell = new TableCell();
-                TableCell nombreCell = new TableCell();
-                TableCell emailCell = new TableCell();
-                TableCell telCell = new TableCell();
-                TableRow filaNueva = new TableRow();
+        //        TableCell idCell = new TableCell();
+        //        TableCell nombreCell = new TableCell();
+        //        TableCell emailCell = new TableCell();
+        //        TableCell telCell = new TableCell();
+        //        TableRow filaNueva = new TableRow();
 
-                idCell.Text = socio.cedula;
-                nombreCell.Text = socio.nombre;
-                emailCell.Text = socio.correo;
-                telCell.Text = socio.telPers+"";
-                nombreCell.ForeColor = System.Drawing.Color.Blue;
+        //        idCell.Text = socio.cedula;
+        //        nombreCell.Text = socio.nombre;
+        //        emailCell.Text = socio.correo;
+        //        telCell.Text = socio.telPers+"";
+        //        nombreCell.ForeColor = System.Drawing.Color.Blue;
 
-                filaNueva.Cells.Add(idCell);
-                filaNueva.Cells.Add(nombreCell);
-                filaNueva.Cells.Add(emailCell);
-                filaNueva.Cells.Add(telCell);
+        //        filaNueva.Cells.Add(idCell);
+        //        filaNueva.Cells.Add(nombreCell);
+        //        filaNueva.Cells.Add(emailCell);
+        //        filaNueva.Cells.Add(telCell);
 
-                tablaSocios.Rows.Add(filaNueva);
-            }
-            tablaSocios.DataBind();
-        }
+        //        tablaSocios.Rows.Add(filaNueva);
+        //    }
+        //    tablaSocios.DataBind();
+        //}
 
 
     }
