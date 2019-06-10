@@ -13,7 +13,7 @@ namespace DAO
     public class DAOManejadorMateriales
     {
         private List<TOMaterial> materiales = new List<TOMaterial>();
-        private SqlConnection conexion = new SqlConnection(Properties.Settings.Default.conexion);
+        private SqlConnection conexion = new SqlConnection(Properties.Settings.Default.conexionHost);
 
         public DataSet obtenerMateriales(){
 

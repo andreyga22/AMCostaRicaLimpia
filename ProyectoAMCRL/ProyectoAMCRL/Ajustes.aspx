@@ -5,6 +5,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <link href="ownStyles.css" rel="stylesheet" />
 
+    
+
     <%-- TABLA JQUERY --%>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
@@ -30,6 +32,10 @@
         });
 
 
+        function abrirDetalleClick(infoAjuste) {
+            window.location.replace("DetalleAjuste.aspx?awf=" + infoAjuste);
+        }
+
         //CONSULTA JQUERY
         $(document).ready(function () {
             $('#tablaAjustes').DataTable({
@@ -40,9 +46,9 @@
         });
 
         function cerrarError() {
-              $("#errorDiv").hide();
+            $("#errorDiv").hide();
         }
-            
+
 
         function ocultarDivNuevoAjuste() {
             $("#nuevoAjusteDiv").hide();
@@ -52,15 +58,22 @@
         window.onload = ocultarDivNuevoAjuste;
 
     </script>
+
+     <script>
+        
+        $(document).ready(function () {
+            $('[data-toggle="popover"]').popover();
+        });
+    </script>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="breadcrumbBodyHolder" runat="server">
-    <li class="breadcrumb-item active">Ajustes de inventario</li>
+    <li class="breadcrumb-item active" style="color: dodgerblue">Ajustes de inventario</li>
 </asp:Content>
 
 
 <asp:Content ID="Content3" ContentPlaceHolderID="body" runat="server">
-   
+
     <div class="row justify-content-center" id="errorDiv">
         <asp:Literal ID="lblError" runat="server" Visible="false"></asp:Literal>
     </div>
@@ -70,7 +83,7 @@
     </div>
 
     <div class="container">
-        <asp:HiddenField runat="server" ID="stock_id_escondido"/>
+        <asp:HiddenField runat="server" ID="stock_id_escondido" />
         <%--  <input class="btn btn-link" type="button" id="nuevoAjusteBTN2" value="Nuevo ajuste" style="float: right">--%>
         <div>
             <span id="addSpan" class="btn btn-light font-weight-bolder" style="width: 125px"><i class="fa fa-plus" style='color: forestgreen; margin-right: 5px'></i>Añadir</span>
@@ -90,6 +103,7 @@
                     </div>
                 </div>
                 <%-- MATERIALES --%>
+
                 <div class="col-lg-2 filtroCell">
                     <div class="form-group">
                         <label class="font-weight-bolder">Material</label>
@@ -130,10 +144,8 @@
                     <label for="razonTb" class="font-weight-bolder">Razón de ajuste</label>
                     <asp:TextBox type="text" ID="razonTb" class="form-control" runat="server" TextMode="MultiLine"></asp:TextBox>
                 </div>
+                <%-- BOTON GUARDAR --%>
                 <asp:Button ID="btnGuardar" type="button" runat="server" Text="Guardar" class="btn btn-info" Width="15%" OnClick="btnGuardar_Click" />
-            </div>
-            <%-- BOTON GUARDAR --%>
-            <div class="row justify-content-start">
             </div>
         </div>
         <br>
@@ -152,4 +164,5 @@
             </tbody>
         </table>
     </div>
+   
 </asp:Content>

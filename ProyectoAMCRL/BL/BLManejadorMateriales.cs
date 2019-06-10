@@ -30,6 +30,9 @@ namespace BL
 
         public string registrarActualizarMaterialBL(string code, string nom, string precioT)
         {
+            if (nom.Equals("") || precioT.Equals(""))
+                return "Datos incompletos. Por favor, verifique e intente de nuevo";
+
             int codigo;
             try {
                codigo = Int32.Parse(code);

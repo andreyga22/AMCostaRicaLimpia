@@ -22,6 +22,15 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.Literal lblError;
         
         /// <summary>
+        /// funcionPaginaLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label funcionPaginaLabel;
+        
+        /// <summary>
         /// telLabel control.
         /// </summary>
         /// <remarks>
@@ -74,6 +83,15 @@ namespace ProyectoAMCRL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox nomIdeSocio;
+        
+        /// <summary>
+        /// btnBuscarSocio control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnBuscarSocio;
         
         /// <summary>
         /// LinkButton1 control.

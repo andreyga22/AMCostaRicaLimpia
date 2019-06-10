@@ -36,22 +36,30 @@
                 $('#sidebar').toggleClass('active');
             });
         });
+
+
+        <%--function setHourglass() {
+            document.body.style.cursor = 'wait';
+        }
+        --%>
     </script>
 
     <%-- FIN MUEVO ESTILO --%>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
-<body>
+<body <%--onbeforeunload="setHourglass();" onunload="setHourglass();"--%>>
      <form runat="server">
     <div class="wrapper">
 
         <!-- SIDEBAR  -->
         <nav id="sidebar">
-            <div class="justify-content-center row"; style="margin-top:10px; width:75%; margin-left:15%">
-           
-            <asp:Image ID="Image1" runat="server" ImageUrl="~/images/logo.png" Height="60px" Width="60px"/>
-            
+            <br>
+            <div class="row">
+                <span class="col"  style="margin-left:10%">
+                <asp:Image ID="Image1" runat="server" ImageUrl="~/images/logo.png" Height="60px" Width="60px"/>
+                </span>
+               
             </div>
             <ul class="list-unstyled components">
 
@@ -69,7 +77,7 @@
                     <a href="#comprasSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <i class="fa fa-coins"></i>Compras</a>
                     <ul class="collapse list-unstyled" id="comprasSubmenu">
-                        <li><a href="Compra_Venta.aspx?mod=c">Registrar compra</a></li>
+                        <li><a href="Compra_Venta.aspx?mod=-$">Registrar compra</a></li>
                         <li><a href="BusquedaFacturas.aspx?mod=c">Busqueda facturas</a></li>
                     </ul>
                     <br>
@@ -79,7 +87,7 @@
                     <a href="#ventasSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <i class="fa fa-coins"></i>Ventas</a>
                     <ul class="collapse list-unstyled" id="ventasSubmenu">
-                        <li><a href="Compra_Venta.aspx?mod=v">Registrar venta</a></li>
+                        <li><a href="Compra_Venta.aspx?mod=+$">Registrar venta</a></li>
                         <li><a href="BusquedaFacturas.aspx?mod=v">Busqueda facturas</a></li>
                     </ul>
                     <br>
@@ -108,7 +116,7 @@
 
                 <li class="active">
                     <a href="#otrosSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                        <i class="fa fa-cog"></i>Otros</a>
+                        <i class="fas fa-wrench"></i>Otros</a>
                     <ul class="collapse list-unstyled" id="otrosSubmenu">
                         <li><a href="Monedas.aspx">Monedas</a></li>
                         <li> <a href="#">Unidades medida</a></li>
@@ -142,13 +150,13 @@
             <%-- BREADCRUMB --%>
             <nav aria-label="breadcrumb" style="display: block; width: 100%; margin-top: 0%;">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <button type="button" id="sidebarCollapse" class="btn btn-sm btn-info">
+                    <li style="margin-right:10px">
+                        <button type="button" id="sidebarCollapse" class="btn btn-sm btn-secondary">
                             <i class="fas fa-align-left"></i>
                             <span>Menú</span>
                         </button>
                     </li>
-                    <li class="breadcrumb-item"><a href="Principal2.aspx">Principal</a></li>
+                    <li class="breadcrumb-item"><a href="Principal2.aspx" style="color:dodgerblue">Principal</a></li>
                     <asp:ContentPlaceHolder ID="breadcrumbBodyHolder" runat="server">
                     </asp:ContentPlaceHolder>
                     <div class="col" style="width:100%">
