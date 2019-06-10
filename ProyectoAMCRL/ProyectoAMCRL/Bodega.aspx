@@ -11,7 +11,7 @@
 </asp:Content>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="body" runat="server">
-    <div class="row justify-content-center" style="background-color: red">
+    <div class="row justify-content-center">
         <asp:Literal ID="lblError" runat="server" Visible="false"></asp:Literal>
     </div>
     <div class="container">
@@ -53,7 +53,7 @@
         <%-- SUBMMIT BUTTON --%>
         <div class="row justify-content-center">
             <div class="form-group">
-                <asp:Button ID="btnGuardar" type="submit" runat="server" Text="Guardar" class="btn btn-info" />
+                <asp:Button ID="btnGuardar" type="submit" runat="server" Text="Guardar" class="btn btn-info" OnClick="btnGuardar_Click" />
             </div>
         </div>
     </div>

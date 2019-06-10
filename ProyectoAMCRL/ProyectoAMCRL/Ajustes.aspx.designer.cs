@@ -22,49 +22,58 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.Literal lblError;
         
         /// <summary>
-        /// materialDd control.
+        /// stock_id_escondido control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList materialDd;
+        protected global::System.Web.UI.WebControls.HiddenField stock_id_escondido;
         
         /// <summary>
-        /// pesoTb control.
+        /// pesoTB control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox pesoTb;
+        protected global::System.Web.UI.WebControls.TextBox pesoTB;
         
         /// <summary>
-        /// unidadMDd control.
+        /// materialDD control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList unidadMDd;
+        protected global::System.Web.UI.WebControls.DropDownList materialDD;
         
         /// <summary>
-        /// bodegaDd control.
+        /// unidadTB control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList bodegaDd;
+        protected global::System.Web.UI.WebControls.DropDownList unidadTB;
         
         /// <summary>
-        /// aumentaRb control.
+        /// radioAccion control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList aumentaRb;
+        protected global::System.Web.UI.WebControls.RadioButtonList radioAccion;
+        
+        /// <summary>
+        /// bodegasDrop control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList bodegasDrop;
         
         /// <summary>
         /// razonTb control.
@@ -83,5 +92,14 @@ namespace ProyectoAMCRL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnGuardar;
+        
+        /// <summary>
+        /// tablaPlaceHolder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder tablaPlaceHolder;
     }
 }

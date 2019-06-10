@@ -65,10 +65,13 @@
     <Compile Include="CREDENCIALE.cs">
       <DependentUpon>ModeloAMCRL.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAOManejadorCompras.cs" />
+    <Compile Include="DAOBodegas.cs" />
+    <Compile Include="DAOCuentas.cs" />
+    <Compile Include="DAOManejadorAjustes.cs" />
     <Compile Include="DAOManejadorMateriales.cs" />
+    <Compile Include="DAOManejadorMoneda.cs" />
     <Compile Include="DAOManejadorSocios.cs" />
-    <Compile Include="DAOManejadorVentas.cs" />
+    <Compile Include="DAOManejadorFacturas.cs" />
     <Compile Include="DETALLE_COMPRA.cs">
       <DependentUpon>ModeloAMCRL.tt</DependentUpon>
     </Compile>

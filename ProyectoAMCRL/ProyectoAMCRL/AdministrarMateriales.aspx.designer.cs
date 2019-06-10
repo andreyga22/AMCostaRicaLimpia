@@ -10,7 +10,7 @@
 namespace ProyectoAMCRL {
     
     
-    public partial class Cuentas {
+    public partial class Materiales {
         
         /// <summary>
         /// lblError control.
@@ -20,5 +20,14 @@ namespace ProyectoAMCRL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal lblError;
+        
+        /// <summary>
+        /// tablaPlaceHolder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder tablaPlaceHolder;
     }
 }

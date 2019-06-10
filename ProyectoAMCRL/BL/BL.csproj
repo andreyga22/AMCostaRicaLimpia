@@ -41,14 +41,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BLContactos.cs" />
+    <Compile Include="BLAjuste.cs" />
+    <Compile Include="BLBodega.cs" />
+    <Compile Include="BLBodegaTabla.cs" />
+    <Compile Include="BLDetalleFactura.cs" />
     <Compile Include="BLDireccion.cs" />
-    <Compile Include="BLManejadorCompras.cs" />
+    <Compile Include="BLManejadorAjustes.cs" />
+    <Compile Include="BLManejadorBodega.cs" />
+    <Compile Include="BLManejadorMoneda.cs" />
+    <Compile Include="BLManejadorCuentas.cs" />
     <Compile Include="BLManejadorSocios.cs" />
-    <Compile Include="BLManejadorVentas.cs" />
+    <Compile Include="BLManejadorFacturas.cs" />
     <Compile Include="BLMaterial.cs" />
+    <Compile Include="BLMoneda.cs" />
     <Compile Include="BLSocioNegocio.cs" />
     <Compile Include="BLManejadorMateriales.cs" />
+    <Compile Include="BLCuenta.cs" />
+    <Compile Include="BLFactura.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

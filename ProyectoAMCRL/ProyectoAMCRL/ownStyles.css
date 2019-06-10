@@ -49,14 +49,14 @@ border-radius:4px;*/
     background-color: #8DAA9D;
     font-weight:bold;
 }
-    background-color: #94BD8B;
-}
+    /*background-color: #94BD8B;*/
+/*}*/
 
 /*Nuevos botones*/
 
 .btn-info {
     color: black;
-    background-color: #94BD8B;
+    background-color: #94BD8B !important;
     border-color: #94BD8B
 }
 

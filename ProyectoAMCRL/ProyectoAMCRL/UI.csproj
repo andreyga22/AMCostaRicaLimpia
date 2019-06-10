@@ -55,6 +55,7 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PresentationCore" />
     <Reference Include="System.Web.DataVisualization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -65,6 +66,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -87,7 +89,12 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Cuentas.aspx" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="AdministrarCuentas.aspx" />
+    <Content Include="Cuenta.aspx" />
+    <Content Include="Factura.aspx" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="images\compra.png" />
     <Content Include="images\facturas.png" />
     <Content Include="images\inventario.png" />
@@ -96,11 +103,12 @@
     <Content Include="images\moneda.jpg" />
     <Content Include="images\reportes.png" />
     <Content Include="images\socios.png" />
-    <Content Include="Materiales.aspx" />
+    <Content Include="AdministrarMateriales.aspx" />
     <Content Include="Monedas.aspx" />
     <Content Include="ownStyles.css" />
     <Content Include="Principal.aspx" />
     <Content Include="Principal2.aspx" />
+    <Content Include="RegistroMateriales.aspx" />
     <Content Include="RegistroSociosUI.aspx" />
     <Content Include="ReporteGrafico.aspx" />
     <Content Include="Reporte_General.aspx" />
@@ -118,6 +126,7 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="datepicker-es.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
@@ -127,6 +136,11 @@
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
     <Content Include="MasterPrincipal.Master" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -140,6 +154,7 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="sideNavStyle.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -192,12 +207,26 @@
     <Compile Include="Compra_Venta.aspx.designer.cs">
       <DependentUpon>Compra_Venta.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Cuentas.aspx.cs">
-      <DependentUpon>Cuentas.aspx</DependentUpon>
+    <Compile Include="AdministrarCuentas.aspx.cs">
+      <DependentUpon>AdministrarCuentas.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Cuentas.aspx.designer.cs">
-      <DependentUpon>Cuentas.aspx</DependentUpon>
+    <Compile Include="AdministrarCuentas.aspx.designer.cs">
+      <DependentUpon>AdministrarCuentas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cuenta.aspx.cs">
+      <DependentUpon>Cuenta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cuenta.aspx.designer.cs">
+      <DependentUpon>Cuenta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Factura.aspx.cs">
+      <DependentUpon>Factura.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Factura.aspx.designer.cs">
+      <DependentUpon>Factura.aspx</DependentUpon>
     </Compile>
     <Compile Include="MasterPrincipal.Master.cs">
       <DependentUpon>MasterPrincipal.Master</DependentUpon>
@@ -206,12 +235,12 @@
     <Compile Include="MasterPrincipal.Master.designer.cs">
       <DependentUpon>MasterPrincipal.Master</DependentUpon>
     </Compile>
-    <Compile Include="Materiales.aspx.cs">
-      <DependentUpon>Materiales.aspx</DependentUpon>
+    <Compile Include="AdministrarMateriales.aspx.cs">
+      <DependentUpon>AdministrarMateriales.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Materiales.aspx.designer.cs">
-      <DependentUpon>Materiales.aspx</DependentUpon>
+    <Compile Include="AdministrarMateriales.aspx.designer.cs">
+      <DependentUpon>AdministrarMateriales.aspx</DependentUpon>
     </Compile>
     <Compile Include="Monedas.aspx.cs">
       <DependentUpon>Monedas.aspx</DependentUpon>
@@ -235,6 +264,13 @@
       <DependentUpon>Principal2.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegistroMateriales.aspx.cs">
+      <DependentUpon>RegistroMateriales.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RegistroMateriales.aspx.designer.cs">
+      <DependentUpon>RegistroMateriales.aspx</DependentUpon>
+    </Compile>
     <Compile Include="RegistroSociosUI.aspx.cs">
       <DependentUpon>RegistroSociosUI.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
