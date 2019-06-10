@@ -12,7 +12,7 @@ namespace DAO
     public class DAOManejadorCompras
     {
 
-        private SqlConnection conexion = new SqlConnection(Properties.Settings.Default.conexion);
+        private SqlConnection conexion = new SqlConnection(Properties.Settings.Default.conexionHost);
 
         private List<TODetalleCompra> listaDetalles = new List<TODetalleCompra>();
 

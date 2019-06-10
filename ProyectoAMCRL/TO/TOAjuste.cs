@@ -11,11 +11,11 @@ namespace TO
         public int idAjuste { get; set; }
         public DateTime fecha { get; set; }
         public String razon { get; set; }
-        public DateTime peso { get; set; }
+        public double peso { get; set; }
         public int accion { get; set; }
         public int id_stock { get; set; }
 
-        public TOAjuste(DateTime fecha, int idAjuste, string razon, DateTime peso, int accion, int id_stock)
+        public TOAjuste(DateTime fecha, int idAjuste, string razon, double peso, int accion, int id_stock)
         {
             this.fecha = fecha;
             this.idAjuste = idAjuste;

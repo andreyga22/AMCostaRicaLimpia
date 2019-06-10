@@ -51,10 +51,12 @@
     <Compile Include="BLManejadorCompras.cs" />
     <Compile Include="BLManejadorCuentas.cs" />
     <Compile Include="BLManejadorSocios.cs" />
+    <Compile Include="BLManejadorUnidades.cs" />
     <Compile Include="BLManejadorVentas.cs" />
     <Compile Include="BLMaterial.cs" />
     <Compile Include="BLSocioNegocio.cs" />
     <Compile Include="BLManejadorMateriales.cs" />
+    <Compile Include="BLUnidad.cs" />
     <Compile Include="BLVenta.cs" />
     <Compile Include="BLCuenta.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

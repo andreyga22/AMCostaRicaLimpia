@@ -5,17 +5,18 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TO;
 
 namespace DAO
 {
     public class DAOManejadorAjustes
     {
 
-        private SqlConnection conexion;
+        private SqlConnection conexion; 
 
         public DataSet listarAjustesDAO()
         {
-            conexion = new SqlConnection(Properties.Settings.Default.conexion);
+            conexion = new SqlConnection(Properties.Settings.Default.conexionHost);
             String sql = "SELECT [ID_AJUSTE],(convert(varchar, [Fecha_Ajuste], 23)) as Fecha_Ajuste, [RAZON], [PESO_AJUSTE], [MOVIMIENTO_A], a.[ID_STOCK]  FROM AJUSTE a " +
             "inner join STOCK s on (a.ID_STOCK = s.ID_STOCK and s.ID_BODEGA = @id_bodega) ORDER BY Fecha_Ajuste DESC; "; 
             SqlCommand cmd = new SqlCommand(sql, conexion);
@@ -46,7 +47,7 @@ namespace DAO
             String fecha = System.DateTime.Today.ToShortDateString();
 
             //el conectionString me dio problemas por eso lo pasé aqui
-            conexion = new SqlConnection(Properties.Settings.Default.conexion);
+            conexion = new SqlConnection(Properties.Settings.Default.conexionHost);
 
             using (conexion)
             {
@@ -110,6 +111,52 @@ namespace DAO
                 }//EXCEPCION
                 return msg;
             }
+        }
+
+        public String buscarAjusteDAO(string idAjuste)
+        {
+            conexion = new SqlConnection(Properties.Settings.Default.conexionHost);
+            String ajusteInfo = "No encontrado";
+
+            String sql = "select AJUSTE.Fecha_Ajuste, AJUSTE.MOVIMIENTO_A, AJUSTE.PESO_AJUSTE, MATERIAL.NOMBRE_MATERIAL, BODEGA.NOMBRE_BOD, AJUSTE.RAZON" +
+                " from AJUSTE , MATERIAL , BODEGA , STOCK " +
+                "where(AJUSTE.ID_STOCK = STOCK.ID_STOCK and MATERIAL.COD_MATERIAL = STOCK.COD_MATERIAL and STOCK.ID_BODEGA = BODEGA.ID_BODEGA and AJUSTE.ID_AJUSTE = @ID_AJUSTE);";
+
+            SqlCommand cmd = new SqlCommand(sql, conexion);
+            cmd.Parameters.AddWithValue("@ID_AJUSTE", idAjuste);
+
+                conexion.Open();
+
+                try
+                {
+
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                    {
+                        //fecha, movimiento, peso, nombreMaterial, nombreBodega, razon
+                        DateTime fecha = (DateTime)reader.GetDateTime(0);
+                        String movN = (String)reader.GetSqlString(1).ToString();
+                        String movimiento = movN.Equals("1") ? "ENTRADA" : "SALIDA";
+                        Double peso = Double.Parse(reader.GetDecimal(2).ToString());
+                        String nomMaterial = reader.GetSqlString(3).ToString();
+                        String nombreBodega = reader.GetSqlString(4).ToString();
+                        String razon = reader.GetSqlString(5).ToString();
+
+                        ajusteInfo = fecha.ToString() + "_" + movimiento + "_" +
+                            peso + "_" + nomMaterial + "_" + nombreBodega + "_" + razon;
+                    }
+                    conexion.Close();
+
+
+                }
+
+
+            catch (Exception e) {
+                conexion.Close();
+                return "Error";
+                }
+
+            return ajusteInfo;
         }
 
         public double consultarCantidadStockDAO(int id_stock)

@@ -32,7 +32,23 @@ namespace ProyectoAMCRL
 
                  monedas.Items.Add("COL");
                  monedas.Items.Add("USD");
-        }
+
+                // linea para cambiar el estilo del cursor en evento click
+                btnBuscarSocio.Attributes.Add("onclick", "document.body.style.cursor = 'wait';");
+
+                
+                if (Request.QueryString.Get("mod") == "-$") {
+                    //MODO COMPRA
+                    funcionPaginaLabel.Text = "Nueva compra!";
+
+
+                } else if (Request.QueryString.Get("mod") == "+$") {
+                    funcionPaginaLabel.Text = "Nueva venta!";
+                }
+
+                }
+
+           
         }
 
 
@@ -86,6 +102,11 @@ namespace ProyectoAMCRL
             pegarLineasTabla();
 
             
+        }
+
+        protected void btnBuscarSocio_Click(object sender, EventArgs e)
+        {
+            System.Threading.Thread.Sleep(3000);
         }
     }
 }
