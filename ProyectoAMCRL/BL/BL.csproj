@@ -49,9 +49,9 @@
     <Compile Include="BLManejadorAjustes.cs" />
     <Compile Include="BLManejadorBodega.cs" />
     <Compile Include="BLManejadorCompras.cs" />
-    <Compile Include="BLManejadorCuentas.cs" />
     <Compile Include="BLManejadorDetalleVenta.cs" />
     <Compile Include="BLManejadorMoneda.cs" />
+    <Compile Include="BLManejadorCuentas.cs" />
     <Compile Include="BLManejadorSocios.cs" />
     <Compile Include="BLManejadorFacturas.cs" />
     <Compile Include="BLMaterial.cs" />
