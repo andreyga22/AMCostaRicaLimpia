@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPrincipal.Master" AutoEventWireup="true" CodeBehind="~/AdministrarBodegas.aspx.cs" Inherits="ProyectoAMCRL.BusquedaBodegas" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPrincipal.Master" AutoEventWireup="true" CodeBehind="~/AdministrarBodegas.aspx.cs" Inherits="ProyectoAMCRL.BusquedaBodegas" EnableEventValidation = "false"%>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="ownStyles.css" rel="stylesheet" />
@@ -17,9 +17,7 @@
         <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
         <br />
         <div class="row">
-            <div class="form-group">
-                <h4>Administrar Bodegas</h4>
-            </div>
+            <h4>Administrar Bodegas</h4>
         </div>
         <div class="row justify-content-center">
             <div class="col-3 offset-7">
@@ -30,7 +28,7 @@
                 </asp:UpdatePanel>
             </div>
             <div class="col-1">
-                <asp:Button ID="btnAgregar" runat="server" Text="Nuevo" class="btn btn-info" Width="180%" OnClick="btnAgregar_Click"/>
+                <asp:Button ID="btnAgregar" runat="server" Text="Nuevo" class="btn btn-info" Width="180%" OnClick="btnAgregar_Click" />
             </div>
         </div>
         <br />
@@ -39,8 +37,7 @@
             <div class="col-12">
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                     <ContentTemplate>
-                        <asp:GridView class="table table-hover table-bordered table-striped" ID="gridBodegas" runat="server" AllowSorting="True" AllowPaging="True" OnPageIndexChanging="gridBodegas_PageIndexChanging" OnSorting="gridBodegas_Sorting" PageSize="5" AutoGenerateSelectButton="True" OnSelectedIndexChanged="gridBodegas_SelectedIndexChanged" OnKeyDown="">
-                            <HeaderStyle BackColor="#94BD8B" />
+                        <asp:GridView class="table table-hover table-bordered table-striped" ID="gridBodegas" runat="server" AllowSorting="True" AllowPaging="True" OnPageIndexChanging="gridBodegas_PageIndexChanging" OnSorting="gridBodegas_Sorting" PageSize="5" OnSelectedIndexChanged="gridBodegas_SelectedIndexChanged" OnKeyDown="" OnRowDataBound="gridBodegas_RowDataBound">
                             <PagerSettings FirstPageText="Inicio" LastPageText="Fin" Mode="NumericFirstLast" PageButtonCount="4" />
                             <PagerStyle HorizontalAlign="Right" />
                         </asp:GridView>
