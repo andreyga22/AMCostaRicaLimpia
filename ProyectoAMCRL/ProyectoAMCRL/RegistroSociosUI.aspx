@@ -27,7 +27,7 @@
                 <label for="rolRadios">Rol</label>
                 <br />
                 <asp:RadioButtonList ID="rolRadios" runat="server" RepeatDirection="Horizontal" CellPadding="5" CssClass="d-inline">
-                    <asp:ListItem>Persona</asp:ListItem>
+                    <asp:ListItem>Proveedor</asp:ListItem>
                     <asp:ListItem>Cliente</asp:ListItem>
                 </asp:RadioButtonList>
             </div>
