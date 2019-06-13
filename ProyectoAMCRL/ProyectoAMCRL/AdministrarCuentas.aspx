@@ -1,6 +1,6 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPrincipal.Master" AutoEventWireup="true" CodeBehind="AdministrarCuentas.aspx.cs" Inherits="ProyectoAMCRL.CuentasUsuario" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPrincipal.Master" AutoEventWireup="true" CodeBehind="AdministrarCuentas.aspx.cs" Inherits="ProyectoAMCRL.CuentasUsuario" EnableEventValidation = "false" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-<link href="ownStyles.css" rel="stylesheet" />
+    <link href="ownStyles.css" rel="stylesheet" />
 </asp:Content>
 
 
@@ -38,8 +38,7 @@
             <div class="col-12">
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                     <ContentTemplate>
-                        <asp:GridView class="table table-hover table-bordered table-striped" ID="gridCuentas" runat="server" AllowSorting="True" AllowPaging="True"  PageSize="5" AutoGenerateSelectButton="True" OnPageIndexChanging="gridCuentas_PageIndexChanging" OnSorting="gridCuentas_Sorting" OnSelectedIndexChanged="gridCuentas_SelectedIndexChanged">
-                            <HeaderStyle BackColor="#94BD8B" />
+                        <asp:GridView class="table table-hover table-bordered table-striped" ID="gridCuentas" runat="server" AllowSorting="True" AllowPaging="True"  PageSize="5" OnPageIndexChanging="gridCuentas_PageIndexChanging" OnSorting="gridCuentas_Sorting" OnSelectedIndexChanged="gridCuentas_SelectedIndexChanged" OnRowDataBound="gridCuentas_RowDataBound">
                             <PagerSettings FirstPageText="Inicio" LastPageText="Fin" Mode="NumericFirstLast" PageButtonCount="2" />
                             <PagerStyle HorizontalAlign="Right" />
                         </asp:GridView>

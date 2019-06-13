@@ -7,6 +7,7 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="breadcrumbBodyHolder" runat="server">
+    <li class="breadcrumb-item"><a href="AdministrarBodegas.aspx">Administrar bodegas</a></li>
     <li class="breadcrumb-item active">Registro Bodega</li>
 </asp:Content>
 
@@ -16,33 +17,37 @@
     </div>
     <div class="container">
         <div class="row">
-            <h4>Registro de bodega</h4>
+            <div class="form-group">
+                <h4>Registro de bodega</h4>
+            </div>
         </div>
         <br />
-        <div class="col-10 offset-1 justify-content-center">
+        <div class="justify-content-center">
 
             <div class="form-group">
-                <label for="codigoTb">Código Bodega</label>
-                <asp:TextBox type="text" ID="codigoTb" class="form-control" runat="server"></asp:TextBox>
+                <label for="codigoTb">Código Bodega*</label><asp:RequiredFieldValidator ID="valCodigo" runat="server" ErrorMessage="Campo requerido" ControlToValidate="codigoTb"></asp:RequiredFieldValidator>
+                <asp:TextBox type="text" ID="codigoTb" class="form-control" placeholder="B01" runat="server"></asp:TextBox>
             </div>
             <div class="form-group">
-                <label for="nombreTb">Nombre Bodega</label>
-                <asp:TextBox type="text" ID="nombreTB" class="form-control" runat="server"></asp:TextBox>
+                <label for="nombreTb">Nombre Bodega*</label>
+                <asp:TextBox type="text" ID="nombreTB" class="form-control" placeholder="Naranjo-1" runat="server"></asp:TextBox>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="provinciaTb">Provincia*</label>
+                    <asp:TextBox type="text" ID="provinciaTb" class="form-control" runat="server"></asp:TextBox>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="cantonTb">Cantón*</label>
+                    <asp:TextBox type="text" ID="cantonTb" class="form-control" runat="server"></asp:TextBox>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="distritoTb">Distrito*</label>
+                    <asp:TextBox type="text" ID="distritoTb" class="form-control" runat="server"></asp:TextBox>
+                </div>
             </div>
             <div class="form-group">
-                <label for="provinciaTb">Provincia</label>
-                <asp:TextBox type="text" ID="provinciaTb" class="form-control" runat="server"></asp:TextBox>
-            </div>
-            <div class="form-group">
-                <label for="cantonTb">Cantón</label>
-                <asp:TextBox type="text" ID="cantonTb" class="form-control" runat="server"></asp:TextBox>
-            </div>
-            <div class="form-group">
-                <label for="distritoTb">Distrito</label>
-                <asp:TextBox type="text" ID="distritoTb" class="form-control" runat="server"></asp:TextBox>
-            </div>
-            <div class="form-group">
-                <label for="otrasTb">Otras Señas</label>
+                <label for="otrasTb">Otras Señas*</label>
                 <asp:TextBox type="text" ID="otrasTb" class="form-control" runat="server"></asp:TextBox>
             </div>
             <div class="form-group" id="estado" runat="server">
