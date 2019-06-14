@@ -91,5 +91,6 @@ namespace ProyectoAMCRL {
                 e.Row.ToolTip = "Clic para abrir.";
             }
         }
+
     }
 }
