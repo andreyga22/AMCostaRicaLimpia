@@ -17,7 +17,15 @@ namespace TO
         public TODireccion() {
         }
 
-        public TODireccion(String provincia, String canton, String distrito, String otras_sennas, int cod_direccion) {
+        public TODireccion(String provincia, String canton, String distrito, String otras_sennas) {
+            this.provincia = provincia;
+            this.canton = canton;
+            this.distrito = distrito;
+            this.otras_sennas = otras_sennas;
+        }
+
+        public TODireccion(String provincia, String canton, String distrito, String otras_sennas, int cod_direccion)
+        {
             this.provincia = provincia;
             this.canton = canton;
             this.distrito = distrito;

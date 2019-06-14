@@ -10,9 +10,9 @@ namespace TO
     {
         public int telefono_hab;
         public int telefono_pers;
-        public string email;
+        public String email;
 
-        public TOContactos(int telefono_hab, int telefono_pers, string email)
+        public TOContactos(int telefono_hab, int telefono_pers, String email)
         {
             this.telefono_hab = telefono_hab;
             this.telefono_pers = telefono_pers;
