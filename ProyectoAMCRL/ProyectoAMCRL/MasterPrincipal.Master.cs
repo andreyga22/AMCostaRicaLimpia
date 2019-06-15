@@ -20,5 +20,9 @@ namespace ProyectoAMCRL {
             Session["accionCuenta"] = null;
             Response.Redirect("AdministrarCuentas.aspx");
         }
+
+        protected void cerrarSesion(object sender, EventArgs e) {
+            Response.Redirect("Login.aspx");
+        }
     }
 }

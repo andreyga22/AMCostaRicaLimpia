@@ -14,14 +14,14 @@ using System.Drawing;
 namespace ProyectoAMCRL {
     public partial class BusquedaBodegas : System.Web.UI.Page {
         protected void Page_Load(object sender, EventArgs e) {
-            //Page.UnobtrusiveValidationMode = System.Web.UI.UnobtrusiveValidationMode.None;
-            //BLManejadorBodega man = new BLManejadorBodega();
-            //List<BLBodegaTabla> lista = man.listaBodegas();
-            //gridBodegas.DataSource = lista;
-            //gridBodegas.DataBind();
-
-            if(!this.IsPostBack) {
-                this.buscar();
+            //Ejemplo de lo que se debe poner en el load de cada pagina
+            //*************************************************************
+            if(Session["cuentaLogin"] != null) {
+                if(!this.IsPostBack) {
+                    this.buscar();
+                }
+            } else {
+                Response.Redirect("Login.aspx");
             }
         }
 

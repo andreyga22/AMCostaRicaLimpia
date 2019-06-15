@@ -11,53 +11,57 @@ using BL;
 namespace ProyectoAMCRL {
     public partial class Cuenta : System.Web.UI.Page {
         protected void Page_Load(object sender, EventArgs e) {
-            if(!IsPostBack) {
-                try {
-                    string accionCuenta = Convert.ToString((Int32)Session["accionCuenta"]);
-                    if(accionCuenta.Equals("0")) { //guardar por primera vez
-                        identi.Visible = true;
-                        contra.Visible = true;
-                        nombre.Visible = true;
-                        rol.Visible = true;
-                        estado.Visible = true;
-                    } else {
-                        if(accionCuenta.Equals("1")) { //modificar cuenta
+            if(Session["cuentaLogin"] != null) {
+                if(!IsPostBack) {
+                    try {
+                        string accionCuenta = Convert.ToString((Int32)Session["accionCuenta"]);
+                        if(accionCuenta.Equals("0")) { //guardar por primera vez
                             identi.Visible = true;
-                            idTB.Enabled = false;
+                            contra.Visible = true;
                             nombre.Visible = true;
                             rol.Visible = true;
                             estado.Visible = true;
-                            BLManejadorCuentas man = new BLManejadorCuentas();
-                            string id = (String)Session["idCuenta"];
-                            BLCuenta cuenta = man.consultarCuenta(id);
-                            idTB.Text = cuenta.id_usuario;
-                            nombreTB.Text = cuenta.nombre_usuario;
-                            string roli = cuenta.rol;
-                            int r = 0;
-                            if(roli.Equals("a")) {
-                                r = 1;
-                            } else {
-                                r = 0;
+                        } else {
+                            if(accionCuenta.Equals("1")) { //modificar cuenta
+                                identi.Visible = true;
+                                idTB.Enabled = false;
+                                nombre.Visible = true;
+                                rol.Visible = true;
+                                estado.Visible = true;
+                                BLManejadorCuentas man = new BLManejadorCuentas();
+                                string id = (String)Session["idCuenta"];
+                                BLCuenta cuenta = man.consultarCuenta(id);
+                                idTB.Text = cuenta.id_usuario;
+                                nombreTB.Text = cuenta.nombre_usuario;
+                                string roli = cuenta.rol;
+                                int r = 0;
+                                if(roli.Equals("a")) {
+                                    r = 1;
+                                } else {
+                                    r = 0;
+                                }
+                                rolDd.SelectedIndex = r;
+                                Boolean ess = cuenta.estado;
+                                int est = 0;
+                                if(ess) {
+                                    est = 0;
+                                } else {
+                                    est = 1;
+                                }
+                                estadoRb.SelectedIndex = est;
+                            } else { //cambiar contrasena
+                                contra.Visible = true;
+                                nueva.Visible = true;
+                                repetir.Visible = true;
                             }
-                            rolDd.SelectedIndex = r;
-                            Boolean ess = cuenta.estado;
-                            int est = 0;
-                            if(ess) {
-                                est = 0;
-                            } else {
-                                est = 1;
-                            }
-                            estadoRb.SelectedIndex = est;
-                        } else { //cambiar contrasena
-                            contra.Visible = true;
-                            nueva.Visible = true;
-                            repetir.Visible = true;
                         }
+                    } catch(Exception exx) {
+                        lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> " + exx.Message + "<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                        lblError.Visible = true;
                     }
-                } catch(Exception exx) {
-                    lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> " + exx.Message + "<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
-                    lblError.Visible = true;
                 }
+            } else {
+                Response.Redirect("Login.aspx");
             }
         }
 

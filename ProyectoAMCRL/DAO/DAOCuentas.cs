@@ -226,6 +226,37 @@ namespace DAO {
             }
         }
 
+        public TOCuenta login(String idCuenta, string contra) {
+            try {
+                TOCuenta cuenta = null;
+                SqlCommand buscar = new SqlCommand("SELECT id_usuario, nombre_usuario, rol, estado FROM credenciales WHERE (id_usuario = @id) and (clave = @contra);", conexion);
+                buscar.Parameters.AddWithValue("@id", idCuenta);
+                buscar.Parameters.AddWithValue("@contra", contra);
+
+                if(conexion.State != ConnectionState.Open) {
+                    conexion.Open();
+                }
+
+                SqlDataReader reader = buscar.ExecuteReader();
+                if(reader.HasRows) {
+                    cuenta = new TOCuenta();
+                    while(reader.Read()) {
+                        cuenta.id_usuario = reader.GetString(0);
+                        cuenta.nombre_usuario = reader.GetString(1);
+                        cuenta.rol = reader.GetString(2);
+                        cuenta.estado = reader.GetBoolean(3);
+                    }
+                }
+
+                if(conexion.State != ConnectionState.Closed) {
+                    conexion.Close();
+                }
+                return cuenta;
+            } catch(Exception) {
+                throw;
+            }
+        }
+
         public Boolean consultarContra(String idCuenta, string contra) {
             try {
                 String id = "";
