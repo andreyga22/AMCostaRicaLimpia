@@ -118,12 +118,13 @@ namespace ProyectoAMCRL {
                             string nuevaC = FormsAuthentication.HashPasswordForStoringInConfigFile(nuevaTb.Text.Trim(), "MD5");
                             string viejaC = FormsAuthentication.HashPasswordForStoringInConfigFile(contraTb.Text.Trim(), "MD5");
                             string repetir = FormsAuthentication.HashPasswordForStoringInConfigFile(repetirTb.Text.Trim(), "MD5");
+                            BLCuenta cuenta = (BLCuenta)(Session["cuentaLogin"]);
 
                             //BLCuenta cuenta = new BLCuenta(idTB.Text.Trim(), viejaC, nombreTB.Text.Trim(), estadoRb.SelectedItem.Text.Trim(), estadoB );
                             BLManejadorCuentas man = new BLManejadorCuentas();
-                            Boolean exists = man.consultarContra("pop23", viejaC);
+                            Boolean exists = man.consultarContra(cuenta.id_usuario, viejaC);
                             if(exists) {
-                                man.modificarContrasena("pop23", viejaC, nuevaC);
+                                man.modificarContrasena(cuenta.id_usuario, viejaC, nuevaC);
                                 lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong>Se cambió la contraseña correctamente.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                                 lblError.Visible = true;
                             } else {
