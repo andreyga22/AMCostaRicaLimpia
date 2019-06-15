@@ -20,5 +20,17 @@ namespace ProyectoAMCRL {
             Session["accionCuenta"] = null;
             Response.Redirect("AdministrarCuentas.aspx");
         }
+
+        protected void compraLB_Click(object sender, EventArgs e)
+        {
+            Session.Add("modo", "compra");
+            Response.Redirect("Compra_Venta.aspx");
+        }
+
+        protected void ventaLB_Click(object sender, EventArgs e)
+        {
+            Session.Add("modo", "venta");
+            Response.Redirect("Compra_Venta.aspx");
+        }
     }
 }

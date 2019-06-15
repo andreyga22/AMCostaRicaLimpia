@@ -11,13 +11,13 @@ namespace DAO
 {
     public class DAOManejadorAjustes
     {
-
-        private SqlConnection conexion; 
+       
+        SqlConnection conexion = new SqlConnection(Properties.Settings.Default.conexionHost);
 
         public DataSet listarAjustesDAO()
         {
-            conexion = new SqlConnection(Properties.Settings.Default.conexionHost);
-            String sql = "SELECT [ID_AJUSTE],(convert(varchar, [Fecha_Ajuste], 23)) as Fecha_Ajuste, [RAZON], [PESO_AJUSTE], [MOVIMIENTO_A], a.[ID_STOCK]  FROM AJUSTE a " +
+            
+            String sql = "SELECT [ID_AJUSTE],(convert(varchar, [Fecha_Ajuste], 103)) as Fecha_Ajuste, [RAZON], [PESO_AJUSTE], [MOVIMIENTO_A], a.[ID_STOCK], s.[ID_BODEGA]  FROM AJUSTE a " +
             "inner join STOCK s on (a.ID_STOCK = s.ID_STOCK and s.ID_BODEGA = @id_bodega) ORDER BY Fecha_Ajuste DESC; "; 
             SqlCommand cmd = new SqlCommand(sql, conexion);
             cmd.Parameters.AddWithValue("@id_bodega", "B01");//cambiar el id de la bodega a parametro
@@ -46,17 +46,15 @@ namespace DAO
 
             String fecha = System.DateTime.Today.ToShortDateString();
 
-            //el conectionString me dio problemas por eso lo pasé aqui
-            conexion = new SqlConnection(Properties.Settings.Default.conexionHost);
-
             using (conexion)
             {
-              
-                    if (conexion.State == ConnectionState.Closed)
-                    conexion.Open();
 
-                    //Se asigna un comando a la transaccion
-                    SqlCommand command = conexion.CreateCommand();
+                conexion = new SqlConnection(Properties.Settings.Default.conexionHost);
+
+                conexion.Open();
+                //Se asigna un comando a la transaccion
+                SqlCommand command = conexion.CreateCommand();
+                
 
                     //Se inicializa la transaccion local
                     SqlTransaction transaction = conexion.BeginTransaction();
@@ -115,7 +113,7 @@ namespace DAO
 
         public String buscarAjusteDAO(string idAjuste)
         {
-            conexion = new SqlConnection(Properties.Settings.Default.conexionHost);
+            //conexion = new SqlConnection(Properties.Settings.Default.conexionHost);
             String ajusteInfo = "No encontrado";
 
             String sql = "select AJUSTE.Fecha_Ajuste, AJUSTE.MOVIMIENTO_A, AJUSTE.PESO_AJUSTE, MATERIAL.NOMBRE_MATERIAL, BODEGA.NOMBRE_BOD, AJUSTE.RAZON" +
@@ -146,14 +144,12 @@ namespace DAO
                             peso + "_" + nomMaterial + "_" + nombreBodega + "_" + razon;
                     }
                     conexion.Close();
-
-
                 }
 
 
             catch (Exception e) {
                 conexion.Close();
-                return "Error";
+                return "Error " + e.ToString() ;
                 }
 
             return ajusteInfo;

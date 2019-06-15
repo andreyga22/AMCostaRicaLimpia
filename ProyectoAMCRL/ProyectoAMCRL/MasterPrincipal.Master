@@ -77,7 +77,9 @@
                     <a href="#comprasSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <i class="fa fa-coins"></i>Compras</a>
                     <ul class="collapse list-unstyled" id="comprasSubmenu">
-                        <li><a href="Compra_Venta.aspx?mod=-$">Registrar compra</a></li>
+                        <li>
+                            <asp:LinkButton Text="Registrar compra" runat="server" ID="compraLB" OnClick="compraLB_Click"/>
+                        </li>
                         <li><a href="BusquedaFacturas.aspx?mod=c">Busqueda facturas</a></li>
                     </ul>
                     <br>
@@ -87,7 +89,9 @@
                     <a href="#ventasSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <i class="fa fa-coins"></i>Ventas</a>
                     <ul class="collapse list-unstyled" id="ventasSubmenu">
-                        <li><a href="Compra_Venta.aspx?mod=+$">Registrar venta</a></li>
+                       <li>
+                            <asp:LinkButton Text="Registrar venta" runat="server" ID="ventaLB" OnClick="ventaLB_Click"/>
+                        </li>
                         <li><a href="BusquedaFacturas.aspx?mod=v">Busqueda facturas</a></li>
                     </ul>
                     <br>

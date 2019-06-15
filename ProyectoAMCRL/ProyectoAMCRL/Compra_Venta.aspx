@@ -3,170 +3,183 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="ownStyles.css" rel="stylesheet" />
     <script src="jquery-3.4.0.min.js"></script>
+
+    <%-- DATE PICKER --%>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+    <link rel="stylesheet" href="/resources/demos/style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <!-- Script -->
+    <script src='jquery-3.2.1.min.js' type='text/javascript'></script>
+
+    <!-- jQuery UI -->
+    <link href='jquery-ui.min.css' rel='stylesheet' type='text/css' />
+    <script src='jquery-ui.min.js' type='text/javascript'></script>
+
+    <!-- Language script -->
+    <script src='datepicker-es.js' type='text/javascript'></script>
     <script>
-        var nomIdeSocioCambiado = false;
+        $(function () {
+            $("#datepicker").datepicker($.datepicker.regional["es"]);
+        });
     </script>
-    <script type="text/javascript">
-        function lineaNueva() {
-            alert("asdas");
+    <style>
+        .dato {
+            margin-right: 10px;
+            font-weight: bolder;
         }
 
-    </script>
+        .datoHead {
+            margin-right: 0px;
+            font-weight: bolder;
+        }
+
+        .encabezado {
+            background-color: rgba(155, 173, 155, 0.43);
+            margin-left: 0%;
+            width: 100%;
+            padding-bottom: 5px;
+            padding-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        #divDetallesEncabezado {
+            border-left: 1px solid #e8e8e8;
+            border-right: 1px solid #e8e8e8;
+            border-top: 1px solid #e8e8e8;
+        }
+
+
+        #divDetalles {
+            border-left: 1px solid #e8e8e8;
+            border-right: 1px solid #e8e8e8;
+            border-bottom: 1px solid #e8e8e8;
+        }
+    </style>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="breadcrumbBodyHolder" runat="server">
-            <li class="breadcrumb-item active">Compras</li>
-            <li class="breadcrumb-item active">Registrar nueva compra</li>
+    <li class="breadcrumb-item active">Compras</li>
+    <li class="breadcrumb-item active">
+        <asp:Label ID="labelBreadCrum" Text="" runat="server" />
+    </li>
 </asp:Content>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="body" runat="server">
-<div class="row justify-content-center" style="background-color:red">
-       <asp:Literal ID="lblError" runat="server" Visible="false"></asp:Literal>
-</div>
-    <div class="container">
-            <div class="row">
-                <div id="divFuncionPagina" class="cell col-9" style="">
-                    <asp:Label Text="Nueva compra" runat="server" id="funcionPaginaLabel" class="h6 font-weight-bold"/>
-                </div>
-                <div id="fecha" class="row col-3">
-                    <h5 style="margin-right: 10%;">Fecha: </h5>
-                    <h5 id="fechaLabel">4/5/19</h5>
-                </div>
-            </div>
-            <br>
-             <br>
-            <label class="font-weight-bold">AM Costa Rica Limpia</label>
-            <br>
-            <div class="row">
-                <div class="col-lg-6">
-                    <label class="font-weight-bold campoIzq" for="telLabel">Número telefónico: </label>
-                    <asp:Label CssClass="campo" runat="server" ID="telLabel">87885522</asp:Label>
-                    <br>
-                    <label class="font-weight-bold campoIzq" for="telLabel">Bodega: </label>
-                    <asp:Label class="campo" runat="server" ID="Label1">Bodega San Ramon</asp:Label>
-                    <br>
-                    <label class="font-weight-bold campoIzq" for="telLabel">Dirección: </label>
-                    <asp:Label class="campo" runat="server" ID="Label4">San Ramón, Alajuela</asp:Label>
-                </div>
-                <div class="col-lg-6">
-                    <label class="font-weight-boldv campoIzq" for="telLabel">Factura #: </label>
-                    <asp:Label class="campo" runat="server" ID="Label2">0111</asp:Label>
-                    <br>
-                    <label class="font-weight-bold campoIzq" for="telLabel">Moneda: </label>
-                    <asp:DropDownList ID="monedas" runat="server" CssClass="btn dropdown btn-light"></asp:DropDownList>
-                    <%-- <asp:Label class="campo" runat="server" ID="Label3">COL</asp:Label>--%>
-                </div>
-            </div>
-             <br>
-             <br>
-            <h5 class="font-weight-bold">Datos del socio</h5>
-            <%-- SECCION 2 --%>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-3">
-                        <asp:TextBox type="text"  class="form-control"  ID="nomIdeSocio" runat="server" placeholder="Nombre o identificación"
-                           ></asp:TextBox>
-                    </div>
-                    <div class="col-lg-6">
-                        <asp:Button ID="btnBuscarSocio" CssClass="btn btn-success" runat="server" Text="Buscar" OnClick="btnBuscarSocio_Click"/>
+    <div class="row justify-content-center">
+        <asp:Literal ID="lblError" runat="server" Visible="false"></asp:Literal>
+    </div>
 
-                    </div>
-                    <div class="col-lg-3">
-                        <asp:LinkButton ID="LinkButton1" runat="server">Proveedor nuevo? Agregar</asp:LinkButton>
-                    </div>
-                </div>
-                <div class="overflow-auto" style="height: 150px; width: 100%; "> 
-                    
-                    <table id="clientesTable" class="table-sm table-bordered table-hover" style="width: 100%">
-                        <thead>
-                            <tr class="tabla_encabezado"> 
-                                <th scope="col">#</th>
-                                <th scope="col">Identificacion</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Telefono</th>
-                                <th scope="col">Ver</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>54687</td>
-                                <td>Jorge González</td>
-                                <td>88775566</td>
-                                <td>
-                                    <asp:Button Height="100%" CssClass="btn btn-link" runat="server" Text="Abrir detalle" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>54688</td>
-                                <td>Julio Jaramillo</td>
-                                <td>88775566</td>
-                                <td>
-                                    <asp:Button Height="100%" CssClass="btn btn-link" runat="server" Text="Abrir detalle" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>45688</td>
-                                <td>Selena Gomez</td>
-                                <td>88775566</td>
-                                <td>
-                                    <asp:Button Height="100%" CssClass="btn btn-link" runat="server" Text="Abrir detalle" />
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+    <%-- DATOS DEL CLIENTE  CARGADOS--%>
+    <div id="datosSocio">
+       
+        <asp:Label ID="labelDatosSocio" Text="" runat="server" class="font-weight-bold"/>
+    <div class="row" style="margin-left: 0%">
+        <div class="col-lg-4">
+            <asp:Label runat="server" CssClass="font-weight-bold campoIzq" Height="30px" for="labelCedula" Text="Identificación"></asp:Label>
+            <asp:Label CssClass="campo" runat="server" ID="labelCedula" Text="73648"></asp:Label>
             <br>
-            <h5 class="font-weight-bold">Detalles de compra</h5>
-            
-            <%-- SECCION 3 --%>
-            <%-- fila para agregar lineas --%>
-             <div class="row table-sm" id="divFilaDetalles" ">
-                    <div class="d-sm-table-cell" style="margin-left:2%">
-                        <asp:DropDownList ID="productosTB" AutoPostBack="false" runat="server" CssClass="btn dropup btn-light"></asp:DropDownList>
-                    </div>
-                    <div class="d-sm-table-cell" style="margin-left:2%">
-                        <asp:TextBox ID="cantidadTB" runat="server" type="number" CssClass="btn btn-light" />
-                    </div>
-                    <div class="d-sm-table-cell" style="margin-left:2%">
-                        <asp:DropDownList ID="unidadTB" runat="server" CssClass="btn dropup btn-light"></asp:DropDownList>
-                    </div>
-                    <div class="d-sm-table-cell" style="margin-left:2%">
-                        <asp:TextBox ID="precioUnidadTB" runat="server" type="number" CssClass="btn btn-light" />
-                    </div> 
-                    <div class="d-sm-table-cell" style="margin-left:2%">
-                       <asp:Button ID="agregarDetalleBTN" runat="server" Text="Agregar linea"  CssClass="btn btn-primary" OnClick="agregarLineaClick"/>
-                    </div>
-                   <%--  <asp:Button Height="100%" CssClass="btn btn-link" ForeColor="red" runat="server" Text="Quitar línea" />--%>
-                </div>
-            <%-- fila label agregados --%>
-             <div class="row" style="text-align:right; " >
-                    <div class="col-10" style="margin-right:4%"></div>
-                     <div class="col-1 text-left" style="margin-right:1%;">
-                      <h6 class="card-title font-weight-bold">Agregados:</h6>
-                    </div>
-                      <asp:Label runat="server" id="labelC" CssClass="font-weight-bolder">0</asp:Label>
+            <label class="font-weight-bold campoIzq" for="labelDireccion">Dirección: </label>
+            <asp:Label class="campo" runat="server" ID="labelDireccion">San Ramón, Alajuela</asp:Label>
+        </div>
+        <div class="col-lg-3">
+             <label class="font-weight-bold campoIzq" for="labelNombre">Nombre: </label>
+            <asp:Label class="campo" runat="server" ID="labelNombre">Pepe Figueres</asp:Label>
+            <br>
+            <label class="font-weight-bold campoIzq" for="telLabel">Teléfono: </label>
+            <asp:Label class="campo" runat="server" ID="labelTel">88447799</asp:Label>
+        </div>
+    </div>
+    </div>
+
+    <%-- SECCION COMPRA --%>
+    <div style="padding: 5px; width: 100%;">
+
+        <%-- ENCABEZADO --%>
+        <div class="row rounded encabezado" style="width: 100%; background-color: rgba(226, 230, 227, 0.76)">
+            <div class="col">
+                <%-- COSECUTIVO --%>
+                <div style="margin-top: 5px; float: left">
+                    <asp:Label ID="labelDatoConsecutivo" runat="server" class="h6 dato"></asp:Label>
+                    <asp:Label ID="labelValorDatoConsecutivo" CssClass="h6" Text="0" runat="server"/>
                 </div>
 
-            <%-- seccion de detalles --%>
-            <div class="overflow-auto" style="height: 180px; width: 100%; border:1px solid rgba(208, 205, 205, 0.64)" >
-                    <asp:Table id="tablaDetalles" runat="server" class="table-sm table-bordered table-hover" style="width: 100%">
-                        <asp:TableHeaderRow CssClass="btn-light font-weight-bolder">
-                            <asp:TableCell>Producto</asp:TableCell>
-                            <asp:TableCell>Cantidad</asp:TableCell>
-                            <asp:TableCell>Unidad</asp:TableCell>
-                            <asp:TableCell>Precio unidad</asp:TableCell>
-                            <asp:TableCell>Precio total</asp:TableCell>
-                            <asp:TableCell></asp:TableCell>
-                        </asp:TableHeaderRow>
-                    </asp:Table> 
+                <%-- FECHA --%>
+                <div style="float: right">
+                    <input class="form-control font-weight-bolder" type="text" id="datepicker" runat="server" clientidmode="Static" style="width: 120px" />
+                </div>
             </div>
-            <br>
-            <div class="align-content-center" style="text-align:center">
-                <asp:Button runat="server" Text="Registrar compra" usesubmitbehavior="true" CssClass="btn btn-info" />
+        </div>
+
+        <div class="row" style="width: 100%; margin-left: 0%;">
+            <%-- BODEGA --%>
+            <div>
+                <label class="h6 dato">Bodega:</label><br>
+                <asp:DropDownList OnSelectedIndexChanged="bodegasDrop_SelectedIndexChanged" class="btn btn-light dropdown-toggle" type="dropdown" ata-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ID="bodegasDrop" runat="server" AutoPostBack="True">
+                </asp:DropDownList>
             </div>
+            <%-- MONEDA --%>
+            <div style="margin-left: 10%">
+                <label class="h6 dato">Moneda:</label><br>
+                <asp:DropDownList class="btn btn-light dropdown-toggle" type="dropdown" ata-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ID="monedasDD" runat="server" AutoPostBack="True">
+                </asp:DropDownList>
+            </div>
+
+        </div>
+        <%-- DETALLES --%>
+        <div class="row justify-content-end" style="width: 100%; margin-left: 0%; padding-right: 1%">
+            <label class="font-weight-bolder" style="margin-right: 1%">Agregados</label>
+            <asp:Label Text="0" runat="server" ID="labelAgregados" />
+        </div>
+
+        <div id="divDetallesEncabezado">
+            <asp:Table ID="Table1" runat="server" class="table-sm " Style="width: 100%">
+                <asp:TableHeaderRow CssClass="btn-light font-weight-bolder position-relative">
+                    <asp:TableCell Width="20%">Material</asp:TableCell>
+                    <asp:TableCell Width="20%">Precio kilo</asp:TableCell>
+                    <asp:TableCell Width="20%">Cantidad</asp:TableCell>
+                    <asp:TableCell Width="30%">Unidad</asp:TableCell>
+                    <asp:TableCell Width="10%">Acción</asp:TableCell>
+                </asp:TableHeaderRow>
+                <asp:TableRow>
+                    <%-- Producto --%>
+                    <asp:TableCell>
+                        <asp:DropDownList Width="100%" ID="materialDD" AutoPostBack="false" runat="server" CssClass="btn btn-light btn-sm dropdown-toggle dropup"></asp:DropDownList>
+                    </asp:TableCell>
+                     <%-- Precio kilo --%>
+                    <asp:TableCell>
+                        <asp:TextBox Width="100%" ID="precioKgTB" runat="server" type="number" CssClass="btn btn-light btn-sm" />
+                    </asp:TableCell>
+                    <%-- Cantidad --%>
+                    <asp:TableCell>
+                        <asp:TextBox Width="100%" ID="cantidadTB" runat="server" type="number" CssClass="btn btn-light btn-sm" />
+                    </asp:TableCell>
+                    <%-- Unidad --%>
+                    <asp:TableCell>
+                        <asp:DropDownList Width="100%" ID="unidadDD" runat="server" CssClass="btn dropup btn-light btn-sm dropu"></asp:DropDownList>
+                    </asp:TableCell>
+                    <%-- Acción --%>
+                    <asp:TableCell>
+                        <asp:LinkButton Width="100%" ID="agregarLineaBTN" runat="server" CssClass="btn btn-info btn-sm" OnClick="agregarLineaClick">
+                           <i class="fa fa-plus"></i> Agregar</asp:LinkButton>
+                    </asp:TableCell>
+                </asp:TableRow>
+            </asp:Table>
+        </div>
+        <%-- CUERPO DE TABLA --%>
+        <div class="overflow-auto" style="height: 250px;" id="divDetalles">
+            <asp:Table ID="tablaDetalles" runat="server" class="table-sm  table-hover" Style="width: 100%">
+                <asp:TableRow Height="0%">
+                    <asp:TableCell Width="20%"></asp:TableCell>
+                    <asp:TableCell Width="20%"></asp:TableCell>
+                    <asp:TableCell Width="20%"></asp:TableCell>
+                    <asp:TableCell Width="30%"></asp:TableCell>
+                    <asp:TableCell Width="10%"></asp:TableCell>
+                </asp:TableRow>
+            </asp:Table>
+        </div>
+        <asp:Button ID="btnGuardar" type="button" runat="server" Text="Guardar" class="btn btn-info" Width="15%" OnClick="btnGuardar_Click" />
     </div>
 </asp:Content>

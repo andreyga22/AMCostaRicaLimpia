@@ -33,7 +33,7 @@ namespace DAO
                 "where(m.COD_MATERIAL = s.COD_MATERIAL and s.ID_BODEGA = @ID_BOD);";
 
             SqlCommand cmd = new SqlCommand(sql, conexion);
-            cmd.Parameters.AddWithValue("@ID_BOD", "B01");
+            cmd.Parameters.AddWithValue("@ID_BOD", id_bodega);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             sda.SelectCommand = cmd;
             DataSet ds = new DataSet("materialesEnBodega");

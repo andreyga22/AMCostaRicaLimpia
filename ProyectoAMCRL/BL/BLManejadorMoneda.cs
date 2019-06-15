@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TO;
 using DAO;
+using System.Data;
 
 namespace BL
 {
@@ -24,6 +25,12 @@ namespace BL
         public TOMoneda convert(BLMoneda bl)
         {
             return new TOMoneda(bl.idMoneda, bl.detalleMoneda, bl.equivalencia_Colon);
+        }
+
+        public DataSet listarMonedas()
+        {
+            DAOManejadorMoneda dao = new DAOManejadorMoneda();
+            return dao.listarMonedasDAO();
         }
     }
 }
