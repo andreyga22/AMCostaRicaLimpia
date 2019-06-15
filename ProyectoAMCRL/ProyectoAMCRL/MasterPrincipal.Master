@@ -57,7 +57,7 @@
             <br>
             <div class="row">
                 <span class="col"  style="margin-left:10%">
-                <asp:Image ID="Image1" runat="server" ImageUrl="~/images/logo.png" Height="60px" Width="60px"/>
+                <asp:Image ID="Image1" runat="server" ImageUrl="~/images/logomel2.png" Width="50%"/>
                 </span>
                
             </div>
@@ -101,7 +101,7 @@
                     <a href="#stockSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <i class="fas fa-boxes"></i>Inventario</a>
                     <ul class="collapse list-unstyled" id="stockSubmenu">
-                        <li><a href="AdministrarBodegas.aspx">Busqueda bodegas</a></li>
+                        <li><a href="AdministrarBodegas.aspx">Administrar bodegas</a></li>
                         <li><a href="AdministrarMateriales.aspx">Materiales</a></li>
                         <li><a href="Ajustes.aspx">Ajustes</a></li>
                     </ul>
@@ -139,7 +139,7 @@
 
                 <li class="active">
                     <a href="#configSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                        <i class="fa fa-cog"></i>Configuracion</a>
+                        <i class="fa fa-cog"></i>Configuración</a>
                     <ul class="collapse list-unstyled" id="configSubmenu">
                         <li><asp:LinkButton ID="contrasenaLb" runat="server" OnClick="contrasenaLb_Click">Cambiar contraseña</asp:LinkButton></li>
                     </ul>
