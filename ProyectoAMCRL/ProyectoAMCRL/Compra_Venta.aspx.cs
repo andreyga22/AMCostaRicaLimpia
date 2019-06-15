@@ -151,6 +151,7 @@ namespace ProyectoAMCRL
                 {
                     Session.Remove("listaDetallesC");
                     detalles = new List<string>();
+                    labelAgregados.Text = "0";
                     lblError.Text = "<br /><br /><div class=\"alert alert-success alert-dismissible fade show\" role=\"alert\"> <strong>" + mensajeRespuesta + "</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                     lblError.Visible = true;
                 }

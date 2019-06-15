@@ -71,27 +71,26 @@
     <div class="row justify-content-center">
         <asp:Literal ID="lblError" runat="server" Visible="false"></asp:Literal>
     </div>
-
     <%-- DATOS DEL CLIENTE  CARGADOS--%>
     <div id="datosSocio">
-       
-        <asp:Label ID="labelDatosSocio" Text="" runat="server" class="font-weight-bold"/>
-    <div class="row" style="margin-left: 0%">
-        <div class="col-lg-4">
-            <asp:Label runat="server" CssClass="font-weight-bold campoIzq" Height="30px" for="labelCedula" Text="Identificación"></asp:Label>
-            <asp:Label CssClass="campo" runat="server" ID="labelCedula" Text="73648"></asp:Label>
-            <br>
-            <label class="font-weight-bold campoIzq" for="labelDireccion">Dirección: </label>
-            <asp:Label class="campo" runat="server" ID="labelDireccion">San Ramón, Alajuela</asp:Label>
+        <asp:Label ID="labelDatosSocio" Text="" runat="server" class="font-weight-bold" />
+        <br>
+        <div class="row" style="margin-left: 0%">
+            <div class="col-lg-4">
+                <asp:Label runat="server" CssClass="font-weight-bold campoIzq" Height="30px" for="labelCedula" Text="Identificación"></asp:Label>
+                <asp:Label CssClass="campo" runat="server" ID="labelCedula" Text="73648"></asp:Label>
+                <br>
+                <label class="font-weight-bold campoIzq" for="labelDireccion">Dirección: </label>
+                <asp:Label class="campo" runat="server" ID="labelDireccion">San Ramón, Alajuela</asp:Label>
+            </div>
+            <div class="col-lg-3">
+                <label class="font-weight-bold campoIzq" for="labelNombre">Nombre: </label>
+                <asp:Label class="campo" runat="server" ID="labelNombre">Pepe Figueres</asp:Label>
+                <br>
+                <label class="font-weight-bold campoIzq" for="telLabel">Teléfono: </label>
+                <asp:Label class="campo" runat="server" ID="labelTel">88447799</asp:Label>
+            </div>
         </div>
-        <div class="col-lg-3">
-             <label class="font-weight-bold campoIzq" for="labelNombre">Nombre: </label>
-            <asp:Label class="campo" runat="server" ID="labelNombre">Pepe Figueres</asp:Label>
-            <br>
-            <label class="font-weight-bold campoIzq" for="telLabel">Teléfono: </label>
-            <asp:Label class="campo" runat="server" ID="labelTel">88447799</asp:Label>
-        </div>
-    </div>
     </div>
 
     <%-- SECCION COMPRA --%>
@@ -103,7 +102,7 @@
                 <%-- COSECUTIVO --%>
                 <div style="margin-top: 5px; float: left">
                     <asp:Label ID="labelDatoConsecutivo" runat="server" class="h6 dato"></asp:Label>
-                    <asp:Label ID="labelValorDatoConsecutivo" CssClass="h6" Text="0" runat="server"/>
+                    <asp:Label ID="labelValorDatoConsecutivo" CssClass="h6" Text="0" runat="server" />
                 </div>
 
                 <%-- FECHA --%>
@@ -148,7 +147,7 @@
                     <asp:TableCell>
                         <asp:DropDownList Width="100%" ID="materialDD" AutoPostBack="false" runat="server" CssClass="btn btn-light btn-sm dropdown-toggle dropup"></asp:DropDownList>
                     </asp:TableCell>
-                     <%-- Precio kilo --%>
+                    <%-- Precio kilo --%>
                     <asp:TableCell>
                         <asp:TextBox Width="100%" ID="precioKgTB" runat="server" type="number" CssClass="btn btn-light btn-sm" />
                     </asp:TableCell>
