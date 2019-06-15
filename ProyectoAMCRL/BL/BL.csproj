@@ -47,6 +47,7 @@
     <Compile Include="BLContactos.cs" />
     <Compile Include="BLDetalleFactura.cs" />
     <Compile Include="BLDireccion.cs" />
+    <Compile Include="BLFilaAjuste.cs" />
     <Compile Include="BLManejadorAjustes.cs" />
     <Compile Include="BLManejadorBodega.cs" />
     <Compile Include="BLManejadorMoneda.cs" />

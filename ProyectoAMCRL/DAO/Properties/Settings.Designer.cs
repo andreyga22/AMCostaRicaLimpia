@@ -47,6 +47,7 @@ namespace DAO.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=ws8.win.arvixe.com;Initial Catalog=amcostar_db1;User Id=amcostar_user" +
             "db;Password=aMCRL.03;")]
         public string conexionHost {

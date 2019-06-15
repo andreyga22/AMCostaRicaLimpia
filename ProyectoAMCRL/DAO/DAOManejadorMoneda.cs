@@ -51,6 +51,21 @@ namespace DAO
                 conexion.Close();
             }
         }
+
+        public DataSet listarMonedasDAO()
+        {
+            List<TOMoneda> monedas = new List<TOMoneda>();
+
+            String sql = "SELECT * FROM MONEDA";
+            SqlCommand cmd = new SqlCommand(sql, conexion);
+
+            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            sda.SelectCommand = cmd;
+            DataSet ds = new DataSet("ajustes");
+            sda.Fill(ds);
+
+            return ds;
+        }
     }
 }
 
