@@ -67,6 +67,11 @@ namespace DAO {
                             " end else begin insert into DIRECCION(PROVINCIA, CANTON, DISTRITO, OTRAS_SENNAS) values" +
                             "(@PROVINCIA, @CANTON, @DISTRITO, @SENNAS); END commit tran;", conexion);
 
+            insertar.Parameters.AddWithValue("@PROVINCIA", direccion.provincia);
+            insertar.Parameters.AddWithValue("@CANTON", direccion.canton);
+            insertar.Parameters.AddWithValue("@DISTRITO", direccion.distrito);
+            insertar.Parameters.AddWithValue("@SENNAS", direccion.otras_sennas);
+
             SqlCommand buscarCodigo = new SqlCommand("Select COD_DIRECCION from DIRECCION where OTRAS_SENNAS = @SENNAS;", conexion);
             buscarCodigo.Parameters.AddWithValue("@SENNAS", direccion.otras_sennas);
 
@@ -82,10 +87,7 @@ namespace DAO {
                 }
             }
             reader.Close();
-            insertar.Parameters.AddWithValue("@PROVINCIA", direccion.provincia);
-            insertar.Parameters.AddWithValue("@CANTON", direccion.canton);
-            insertar.Parameters.AddWithValue("@DISTRITO", direccion.distrito);
-            insertar.Parameters.AddWithValue("@SENNAS", direccion.otras_sennas);
+
 
             if (direccion.cod_direccion != 0) {
                 insertar.Parameters.AddWithValue("@COD_DIRECCION", direccion.cod_direccion);
@@ -128,7 +130,8 @@ namespace DAO {
             return true;
         }
 
-        public DataTable buscarSocio(String busqueda)
+        //ajustar al filtro
+        public DataTable buscarSociosFiltro(String busqueda)
         {
             using (conexion)
             {
@@ -148,14 +151,14 @@ namespace DAO {
 
                     foreach (DataRow fila in tabla.Rows) // search whole table
                     {
-                        if (fila["rol_socio"].Equals("p")) // si es proveedor
+                        if (fila["rol_socio"].Equals("Proveedor")) // si es proveedor
                         {
                             fila["rol_socio"] = "Proveedor"; //change the name
                                                          //break; break or not depending on you
                         }
                         else
                         {
-                            if (fila["rol_socio"].Equals("c"))
+                            if (fila["rol_socio"].Equals("Cliente"))
                             {
                                 fila["rol_socio"] = "Cliente";
                             }
@@ -193,6 +196,32 @@ namespace DAO {
                 return direccion;
             }
             return direccion;
+        }
+
+        public TOContactos buscarContacto(String cedula)
+        {
+            SqlCommand buscarContacto = new SqlCommand("Select TELEFONO_HAB, TELEFONO_PERS, EMAIL from CONTACTOS where CEDULA = @CEDULA", conexion);
+            TOContactos contacto = new TOContactos();
+            if (conexion.State != ConnectionState.Open)
+            {
+                conexion.Open();
+            }
+
+            SqlDataReader reader = buscarContacto.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    contacto.telefono_hab = Int32.Parse(reader.GetString(0));
+                    contacto.telefono_pers = Int32.Parse(reader.GetString(1));
+                    contacto.email = reader.GetString(2);
+                }
+            }
+            else
+            {
+                return contacto;
+            }
+            return contacto;
         }
     }
 }
