@@ -31,92 +31,118 @@ namespace DAO {
                 SqlCommand sentencia = conexion.CreateCommand();
                 sentencia.Transaction = sqlTran;
 
-                //try {
+                try {
+                    if(bod.direccion.cod_direccion == 0) {
+                        sentencia.CommandText =
+                "insert into direccion(provincia, canton, distrito, otras_sennas) values(@prov, @cant, @dist, @otras);" +
+            " SELECT SCOPE_IDENTITY();";
+                        //sentencia.Parameters.AddWithValue("@cod", bod.direccion.cod_direccion);
+                        sentencia.Parameters.AddWithValue("@prov", bod.direccion.provincia);
+                        sentencia.Parameters.AddWithValue("@cant", bod.direccion.canton);
+                        sentencia.Parameters.AddWithValue("@dist", bod.direccion.distrito);
+                        sentencia.Parameters.AddWithValue("@otras", bod.direccion.otras_sennas);
+                        int resul = 0;
+                        resul = Convert.ToInt32(sentencia.ExecuteScalar());
 
-                sentencia.CommandText =
-                "begin tran if exists(select * from direccion with (updlock, serializable) where cod_direccion = @cod) begin update direccion set provincia = @prov, canton= @cant, distrito= @dist, otras_sennas= @otras where cod_Direccion = @cod; end else begin insert into direccion(provincia, canton, distrito, otras_sennas) values(@prov, @cant, @dist, @otras); end commit tran";
-                sentencia.Parameters.AddWithValue("@cod", bod.direccion.cod_direccion);
-                sentencia.Parameters.AddWithValue("@prov", bod.direccion.provincia);
-                sentencia.Parameters.AddWithValue("@cant", bod.direccion.canton);
-                sentencia.Parameters.AddWithValue("@dist", bod.direccion.distrito);
-                sentencia.Parameters.AddWithValue("@otras", bod.direccion.otras_sennas);
-                sentencia.ExecuteNonQuery();
 
-                int resul = 0;
+                        sentencia.CommandText =
+                     "insert into bodega(id_bodega, nombre_bod, estado_bodega, cod_direccion) values (@codigo, @nombre, @estado, @cod_dir);";
+                        sentencia.Parameters.AddWithValue("@codigo", bod.codigo);
+                        sentencia.Parameters.AddWithValue("@nombre", bod.nombre);
+                        sentencia.Parameters.AddWithValue("@estado", bod.estado);
 
-                string select = "select cod_direccion from direccion where otras_sennas = @otras;";
-                sentencia.CommandText = select;
+                        sentencia.Parameters.AddWithValue("@cod_dir", resul);
 
-                SqlDataReader reader = sentencia.ExecuteReader();
-                if(reader.HasRows) {
-                    while(reader.Read()) {
-                        resul = reader.GetInt32(0);
+
+                        sentencia.ExecuteNonQuery();
+
+                        sqlTran.Commit();
+                        if(conexion.State != ConnectionState.Closed) {
+                            conexion.Close();
+                        }
+
+                    } else {
+                        sentencia.CommandText =
+               "update direccion set provincia = @prov, canton= @cant, distrito= @dist, otras_sennas= @otras where cod_Direccion = @cod;";
+                        sentencia.Parameters.AddWithValue("@cod", bod.direccion.cod_direccion);
+                        sentencia.Parameters.AddWithValue("@prov", bod.direccion.provincia);
+                        sentencia.Parameters.AddWithValue("@cant", bod.direccion.canton);
+                        sentencia.Parameters.AddWithValue("@dist", bod.direccion.distrito);
+                        sentencia.Parameters.AddWithValue("@otras", bod.direccion.otras_sennas);
+                        sentencia.ExecuteNonQuery();
+
+
+
+                        sentencia.CommandText =
+                         "update bodega set nombre_bod = @nombre, estado_bodega = @estado where id_bodega = @codigo;";
+                        sentencia.Parameters.AddWithValue("@codigo", bod.codigo);
+                        sentencia.Parameters.AddWithValue("@nombre", bod.nombre);
+                        sentencia.Parameters.AddWithValue("@estado", bod.estado);
+                        //sentencia.Parameters.AddWithValue("@cod_dir", bod.direccion.cod_direccion);
+
+
+                        sentencia.ExecuteNonQuery();
+                        sqlTran.Commit();
+                        if(conexion.State != ConnectionState.Closed) {
+                            conexion.Close();
+                        }
+                    }
+
+                    //if(reader.HasRows) {
+                    //    while(reader.Read()) {
+                    //        resul = reader.GetInt32(0);
+                    //    }
+                    //}
+                    //reader.Close();
+
+                    // Execute two separate commands.
+
+                    // Commit the transaction.
+
+                } catch(Exception) {
+                    try {
+                        // Attempt to roll back the transaction.
+                        sqlTran.Rollback();
+                    } catch(Exception) {
+
+                        throw;
                     }
                 }
-                reader.Close();
-
-                // Execute two separate commands.
-                sentencia.CommandText =
-                 "begin tran if exists(select * from Bodega with (updlock, serializable) where id_bodega = @codigo) begin update bodega set nombre_bod = @nombre, estado_bodega = @estado, cod_direccion = @cod_dir where id_bodega = @codigo; end else begin insert into bodega(id_bodega, nombre_bod, estado_bodega, cod_direccion) values (@codigo, @nombre, @estado, @cod_dir); end commit tran";
-                sentencia.Parameters.AddWithValue("@codigo", bod.codigo);
-                sentencia.Parameters.AddWithValue("@nombre", bod.nombre);
-                sentencia.Parameters.AddWithValue("@estado", bod.estado);
-                if(bod.direccion.cod_direccion != 0) {
-                    sentencia.Parameters.AddWithValue("@cod_dir", bod.direccion.cod_direccion);
-                } else {
-                    sentencia.Parameters.AddWithValue("@cod_dir", resul);
-                }
-
-                sentencia.ExecuteNonQuery();
-
-                // Commit the transaction.
-                sqlTran.Commit();
-                if(conexion.State != ConnectionState.Closed) {
-                    conexion.Close();
-                }
-                //} catch(Exception) {
-                //    try {
-                //        // Attempt to roll back the transaction.
-                //        sqlTran.Rollback();
-                //    } catch(Exception) {
-                //        throw;
-                //    }
-                //}
             }
         }
 
-        public int consultarUltimaDireccion(string otras) {
+        //public int consultarUltimaDireccion(string otras) {
 
-            try {
-                int resul = 0;
+        //    try {
+        //        int resul = 0;
 
-                string select = "select cod_direccion from direccion where otras_sennas = @otras;";
-                SqlCommand sentencia = new SqlCommand(select, conexion);
-                sentencia.Parameters.AddWithValue("@otras", otras);
+        //        string select = "select cod_direccion from direccion where otras_sennas = @otras;";
+        //        SqlCommand sentencia = new SqlCommand(select, conexion);
+        //        sentencia.Parameters.AddWithValue("@otras", otras);
 
-                if(conexion.State != ConnectionState.Open) {
-                    conexion.Open();
-                }
+        //        if(conexion.State != ConnectionState.Open) {
+        //            conexion.Open();
+        //        }
 
-                SqlDataReader reader = sentencia.ExecuteReader();
-                if(reader.HasRows) {
-                    while(reader.Read()) {
-                        resul = reader.GetInt32(0);
-                    }
-                }
+        //        SqlDataReader reader = sentencia.ExecuteReader();
+        //        if(reader.HasRows) {
+        //            while(reader.Read()) {
+        //                resul = reader.GetInt32(0);
+        //            }
+        //        }
 
-                if(conexion.State != ConnectionState.Closed) {
-                    conexion.Close();
-                }
-                return resul;
-            } catch(SqlException) {
-                throw;
-            } catch(Exception) {
-                throw;
-            } finally {
-                conexion.Close();
-            }
-        }
+        //        if(conexion.State != ConnectionState.Closed) {
+        //            conexion.Close();
+        //        }
+        //        return resul;
+        //    } catch(SqlException) {
+        //        throw;
+        //    } catch(Exception) {
+        //        throw;
+        //    } finally {
+        //        conexion.Close();
+        //    }
+        //}
 
         public List<TOBodegaTabla> listaBodega() {
             try {
@@ -146,20 +172,24 @@ namespace DAO {
         }
 
         public DataTable buscar(string busqueda) {
-            using(conexion) {
-                SqlCommand cmd = conexion.CreateCommand();
-                string sql = "select b.ID_BODEGA, b.NOMBRE_BOD, d.DISTRITO, b.ESTADO_BODEGA from bodega b join direccion d on b.COD_DIRECCION = d.COD_DIRECCION";
-                if(!string.IsNullOrEmpty(busqueda)) {
-                    sql += " WHERE (b.ID_BODEGA LIKE '%' + @pal + '%')  or (b.NOMBRE_BOD LIKE '%' + @pal + '%') or (d.DISTRITO LIKE '%' + @pal + '%');";
-                    cmd.Parameters.AddWithValue("@pal", busqueda);
+            try {
+                using(conexion) {
+                    SqlCommand cmd = conexion.CreateCommand();
+                    string sql = "select b.ID_BODEGA, b.NOMBRE_BOD, d.DISTRITO, b.ESTADO_BODEGA from bodega b join direccion d on b.COD_DIRECCION = d.COD_DIRECCION";
+                    if(!string.IsNullOrEmpty(busqueda)) {
+                        sql += " WHERE (b.ID_BODEGA LIKE '%' + @pal + '%')  or (b.NOMBRE_BOD LIKE '%' + @pal + '%') or (d.DISTRITO LIKE '%' + @pal + '%');";
+                        cmd.Parameters.AddWithValue("@pal", busqueda);
+                    }
+                    cmd.CommandText = sql;
+                    cmd.Connection = conexion;
+                    using(SqlDataAdapter sda = new SqlDataAdapter(cmd)) {
+                        DataTable dt = new DataTable();
+                        sda.Fill(dt);
+                        return dt;
+                    }
                 }
-                cmd.CommandText = sql;
-                cmd.Connection = conexion;
-                using(SqlDataAdapter sda = new SqlDataAdapter(cmd)) {
-                    DataTable dt = new DataTable();
-                    sda.Fill(dt);
-                    return dt;
-                }
+            } catch(Exception) {
+                throw;
             }
         }
 

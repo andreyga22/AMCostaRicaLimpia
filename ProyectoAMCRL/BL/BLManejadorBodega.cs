@@ -11,28 +11,40 @@ namespace BL {
     public class BLManejadorBodega {
 
         public void guardarModificarBodega(BLBodega bod) {
-            //try {
-            new DAOBodegas().guardarModificarBodega(convert(bod));
-            //} catch(Exception) {
-            //    throw;
-            //}
+            try {
+                new DAOBodegas().guardarModificarBodega(convert(bod));
+            } catch(Exception) {
+                throw;
+            }
         }
 
         public List<BLBodegaTabla> listaBodegas() {
-            List<TOBodegaTabla> to = new DAOBodegas().listaBodega();
-            List<BLBodegaTabla> listaBL = new List<BLBodegaTabla>();
-            foreach(TOBodegaTabla bodega in to) {
-                listaBL.Add(convert(bodega));
+            try {
+                List<TOBodegaTabla> to = new DAOBodegas().listaBodega();
+                List<BLBodegaTabla> listaBL = new List<BLBodegaTabla>();
+                foreach(TOBodegaTabla bodega in to) {
+                    listaBL.Add(convert(bodega));
+                }
+                return listaBL;
+            } catch(Exception) {
+                throw;
             }
-            return listaBL;
         }
 
         public DataTable buscar(string busqueda) {
-            return new DAOBodegas().buscar(busqueda);
+            try {
+                return new DAOBodegas().buscar(busqueda);
+            } catch(Exception) {
+                throw;
+            }
         }
 
         public BLBodega consultarBodega(String id) {
-            return convert(new DAOBodegas().consultarBodega(id));
+            try {
+                return convert(new DAOBodegas().consultarBodega(id));
+            } catch(Exception) {
+                throw;
+            }
         }
 
         private BLBodegaTabla convert(TOBodegaTabla bod) {

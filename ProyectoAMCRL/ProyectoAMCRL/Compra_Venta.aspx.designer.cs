@@ -13,6 +13,15 @@ namespace ProyectoAMCRL {
     public partial class Compra_Venta {
         
         /// <summary>
+        /// labelBreadCrum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelBreadCrum;
+        
+        /// <summary>
         /// lblError control.
         /// </summary>
         /// <remarks>
@@ -22,94 +31,130 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.Literal lblError;
         
         /// <summary>
-        /// funcionPaginaLabel control.
+        /// labelDatosSocio control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label funcionPaginaLabel;
+        protected global::System.Web.UI.WebControls.Label labelDatosSocio;
         
         /// <summary>
-        /// telLabel control.
+        /// labelCedula control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label telLabel;
+        protected global::System.Web.UI.WebControls.Label labelCedula;
         
         /// <summary>
-        /// Label1 control.
+        /// labelDireccion control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.Label labelDireccion;
         
         /// <summary>
-        /// Label4 control.
+        /// labelNombre control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label4;
+        protected global::System.Web.UI.WebControls.Label labelNombre;
         
         /// <summary>
-        /// Label2 control.
+        /// labelTel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label2;
+        protected global::System.Web.UI.WebControls.Label labelTel;
         
         /// <summary>
-        /// monedas control.
+        /// labelDatoConsecutivo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList monedas;
+        protected global::System.Web.UI.WebControls.Label labelDatoConsecutivo;
         
         /// <summary>
-        /// nomIdeSocio control.
+        /// labelValorDatoConsecutivo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox nomIdeSocio;
+        protected global::System.Web.UI.WebControls.Label labelValorDatoConsecutivo;
         
         /// <summary>
-        /// btnBuscarSocio control.
+        /// datepicker control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnBuscarSocio;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText datepicker;
         
         /// <summary>
-        /// LinkButton1 control.
+        /// bodegasDrop control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton1;
+        protected global::System.Web.UI.WebControls.DropDownList bodegasDrop;
         
         /// <summary>
-        /// productosTB control.
+        /// monedasDD control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList productosTB;
+        protected global::System.Web.UI.WebControls.DropDownList monedasDD;
+        
+        /// <summary>
+        /// labelAgregados control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelAgregados;
+        
+        /// <summary>
+        /// Table1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Table Table1;
+        
+        /// <summary>
+        /// materialDD control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList materialDD;
+        
+        /// <summary>
+        /// precioKgTB control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox precioKgTB;
         
         /// <summary>
         /// cantidadTB control.
@@ -121,40 +166,22 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.TextBox cantidadTB;
         
         /// <summary>
-        /// unidadTB control.
+        /// unidadDD control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList unidadTB;
+        protected global::System.Web.UI.WebControls.DropDownList unidadDD;
         
         /// <summary>
-        /// precioUnidadTB control.
+        /// agregarLineaBTN control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox precioUnidadTB;
-        
-        /// <summary>
-        /// agregarDetalleBTN control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button agregarDetalleBTN;
-        
-        /// <summary>
-        /// labelC control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelC;
+        protected global::System.Web.UI.WebControls.LinkButton agregarLineaBTN;
         
         /// <summary>
         /// tablaDetalles control.
@@ -164,5 +191,14 @@ namespace ProyectoAMCRL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Table tablaDetalles;
+        
+        /// <summary>
+        /// btnGuardar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnGuardar;
     }
 }

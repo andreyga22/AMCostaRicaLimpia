@@ -98,14 +98,18 @@
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="images\compra.png" />
     <Content Include="images\facturas.png" />
+    <Content Include="images\fondo.jpeg" />
     <Content Include="images\inventario.png" />
     <Content Include="images\logo.jpeg" />
     <Content Include="images\logo.png" />
     <Content Include="images\logomel2.png" />
+    <Content Include="images\logomel2_1.png" />
     <Content Include="images\moneda.jpg" />
     <Content Include="images\reportes.png" />
     <Content Include="images\socios.png" />
     <Content Include="AdministrarMateriales.aspx" />
+    <Content Include="Login.aspx" />
+    <Content Include="login.css" />
     <Content Include="Monedas.aspx" />
     <Content Include="ownStyles.css" />
     <Content Include="Principal.aspx" />
@@ -238,6 +242,13 @@
     </Compile>
     <Compile Include="Factura.aspx.designer.cs">
       <DependentUpon>Factura.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="MasterPrincipal.Master.cs">
       <DependentUpon>MasterPrincipal.Master</DependentUpon>

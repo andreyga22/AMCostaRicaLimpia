@@ -18,50 +18,122 @@ namespace DAO
 
         private DataTable tabla = new DataTable();
 
-        //public String registrarDetalles()
-        //{
-        //    String m = "";
-        //    int codVenta = 2;
-        //    listaDetalles.Add(new TODetalleCompra(codVenta, 5, 30000, 15));
-        //    listaDetalles.Add(new TODetalleCompra(codVenta, 4, 27750, 18.5));
-        //    listaDetalles.Add(new TODetalleCompra(codVenta, 3, 38400, 24));
+        public String registrarFacturaDAO(String cedula, String idBodega, String idMoneda, String fechaS, char tipo, List<TODetalleFactura> detalles, double totalFacturaColones)//RECIBE LOS PARAMETROS, SE ASUME QUE LAS CANTIDADES VIENEN EN KILOS,
+        {
 
-        //    tabla.Columns.Add(new DataColumn("COD_VENTA", typeof(int)));
-        //    tabla.Columns.Add(new DataColumn("COD_MATERIAL", typeof(int)));
-        //    tabla.Columns.Add(new DataColumn("MONTO_LINEA_V", typeof(double)));
-        //    tabla.Columns.Add(new DataColumn("KILOS_VENTA", typeof(double)));
+            String m = "";
+            int codCompra = -1;
+            String[] fechaInfo = fechaS.Split('/');
+            int anio = Int32.Parse(fechaInfo[2]);
+            int mes = Int32.Parse(fechaInfo[1]);
+            int dia = Int32.Parse(fechaInfo[0]);
 
-        //    //poblar el DataTable
-        //    foreach (var detalle in listaDetalles)
-        //        tabla.Rows.Add(detalle.codCompra, detalle.codMaterial, detalle.montoLinea, detalle.cantidadLinea);
+            DateTime fecha = new DateTime(anio, mes, dia);
+            Double montoTotal = totalFacturaColones;
+            char operacion = (tipo.Equals('c') ? '-' : '+');
 
-        //    //consulta
-        //    try
-        //    {
-        //        if (conexion.State == ConnectionState.Closed)
-        //            conexion.Open();
+            //TRANSACCION
+            using (conexion)
+            {
+                conexion.Open();
 
-        //        SqlCommand cmd = new SqlCommand("dbo.INSERTAR_DETALLES_VENTA", conexion);
-        //        SqlParameter sqlParameter = cmd.Parameters.AddWithValue("@Lista", tabla);
-        //        SqlParameter sqlParameterCodVenta = cmd.Parameters.AddWithValue("@cod_venta", codVenta);
+                //Se inicializa la transaccion local
+                SqlTransaction transaction = conexion.BeginTransaction();
 
-        //        cmd.CommandType = CommandType.StoredProcedure;
-        //        sqlParameter.SqlDbType = SqlDbType.Structured;
-        //        sqlParameter.TypeName = "dbo.DETALLES_VENTA";
+                //Se asigna un comando a la transaccion
+                SqlCommand command = conexion.CreateCommand();
+                command.Transaction = transaction;
 
-        //        cmd.ExecuteNonQuery();
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return e.Message;
-        //    }
-        //    return m;
-        //}
+                //TEXTOS CONSULTAS 
+                //FACTURA
+                // COD_FACTURA, CEDULA, ID_BODEGA, ID_MONEDA, MONTO_TOTAL, FECHA_FACTURA, TIPO
+                String sqlEncabezado = "INSERT INTO FACTURA (ID_BODEGA, CEDULA, ID_MONEDA, MONTO_TOTAL, FECHA_FACTURA, TIPO)" +
+                    "VALUES (@BODEGA,@CED,@MONEDA,@TOTAL,@FECHA,@TIPO)";
+                String swqlCodCompra = "select IDENT_CURRENT('FACTURA')";
+                //DETALLE
+                //COD_LINEA, COD_FACTURA, COD_MATERIAL, MONTO_LINEA, KILOS
+                String sqlDetalles = "INSERT INTO DETALLE_FACTURA (COD_FACTURA, COD_MATERIAL, KILOS, MONTO_LINEA)" +
+                    "VALUES";
+                String sqlSumarStock = "";
 
+
+                try
+                {
+                    //REGISTRAR ENCABEZADO
+                    command.CommandText = sqlEncabezado;
+                    command.Parameters.AddWithValue("@BODEGA", idBodega); //validar formato en parametros(?)
+                    command.Parameters.AddWithValue("@CED", cedula);
+                    command.Parameters.AddWithValue("@MONEDA", idMoneda);
+                    command.Parameters.AddWithValue("@TOTAL", montoTotal);//el monto debe venir calculado desde BL
+                    command.Parameters.AddWithValue("@FECHA", fecha);
+                    command.Parameters.AddWithValue("@TIPO", tipo);
+
+                    command.ExecuteNonQuery();
+
+                    //EXTRAER CODIGO(IDENTITY) DE COMPRA_INGRESADA
+                    command.CommandText = swqlCodCompra;
+                    codCompra = Convert.ToInt32(command.ExecuteScalar());
+
+                    //REGISTRAR DETALLES   (?)bloquear materiales(?)
+                    foreach (var detalle in detalles)
+                        sqlDetalles += "(" + codCompra + "," + detalle.cod_Material + "," + detalle.kilos_Linea + "," + detalle.monto_Linea + "),";
+
+                    sqlDetalles = sqlDetalles.Remove(sqlDetalles.Length - 1);
+                    sqlDetalles += ";";
+                    command.CommandText = sqlDetalles;
+                    command.ExecuteNonQuery();
+
+                    //SUMAR LOS MATERIALES COMPRADOS A STOCK DE LA BODEGA RESPECTIVA, 
+                    //SE CONSTRUYE DOS PARTES DE CONSULTA DE UN "SWITCH" PARA ACTUALIZAR EL STOCK.
+                    String sqlUpdateParte1 = "UPDATE STOCK SET KILOS_STOCK = CASE ";
+                    String sqlUpdateParte2 = "WHERE (ID_BODEGA = @ID_BOD AND COD_MATERIAL IN (";
+
+                    foreach (var detalle in detalles)
+                    {
+                        sqlUpdateParte1 += "WHEN COD_MATERIAL = " + detalle.cod_Material +
+                        " THEN (KILOS_STOCK "+ operacion +" " + detalle.kilos_Linea + ") ";
+
+                        sqlUpdateParte2 += detalle.cod_Material + ",";
+                    }
+
+                    sqlUpdateParte2 = sqlUpdateParte2.Remove(sqlUpdateParte2.Length - 1);
+                    sqlUpdateParte2 += "));";
+                    sqlSumarStock = sqlUpdateParte1 + " END " + sqlUpdateParte2;
+                    command.Parameters.AddWithValue("@ID_BOD", idBodega);
+                    command.CommandText = sqlSumarStock;
+                    command.ExecuteNonQuery();
+
+                    //COMMIT A LA TRANSACCION
+                    transaction.Commit();
+                    return "SUCCCES";
+                }
+                catch (Exception ex)
+                {
+
+                    m = "Ocurrió un error en la operación, contacte al administrador. Error: " + ex.Source;
+
+                    try
+                    {
+                        // Se intenta hacer rollback de la transaccion
+                        transaction.Rollback();
+                    }
+                    catch (Exception exRollback)
+                    {
+                        // Throws an InvalidOperationException if the connection 
+                        // is closed or the transaction has already been rolled 
+                        // back on the server.
+                        return (exRollback.Message);
+                    }
+
+                }//EXCEPCION
+                return m;
+            }//CONEXION
+
+        }//METODO REGISTRAR COMPRA
 
         //Retorna todas Facturas de Ventas
 
-            //Retorna lista completa
+        //Retorna lista completa
         public List<TOFactura> lista_Facturas()
         {
             {

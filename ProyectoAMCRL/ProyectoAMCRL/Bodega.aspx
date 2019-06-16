@@ -25,30 +25,30 @@
         <div class="justify-content-center">
 
             <div class="form-group">
-                <label for="codigoTb">Código Bodega*</label><asp:RequiredFieldValidator ID="valCodigo" runat="server" ErrorMessage="Campo requerido" ControlToValidate="codigoTb"></asp:RequiredFieldValidator>
+                <label for="codigoTb">Código Bodega*</label><asp:RequiredFieldValidator ID="valCodigo" runat="server" ErrorMessage="Campo requerido" ControlToValidate="codigoTb" ForeColor="Red"></asp:RequiredFieldValidator>
                 <asp:TextBox type="text" ID="codigoTb" class="form-control" placeholder="B01" runat="server"></asp:TextBox>
             </div>
             <div class="form-group">
-                <label for="nombreTb">Nombre Bodega*</label>
-                <asp:TextBox type="text" ID="nombreTB" class="form-control" placeholder="Naranjo-1" runat="server"></asp:TextBox>
+                <label for="nombreTb">Nombre Bodega*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="nombreTB" ErrorMessage="Campo Requerido" ForeColor="Red"></asp:RequiredFieldValidator>
+&nbsp;<asp:TextBox type="text" ID="nombreTB" class="form-control" placeholder="Naranjo-1" runat="server"></asp:TextBox>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-4">
-                    <label for="provinciaTb">Provincia*</label>
-                    <asp:TextBox type="text" ID="provinciaTb" class="form-control" runat="server"></asp:TextBox>
+                    <label for="provinciaTb">Provincia*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="provinciaTb" ErrorMessage="Campo Requerido" ForeColor="Red"></asp:RequiredFieldValidator>
+&nbsp;<asp:TextBox type="text" ID="provinciaTb" class="form-control" runat="server"></asp:TextBox>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="cantonTb">Cantón*</label>
-                    <asp:TextBox type="text" ID="cantonTb" class="form-control" runat="server"></asp:TextBox>
+                    <label for="cantonTb">Cantón*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="cantonTb" ErrorMessage="Campo Requerido" ForeColor="Red"></asp:RequiredFieldValidator>
+&nbsp;<asp:TextBox type="text" ID="cantonTb" class="form-control" runat="server"></asp:TextBox>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="distritoTb">Distrito*</label>
-                    <asp:TextBox type="text" ID="distritoTb" class="form-control" runat="server"></asp:TextBox>
+                    <label for="distritoTb">Distrito*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="distritoTb" ErrorMessage="Campo Requerido" ForeColor="Red"></asp:RequiredFieldValidator>
+&nbsp;<asp:TextBox type="text" ID="distritoTb" class="form-control" runat="server"></asp:TextBox>
                 </div>
             </div>
             <div class="form-group">
-                <label for="otrasTb">Otras Señas*</label>
-                <asp:TextBox type="text" ID="otrasTb" class="form-control" runat="server"></asp:TextBox>
+                <label for="otrasTb">Otras Señas*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="otrasTb" ErrorMessage="Campo Requerido" ForeColor="Red"></asp:RequiredFieldValidator>
+&nbsp;<asp:TextBox type="text" ID="otrasTb" class="form-control" runat="server"></asp:TextBox>
             </div>
             <div class="form-group" id="estado" runat="server">
                 <label for="estadoRb">Estado</label>

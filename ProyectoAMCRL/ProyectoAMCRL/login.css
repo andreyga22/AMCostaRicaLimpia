@@ -1,0 +1,12 @@
+﻿body {
+    background-image: url('images/fondo.jpeg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100%;
+}
+
+.jumbotron {
+    border-radius: 0.3rem !important;
+    background-color: white !important;
+    box-shadow: 0 8px 16px -6px black;
+}
