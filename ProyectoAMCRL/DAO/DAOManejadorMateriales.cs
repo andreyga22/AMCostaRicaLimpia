@@ -102,6 +102,42 @@ namespace DAO
 
         }
 
+        public TOMaterial buscarMaterialDAO(string clave)
+        {
+            TOMaterial MTO = new TOMaterial();
+            String sql = "select NOMBRE_MATERIAL, PRECIO_KILO from MATERIAL WHERE (COD_MATERIAL = @COD)";
+            String nombre = "";
+            Double precioKilo = 0;
+
+            using (conexion) {
+                SqlCommand cmd = new SqlCommand(sql,conexion);
+                cmd.Parameters.AddWithValue("@COD", clave);
+                //try {
+                    conexion.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                   
+
+                    while (reader.Read())
+                    {
+                         nombre = (String)reader.GetString(0);
+                         precioKilo = reader.GetSqlDecimal(1).ToDouble(); ;
+                    }
+
+                MTO.codigoM = Int32.Parse(clave);
+                MTO.nombreMaterial = nombre;
+                MTO.precioKilo = precioKilo;
+
+                conexion.Close();
+                    return MTO;
+                //}
+                //catch (Exception e) {
+                //    return null;
+                //}
+            }
+                
+
+            return MTO;
+        }
 
         public double traerCantidadVendidaDAO(int v)
         {

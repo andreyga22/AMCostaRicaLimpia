@@ -51,11 +51,7 @@
         //}
 
         function abrirDetalleClick(id) {
-            var info = id.split(".");
-            var idM = info[0];
-            var nombre = info[1];
-            var precio = info[2];
-            window.location.replace("RegistroMateriales.aspx?idM="+idM+"&nom="+nombre+"&prec="+precio);
+            window.location.replace("RegistroMateriales.aspx?idM="+id);
         }
 
         window.onload = ocultarDivs;
@@ -64,7 +60,7 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="breadcrumbBodyHolder" runat="server">
-  <li class="breadcrumb-item"><a href="AdministrarMateriales.aspx">Materiales</a></li>
+  <li class="breadcrumb-item"><a href="AdministrarMateriales.aspx" style="color: dodgerblue">Materiales</a></li>
 </asp:Content>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="body" runat="server">
@@ -86,8 +82,6 @@
                 <th scope="col">Codigo</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Precio kilo</th>
-                <th scope="col">Acción  
-                </th>
             </tr>
         </thead>  
         <tbody id="cuerpoTabla" class="table-sm">

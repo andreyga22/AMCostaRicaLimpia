@@ -32,12 +32,11 @@ namespace ProyectoAMCRL
 
 
                 String infoBTN = codigo + "."+ nombre + '.' + precio;
-                String btnHTML = "<input id='"+ infoBTN + "' type='button' class='btn btn-sm btn-link' value='Editar' onclick='abrirDetalleClick(this.id)'>";
-                String filaHTML = "<tr>" +
+                String btnHTML = "<input id='"+ infoBTN + "' type='button' class='btn btn-sm btn-link' value='Editar'>";
+                String filaHTML = "<tr  onclick='abrirDetalleClick("+ codigo + ")' >" +
                 "<td>"+codigo+"</td>" +
                 "<td>"+ nombre + "</td>" +
                 "<td>"+ precio + "</td >" +
-                "<td>" + btnHTML + "</td >" +
                 "</tr> ";
                 cuerpoTablaHTML += filaHTML;
             }

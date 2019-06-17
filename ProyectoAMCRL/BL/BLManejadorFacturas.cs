@@ -120,19 +120,19 @@ namespace BL
             return manejadorDAO.registrarFacturaDAO(cedula, idBodega, idMoneda, fecha, 'c', detallesTO, totalFacturaColones);
         }
 
+        public double calcularTotalActual(List<String> detalles) {
+            return calcularSumaDetalles(parsearDetalles(detalles));
+        }
+
         private double calcularSumaDetalles(List<TODetalleFactura> detallesTO) {
             double suma = 0;
 
             foreach (TODetalleFactura detalle in detallesTO) {
                 suma += detalle.monto_Linea;
+                
             }
 
             return suma;
-        }
-
-
-        private void convertirMonto(String monedaInfo, double equivalencia) {
-           
         }
 
 
@@ -148,8 +148,15 @@ namespace BL
                 String[] idANDstock = materialInfo[0].Split('-'); 
                 detalleTO.cod_Material = Int32.Parse(idANDstock[0]);
                 String[] infoUnidad = infoLinea[3].Split('#');
-                                //  cantidad                *   equivalencia en kilos
-                int kilosLinea = (Int32.Parse(infoLinea[2]) * Int32.Parse(infoUnidad[0]));
+                double equivalencia = 0;
+
+                if (infoUnidad[1].Equals("UNIDAD"))
+                    equivalencia = 1;
+                else
+                    equivalencia = Int32.Parse(infoUnidad[0]);
+
+                //  cantidad                *   equivalencia en kilos
+                double kilosLinea = (Int32.Parse(infoLinea[2]) * equivalencia);
                 detalleTO.kilos_Linea = kilosLinea;
                 int precioKg = Int32.Parse(infoLinea[1]);
                 detalleTO.monto_Linea = precioKg * kilosLinea;
