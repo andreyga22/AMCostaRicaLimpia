@@ -13,8 +13,12 @@ using KeyEventArgs = System.Windows.Forms.KeyEventArgs;
 namespace ProyectoAMCRL {
     public partial class CuentasUsuario : System.Web.UI.Page {
         protected void Page_Load(object sender, EventArgs e) {
-            if(!this.IsPostBack) {
-                this.buscar();
+            if(Session["cuentaLogin"] != null) {
+                if(!this.IsPostBack) {
+                    this.buscar();
+                }
+            } else {
+                Response.Redirect("Login.aspx");
             }
         }
 

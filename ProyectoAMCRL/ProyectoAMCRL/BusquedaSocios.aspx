@@ -73,6 +73,7 @@
         <asp:Literal ID="lblError" runat="server" Visible="false"></asp:Literal>
     </div>
     <div class="container">
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
         <div class="row">
             <h4 class="font-weight-bold">Búsqueda de socios</h4>
         </div>
@@ -133,51 +134,21 @@
             </div>
         </div>
         <div class="row justify-content-center">
-            <asp:Button ID="btnActualizar" type="submit" runat="server" Text="Actualizar búsqueda" class="btn btn-outline-secondary" />
+            <asp:Button ID="btnActualizar" type="submit" runat="server" Text="Actualizar búsqueda" class="btn btn-outline-secondary" OnClick="btnActualizar_Click" />
         </div>
         <br />
         <%-- SECCION 2 --%>
-        <div class="overflow-auto" style="height: 180px; width: 100%;">
-            <table class="table-sm table-bordered table-hover" style="width: 100%">
-                <thead>
-                    <tr class="tabla_encabezado">
-                        <th scope="col">#</th>
-                        <th scope="col">Identificacion</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Telefono</th>
-                        <th scope="col">Ver</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>54687</td>
-                        <td>Jorge González</td>
-                        <td>88775566</td>
-                        <td>
-                            <asp:Button Height="100%" CssClass="btn btn-link" runat="server" Text="Abrir detalle" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>54688</td>
-                        <td>Julio Jaramillo</td>
-                        <td>88775566</td>
-                        <td>
-                            <asp:Button Height="100%" CssClass="btn btn-link" runat="server" Text="Abrir detalle" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>45688</td>
-                        <td>Selena Gomez</td>
-                        <td>88775566</td>
-                        <td>
-                            <asp:Button Height="100%" CssClass="btn btn-link" runat="server" Text="Abrir detalle" />
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                    <ContentTemplate>
+                        <asp:GridView class="table table-hover table-bordered table-striped" ID="gridSocios" runat="server" AllowSorting="True" AllowPaging="True"  PageSize="5" OnPageIndexChanging="gridSocios_PageIndexChanging" OnSorting="gridSocios_Sorting" OnSelectedIndexChanged="gridSocios_SelectedIndexChanged" OnRowDataBound="gridSocios_RowDataBound">
+                            <PagerSettings FirstPageText="Inicio" LastPageText="Fin" Mode="NumericFirstLast" PageButtonCount="2" />
+                            <PagerStyle HorizontalAlign="Right" />
+                        </asp:GridView>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </div>
         </div>
     </div>
 </asp:Content>

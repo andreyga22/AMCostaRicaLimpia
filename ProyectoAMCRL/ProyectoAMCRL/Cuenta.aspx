@@ -24,7 +24,7 @@
             <div class="form-row">
                 <div class="form-group col-md-6" id="identi" runat="server" visible="false">
                     <label for="idTb">Identificador</label><asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="idTB" ErrorMessage="Campo requerido" ForeColor="Red"></asp:RequiredFieldValidator>
-                    &nbsp;<asp:TextBox type="text" ID="idTB" class="form-control" placeholder="jessica28" runat="server"></asp:TextBox>
+                    &nbsp;<asp:TextBox type="email" ID="idTB" class="form-control" placeholder="jessica28@ejemplo.com" runat="server"></asp:TextBox>
                 </div>
                 <div class="form-group col-md-6" id="contra" runat="server" visible="false">
                     <label for="contraTb" style="text-decoration: underline" runat="server">Contraseña Temporal</label><asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="contraTb" ErrorMessage="Campo requerido" ForeColor="Red"></asp:RequiredFieldValidator>

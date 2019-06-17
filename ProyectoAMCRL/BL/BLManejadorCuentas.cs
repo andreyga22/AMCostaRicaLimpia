@@ -67,6 +67,20 @@ namespace BL {
             }
         }
 
+        public BLCuenta login(String id, string contra) {
+            try {
+                DAOCuentas dao = new DAOCuentas();
+                TOCuenta cuenta = dao.login(id, contra);
+                if(cuenta != null) {
+                    return convert(cuenta);
+                } else {
+                    return null;
+                }
+            } catch(Exception) {
+                throw;
+            }
+        }
+
         //private BLBodegaTabla convert(TOBodegaTabla bod) {
         //    return new BLBodegaTabla(bod.codigo, bod.nombre, bod.estado, bod.distrito);
         //}

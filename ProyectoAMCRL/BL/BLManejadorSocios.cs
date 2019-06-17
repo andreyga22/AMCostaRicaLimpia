@@ -29,10 +29,9 @@ namespace BL
             return true;
         }
 
-        public DataTable buscarSocio(String busqueda)
+        public DataTable buscarFiltrado(string busqueda)
         {
-            return manejadorDAO.buscarSocio(busqueda);
-
+            return new DAOManejadorSocios().buscarSociosFiltro(busqueda);
         }
 
     }
