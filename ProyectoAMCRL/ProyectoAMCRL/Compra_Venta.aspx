@@ -77,7 +77,7 @@
         <br>
         <div class="row" style="margin-left: 0%">
             <div class="col-lg-4">
-                <asp:Label runat="server" CssClass="font-weight-bold campoIzq" Height="30px" for="labelCedula" Text="Identificación"></asp:Label>
+                <asp:Label runat="server" CssClass="font-weight-bold campoIzq" Height="30px" for="labelCedula" Text="Identificación:"></asp:Label>
                 <asp:Label CssClass="campo" runat="server" ID="labelCedula" Text="73648"></asp:Label>
                 <br>
                 <label class="font-weight-bold campoIzq" for="labelDireccion">Dirección: </label>
@@ -98,32 +98,27 @@
 
         <%-- ENCABEZADO --%>
         <div class="row rounded encabezado" style="width: 100%; background-color: rgba(226, 230, 227, 0.76)">
-            <div class="col">
-                <%-- COSECUTIVO --%>
-                <div style="margin-top: 5px; float: left">
-                    <asp:Label ID="labelDatoConsecutivo" runat="server" class="h6 dato"></asp:Label>
-                    <asp:Label ID="labelValorDatoConsecutivo" CssClass="h6" Text="0" runat="server" />
-                </div>
 
-                <%-- FECHA --%>
-                <div style="float: right">
-                    <input class="form-control font-weight-bolder" type="text" id="datepicker" runat="server" clientidmode="Static" style="width: 120px" />
-                </div>
+            <%-- COSECUTIVO --%>
+            <div class="col-lg-2" style="margin-top: 5px;">
+                <asp:Label ID="labelDatoConsecutivo" runat="server" class="h6 dato"></asp:Label>
+                <asp:Label ID="labelValorDatoConsecutivo" CssClass="h6" Text="0" runat="server" />
             </div>
-        </div>
-
-        <div class="row" style="width: 100%; margin-left: 0%;">
             <%-- BODEGA --%>
-            <div>
-                <label class="h6 dato">Bodega:</label><br>
-                <asp:DropDownList OnSelectedIndexChanged="bodegasDrop_SelectedIndexChanged" class="btn btn-light dropdown-toggle" type="dropdown" ata-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ID="bodegasDrop" runat="server" AutoPostBack="True">
+            <div class="col-lg-3">
+                <label class="h6 dato">Bodega:</label>
+                <asp:DropDownList OnSelectedIndexChanged="bodegasDrop_SelectedIndexChanged" class="btn btn-light dropdown-toggle" type="dropdown" ata-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ID="bodegasDrop" runat="server" AutoPostBack="true" Width="150px">
                 </asp:DropDownList>
             </div>
             <%-- MONEDA --%>
-            <div style="margin-left: 10%">
-                <label class="h6 dato">Moneda:</label><br>
-                <asp:DropDownList class="btn btn-light dropdown-toggle" type="dropdown" ata-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ID="monedasDD" runat="server" AutoPostBack="True">
+            <div class="col-lg-3">
+                <label class="h6 dato">Moneda:</label>
+                <asp:DropDownList class="btn btn-light dropdown-toggle" type="dropdown" ata-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ID="monedasDD" runat="server" AutoPostBack="True" Width="150px">
                 </asp:DropDownList>
+            </div>
+            <%-- FECHA --%>
+            <div class="col-lg" style="float: right; ">
+                <input class="form-control font-weight-bolder" type="text" id="datepicker" runat="server" clientidmode="Static" style="width: 120px" />
             </div>
 
         </div>
@@ -137,7 +132,7 @@
             <asp:Table ID="Table1" runat="server" class="table-sm " Style="width: 100%">
                 <asp:TableHeaderRow CssClass="btn-light font-weight-bolder position-relative">
                     <asp:TableCell Width="20%">Material</asp:TableCell>
-                    <asp:TableCell Width="20%">Precio kilo</asp:TableCell>
+                    <asp:TableCell Width="20%">Precio kilo/unidad</asp:TableCell>
                     <asp:TableCell Width="20%">Cantidad</asp:TableCell>
                     <asp:TableCell Width="30%">Unidad</asp:TableCell>
                     <asp:TableCell Width="10%">Acción</asp:TableCell>
@@ -161,8 +156,8 @@
                     </asp:TableCell>
                     <%-- Acción --%>
                     <asp:TableCell>
-                        <asp:LinkButton Width="100%" ID="agregarLineaBTN" runat="server" CssClass="btn btn-info btn-sm" OnClick="agregarLineaClick">
-                           <i class="fa fa-plus"></i> Agregar</asp:LinkButton>
+                        <asp:LinkButton Width="100%" ID="agregarLineaBTN" runat="server" CssClass="btn btn-secondary btn-sm" OnClick="agregarLineaClick">
+                           <i class="fa fa-plus"></i></asp:LinkButton>
                     </asp:TableCell>
                 </asp:TableRow>
             </asp:Table>
@@ -179,6 +174,11 @@
                 </asp:TableRow>
             </asp:Table>
         </div>
+        <div style="float: right">
+            <asp:Label Text="Total: " runat="server" />
+            <asp:Label ID="totalLabel" Text="0" runat="server" />
+        </div>
+        <br>
         <asp:Button ID="btnGuardar" type="button" runat="server" Text="Guardar" class="btn btn-info" Width="15%" OnClick="btnGuardar_Click" />
     </div>
 </asp:Content>

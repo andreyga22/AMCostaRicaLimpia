@@ -58,7 +58,7 @@
     <script src='datepicker-es.js' type='text/javascript'></script>
     <script>
         $(function () {
-            $("#datepicker").datepicker($.datepicker.regional["es"]);
+            $("#datepickerTB").datepicker($.datepicker.regional["es"]);
         });
     </script>
 
@@ -92,54 +92,50 @@
     <div style="padding: 5px; width: 100%">
 
         <%-- ENCABEZADO --%>
-        <div class="row rounded encabezado" style="width: 100%; background-color: rgba(226, 230, 227, 0.76)">
-            <div class="col">
-                <%-- COSECUTIVO --%>
-                <div style="margin-top: 5px; float: left">
-                    <asp:Label ID="labelDatoConsecutivo" runat="server" class="h6 dato">Ajuste número: </asp:Label>
+        <div class="row rounded encabezado" style="width: 100%; background-color: rgba(226, 230, 227, 0.76); margin-left:0%">
+            
+             <%-- COSECUTIVO --%>
+             <div  class="col-lg-2" style="margin-top: 5px;">
+                    <asp:Label ID="labelDatoConsecutivo" runat="server" class="h6 dato">Ajuste # </asp:Label>
                     <asp:Label CssClass="h6" Text="5" runat="server" ID="labelNumero" />
                 </div>
-
-                <%-- FECHA --%>
-                <div style="float: right">
-                    <input class="form-control font-weight-bolder" type="text" id="datepicker" runat="server" clientidmode="Static" style="width: 120px" />
-                    <%-- <asp:Label CssClass="h5" Text="12/10/2019" runat="server" ID="labelFecha" />
-                    <asp:Label CssClass="h5" Text="SALIDA" runat="server" ID="labelTipo" />--%>
-                </div>
-            </div>
-        </div>
-
-        <div class="row" style="width: 100%; margin-left: 0%;">
-            <%-- BODEGA --%>
-            <div>
-                <label class="h6 dato">Bodega:</label><br>
+           <%-- BODEGA --%>
+            <div class="col-lg-3">
+                <label class="h6 dato">Bodega:</label>
                 <asp:DropDownList class="btn btn-light dropdown-toggle" type="dropdown" ata-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ID="bodegasDrop" runat="server" AutoPostBack="True">
                 </asp:DropDownList>
             </div>
 
             <%-- TIPO --%>
-            <label class="h6 dato" style="margin-left: 10%">Tipo:</label>
-            <asp:RadioButtonList ID="radioAccion" runat="server" RepeatLayout="Table" RepeatDirection="Vertical">
+            <label class="font-weight-bolder" style="margin-top:5px;">Tipo:</label>
+              <div class="col-lg-5" style="margin-top:5px; margin-right:0%">
+                  
+            <asp:RadioButtonList ID="radioAccion" runat="server" RepeatLayout="Table" RepeatDirection="Horizontal">
                 <asp:ListItem Value="1">Entrada</asp:ListItem>
                 <asp:ListItem Value="0">Salida</asp:ListItem>
             </asp:RadioButtonList>
-
+            </div>
+            <%-- FECHA --%>
+            <div class="col-lg" style="margin-left:0%">
+                    <asp:TextBox class="form-control font-weight-bolder" type="text" id="datepickerTB" runat="server" clientidmode="Static" />
+            </div>
         </div>
+
         <%-- DETALLES --%>
         <div class="row justify-content-end" style="width: 100%; margin-left: 0%; padding-right: 1%">
-            <label class="font-weight-bolder" style="margin-right: 1%">Agregados</label>
+            <asp:Label ID="agregadosTextLabel" runat="server" class="font-weight-bolder" style="margin-right: 1%" Text="Agregados"></asp:Label>
             <asp:Label Text="0" runat="server" ID="labelAgregados" />
         </div>
 
         <div id="divDetallesEncabezado">
             <asp:Table ID="Table1" runat="server" class="table-sm " Style="width: 100%">
-                <asp:TableHeaderRow CssClass="btn-light font-weight-bolder position-relative">
+                <asp:TableHeaderRow ID="fila0Encabezado1" CssClass="btn-light font-weight-bolder position-relative">
                     <asp:TableCell Width="30%">Material</asp:TableCell>
                     <asp:TableCell Width="30%">Cantidad</asp:TableCell>
                     <asp:TableCell Width="30%">Unidad</asp:TableCell>
                     <asp:TableCell Width="10%">Acción</asp:TableCell>
                 </asp:TableHeaderRow>
-                <asp:TableRow>
+                <asp:TableRow ID="filaEncabezado">
                     <%-- Producto --%>
                     <asp:TableCell>
                         <asp:DropDownList Width="100%" ID="materialDD" AutoPostBack="false" runat="server" CssClass="btn btn-light btn-sm dropdown-toggle dropup"></asp:DropDownList>
@@ -164,12 +160,17 @@
         <%-- CUERPO DE TABLA --%>
         <div class="overflow-auto" style="height: 250px;" id="divDetalles">
             <asp:Table ID="tablaDetalles" runat="server" class="table-sm  table-hover" Style="width: 100%">
-                <asp:TableRow Height="0%">
+                <asp:TableRow ID="fila0EncabezadoT2" Height="0%">
                     <asp:TableCell Width="31%"></asp:TableCell>
                     <asp:TableCell Width="30%"></asp:TableCell>
                     <asp:TableCell Width="30%"></asp:TableCell>
-                    <asp:TableCell Width="9%"></asp:TableCell>
+                    <asp:TableCell Width="9%" ID="columnaAccionCuerpo"></asp:TableCell>
                 </asp:TableRow>
+                <asp:TableHeaderRow ID="fila0Encabezado2" Visible=false CssClass="btn-light font-weight-bolder position-relative">
+                    <asp:TableCell>Material</asp:TableCell>
+                    <asp:TableCell>Cantidad</asp:TableCell>
+                    <asp:TableCell>Unidad</asp:TableCell>
+                </asp:TableHeaderRow>
             </asp:Table>
         </div>
         <%-- RAZON --%>

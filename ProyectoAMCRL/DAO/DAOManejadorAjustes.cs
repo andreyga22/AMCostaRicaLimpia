@@ -140,7 +140,7 @@ namespace DAO
                         String nombreBodega = reader.GetSqlString(4).ToString();
                         String razon = reader.GetSqlString(5).ToString();
 
-                        ajusteInfo = fecha.ToString() + "_" + movimiento + "_" +
+                    ajusteInfo = fecha.ToString() + "_" + movimiento + "_" +
                             peso + "_" + nomMaterial + "_" + nombreBodega + "_" + razon;
                     }
                     conexion.Close();

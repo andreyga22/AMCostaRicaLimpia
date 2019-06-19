@@ -94,15 +94,6 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.Label labelValorDatoConsecutivo;
         
         /// <summary>
-        /// datepicker control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText datepicker;
-        
-        /// <summary>
         /// bodegasDrop control.
         /// </summary>
         /// <remarks>
@@ -119,6 +110,15 @@ namespace ProyectoAMCRL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList monedasDD;
+        
+        /// <summary>
+        /// datepicker control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText datepicker;
         
         /// <summary>
         /// labelAgregados control.
@@ -191,6 +191,15 @@ namespace ProyectoAMCRL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Table tablaDetalles;
+        
+        /// <summary>
+        /// totalLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label totalLabel;
         
         /// <summary>
         /// btnGuardar control.
