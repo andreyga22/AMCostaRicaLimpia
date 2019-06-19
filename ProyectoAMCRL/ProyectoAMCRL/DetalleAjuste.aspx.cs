@@ -95,7 +95,6 @@ namespace ProyectoAMCRL
             //labelMaterial.Text = infoArray[3];
             //labelBodega.Text = infoArray[4];
             razonTb.Text= infoArray[5];
-
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)
