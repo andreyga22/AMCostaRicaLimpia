@@ -17,7 +17,7 @@ namespace BL
         public string nombreMaterial { get; set; }
         public double monto_Linea { get; set; }
         public double kilos_Linea { get; set; }
-      
+
 
         public BLDetalleFactura()
         {

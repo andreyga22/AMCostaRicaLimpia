@@ -21,6 +21,7 @@ namespace ProyectoAMCRL {
                             nombre.Visible = true;
                             rol.Visible = true;
                             estado.Visible = true;
+                            breadObj.InnerText = "Creación de cuenta";
                         } else {
                             if(accionCuenta.Equals("1")) { //modificar cuenta
                                 identi.Visible = true;
@@ -49,10 +50,16 @@ namespace ProyectoAMCRL {
                                     est = 1;
                                 }
                                 estadoRb.SelectedIndex = est;
+                                breadObj.InnerText = "Modificación de cuenta";
+                                tituloCuenta.InnerText = "Modificación de cuenta";
                             } else { //cambiar contrasena
                                 contra.Visible = true;
                                 nueva.Visible = true;
                                 repetir.Visible = true;
+                                contra.Attributes["class"] = "form-group offset-1 col-md-10";
+                                contraTb.Text = "Contraseña actual";
+                                breadObj.InnerText = "Cambio de contraseña";
+                                tituloCuenta.InnerText = "Cambio de contraseña";
                             }
                         }
                     } catch(Exception exx) {
@@ -78,7 +85,14 @@ namespace ProyectoAMCRL {
                         } else {
                             estadoB = false;
                         }
-                        BLCuenta cuenta = new BLCuenta(idTB.Text.Trim(), securepass, nombreTB.Text.Trim(), estadoRb.SelectedItem.Text.Trim(), estadoB);
+                        int rr = rolDd.SelectedIndex;
+                        String rola = "";
+                        if(rr == 0) {
+                            rola = "r";
+                        } else {
+                            rola = "a";
+                        }
+                        BLCuenta cuenta = new BLCuenta(idTB.Text.Trim(), securepass, nombreTB.Text.Trim(), rola, estadoB);
                         BLManejadorCuentas man = new BLManejadorCuentas();
                         man.guardarCuenta(cuenta);
                         lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong>Se guardó la cuenta correctamente.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";

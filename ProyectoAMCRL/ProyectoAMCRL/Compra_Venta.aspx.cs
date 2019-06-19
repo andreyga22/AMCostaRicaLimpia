@@ -33,7 +33,7 @@ namespace ProyectoAMCRL
                 detalles = new List<string>();
                 manejadorU = new BLManejadorUnidades();
                 manejadorB = new BLManejadorBodega();
-
+               
                 //Estilo de espera para cuando se realiza la compra
                 btnGuardar.Attributes.Add("onclick", "document.body.style.cursor = 'wait';");
 
@@ -71,8 +71,9 @@ namespace ProyectoAMCRL
 
                     if (Request.QueryString.Get("del") != null)//Se agrega el parametro [del] cuando se va a eliminar una linea
                     {
+                        String valorDesecriptado = BLManejadorEncripcion.Decrypt(Request.QueryString.Get("del"));
                         //se obtiene el indice del parametro en la url
-                        int indiceAremover = Int32.Parse(Request.QueryString.Get("del"));
+                        int indiceAremover = Int32.Parse(valorDesecriptado);
                         removerDetalle(indiceAremover);
 
                         //REMOVER EL PARAMETRO DEL URL
@@ -226,7 +227,8 @@ namespace ProyectoAMCRL
                 unidadCell.Text = unidadInfo[1];
 
                 LinkButton btn = new LinkButton();
-                btn.PostBackUrl = "Compra_Venta.aspx?del=" + (i);
+                String valorEncriptado = BLManejadorEncripcion.Encrypt(i.ToString());
+                btn.PostBackUrl = "Compra_Venta.aspx?del=" + (valorEncriptado);
 
                 btn.Text = "Borrar";
 
@@ -240,7 +242,9 @@ namespace ProyectoAMCRL
                 filaNueva.Cells.Add(quitarFilaCampo);
                 tablaDetalles.Rows.Add(filaNueva);
             }
-            labelAgregados.Text = detalles.Count.ToString(); ;
+            labelAgregados.Text = detalles.Count.ToString();
+            BLManejadorFacturas manejadorF = new BLManejadorFacturas();//strategy(?)
+            totalLabel.Text = manejadorF.calcularTotalActual(detalles).ToString();
             tablaDetalles.DataBind();
         }
 

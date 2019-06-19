@@ -48,5 +48,27 @@ namespace BL
             
             return manejador.registrarActualizarMaterialDAO(m);
         }
+
+        public BLMaterial buscarMaterial(string clave)
+        {
+            TOMaterial materialTO = manejador.buscarMaterialDAO(clave);
+            return parsearMaterialTO_BL(materialTO);
+        }
+
+        private BLMaterial parsearMaterialTO_BL(TOMaterial mto) {
+
+            BLMaterial m = null;
+            if(mto != null)
+            {
+                m = new BLMaterial();
+                m.nombreMaterial = mto.nombreMaterial;
+                m.codigoM = mto.codigoM;
+                m.precioKilo = mto.precioKilo;
+
+            }
+           
+            return m;
+        }
+
     }
 }

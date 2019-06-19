@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Web;
@@ -36,9 +37,9 @@ namespace ProyectoAMCRL
 
                 cargarUnidadesBodegas();
                 cargarMateriales();
-                datepicker.Value = DateTime.Today.Day + "/" + DateTime.Today.Month + "/" + DateTime.Today.Year;
+                datepickerTB.Text = DateTime.Today.Day + "/" + DateTime.Today.Month + "/" + DateTime.Today.Year;
 
-                if (Request.QueryString.Get("awf") != null)
+                if (Request.QueryString.Get("view") != null)
                 {
                     //String accion = Request.QueryString.Get("awf");
                     //if (accion.Equals("new")) {
@@ -48,18 +49,21 @@ namespace ProyectoAMCRL
                     //}
                     //else
                     //{
-                        String idAjuste = Request.QueryString.Get("vistaA");
+                        String idAjuste = Request.QueryString.Get("view");
                         //REMOVER EL PARAMETRO DEL URL
-                        borrarParametroURL("vistaA");
+                        borrarParametroURL("view");
                         BLManejadorAjustes manejadorA = new BLManejadorAjustes();
                         String ajusteInfo = manejadorA.buscarAjusteBL(idAjuste);
-                        if (!ajusteInfo.Equals("No encontrado") && !ajusteInfo.Equals("Error"))
-                            cargarAjuste(ajusteInfo);
-                        else
-                        {
-                            lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>" + ajusteInfo + "</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
-                            lblError.Visible = true;
-                        }
+                    if (!ajusteInfo.Equals("No encontrado") && !ajusteInfo.Equals("Error"))
+                    {
+                        ajusteInfo += ("_" + idAjuste);
+                        cargarAjuste(ajusteInfo);
+                    }
+                    else
+                    {
+                        lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>" + ajusteInfo + "</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                        lblError.Visible = true;
+                    }
                     
                 }
             }
@@ -87,14 +91,62 @@ namespace ProyectoAMCRL
 
         private void cargarAjuste( String info)
         {
+
+           
+            materialDD.Visible = false;
+            cantidadTB.Visible = false;
+            unidadDD.Visible = false;
+            agregarLineaBTN.Visible = false;
+            btnGuardar.Visible = false;
+            labelAgregados.Visible = false;
+            agregadosTextLabel.Visible = false;
+            Color color = Color.LightYellow;
             //fecha, movimiento, peso, nombreMaterial, nombreBodega, razon
             String[] infoArray = info.Split('_');
-            //labelFecha.Text = infoArray[0];
-            //labelTipo.Text = infoArray[1];
-            //labelCantidad.Text = infoArray[2];
-            //labelMaterial.Text = infoArray[3];
-            //labelBodega.Text = infoArray[4];
-            razonTb.Text= infoArray[5];
+
+            String[] fechaInfo = infoArray[0].Split(' ');
+
+            datepickerTB.Text = fechaInfo[0];
+            datepickerTB.Enabled = false;
+            datepickerTB.BackColor = color;
+            datepickerTB.CssClass = "form-control font-weight-bolder";
+
+            if (infoArray[1].Equals("ENTRADA"))
+                radioAccion.Items[0].Selected = true;
+            else
+                radioAccion.Items[1].Selected = true;
+
+            radioAccion.Enabled = false;
+
+            labelNumero.Text = infoArray[6];
+
+            bodegasDrop.Text = infoArray[4];
+            bodegasDrop.Enabled = false;
+            bodegasDrop.BackColor = color;
+            bodegasDrop.CssClass = "btn btn-light btn-sm dropdown-toggle dropup";
+
+            razonTb.Text = infoArray[5];
+            razonTb.Enabled = false;
+            razonTb.BackColor = color;
+            razonTb.CssClass = "form-control";
+
+            fila0Encabezado1.Visible = false;
+            fila0EncabezadoT2.Visible = false;
+            fila0Encabezado2.Visible = true;
+
+            TableCell productoCell = new TableCell();
+            TableCell cantidadCell = new TableCell();
+            TableCell unidadCell = new TableCell();
+            productoCell.Text = infoArray[3];
+            cantidadCell.Text = infoArray[2];
+            unidadCell.Text = "Kg";
+            TableRow filaNueva = new TableRow();
+            filaNueva.Cells.Add(productoCell);
+            filaNueva.Cells.Add(cantidadCell);
+            filaNueva.Cells.Add(unidadCell);
+
+            tablaDetalles.Rows.Add(filaNueva);
+            tablaDetalles.DataBind();
 
         }
 
@@ -179,7 +231,6 @@ namespace ProyectoAMCRL
                 String[] lineaInfo = linea.Split('&');
                 TableCell productoCell = new TableCell();
                 TableCell cantidadCell = new TableCell();
-
                 TableCell unidadCell = new TableCell();
 
                 TableCell quitarFilaCampo = new TableCell();

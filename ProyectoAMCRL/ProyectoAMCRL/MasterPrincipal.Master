@@ -132,18 +132,18 @@
                     <a href="#cuentasSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <i class="fa fa-cog"></i>Cuentas de usuario</a>
                     <ul class="collapse list-unstyled" id="cuentasSubmenu">
-                        <li><asp:LinkButton ID="cuentasLb" runat="server" OnClick="cuentasLb_Click">Administrar cuentas</asp:LinkButton></li>
+                        <li><asp:LinkButton ID="cuentasLb" CausesValidation="False" runat="server" OnClick="cuentasLb_Click">Administrar cuentas</asp:LinkButton></li>
                     </ul>
                     <br />
                 </li>
 
-                <li class="active">
+                <%--<li class="active">
                     <a href="#configSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <i class="fa fa-cog"></i>Configuración</a>
                     <ul class="collapse list-unstyled" id="configSubmenu">
-                        <li><asp:LinkButton ID="contrasenaLb" runat="server" OnClick="contrasenaLb_Click">Cambiar contraseña</asp:LinkButton></li>
+                        <li><asp:LinkButton ID="contrasenaLb" CausesValidation="False" runat="server" OnClick="contrasenaLb_Click">Cambiar contraseña</asp:LinkButton></li>
                     </ul>
-                </li>
+                </li>--%>
 
             </ul>
         </nav>
@@ -166,9 +166,14 @@
                     <div class="col" style="width:100%">
                      <div style="float:right;">
 
+                         <button runat="server" id="bntCambiarContraseña" class="btn btn-secondary btn-sm" CausesValidation="False" onserverclick="cambiarContra">
+                                    <i class="fas fa-user" style="margin-right: 4%"></i>
+                                    Configuración</button>
                           <button runat="server" id="btnSalir" class="btn btn-secondary btn-sm" CausesValidation="False" onserverclick="cerrarSesion">
                                     <i class="fas fa-sign-out-alt" style="margin-right: 4%"></i>
                                     Salir</button>
+
+                         
                      </div>
                      </div>
                     </ol>
