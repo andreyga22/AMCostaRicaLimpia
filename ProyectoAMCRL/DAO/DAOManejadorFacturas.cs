@@ -139,40 +139,61 @@ namespace DAO
             {
                 try
                 {
-                    String sql = "Select v.COD_FACTURA, v.CEDULA, v.ID_BODEGA, v.ID_MONEDA, v.MONTO_TOTAL, v.FECHA_FACTURA, v.TIPO, s.NOMBRE, s.APELLIDO1, s.APELLIDO2 from FACTURA v, SOCIO_NEGOCIO s where v.CEDULA = s.CEDULA ";
+                    List<TOFactura> lista = new List<TOFactura>();
+                    String sql = "Select v.COD_FACTURA, v.CEDULA, v.ID_BODEGA, v.ID_MONEDA, v.MONTO_TOTAL, v.FECHA_FACTURA, v.TIPO, s.NOMBRE, s.APELLIDO1, s.APELLIDO2 from FACTURA v, SOCIO_NEGOCIO s where v.CEDULA = s.CEDULA";
                     SqlCommand cmdVenta = new SqlCommand(sql, conexion);
 
                     if (string.IsNullOrEmpty(busqueda) == false)
                     {
-                        sql += "and ((v.COD_FACTURA LIKE '%' + @pal + '%')  or (V.CEDULA LIKE '%' + @pal + '%') or (v.MONTO_TOTAL LIKE '%' + @pal + '%') or (v.FECHA_FACTURA LIKE '%' + @pal + '%') or (s.NOMBRE LIKE '%' + @pal + '%') or (s.APELLIDO1 LIKE '%' + @pal + '%') or (s.APELLIDO2 LIKE '%' + @pal + '%'));";
-
-                        cmdVenta.Parameters.AddWithValue("@pal", busqueda);
+                        sql += " and ((v.COD_FACTURA LIKE '%' + @pal + '%')  or (V.CEDULA LIKE '%' + @pal + '%') or (v.MONTO_TOTAL LIKE '%' + @pal + '%') or (v.FECHA_FACTURA LIKE '%' + @pal + '%') or (s.NOMBRE LIKE '%' + @pal + '%') or (s.APELLIDO1 LIKE '%' + @pal + '%') or (s.APELLIDO2 LIKE '%' + @pal + '%'));";
+                        cmdVenta.Parameters.AddWithValue("@pal", "'may'");
                     }
                     if (conexion.State != ConnectionState.Open)
                     {
                         conexion.Open();
                     }
 
-                    DataTable table = new DataTable();
-                    SqlDataAdapter adapter = new SqlDataAdapter();
-                    adapter.SelectCommand = cmdVenta;
-                    adapter.Fill(table);
-                    List<TOFactura> lista = new List<TOFactura>();
-
-                    for (int x = 0; x < table.Rows.Count; x++)
+                    SqlDataReader reader = cmdVenta.ExecuteReader();
+                    if (reader.HasRows)
                     {
-                        TOFactura venta = new TOFactura();
-                        venta.cod_Factura = Convert.ToInt16(table.Rows[x]["COD_FACTURA"]);
-                        venta.cedula = Convert.ToString(table.Rows[x]["CEDULA"]);
-                        venta.id_Bodega = Convert.ToString(table.Rows[x]["ID_BODEGA"]);
-                        venta.id_Moneda = Convert.ToString(table.Rows[x]["ID_MONEDA"]);
-                        venta.monto_Total = Convert.ToDouble(table.Rows[x]["MONTO_TOTAL"]);
-                        venta.fecha = Convert.ToDateTime(table.Rows[x]["FECHA_FACTURA"]);
-                        venta.tipo = Convert.ToString(table.Rows[x]["TIPO"]);
-                        venta.nombreCompleto = Convert.ToString(table.Rows[x]["NOMBRE"]) + " " + Convert.ToString(table.Rows[x]["APELLIDO1"]) + " " + Convert.ToString(table.Rows[x]["APELLIDO2"]);
+                        while (reader.Read())
+                        {
+                            TOFactura to = new TOFactura();
+                            to.cod_Factura = (Int16)reader.GetDecimal(0);
+                            to.cedula = reader.GetString(1);
+                            to.id_Bodega = (reader.GetString(2));
+                            to.id_Moneda = reader.GetString(3);
+                            to.monto_Total = (Double)reader.GetDecimal(4);
+                            to.fecha = reader.GetDateTime(5);
+                            to.tipo = reader.GetString(6);
 
-                        lista.Add(venta);
+                            to.nombreCompleto = reader.GetString(7) + " " + reader.GetString(8) + " " + reader.GetString(9);
+                            lista.Add(to);
+                        }
                     }
+ 
+
+
+                    //DataTable table = new DataTable();
+                    //SqlDataAdapter adapter = new SqlDataAdapter();
+                    //adapter.SelectCommand = cmdVenta;
+                    //adapter.Fill(table);
+                    //List<TOFactura> lista = new List<TOFactura>();
+
+                    //for (int x = 0; x < table.Rows.Count; x++)
+                    //{
+                    //    TOFactura venta = new TOFactura();
+                    //    venta.cod_Factura = Convert.ToInt16(table.Rows[x]["COD_FACTURA"]);
+                    //    venta.cedula = Convert.ToString(table.Rows[x]["CEDULA"]);
+                    //    venta.id_Bodega = Convert.ToString(table.Rows[x]["ID_BODEGA"]);
+                    //    venta.id_Moneda = Convert.ToString(table.Rows[x]["ID_MONEDA"]);
+                    //    venta.monto_Total = Convert.ToDouble(table.Rows[x]["MONTO_TOTAL"]);
+                    //    venta.fecha = Convert.ToDateTime(table.Rows[x]["FECHA_FACTURA"]);
+                    //    venta.tipo = Convert.ToString(table.Rows[x]["TIPO"]);
+                    //    venta.nombreCompleto = Convert.ToString(table.Rows[x]["NOMBRE"]) + " " + Convert.ToString(table.Rows[x]["APELLIDO1"]) + " " + Convert.ToString(table.Rows[x]["APELLIDO2"]);
+
+                    //    lista.Add(venta);
+                    //}
                     if (conexion.State != ConnectionState.Closed)
                     {
                         conexion.Close();
@@ -339,7 +360,7 @@ namespace DAO
                 conexion.Close();
             }
         }
-    
+
 
         //lista de detalles de una factura
         public List<TODetalleFactura> listaDetalle(String idFactura)
@@ -397,12 +418,12 @@ namespace DAO
                 using (conexion)
                 {
                     SqlCommand cmd = conexion.CreateCommand();
-                    string sql = "Select v.COD_FACTURA, v.CEDULA, v.ID_BODEGA, v.ID_MONEDA, v.MONTO_TOTAL, v.FECHA_FACTURA, v.TIPO, s.NOMBRE, s.APELLIDO1, s.APELLIDO2 from FACTURA v, SOCIO_NEGOCIO s where v.CEDULA = s.CEDULA ";
-                    
+                    string sql = "Select v.COD_FACTURA, v.CEDULA, v.ID_BODEGA, v.ID_MONEDA, v.MONTO_TOTAL, v.FECHA_FACTURA, v.TIPO, s.NOMBRE + ' ' + s.APELLIDO1 + ' ' +  s.APELLIDO2 as SOCIO from FACTURA v, SOCIO_NEGOCIO s where v.CEDULA = s.CEDULA ";
+
                     if (string.IsNullOrEmpty(busqueda) == false)
                     {
                         sql += " and ((v.COD_FACTURA LIKE '%' + @pal + '%')  or (V.CEDULA LIKE '%' + @pal + '%') or (v.MONTO_TOTAL LIKE '%' + @pal + '%') or (v.FECHA_FACTURA LIKE '%' + @pal + '%') or (s.NOMBRE LIKE '%' + @pal + '%') or (s.APELLIDO1 LIKE '%' + @pal + '%') or (s.APELLIDO2 LIKE '%' + @pal + '%'));";
-                       
+
                         cmd.Parameters.AddWithValue("@pal", busqueda);
                     }
                     cmd.CommandText = sql;

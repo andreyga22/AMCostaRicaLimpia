@@ -69,6 +69,17 @@ namespace ProyectoAMCRL
             cargarEncabezados();
         }
 
+        private void buscar(DataTable table)
+        {
+            BLManejadorFacturas man = new BLManejadorFacturas();
+            DataTable tabla = man.buscar(txtPalabra.Text.Trim());
+
+            gridFacturas.DataSource = tabla;
+
+            gridFacturas.DataBind();
+            cargarEncabezados();
+        }
+
         //carga los encabezados de la tabla
         private void cargarEncabezados()
         {
@@ -252,7 +263,7 @@ namespace ProyectoAMCRL
             BLManejadorFacturas manej = new BLManejadorFacturas();
             if ((!String.IsNullOrEmpty(txtPalabra.Text) || (!String.IsNullOrWhiteSpace(txtPalabra.Text))))
             {
-                buscar(manej.listaFact(txtPalabra.Text.Trim()));
+                buscar(manej.buscar(txtPalabra.Text.Trim()));
             }
         }
 
