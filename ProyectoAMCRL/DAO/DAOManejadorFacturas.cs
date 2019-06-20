@@ -139,17 +139,15 @@ namespace DAO
             {
                 try
                 {
-                    String sql = "Select v.COD_FACTURA, v.CEDULA, v.ID_BODEGA, v.ID_MONEDA, v.MONTO_TOTAL, v.FECHA_FACTURA, v.TIPO, s.NOMBRE, s.APELLIDO1, s.APELLIDO2 from FACTURA v, SOCIO_NEGOCIO s where v.CEDULA = s.CEDULA;";
+                    String sql = "Select v.COD_FACTURA, v.CEDULA, v.ID_BODEGA, v.ID_MONEDA, v.MONTO_TOTAL, v.FECHA_FACTURA, v.TIPO, s.NOMBRE, s.APELLIDO1, s.APELLIDO2 from FACTURA v, SOCIO_NEGOCIO s where v.CEDULA = s.CEDULA ";
                     SqlCommand cmdVenta = new SqlCommand(sql, conexion);
 
                     if (string.IsNullOrEmpty(busqueda) == false)
                     {
-                        sql += " and ((v.COD_FACTURA LIKE '%' + @pal + '%')  or (V.CEDULA LIKE '%' + @pal + '%') or (v.MONTO_TOTAL LIKE '%' + @pal + '%') or (v.FECHA_FACTURA LIKE '%' + @pal + '%') or (s.NOMBRE LIKE '%' + @pal + '%') or (s.APELLIDO1 LIKE '%' + @pal + '%') or (s.APELLIDO2 LIKE '%' + @pal + '%'));";
+                        sql += "and ((v.COD_FACTURA LIKE '%' + @pal + '%')  or (V.CEDULA LIKE '%' + @pal + '%') or (v.MONTO_TOTAL LIKE '%' + @pal + '%') or (v.FECHA_FACTURA LIKE '%' + @pal + '%') or (s.NOMBRE LIKE '%' + @pal + '%') or (s.APELLIDO1 LIKE '%' + @pal + '%') or (s.APELLIDO2 LIKE '%' + @pal + '%'));";
 
                         cmdVenta.Parameters.AddWithValue("@pal", busqueda);
                     }
-
-
                     if (conexion.State != ConnectionState.Open)
                     {
                         conexion.Open();
@@ -160,7 +158,6 @@ namespace DAO
                     adapter.SelectCommand = cmdVenta;
                     adapter.Fill(table);
                     List<TOFactura> lista = new List<TOFactura>();
-
 
                     for (int x = 0; x < table.Rows.Count; x++)
                     {

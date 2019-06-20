@@ -57,7 +57,9 @@
             <br>
             <div class="row">
                 <span class="col"  style="margin-left:10%">
-                <asp:Image ID="Image1" runat="server" ImageUrl="~/images/logomel2.png" Width="50%"/>
+               <a href="Principal.aspx" runat="server"> 
+                   <asp:Image ID="Image1" runat="server" ImageUrl="~/images/logomel2.png" Width="50%"/>
+                </a>
                 </span>
                
             </div>
@@ -68,7 +70,7 @@
                         <i class="fas fa-users"></i>Socios</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
                         <li><a href="RegistroSociosUI.aspx">Agregar socio</a></li>
-                        <li><a href="BusquedaSocios.aspx">Busqueda socios</a></li>
+                        <li><a href="BusquedaSocios.aspx">Búsqueda socios</a></li>
                     </ul>
                     <br>
                 </li>
@@ -80,7 +82,7 @@
                         <li>
                             <asp:LinkButton Text="Registrar compra" runat="server" ID="compraLB" OnClick="compraLB_Click"/>
                         </li>
-                        <li><a href="BusquedaFacturas.aspx?mod=c">Busqueda facturas</a></li>
+                        <li><a href="BusquedaFacturas.aspx?mod=c">Búsqueda facturas</a></li>
                     </ul>
                     <br>
                 </li>
@@ -92,7 +94,7 @@
                        <li>
                             <asp:LinkButton Text="Registrar venta" runat="server" ID="ventaLB" OnClick="ventaLB_Click"/>
                         </li>
-                        <li><a href="BusquedaFacturas.aspx?mod=v">Busqueda facturas</a></li>
+                        <li><a href="BusquedaFacturas.aspx?mod=v">Búsqueda facturas</a></li>
                     </ul>
                     <br>
                 </li>
@@ -160,7 +162,7 @@
                             <span>Menú</span>
                         </button>
                     </li>
-                    <li class="breadcrumb-item"><a href="Principal2.aspx" style="color:dodgerblue">Principal</a></li>
+                    <li class="breadcrumb-item"><a href="Principal.aspx" style="color:dodgerblue">Principal</a></li>
                     <asp:ContentPlaceHolder ID="breadcrumbBodyHolder" runat="server">
                     </asp:ContentPlaceHolder>
                     <div class="col" style="width:100%">

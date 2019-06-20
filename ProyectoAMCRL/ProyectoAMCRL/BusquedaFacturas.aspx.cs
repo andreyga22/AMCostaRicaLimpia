@@ -17,14 +17,11 @@ namespace ProyectoAMCRL
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //try
-            //{
             if (Session["cuentaLogin"] != null)
             {
                 if (!this.IsPostBack)
                 {
-                    this.buscar();
-                    cargarEncabezados2();
+                    this.buscar(new List<BLFactura>());
                     cargarMateriales();
                     Session["idFactura"] = "";
                 }
@@ -55,53 +52,25 @@ namespace ProyectoAMCRL
             }
         }
 
-        //Busca en DAO y retorna un DataTable
-        private void buscar()
+        private void buscar(List<BLFactura> listFacturas)
         {
-            BLManejadorFacturas man = new BLManejadorFacturas();
-            List<BLFactura> list = man.facturasVentas(txtPalabra.Text.Trim());
+            if (listFacturas.Count != 0)
+            {
+                gridFacturas.DataSource = listFacturas;
+            }
+            else
+            {
+                BLManejadorFacturas man = new BLManejadorFacturas();
+                List<BLFactura> list = man.listaFact(txtPalabra.Text.Trim());
 
-            gridFacturas.DataSource = list;
-
+                gridFacturas.DataSource = list;
+            }
             gridFacturas.DataBind();
-            gridFacturas.Visible = true;
+            cargarEncabezados();
         }
 
-        //Carga los encabezados de la tabla separando el nombre y apellidos
+        //carga los encabezados de la tabla
         private void cargarEncabezados()
-        {
-            gridFacturas.HeaderRow.Cells[0].Text = "Código Factura";
-            gridFacturas.HeaderRow.Cells[1].Text = "Bodega";
-            gridFacturas.HeaderRow.Cells[2].Text = "Moneda";
-            gridFacturas.HeaderRow.Cells[3].Text = "Cédula";
-            gridFacturas.HeaderRow.Cells[4].Text = "Monto";
-            gridFacturas.HeaderRow.Cells[5].Text = "Fecha";
-            gridFacturas.HeaderRow.Cells[6].Text = "Tipo Factura";
-            gridFacturas.HeaderRow.Cells[7].Text = "Nombre";
-            gridFacturas.HeaderRow.Cells[8].Text = "Primer Apellido";
-            gridFacturas.HeaderRow.Cells[9].Text = "Segundo Apellido";
-
-            gridFacturas.HeaderRow.Cells[1].Visible = false;
-            for (int i = 0; i < gridFacturas.Rows.Count; i++)
-            {
-                gridFacturas.Rows[i].Cells[1].Visible = false;
-            }
-
-            gridFacturas.HeaderRow.Cells[2].Visible = false;
-            for (int i = 0; i < gridFacturas.Rows.Count; i++)
-            {
-                gridFacturas.Rows[i].Cells[2].Visible = false;
-            }
-
-            gridFacturas.HeaderRow.Cells[6].Visible = false;
-            for (int i = 0; i < gridFacturas.Rows.Count; i++)
-            {
-                gridFacturas.Rows[i].Cells[6].Visible = false;
-            }
-        }
-
-        //Carga los encabezados de la tabla sin separar el nombre y apellidos
-        private void cargarEncabezados2()
         {
             gridFacturas.HeaderRow.Cells[0].Text = "Código Factura";
             gridFacturas.HeaderRow.Cells[1].Text = "Bodega";
@@ -134,15 +103,14 @@ namespace ProyectoAMCRL
         protected void gridFact_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gridFacturas.PageIndex = e.NewPageIndex;
-            this.buscar();
+            this.buscar(new List<BLFactura>());
         }
 
-
+        //Seleccionar e ir a la página de compra/venta
         protected void gridFact_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
-
                 foreach (GridViewRow row in gridFacturas.Rows)
                 {
                     if (row.RowIndex == gridFacturas.SelectedIndex)
@@ -156,8 +124,6 @@ namespace ProyectoAMCRL
                         row.ToolTip = "Clic para abrir.";
                     }
                 }
-
-
                 string id = gridFacturas.SelectedRow.Cells[0].Text;
                 Session["idFactura"] = id;
                 Response.Redirect("Factura.aspx");
@@ -183,34 +149,24 @@ namespace ProyectoAMCRL
             }
         }
 
-
-        //boton de filtrar
-        protected void btnActualizar_Click(object sender, EventArgs e)
+        protected void btnFiltrar_Click(object sender, EventArgs e)
         {
             BLManejadorFacturas manej = new BLManejadorFacturas();
-
             //Filtro montos
             List<BLFactura> listaFiltrada = new List<BLFactura>();
             if ((!String.IsNullOrEmpty(montoMinimo.Text) || (!String.IsNullOrWhiteSpace(montoMinimo.Text))) &&
                 (!String.IsNullOrEmpty(montoMax.Text) || (!String.IsNullOrWhiteSpace(montoMax.Text))))
             {
                 listaFiltrada = filtrarMonto(Convert.ToDouble(montoMinimo.Text), Convert.ToDouble(montoMax.Text));
-                cargarGridFiltrada(listaFiltrada);
-                cargarEncabezados2();
+                buscar(listaFiltrada);
             }
 
-            //Filtro palabras
-            if ((!String.IsNullOrEmpty(txtPalabra.Text) || (!String.IsNullOrWhiteSpace(txtPalabra.Text))))
-            {
-                cargarEncabezados2();
-                cargarGridFiltrada_Table(manej.buscar(txtPalabra.Text.Trim()));
-            }
 
             //Filtro Fecha
             if ((!String.IsNullOrEmpty(datepicker.Value) || (!String.IsNullOrWhiteSpace(datepicker.Value))) &&
                 (!String.IsNullOrEmpty(datepicker2.Value) || (!String.IsNullOrWhiteSpace(datepicker2.Value))))
             {
-                List <BLFactura> rangoFecha = manej.listaRangoFecha(Convert.ToDateTime(datepicker.Value), Convert.ToDateTime(datepicker2.Value));
+                List<BLFactura> rangoFecha = manej.listaRangoFecha(Convert.ToDateTime(datepicker.Value), Convert.ToDateTime(datepicker2.Value));
 
                 if (listaFiltrada.Count == 0)
                 {
@@ -240,21 +196,15 @@ namespace ProyectoAMCRL
                 }
             }
 
-            //Para filtrar por materiales
-            List<BLFactura> listaMat = manej.facturasVentas("");
-            foreach(BLFactura b in listaMat)
-            {
-
-            }
-
             //Filtro tipo
             if (radioRol.Checked || radioRol2.Checked)
             {
                 string tipo = "";
-                if(radioRol.Checked)
+                if (radioRol.Checked)
                 {
                     tipo = "v";
-                } else
+                }
+                else
                 {
                     tipo = "c";
                 }
@@ -288,19 +238,22 @@ namespace ProyectoAMCRL
             }
 
 
-            //Final
-            if (listaFiltrada.Count == 0)
+            //Para filtrar por materiales
+            List<BLFactura> listaMat = manej.listaFact("");
+            foreach (BLFactura b in listaMat)
             {
-                //cambiar por mensaje de error
-                //cargarGridFiltrada(listaFiltrada);
-            }
-            else
-            {
-                cargarGridFiltrada(listaFiltrada);
-            }
 
-            //para el de nombre completo
-            cargarEncabezados2();
+            }
+        }
+
+        //boton de actualizar
+        protected void btnActualizar_Click(object sender, EventArgs e)
+        {
+            BLManejadorFacturas manej = new BLManejadorFacturas();
+            if ((!String.IsNullOrEmpty(txtPalabra.Text) || (!String.IsNullOrWhiteSpace(txtPalabra.Text))))
+            {
+                buscar(manej.listaFact(txtPalabra.Text.Trim()));
+            }
         }
 
         private List<BLFactura> filtrarMonto(double monto1, double monto2)
@@ -308,20 +261,6 @@ namespace ProyectoAMCRL
             return new BLManejadorFacturas().listaMontos(monto1, monto2);
         }
 
-        private void cargarGridFiltrada(List<BLFactura> listFacturas)
-        {
-            gridFacturas.DataSource = listFacturas;
-            gridFacturas.DataBind();
-            cargarEncabezados2();
-            gridFacturas.Visible = true;
-        }
-
-        private void cargarGridFiltrada_Table(DataTable list)
-        {
-            gridFacturas.DataSource = list;
-            gridFacturas.DataBind();
-            cargarEncabezados2();
-        }
 
         protected void materialesDrop_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -331,14 +270,14 @@ namespace ProyectoAMCRL
 
         protected void palabraTb_TextChanged(object sender, EventArgs e)
         {
-            this.buscar();
+            this.buscar(new List<BLFactura>());
         }
 
         private void txt_Item_Number_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                this.buscar();
+                this.buscar(new List<BLFactura>());
             }
         }
     }

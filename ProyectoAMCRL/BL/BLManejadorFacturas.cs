@@ -18,7 +18,7 @@ namespace BL
         //    return manejador.registrarDetalles();
         //}
 
-        public List<BLFactura> facturasVentas(string busqueda)
+        public List<BLFactura> listaFact(string busqueda)
         {
             try
             {
