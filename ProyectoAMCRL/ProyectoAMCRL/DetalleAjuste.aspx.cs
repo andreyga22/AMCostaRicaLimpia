@@ -36,19 +36,17 @@ namespace ProyectoAMCRL
                 detalles = new List<string>();
 
                 cargarUnidadesBodegas();
-                cargarMateriales();
+                cargarMateriales(bodegasDrop.Items[0].Value);
                 datepickerTB.Text = DateTime.Today.Day + "/" + DateTime.Today.Month + "/" + DateTime.Today.Year;
+                labelDatoConsecutivo.Visible = true;
+                labelDatoConsecutivoValor.Visible = false;
+
 
                 if (Request.QueryString.Get("view") != null)
                 {
-                    //String accion = Request.QueryString.Get("awf");
-                    //if (accion.Equals("new")) {
-                    //    Session.Remove("listaDetalles");
-                    //    detalles = new List<string>();
-                    //    borrarParametroURL("awf");
-                    //}
-                    //else
-                    //{
+                    labelDatoConsecutivo.Visible = true;
+                    labelDatoConsecutivoValor.Visible = true;
+                    labelBreadCrumb.Text = "Vista de ajuste";
                         String idAjuste = Request.QueryString.Get("view");
                         //REMOVER EL PARAMETRO DEL URL
                         borrarParametroURL("view");
@@ -118,7 +116,7 @@ namespace ProyectoAMCRL
 
             radioAccion.Enabled = false;
 
-            labelNumero.Text = infoArray[6];
+            labelDatoConsecutivoValor.Text = infoArray[6];
 
             bodegasDrop.Text = infoArray[4];
             bodegasDrop.Enabled = false;
@@ -198,9 +196,10 @@ namespace ProyectoAMCRL
         {
             if (!cantidadTB.Text.Contains("-") && !(String.IsNullOrEmpty(cantidadTB.Text)) )
             {
+                cantidadTB.BorderColor = System.Drawing.Color.Transparent;
                 String lineaAjusteInfo = "";
                 lineaAjusteInfo = materialDD.SelectedItem.Text + "&" +
-                    cantidadTB.Text + "&" + unidadDD.SelectedItem.Text;
+                cantidadTB.Text + "&" + unidadDD.SelectedItem.Text;
                 detalles.Add(lineaAjusteInfo);
                 Session.Add("listaDetalles", detalles);
                 pegarLineasTabla();
@@ -208,6 +207,7 @@ namespace ProyectoAMCRL
             }
             else {
                 pegarLineasTabla();
+                cantidadTB.BorderColor = System.Drawing.Color.Red;
                 lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>Cantidad especificada incorrecta, intente de nuevo</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\" onclick=\"cerrarError()\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                 lblError.Visible = true;
             }    
@@ -265,21 +265,26 @@ namespace ProyectoAMCRL
             razonTb.Text = "";
         }
 
-        private void cargarMateriales()
+        private void cargarMateriales(String idBodega)
         {
-            // se debe tomar el valor el sesion de la bodega
-            DataSet materialesDS = manejadorM.listarMaterialesEnBodegaBL("B01"); // <--------
+            String nombreBodegaSeleccionada = bodegasDrop.SelectedItem.Text;
+            manejadorM = new BLManejadorMateriales();
+            materialDD.Items.Clear();
+            detalles = new List<string>();
+            Session.Add("listaDetallesC", detalles);
+            pegarLineasTabla();
 
-            if (materialesDS.Tables[0].Rows.Count == 0)
+            DataSet materialesDS = manejadorM.listarMaterialesEnBodegaBL(idBodega);
+
+            if (materialesDS == null || materialesDS.Tables[0].Rows.Count == 0)
             {
-
-                lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>" + "No existen materiales registrados para la bodega actual" + "</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\" onclick=\"cerrarError()\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                bodegasDrop.BorderColor = System.Drawing.Color.Red;
+                lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>" + "No existen materiales registrados para la bodega " + nombreBodegaSeleccionada + "</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\" onclick=\"cerrarError()\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                 lblError.Visible = true;
             }
             else
             {
-                //stock_id_escondido.Value = Convert.ToString(materialesDS.Tables[0].Rows[0]["ID_STOCK"]);
-
+                bodegasDrop.BorderColor = System.Drawing.Color.Transparent;
                 foreach (DataRow dr in materialesDS.Tables[0].Rows)
                 {
                     ListItem item = new ListItem();
@@ -292,6 +297,7 @@ namespace ProyectoAMCRL
                     materialDD.Items.Add(item);
                 }
             }
+            materialDD.DataBind();
         }
 
         private void cargarUnidadesBodegas()
@@ -329,5 +335,10 @@ namespace ProyectoAMCRL
             isreadonly.SetValue(this.Request.QueryString, true, null);
         }
 
+        protected void bodegasDrop_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            String idBodega = bodegasDrop.SelectedItem.Value;
+            cargarMateriales(idBodega);
+        }
     }
 }

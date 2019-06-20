@@ -41,7 +41,7 @@ namespace ProyectoAMCRL
                 // (La seleccion de bodega debe especificar los materiales disponibles)
                 cargarUnidadesBodegasMonedas();
                 cargarMateriales(bodegasDrop.Items[0].Value);
-                datepicker.Value = DateTime.Today.Day + "/" + DateTime.Today.Month + "/" + DateTime.Today.Year;
+                datepickerT.Text = DateTime.Today.Day + "/" + DateTime.Today.Month + "/" + DateTime.Today.Year;
 
                 if (Request.QueryString.Get("vd") != null)//vista detalle === vd
                 {
@@ -139,12 +139,12 @@ namespace ProyectoAMCRL
                 {
                     case "compra":
                         mensajeRespuesta = "Compra registrada con éxito";
-                        m = manejadorF.registrarCompraBL(labelCedula.Text, idBodega, moneda, datepicker.Value, detalles);
+                        m = manejadorF.registrarCompraBL(identificacionTB.Text, idBodega, moneda, datepickerT.Text, detalles);
                         break;
 
                     case "venta":
                         mensajeRespuesta = "Venta registrada con éxito";
-                        m = manejadorF.registrarVentaBL(labelCedula.Text, idBodega, moneda, datepicker.Value, detalles);
+                        m = manejadorF.registrarVentaBL(identificacionTB.Text, idBodega, moneda, datepickerT.Text, detalles);
                         break;
                 }
 
@@ -167,12 +167,12 @@ namespace ProyectoAMCRL
 
         protected void agregarLineaClick(object sender, EventArgs e)
         {
-            if (!cantidadTB.Text.Contains("-") && !(String.IsNullOrEmpty(cantidadTB.Text)))
+            if (!(String.IsNullOrEmpty(cantidad2TB.Value)))
             {
                 String lineaAjusteInfo = "";
-                cantidadTB.BorderColor = System.Drawing.Color.White;
+                cantidad2TB.Style.Add("background-color", "white"); 
                 lineaAjusteInfo = materialDD.SelectedItem.Value+'#'+materialDD.SelectedItem.Text + "&" +
-                precioKgTB.Text + "&" + cantidadTB.Text + "&" + unidadDD.SelectedItem.Value + '#' + unidadDD.SelectedItem.Text;
+                precioKg2TB.Value + "&" + cantidad2TB.Value  + "&" + unidadDD.SelectedItem.Value + '#' + unidadDD.SelectedItem.Text;
                 detalles.Add(lineaAjusteInfo);
                 Session.Add("listaDetallesC", detalles);
                 pegarLineasTabla();
@@ -181,7 +181,7 @@ namespace ProyectoAMCRL
             }
             else
             {
-                cantidadTB.BorderColor = System.Drawing.Color.Red;
+                
                 pegarLineasTabla();
                 lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>Cantidad especificada incorrecta, intente de nuevo</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\" onclick=\"cerrarError()\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                 lblError.Visible = true;
@@ -254,8 +254,8 @@ namespace ProyectoAMCRL
         private void refrescarDatos()
         {
             materialDD.SelectedIndex = 0;
-            precioKgTB.Text = "";
-            cantidadTB.Text = "";
+            precioKg2TB.Value = "";
+            cantidad2TB.Value = "";
             unidadDD.SelectedIndex = 1;
         }
 
@@ -324,7 +324,6 @@ namespace ProyectoAMCRL
                 monedasDD.Items.Add(moneda);
 
             }
-            ListItem monedaKim = new ListItem();
         }
 
 
@@ -347,6 +346,30 @@ namespace ProyectoAMCRL
         {
             String idBodega = bodegasDrop.SelectedItem.Value;
             cargarMateriales(idBodega);
+        }
+
+        protected void buscarSocioBTN_Click(object sender, EventArgs e)
+        {
+            String id = identificacionTB.Text;
+            if (!String.IsNullOrEmpty(id))
+            {
+                BLManejadorSocios manejadorS = new BLManejadorSocios();
+                BLSocioNegocio socio = manejadorS.buscarSocio(id);
+                if (socio != null)
+                {
+                    nombreLabel.Text = socio.nombre;
+
+                }
+                else {
+                    lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>" + "Socio no encontrado, intente de nuevo. " + "</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\" onclick=\"cerrarError()\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                    lblError.Visible = true;
+                }
+                
+            }
+            else {
+                lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>" + "Ingrese una identificación válida e intente de nuevo. "  + "</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\" onclick=\"cerrarError()\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                lblError.Visible = true;
+            }
         }
     }
 }

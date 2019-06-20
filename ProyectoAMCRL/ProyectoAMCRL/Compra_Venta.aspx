@@ -22,7 +22,7 @@
     <script src='datepicker-es.js' type='text/javascript'></script>
     <script>
         $(function () {
-            $("#datepicker").datepicker($.datepicker.regional["es"]);
+            $("#datepickerT").datepicker($.datepicker.regional["es"]);
         });
     </script>
     <style>
@@ -74,23 +74,42 @@
     <%-- DATOS DEL CLIENTE  CARGADOS--%>
     <div id="datosSocio">
         <asp:Label ID="labelDatosSocio" Text="" runat="server" class="font-weight-bold" />
-        <br>
-        <div class="row" style="margin-left: 0%">
-            <div class="col-lg-4">
-                <asp:Label runat="server" CssClass="font-weight-bold campoIzq" Height="30px" for="labelCedula" Text="Identificación:"></asp:Label>
-                <asp:Label CssClass="campo" runat="server" ID="labelCedula" Text="73648"></asp:Label>
-                <br>
-                <label class="font-weight-bold campoIzq" for="labelDireccion">Dirección: </label>
-                <asp:Label class="campo" runat="server" ID="labelDireccion">San Ramón, Alajuela</asp:Label>
+        <br/>
+        <br/>
+
+        <div class="row" style="margin-left: 0%; width: 100%">
+            <%-- identificacion --%>
+            <div class="col-lg-1" style="margin-right: 30px; padding-top: 5px">
+                <asp:Label runat="server" CssClass="d-inline-block" for="identificacionTB" Text="Identificación:"></asp:Label>
             </div>
-            <div class="col-lg-3">
-                <label class="font-weight-bold campoIzq" for="labelNombre">Nombre: </label>
-                <asp:Label class="campo" runat="server" ID="labelNombre">Pepe Figueres</asp:Label>
-                <br>
-                <label class="font-weight-bold campoIzq" for="telLabel">Teléfono: </label>
-                <asp:Label class="campo" runat="server" ID="labelTel">88447799</asp:Label>
+            <div class="col-lg-4">
+                <div class="row" style="margin-left: 0%">
+                    <div>
+                        <asp:TextBox OnTextChanged="buscarSocioBTN_Click" Width="98%" CssClass="form-control " runat="server" ID="identificacionTB" placeholder="24876612"></asp:TextBox>
+                    </div>
+                    <asp:LinkButton CssClass="btn btn-secondary" ID="buscarSocioBTN" runat="server" Text="Buscar" OnClick="buscarSocioBTN_Click"><i class="fa fa-search" style="margin-right:3px"></i></asp:LinkButton>
+                </div>
+            </div>
+            <%-- direccion --%>
+            <div class="col-lg-5" style="padding-top: 5px">
+                <label class=" campoIzq" for="labelDireccion">Dirección: </label>
+                <asp:Label class="campo" runat="server" ID="labelDireccion"></asp:Label>
             </div>
         </div>
+
+        <div class="row" style="margin-left: 0%;">
+            <%-- nombre --%>
+            <div class="col-lg-4" style="margin-right: 50px">
+                <label class=" campoIzq" for="nombreLabel">Nombre: </label>
+                <asp:Label runat="server" ID="nombreLabel"></asp:Label>
+            </div>
+            <%-- telefono --%>
+            <div class="col-lg-4">
+                <label class=" campoIzq" for="telLabel">Teléfono: </label>
+                <asp:Label class="campo" runat="server" ID="labelTel"></asp:Label>
+            </div>
+        </div>
+
     </div>
 
     <%-- SECCION COMPRA --%>
@@ -111,14 +130,14 @@
                 </asp:DropDownList>
             </div>
             <%-- MONEDA --%>
-            <div class="col-lg-3">
+            <div class="col-lg-5">
                 <label class="h6 dato">Moneda:</label>
                 <asp:DropDownList class="btn btn-light dropdown-toggle" type="dropdown" ata-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ID="monedasDD" runat="server" AutoPostBack="True" Width="150px">
                 </asp:DropDownList>
             </div>
             <%-- FECHA --%>
-            <div class="col-lg" style="float: right; ">
-                <input class="form-control font-weight-bolder" type="text" id="datepicker" runat="server" clientidmode="Static" style="width: 120px" />
+            <div class="col-lg" style="">
+                <asp:TextBox class="form-control font-weight-bolder" ID="datepickerT" runat="server" ClientIDMode="Static" />
             </div>
 
         </div>
@@ -144,11 +163,12 @@
                     </asp:TableCell>
                     <%-- Precio kilo --%>
                     <asp:TableCell>
-                        <asp:TextBox Width="100%" ID="precioKgTB" runat="server" type="number" CssClass="btn btn-light btn-sm" />
+                        <input type="number" runat="server" clientidmode="Static" name="name" value="" step=".01" min="0" id="precioKg2TB" class="btn btn-light btn-sm" style="width: 100%" />
                     </asp:TableCell>
                     <%-- Cantidad --%>
                     <asp:TableCell>
-                        <asp:TextBox Width="100%" ID="cantidadTB" runat="server" type="number" CssClass="btn btn-light btn-sm" />
+                        <input type="number" runat="server" clientidmode="Static" name="name" value="" step=".01" min="0" id="cantidad2TB" class="btn btn-light btn-sm" style="width: 100%" />
+                        <%--                        <asp:TextBox Width="100%" ID="cantidadTB" runat="server" type="number" CssClass="btn btn-light btn-sm" />--%>
                     </asp:TableCell>
                     <%-- Unidad --%>
                     <asp:TableCell>

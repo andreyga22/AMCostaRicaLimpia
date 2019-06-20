@@ -34,5 +34,36 @@ namespace BL
             return new DAOManejadorSocios().buscarSociosFiltro(busqueda);
         }
 
+        public BLSocioNegocio buscarSocio(String id) {
+            DAOManejadorSocios manejadorDAO = new DAOManejadorSocios();
+            TOSocioNegocio socioTO = manejadorDAO.buscarSocio(id);
+            BLSocioNegocio socioBL = null;
+
+            if (socioTO != null)
+                socioBL = parsearSocio(socioTO);
+            else
+                return null;
+
+            return socioBL;
+        }
+
+        private BLSocioNegocio parsearSocio(TOSocioNegocio socioTO) {
+            BLSocioNegocio socioBL = new BLSocioNegocio();
+            socioBL.cedula = socioTO.cedula;
+            socioBL.nombre = socioTO.nombre;
+            socioBL.apellido1 = socioTO.apellido1;
+            socioBL.apellido2 = socioTO.apellido2;
+            socioBL.rol = socioTO.rol;
+            socioBL.estado_socio = socioTO.estado_socio;
+            socioBL.contactos.telefono_hab = socioTO.contactos.telefono_hab;
+            socioBL.contactos.telefono_pers = socioTO.contactos.telefono_pers;
+            socioBL.contactos.email = socioTO.contactos.email;
+            TODireccion tODireccion = socioTO.direccion;
+            socioBL.direccion = new BLDireccion(tODireccion.provincia, tODireccion.canton, tODireccion.distrito, tODireccion.otras_sennas, tODireccion.cod_direccion);
+           
+            return socioBL;
+        }
+
+
     }
 }

@@ -16,12 +16,8 @@ namespace ProyectoAMCRL {
         protected void Page_Load(object sender, EventArgs e) {
 
             if (!IsPostBack) {
-                if(Request.QueryString.Get("res") == "1"){
-                    lblError.Text = "<br /><br /><div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>" + "Ajuste registrado" + "</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\" onclick=\"cerrarError()\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
-                    lblError.Visible = true;
-                }
-
-                    
+                cargarMaterialesANDBodegas();
+                
             }
             cargarTabla();
 
@@ -38,6 +34,7 @@ namespace ProyectoAMCRL {
                 //fecha, peso, movimiento, stock   12/20/2019 12:00:00 AM
                 String fechaInfo =  Convert.ToString(dr["Fecha_Ajuste"]);
    
+
                 String peso = Convert.ToString(dr["PESO_AJUSTE"]);
                 String movimientoNumber = Convert.ToString(dr["MOVIMIENTO_A"]);
                 String movimiento = "";
@@ -73,6 +70,35 @@ namespace ProyectoAMCRL {
 
 
         }
+
+        private void cargarMaterialesANDBodegas() {
+            BLManejadorMateriales manejadorM = new BLManejadorMateriales();
+            DataSet listaM = manejadorM.listarMaterialesBL();
+
+            foreach (DataRow dr in listaM.Tables[0].Rows) {
+                String codigo = Convert.ToString(dr["COD_MATERIAL"]);
+                String nombre = Convert.ToString(dr["NOMBRE_MATERIAL"]);
+                String precio = Convert.ToString(dr["PRECIO_KILO"]);
+
+                ListItem item = new ListItem(nombre, codigo);
+                materialesCB.Items.Add(item);
+
+            }
+            materialesCB.DataBind();
+
+            BLManejadorBodega manejadorB = new BLManejadorBodega();
+            List<BLBodegaTabla> bodegas = manejadorB.listaBodegas();
+            foreach (BLBodegaTabla b in bodegas)
+            {
+
+                ListItem item = new ListItem(b.nombre, b.codigo);
+                bodegasDrop.Items.Add(item);
+            }
+            bodegasDrop.DataBind();
+
+        }
+
+
 
 
     }

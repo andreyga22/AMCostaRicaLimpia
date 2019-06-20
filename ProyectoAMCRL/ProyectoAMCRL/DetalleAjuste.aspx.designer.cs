@@ -40,13 +40,13 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.Label labelDatoConsecutivo;
         
         /// <summary>
-        /// labelNumero control.
+        /// labelDatoConsecutivoValor control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelNumero;
+        protected global::System.Web.UI.WebControls.Label labelDatoConsecutivoValor;
         
         /// <summary>
         /// bodegasDrop control.

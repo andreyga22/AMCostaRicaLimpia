@@ -1,19 +1,4 @@
 ﻿
-/*@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
-
-body {
-    font-family: 'Poppins', sans-serif;
-    background: #fafafa;
-}*/
-
-/*p {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.1em;
-    font-weight: 300;
-    line-height: 1.7em;
-    color: #999;
-}*/
-
 a,
 a:hover,
 a:focus {
@@ -59,8 +44,8 @@ span {
 }
 
 #sidebar {
-    min-width: 250px;
-    max-width: 250px;
+    min-width: 200px;
+    max-width: 200px;
     /*EDITADOOOO*/
     background: rgba(19, 113, 27, 1.00);
     color: #fff;
@@ -68,8 +53,8 @@ span {
 }
 
     #sidebar.active {
-        min-width: 85px;
-        max-width: 85px;
+        min-width: 100px;
+        max-width: 100px;
         text-align: center;
     }
 
@@ -112,15 +97,6 @@ span {
         transform: translateX(50%);
     }
 
-    /*#sidebar .sidebar-header {
-        padding: 20px;
-        background: #ffd800;
-    }
-
-        #sidebar .sidebar-header strong {
-            display: none;
-            font-size: 1.8em;
-        }*/
 
     #sidebar ul.components {
         padding: 20px 0;

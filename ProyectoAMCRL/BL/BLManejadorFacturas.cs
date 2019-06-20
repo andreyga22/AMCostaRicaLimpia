@@ -158,7 +158,7 @@ namespace BL
                 //  cantidad                *   equivalencia en kilos
                 double kilosLinea = (Int32.Parse(infoLinea[2]) * equivalencia);
                 detalleTO.kilos_Linea = kilosLinea;
-                int precioKg = Int32.Parse(infoLinea[1]);
+                double precioKg = Double.Parse(infoLinea[1]);
                 detalleTO.monto_Linea = precioKg * kilosLinea;
 
                 detallesTO.Add(detalleTO);
