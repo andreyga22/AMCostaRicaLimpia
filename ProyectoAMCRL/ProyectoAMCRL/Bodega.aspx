@@ -7,8 +7,8 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="breadcrumbBodyHolder" runat="server">
-    <li class="breadcrumb-item"><a href="AdministrarBodegas.aspx">Administrar bodegas</a></li>
-    <li class="breadcrumb-item active">Registro Bodega</li>
+    <li class="breadcrumb-item"><a href="AdministrarBodegas.aspx" style="color:dodgerblue">Administrar bodegas</a></li>
+    <li class="breadcrumb-item active">Bodega</li>
 </asp:Content>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="body" runat="server">
@@ -18,7 +18,7 @@
     <div class="container">
         <div class="row">
             <div class="form-group">
-                <h4>Registro de bodega</h4>
+                <h4>Bodega</h4>
             </div>
         </div>
         <br />

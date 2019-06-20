@@ -84,11 +84,11 @@
             });
         });
 
-        $(document).keydown(function (keyPressed) {
-            if (keyPressed.keyCode == 13) {
-                alert("ENTER PRESIONADO");
-            }
-        });
+        //$(document).keydown(function (keyPressed) {
+        //    if (keyPressed.keyCode == 13) {
+        //        alert("ENTER PRESIONADO");
+        //    }
+        //});
 
         function ocultarFiltros() {
             $("#divMontos").hide();
@@ -116,133 +116,151 @@
             <h4>Búsqueda de facturas</h4>
         </div>
         <br />
-        <h5>Filtros</h5>
 
-        <div class="row" style="margin-left: 10px">
-            <div class="form-group">
 
-                <asp:TextBox type="text" ID="palabraTb" class="form-control" runat="server" TextMode="SingleLine" placeholder="Código o socio"></asp:TextBox>
+
+
+        <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#filtros">
+            Filtros
+        </button>
+
+        <!-- Modal -->
+            <div class="container">
+        <div class="modal fade" id="filtros" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Filtros</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row" id="barraFiltros">
+                            <div class="col-lg-6 filtroCell">
+
+                                <strong>
+                                    <input class="form-check-input" type="checkbox" id="fechasCb" value="" font-weight: bold>Fecha</strong>
+                                <br />
+                                <asp:ScriptManager ID="ScriptManager2" runat="server"></asp:ScriptManager>
+
+                                <div class="row" id="divFecha">
+                                    <p>
+                                        Fecha Inicio:
+        <input type="text" id="datepicker" runat="server" clientidmode="Static" />
+                                    </p>
+
+                                    <p>
+                                        Fecha Fin:
+        <input type="text" id="datepicker2" runat="server" clientidmode="Static" />
+                                    </p>
+                                </div>
+                            </div>
+                                    <%-- FILTRO MATERIALES --%>
+                            <div class="col-lg-6 filtroCell">
+                                <div class="form-group">
+                                    <strong>
+                                        <input class="form-check-input" type="checkbox" id="materialesCb" font-weight: bold value="">Material</strong>
+                                    <div class="row" id="divMateriales">
+                                        <%--<asp:DropDownList OnSelectedIndexChanged="materialesDrop_SelectedIndexChanged" class="btn btn-light dropdown-toggle" type="dropdown" ata-toggle="dropdown" aria-haspopup="true" aria-expanded="false" Height="40px" ID="materialDd" runat="server" Width="90%" AutoPostBack="True">
+                                        </asp:DropDownList>--%>
+                                        <asp:ListBox ID="materialDda"  runat="server" SelectionMode="Multiple"></asp:ListBox>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="filtroCell col-lg-6">
+                                <strong>
+                                    <input class="form-check-input" type="checkbox" id="montosCb" value="" font-weight: bold>Monto en facturas</strong>
+
+                                <div class="row" id="divMontos">
+                                    <asp:TextBox ID="montoMinimo" Height="30px" runat="server" type="number" CssClass="btn btn-light" Width="90%" placeholder="Máximo" />
+                                    <asp:TextBox ID="montoMax" Height="30px" runat="server" type="number" CssClass="btn btn-light" Width="90%" placeholder="Mínimo" />
+                                </div>
+                            </div>
+                            <br />
+                    
+                            <div class="col-lg-6 filtroCell">
+                                <strong>
+                                    <input class="form-check-input" type="checkbox" id="rolCb" font-weight: bold value="">Tipo</strong>
+                                <div style="width: 100%" class="rolDiv">
+                                    <asp:RadioButton ID="radioRol" GroupName="MeasurementSystem" runat="server" Text="Venta" />
+                                </div>
+                                <div style="width: 100%" class="rolDiv">
+                                    <asp:RadioButton ID="radioRol2" GroupName="MeasurementSystem" runat="server" Text="Compra" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <%--<button type="button" class="btn btn-primary">Filtrar</button>--%>
+                         <asp:Button ID="btnFiltrarModal" type="submit" runat="server" Text="Filtrar" class="btn btn-primary" OnClick="btnFiltrar_Click" />
+                    </div>
+                </div>
             </div>
-            <%--      <div class="form-group">
-            <label for="fechasCb">Fecha</label>
-            <asp:CheckBox ID="fechasCb" type="checkbox" runat="server" />
-        </div>--%>
         </div>
+                </div>
 
-        <div class="row" id="barraFiltros">
-            <%--   <div class="row" style="margin-left: 10px">--%>
-            <div class="col-lg-3 filtroCell">
+
+
+
+
+
+
+        <%--        <div class="row" id="barraFiltros">--%>
+
+        <%-- <div class="col-lg-3 filtroCell">
 
                 <label>
                     <input class="form-check-input" type="checkbox" id="fechasCb" value="">Fecha</label>
-                <%--</div>--%>
-                <%--</div>--%>
+
                 <br />
-                <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
-                <%-- Height="190px" Width="350px" Font-Size="9pt"--%>
-                <div class="row" id="divFecha">
+                <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>--%>
+
+        <%--  <div class="row" id="divFecha">
                     <p>
                         Fecha Inicio:
         <input type="text" id="datepicker" runat="server" clientidmode="Static" />
                     </p>
-                    <%-- <div class="col-5">
-            Fecha inicio:<br />
-            <div style="text-align: center">
-                <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-                    <ContentTemplate>
-                        <asp:Calendar ID="CalendFechaIni" runat="server" BackColor="White" BorderColor="White" BorderWidth="1px" Font-Names="Verdana" ForeColor="Black" NextPrevFormat="FullMonth" Font-Size="XX-Small">
-                            <DayHeaderStyle Font-Bold="True" Font-Size="8pt" />
-                            <NextPrevStyle Font-Bold="True" Font-Size="8pt" ForeColor="#333333" VerticalAlign="Bottom" />
-                            <OtherMonthDayStyle ForeColor="#999999" />
-                            <SelectedDayStyle BackColor="#8DAA9D" ForeColor="White" />
-                            <TitleStyle BackColor="White" BorderColor="Black" BorderWidth="4px" Font-Bold="True" Font-Size="12pt" ForeColor="#8DAA9D" />
-                            <TodayDayStyle BackColor="#CCCCCC" />
-                        </asp:Calendar>
-                    </ContentTemplate>
-                </asp:UpdatePanel>
-                <br />
-                <br />
-            </div>
-        </div>--%>
-                    <%--        <div class=" col-5">--%>
+
 
                     <p>
                         Fecha Fin:
-        <input type="text" id="datepicker2" runat="server" clientidmode="Static"/>
+        <input type="text" id="datepicker2" runat="server" clientidmode="Static" />
                     </p>
 
-                    <%--     Fecha Fin:<br />
-            <div style="text-align: center">
-                <div style="text-align: center">
-                    <asp:UpdatePanel ID="UpdatePanel2" runat="server">
-                        <ContentTemplate>
-                            <asp:Calendar ID="calendFechaFin" runat="server" BackColor="White" BorderColor="White" BorderWidth="1px" Font-Names="Verdana"  ForeColor="Black"  NextPrevFormat="FullMonth" Font-Size="XX-Small"  SelectedDate="11/25/2018 12:21:35">
-                                <DayHeaderStyle Font-Bold="True" Font-Size="8pt" />
-                                <NextPrevStyle Font-Bold="True" Font-Size="8pt" ForeColor="#333333" VerticalAlign="Bottom" />
-                                <OtherMonthDayStyle ForeColor="#999999" />
-                                <SelectedDayStyle BackColor="#16ACB8" ForeColor="White" />
-                                <TitleStyle BackColor="White" BorderColor="Black" BorderWidth="4px" Font-Bold="True" Font-Size="12pt" ForeColor="#8DAA9D" />
-                                <TodayDayStyle BackColor="#8DAA9D" />
-                            </asp:Calendar>
-                        </ContentTemplate>
-                    </asp:UpdatePanel>
-                    <br />
-                </div>
-                <br />
-            </div>--%>
-                    <%--</div>--%>
-                </div>
-            </div>
-            <%--</div>--%>
-            <%-- SECCION 1 FILTROS--%>
-            <%--<h5>Seleccione uno o más filtros:</h5>--%>
 
-            <%--  <div class="col-lg-2" style="background-color:lightgrey">
-                    <label for="palabraTb">Palabra Clave</label>
-                    <asp:TextBox type="text" ID="palabraTb" class="form-control" runat="server" TextMode="SingleLine" placeholder="Código o nombre">
-                    </asp:TextBox>
-                </div>--%>
-            <%-- FILTRO MONTOS --%>
-            <div class="filtroCell col-lg-3">
+                </div>
+            </div>--%>
+
+        <%-- FILTRO MONTOS --%>
+        <%-- <div class="filtroCell col-lg-3">
                 <label>
-                    <input class="form-check-input" type="checkbox" id="montosCb" value="">Monto en facturas</label>
-                <%-- <label for="montosCb">Rol</label>
-             <asp:CheckBox ID="montosCb" type="checkbox" runat="server" />--%>
-                <div class="row" id="divMontos">
+                    <input class="form-check-input" type="checkbox" id="montosCb" value="">Monto en facturas</label>--%>
+
+        <%--    <div class="row" id="divMontos">
                     <asp:TextBox ID="montoMinimo" Height="30px" runat="server" type="number" CssClass="btn btn-light" Width="90%" placeholder="Máximo" />
                     <asp:TextBox ID="montoMax" Height="30px" runat="server" type="number" CssClass="btn btn-light" Width="90%" placeholder="Mínimo" />
                 </div>
-            </div>
-            <%-- FILTRO MATERIALES --%>
-            <div class="col-lg-3 filtroCell">
+            </div>--%>
+        <%-- FILTRO MATERIALES --%>
+        <%--     <div class="col-lg-3 filtroCell">
                 <div class="form-group">
                     <label>
                         <input class="form-check-input" type="checkbox" id="materialesCb" value="">Material</label>
                     <div class="row" id="divMateriales">
-                        <asp:DropDownList class="btn btn-light" Height="40px" ID="materialDd" runat="server" Width="90%" AutoPostBack="false">
-                            <asp:ListItem>Aluminio</asp:ListItem>
-                            <asp:ListItem>Cobre</asp:ListItem>
-                            <asp:ListItem>Hierro</asp:ListItem>
+                        <asp:DropDownList OnSelectedIndexChanged="materialesDrop_SelectedIndexChanged" class="btn btn-light dropdown-toggle" type="dropdown" ata-toggle="dropdown" aria-haspopup="true" aria-expanded="false" Height="40px" ID="materialDd" runat="server" Width="90%" AutoPostBack="True">
                         </asp:DropDownList>
                     </div>
                 </div>
-            </div>
-            <%-- FILTRO UBICACION --%>
-            <%--        <div class="col-lg-3 filtroCell">
-            <label>
-                <input class="form-check-input" type="checkbox" id="ubicacionCb" value="">Ubicación</label>
-            <div class="row" id="divUbicaciones">
-                <asp:TextBox class="form-control" ID="TextBox1" runat="server" Width="90%" Height="30px" type="text" CssClass="btn btn-light" placeholder="Provincia" />
-                <asp:TextBox class="form-control" ID="TextBox2" runat="server" Width="90%" type="text" Height="30px" CssClass="btn btn-light" placeholder="Cantón" />
-                <asp:TextBox class="form-control" ID="TextBox3" runat="server" Width="90%" type="text" Height="30px" CssClass="btn btn-light" placeholder="Distrito" />
-            </div>
-        </div>--%>
-            <%-- FILTRO ROL --%>
-            <div class="col-lg-3 filtroCell">
+            </div>--%>
+
+        <%-- FILTRO ROL --%>
+        <%--  <div class="col-lg-3 filtroCell">
                 <label>
                     <input class="form-check-input" type="checkbox" id="rolCb" value="">Tipo</label>
-                <%-- <label for="rolCb">Rol</label>
-             <asp:CheckBox ID="rolCb" type="checkbox" runat="server" />--%>
+  
                 <div style="width: 100%" class="rolDiv">
                     <asp:RadioButton GroupName="MeasurementSystem" runat="server" Text="Venta" />
                 </div>
@@ -251,51 +269,35 @@
                 </div>
             </div>
         </div>
-        <br />
-        <div class="row justify-content-center">
-            <asp:Button ID="btnActualizar" type="submit" runat="server" Text="Actualizar búsqueda" class="btn btn-outline-secondary" OnClick="btnActualizar_Click" />
-        </div>
+        <br />--%>
+        <%--     <div class="row justify-content-center">
+           
+        </div>--%>
 
+     <%--   <div class="row">
+            <h4>Administrar Facturas</h4>
+        </div>--%>
+        <div class="row justify-content-center">
+            <div class="col-3 offset-7">
+                <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                    <ContentTemplate>
+                        <asp:TextBox type="text" ID="txtPalabra" class="form-control" runat="server" TextMode="SingleLine" placeholder="Buscar" AutoPostBack="True" OnKeyDown="txt_Item_Number_KeyDown" OnDataBinding="palabraTb_TextChanged" OnTextChanged="palabraTb_TextChanged"></asp:TextBox>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </div>
+            <div class="col-1">
+                <asp:Button ID="btnActualizar" type="submit" runat="server" Text="Actualizar búsqueda" class="btn btn-outline-secondary" OnClick="btnActualizar_Click" />
+                <%--<asp:Button ID="btnAgregar" runat="server" Text="Nuevo" class="btn btn-info" Width="180%" OnClick="btnAgregar_Click" />--%>
+            </div>
+        </div>
         <br />
-        <br />
-        <%--  <table class="table table-bordered">
-        <thead>
-            <tr class="tabla_encabezado" style="background-color: #94BD8B">
-                <th scope="col">#</th>
-                <th scope="col">Código Factura</th>
-                <th scope="col">Fecha</th>
-                <th scope="col">Monto</th>
-                <th scope="col">Socio</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>54687</td>
-                <td>22/09/2015</td>
-                <td>25000</td>
-                <td>Jorge González</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>54688</td>
-                <td>23/09/2015</td>
-                <td>30000</td>
-                <td>María Gómez</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>54689</td>
-                <td>23/09/2015</td>
-                <td>45000</td>
-                <td>Selena Gómez</td>
-            </tr>
-        </tbody>
-    </table>--%>
-        <asp:GridView ID="gridFacturas" class="table table-hover table-bordered table-striped" AutoGenerateSelectButton="True" runat="server" OnSelectedIndexChanged="gridFact_SelectedIndexChanged" AllowPaging="True" AllowSorting="True" PageSize="5">
-            <PagerSettings FirstPageText="Inicio" LastPageText="Fin" Mode="NumericFirstLast" PageButtonCount="2" />
-         <HeaderStyle BackColor="#94BD8B" />
-            </asp:GridView>
+
+
+        <asp:GridView class="table table-hover table-bordered table-striped" ID="gridFacturas" runat="server" AllowSorting="True" AllowPaging="True" OnPageIndexChanging="gridFact_PageIndexChanging" OnSorting="gridFact_Sorting" OnSelectedIndexChanged="gridFact_SelectedIndexChanged" OnKeyDown="" OnRowDataBound="gridFact_RowDataBound" PageSize="5">
+            <PagerSettings FirstPageText="Inicio" LastPageText="Fin" Mode="NumericFirstLast" PageButtonCount="4" />
+            <PagerStyle HorizontalAlign="Right" />
+
+        </asp:GridView>
         <br />
         <%-- <div class="row justify-content-center">
         <asp:Button ID="btnGuardar" type="submmit" runat="server" Text="Guardar" class="btn btn-info" Width="15%" />

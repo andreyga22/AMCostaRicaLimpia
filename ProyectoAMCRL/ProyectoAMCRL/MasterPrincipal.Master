@@ -52,7 +52,9 @@
             <br>
             <div class="row">
                 <span class="col"  style="margin-left:10%">
-                <asp:Image ID="Image1" runat="server" ImageUrl="~/images/logomel2.png" Width="50%"/>
+               <a href="Principal.aspx" runat="server"> 
+                   <asp:Image ID="Image1" runat="server" ImageUrl="~/images/logomel2.png" Width="50%"/>
+                </a>
                 </span>
                
             </div>
@@ -63,7 +65,7 @@
                         <i class="fas fa-users"></i>Socios</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
                         <li><a href="RegistroSociosUI.aspx">Agregar socio</a></li>
-                        <li><a href="BusquedaSocios.aspx">Busqueda socios</a></li>
+                        <li><a href="BusquedaSocios.aspx">Búsqueda socios</a></li>
                     </ul>
                 </li>
 
@@ -121,17 +123,17 @@
                     <a href="#cuentasSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle font-weight-bolder">
                         <i class="fa fa-cog"></i>Cuentas</a>
                     <ul class="collapse list-unstyled" id="cuentasSubmenu">
-                        <li><asp:LinkButton ID="cuentasLb" runat="server" OnClick="cuentasLb_Click">Administrar cuentas</asp:LinkButton></li>
+                        <li><asp:LinkButton ID="cuentasLb" CausesValidation="False" runat="server" OnClick="cuentasLb_Click">Administrar cuentas</asp:LinkButton></li>
                     </ul>
                 </li>
 
-                <li class="active" >
-                    <a href="#configSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle font-weight-bolder">
+                <%--<li class="active">
+                    <a href="#configSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <i class="fa fa-cog"></i>Configuración</a>
                     <ul class="collapse list-unstyled" id="configSubmenu">
-                        <li><asp:LinkButton ID="contrasenaLb" runat="server" OnClick="contrasenaLb_Click">Cambiar contraseña</asp:LinkButton></li>
+                        <li><asp:LinkButton ID="contrasenaLb" CausesValidation="False" runat="server" OnClick="contrasenaLb_Click">Cambiar contraseña</asp:LinkButton></li>
                     </ul>
-                </li>
+                </li>--%>
 
             </ul>
         </nav>
@@ -148,15 +150,20 @@
                             <span>Menú</span>
                         </button>
                     </li>
-                    <li class="breadcrumb-item"><a href="Principal2.aspx" style="color:dodgerblue">Principal</a></li>
+                    <li class="breadcrumb-item"><a href="Principal.aspx" style="color:dodgerblue">Principal</a></li>
                     <asp:ContentPlaceHolder ID="breadcrumbBodyHolder" runat="server">
                     </asp:ContentPlaceHolder>
                     <div class="col" style="width:100%">
                      <div style="float:right;">
 
+                         <button runat="server" id="bntCambiarContraseña" class="btn btn-secondary btn-sm" CausesValidation="False" onserverclick="cambiarContra">
+                                    <i class="fas fa-user" style="margin-right: 4%"></i>
+                                    Configuración</button>
                           <button runat="server" id="btnSalir" class="btn btn-secondary btn-sm" CausesValidation="False" onserverclick="cerrarSesion">
                                     <i class="fas fa-sign-out-alt" style="margin-right: 4%"></i>
                                     Salir</button>
+
+                         
                      </div>
                      </div>
                     </ol>
