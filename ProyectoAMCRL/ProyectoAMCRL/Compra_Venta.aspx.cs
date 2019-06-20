@@ -36,6 +36,7 @@ namespace ProyectoAMCRL
                
                 //Estilo de espera para cuando se realiza la compra
                 btnGuardar.Attributes.Add("onclick", "document.body.style.cursor = 'wait';");
+                buscarSocioBTN.Attributes.Add("onclick", "document.body.style.cursor = 'wait';");
 
                 // Se cargan las unidades, bodegas, monedas y materiales existentes 
                 // (La seleccion de bodega debe especificar los materiales disponibles)
@@ -90,16 +91,19 @@ namespace ProyectoAMCRL
         */
         private void cargarPantalla(String modo) {
 
-            String textoBreadCrum = "Registrar Compra";
+            String textoBreadCrum1 = "Compra";
+            String textoBreadCrum2 = "Registrar Compra";
             String textoDatoSocio = "Datos del proveedor";
             String textoDatoConsecutivo = "Compra #";
 
             if (modo.Equals("venta")) {
-                textoBreadCrum = "Registrar Venta";
+                textoBreadCrum1 = "Venta";
+                textoBreadCrum2 = "Registrar Venta";
                 textoDatoSocio = "Datos del cliente";
                 textoDatoConsecutivo = "Venta #";
             }
-            labelBreadCrum.Text = textoBreadCrum;
+            labelBreadCrum1.Text = textoBreadCrum1;
+            labelBreadCrum2.Text = textoBreadCrum2;
             labelDatosSocio.Text = textoDatoSocio;
             labelDatoConsecutivo.Text = textoDatoConsecutivo;
         }
@@ -351,17 +355,29 @@ namespace ProyectoAMCRL
         protected void buscarSocioBTN_Click(object sender, EventArgs e)
         {
             String id = identificacionTB.Text;
+            nombreLabel.Text = "";
+            labelDireccion.Text = "";
+            labelTel.Text = "";
+            String tipoSocio = labelBreadCrum1.Text.Equals("Compra") ? "Proveedor" : "Cliente";
+
             if (!String.IsNullOrEmpty(id))
             {
                 BLManejadorSocios manejadorS = new BLManejadorSocios();
-                BLSocioNegocio socio = manejadorS.buscarSocio(id);
+                BLSocioNegocio socio = manejadorS.buscarSocio(id, tipoSocio);
                 if (socio != null)
-                {
-                    nombreLabel.Text = socio.nombre;
+                {       
+                    nombreLabel.Text = socio.nombre + " "+ socio.apellido1 + " "+ socio.apellido2;
+
+                    if (socio.direccion != null)
+                        labelDireccion.Text = socio.direccion.provincia + ", " + socio.direccion.canton
+                        + ", " + socio.direccion.distrito;
+
+                    if(socio.contactos != null)
+                    labelTel.Text = socio.contactos.telefono_pers.ToString();
 
                 }
                 else {
-                    lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>" + "Socio no encontrado, intente de nuevo. " + "</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\" onclick=\"cerrarError()\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                    lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>" + tipoSocio +" no encontrado, intente de nuevo. " + "</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\" onclick=\"cerrarError()\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                     lblError.Visible = true;
                 }
                 

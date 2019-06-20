@@ -61,9 +61,12 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="breadcrumbBodyHolder" runat="server">
-    <li class="breadcrumb-item active">Compras</li>
     <li class="breadcrumb-item active">
-        <asp:Label ID="labelBreadCrum" Text="" runat="server" />
+        <asp:Label ID="labelBreadCrum1" Text="" runat="server" />
+
+    </li>
+    <li class="breadcrumb-item active">
+        <asp:Label ID="labelBreadCrum2" Text="" runat="server" />
     </li>
 </asp:Content>
 
