@@ -130,45 +130,34 @@ namespace DAO {
             return true;
         }
 
-        //ajustar al filtro
+        //ajustar al filtro, revisar el null.
         public DataTable buscarSociosFiltro(String busqueda)
         {
-            using (conexion)
-            {
-                SqlCommand buscar = conexion.CreateCommand();
-                String sql = "Select cedula, nombre, apellido1, apellido2 from SOCIO_NEGOCIO";
-                if (!string.IsNullOrEmpty(busqueda))
+            try {
+                using (conexion)
                 {
-                    sql += " WHERE (cedula LIKE '%' + @pal + '%')  or (nombre LIKE '%' + @pal + '%') or (apellido1 LIKE '%' + @pal + '%') or (apellido2 LIKE '%' + @pal + '%');";
-                    buscar.Parameters.AddWithValue("@pal", busqueda);
-                }
-                buscar.CommandText = sql;
-                buscar.Connection = conexion;
-                using (SqlDataAdapter adapter = new SqlDataAdapter(buscar))
-                {
-                    DataTable tabla = new DataTable();
-                    adapter.Fill(tabla);
-
-                    foreach (DataRow fila in tabla.Rows) // search whole table
+                    SqlCommand buscar = conexion.CreateCommand();
+                    String sql = "Select cedula, nombre, apellido1, apellido2, rol from SOCIO_NEGOCIO";
+                    if (!string.IsNullOrEmpty(busqueda))
                     {
-                        if (fila["rol_socio"].Equals("Proveedor")) // si es proveedor
+                        sql += busqueda;
+                        buscar.CommandText = sql;
+                        buscar.Connection = conexion;
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(buscar))
                         {
-                            fila["rol_socio"] = "Proveedor"; //change the name
-                                                         //break; break or not depending on you
+                            DataTable tabla = new DataTable();
+                            adapter.Fill(tabla);
+                            return tabla;
                         }
-                        else
-                        {
-                            if (fila["rol_socio"].Equals("Cliente"))
-                            {
-                                fila["rol_socio"] = "Cliente";
-                            }
-                        }
+
 
                     }
-
-                    return tabla;
                 }
+                
+            }catch(Exception ex){
+                throw;
             }
+            return null;
         }
 
         public TODireccion buscarDireccion(String cedula)
@@ -222,6 +211,25 @@ namespace DAO {
                 return contacto;
             }
             return contacto;
+        }
+
+        public Boolean asociarSocio(String cedulaAsociado, String cedulaSocio) {
+            SqlCommand asociar = new SqlCommand("Insert into Asociaciones (SOCIO, ASOCIADO) values (@SOCIO, @ASOCIADO)", conexion);
+            if (conexion.State == ConnectionState.Closed)
+            {
+                conexion.Open();
+
+                asociar.Parameters.AddWithValue("@SOCIO", cedulaSocio);
+                asociar.Parameters.AddWithValue("@ASOCIADO", cedulaAsociado);
+
+                asociar.ExecuteNonQuery();
+                if (conexion.State == ConnectionState.Open)
+                {
+                    conexion.Close();
+                }
+                return true;
+            }
+            return false;  
         }
     }
 }

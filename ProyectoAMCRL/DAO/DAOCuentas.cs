@@ -167,7 +167,7 @@ namespace DAO {
                         sda.Fill(dt);
 
                         foreach(DataRow dr in dt.Rows) // search whole table
-    {
+                        {
                             if(dr["rol"].Equals("a")) // if id==2
                             {
                                 dr["rol"] = "Administrador"; //change the name
@@ -177,16 +177,6 @@ namespace DAO {
                                     dr["rol"] = "Regular";
                                 }
                             }
-
-                            //if((Boolean)dr["estado"] == true)
-                            //{
-                            //    dr["estado"] = "Activado";
-
-                            //} else {
-                            //    if((Boolean)dr["estado"] == false) {
-                            //        dr["estado"] = "Desactivado";
-                            //    }
-                            //}
                         }
 
                         return dt;
