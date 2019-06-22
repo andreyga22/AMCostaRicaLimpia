@@ -145,6 +145,48 @@ namespace DAO {
             }
         }
 
+
+        public void restaurarContra(string id, string nueva) {
+
+
+            using(conexion) {
+                if(conexion.State != ConnectionState.Open) {
+                    conexion.Open();
+                }
+
+                // Start a local transaction.
+                SqlTransaction sqlTran = conexion.BeginTransaction();
+
+                // Enlist a command in the current transaction.
+                SqlCommand sentencia = conexion.CreateCommand();
+                sentencia.Transaction = sqlTran;
+
+                try {
+
+                    sentencia.CommandText =
+                "update credenciales set clave= @nueva where id_usuario = @id_usuario;";
+                    sentencia.Parameters.AddWithValue("@id_usuario", id);
+                    sentencia.Parameters.AddWithValue("@nueva", nueva);
+                    sentencia.ExecuteNonQuery();
+
+                    // Commit the transaction.
+                    sqlTran.Commit();
+                    if(conexion.State != ConnectionState.Closed) {
+                        conexion.Close();
+                    }
+                } catch(Exception) {
+                    try {
+                        // Attempt to roll back the transaction.
+                        sqlTran.Rollback();
+                    } catch(Exception) {
+                        throw;
+                    }
+                    throw;
+                }
+            }
+        }
+
+
         public DataTable buscar(string busqueda) {
             try {
                 using(conexion) {

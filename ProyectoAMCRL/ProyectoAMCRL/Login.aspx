@@ -42,8 +42,8 @@
                     </div>
                     <br />
                     <div class="row justify-content-center">
-                    <asp:Literal ID="lblError" runat="server" Visible="false"></asp:Literal>
-                        </div>
+                        <asp:Literal ID="lblError" runat="server" Visible="false"></asp:Literal>
+                    </div>
                     <div class="form-group">
                         <label for="usuarioTb">Nombre de usuario</label>
                         <asp:TextBox ID="usuarioTb" type="email" runat="server" class="form-control"></asp:TextBox>
@@ -55,16 +55,56 @@
                         <asp:TextBox ID="contraTb" type="password" class="form-control" runat="server"></asp:TextBox>
                         <%--<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">--%>
                     </div>
-                   <%-- <div class="row">--%>
+                    <%-- <div class="row">--%>
 
-                        <asp:Button ID="btnEntrar" type="submit" runat="server" Text="Entrar" class="btn btn-info" OnClick="btnEntrar_Click" />
-                        
+                    <asp:Button ID="btnEntrar" runat="server" Text="Entrar" class="btn btn-info" OnClick="btnEntrar_Click" />
+
                     <%--</div>--%>
                     <br />
                     <br />
                     <div class="offset-6">
-                        <asp:LinkButton ID="olvidoLb" runat="server" OnClick="olvidoLb_Click">¿Olvidó su contraseña?</asp:LinkButton>
+                        <asp:LinkButton ID="olvidoLb" runat="server" data-toggle="modal" data-target="#exampleModalCenter" OnClick="olvidoLb_Click">¿Olvidó su contraseña?</asp:LinkButton>
                     </div>
+
+
+
+
+
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalCenterTitle">Recuperar contraseña</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+
+                                    <div class="row justify-content-center">
+                                        <asp:Literal ID="lblError2" runat="server" Visible="false"></asp:Literal>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="recuperarUsuarioTb">Ingrese el correo electronico al que le desea restaurar la contraseña</label>
+                                        <asp:TextBox ID="recuperarUsuarioTb" type="email" runat="server" class="form-control" OnKeyDown="txt_Item_Number_KeyDown"></asp:TextBox>
+                                        <small id="emailHelp" class="form-text text-danger">Este cambio no se puede deshacer.</small>
+                                    </div>
+
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    <asp:Button ID="btnEnviar" type="button" class="btn btn-primary" runat="server" Text="Enviar" OnClick="btnEnviar_Click" />
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
 
                 </form>
             </div>
