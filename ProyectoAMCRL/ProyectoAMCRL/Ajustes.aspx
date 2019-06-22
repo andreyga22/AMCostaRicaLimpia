@@ -75,12 +75,13 @@
     <div class="row justify-content-center" id="errorDiv">
         <asp:Literal ID="lblError" runat="server" Visible="false"></asp:Literal>
     </div>
-
+    <h4>Ajustes de inventario</h4>
+    <br />
     <!-- Modal -->
     <div class="container">
 
         <!-- Trigger the modal with a button -->
-        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">Filtrar</button>
+        <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#myModal">Filtrar</button>
 
         <!-- Modal -->
         <div class="modal fade" id="myModal" role="dialog">
@@ -106,22 +107,21 @@
                                 <br>
                                 <%-- FILTRO TIPO --%>
                                 <label style="margin-left: 10px">Tipo</label>
-                                <div style="width: 100%; margin-left: 15px" class="rolDiv">
-                                    <asp:RadioButton GroupName="MeasurementSystem" runat="server" Text="Entrada" />
-                                </div>
-                                <div style="width: 100%; margin-left: 15px" class="rolDiv">
-                                    <asp:RadioButton GroupName="MeasurementSystem" runat="server" Text="Salida" />
-                                </div>
+                                <asp:RadioButtonList runat="server" ID="tipoRadioL">
+                                    <asp:ListItem Text="No especificar" />
+                                    <asp:ListItem Text="Entrada" />
+                                    <asp:ListItem Text="Salida" />
+                                </asp:RadioButtonList>
 
                             </div>
 
                             <%-- FILTRO MONTOS --%>
                             <div class="col-lg-3" >
-                                <label>Montos</label>
-                                <asp:TextBox ID="montoMinimo" runat="server" type="number" CssClass="btn btn-light" Width="100%" placeholder="Máximo" />
+                                <label>Kilos</label>
+                                <asp:TextBox ID="pesoMin" runat="server" type="number" CssClass="btn btn-light" Width="100%" placeholder="Cantidad mínima" />
                                 <br />
                                 <br />
-                                <asp:TextBox ID="montoMax" runat="server" type="number" CssClass="btn btn-light" Width="100%" placeholder="Mínimo" />
+                                <asp:TextBox ID="pesoMax" runat="server" type="number" CssClass="btn btn-light" Width="100%" placeholder="Cantidad máxima" />
                                 <br>
                                 <br>
                                 <%-- BODEGAS --%>
@@ -147,7 +147,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <asp:Button CssClass="btn btn-info" Text="Aplicar filtros" runat="server" />
+                        <asp:Button OnClick="btnFiltros_Click" CssClass="btn btn-primary" Text="Aplicar filtros" runat="server" id="btnFiltros" AutoPostBack="false"/>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                     </div>
                 </div>
@@ -155,17 +155,15 @@
             </div>
         </div>
     </div>
-    <br>
 
-    <div class="row justify-content-end" style="width: 100%;">
+    <%--<div class="row justify-content-end" style="width: 100%;">
         <div style="float: right;">
             <label class="h6">Bodega:</label>
             <asp:Label runat="server" CssClass="h6">B001</asp:Label>
         </div>
-    </div>
-    <br>
+    </div>--%>
 
-
+    <asp:Label runat="server" ID="labelP"></asp:Label>
     <div class="container">
 
         <a href="DetalleAjuste.aspx" class="btn btn-info btn-sm" style="float: right">

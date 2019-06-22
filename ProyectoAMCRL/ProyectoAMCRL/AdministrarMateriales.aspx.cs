@@ -24,6 +24,13 @@ namespace ProyectoAMCRL
 
         }
 
+        /*
+         PROCESO: 
+
+        ENTRADAS:
+
+        SALIDAS:
+        */
         private void llenarTablaMateriales(String idBodega) {
 
             DataSet dataSet = new DataSet();
@@ -55,9 +62,9 @@ namespace ProyectoAMCRL
 
         }
 
+
         private void cargarBodegas()
         {
-
             List<BLBodegaTabla> bodegas = manejadorB.listaBodegas();
             foreach (BLBodegaTabla b in bodegas)
             {

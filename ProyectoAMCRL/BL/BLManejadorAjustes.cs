@@ -57,5 +57,10 @@ namespace BL
             double equivalUn = Double.Parse(unidad);
             return equivalUn * pesoN;
         }
+
+        public DataSet filtrarAjustes(string fechaInicio, string fechaFin, string tipo, string pesoMaximo, string pesoMinimo, string bodega, List<string> materiales)
+        {
+            return manejador.filtrarAjustesDAO( fechaInicio,  fechaFin,  tipo, pesoMaximo, pesoMinimo, bodega,  materiales);
+        }
     }
 }

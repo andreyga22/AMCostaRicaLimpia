@@ -13,8 +13,6 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 
-
-
     <script>
 
         //CONSULTA JQUERY
@@ -29,12 +27,6 @@
         function abrirDetalleClick(id) {
             window.location.replace("RegistroMateriales.aspx?idM=" + id);
         }
-
-
-
-
-
-
     </script>
 
 </asp:Content>
@@ -49,12 +41,13 @@
     </div>
 
 
-
+    <h4>Materiales en sistema</h4>
+    <br />
     <!-- Modal -->
     <div class="container">
 
         <!-- Trigger the modal with a button -->
-        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">Filtrar</button>
+        <button type="button" class="btn btn-light btn-sm" data-toggle="modal" data-target="#myModal">Filtrar</button>
 
         <!-- Modal -->
         <div class="modal fade" id="myModal" role="dialog">
@@ -62,7 +55,7 @@
 
                 <!-- Modal content-->
                 <div class="modal-content">
-                    <div class="modal-header" style="background-color:rgba(230, 230, 230, 0.48)">
+                    <div class="modal-header" style="background-color: rgba(230, 230, 230, 0.48)">
                         <h6 class="modal-title font-weight-bolder" style="float: left">Selección de filtros</h6>
                         <button type="button" class="close" data-dismiss="modal" style="float: right">&times;</button>
                     </div>
@@ -71,7 +64,7 @@
                         <div class="col-lg-3">
                             <label class="h6 dato">Bodegas:</label>
                             <asp:DropDownList OnSelectedIndexChanged="bodegasDrop_SelectedIndexChanged" class="btn btn-light dropdown-toggle" type="dropdown" ata-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ID="bodegasDrop" runat="server" AutoPostBack="true" Width="150px">
-                            <asp:ListItem Value="">Ninguna</asp:ListItem>
+                                <asp:ListItem Value="">Ninguna</asp:ListItem>
                             </asp:DropDownList>
                         </div>
                     </div>
@@ -79,14 +72,10 @@
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                     </div>
                 </div>
-
             </div>
         </div>
 
     </div>
-
-
-
     <br>
     <a href="RegistroMateriales.aspx" class="btn btn-info btn-sm" style="float: right">
         <span class="fa fa-plus"></span>

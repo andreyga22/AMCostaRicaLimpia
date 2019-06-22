@@ -17,57 +17,73 @@ namespace ProyectoAMCRL {
 
             if (!IsPostBack) {
                 cargarMaterialesANDBodegas();
+
+                DataSet ajustes = (DataSet)Session["ajustes"];
+                if (ajustes != null)
+                {
+                    
+                    cargarTabla(ajustes);
+                }
+                else {
+                    cargarTabla(null);
+                }
                 
             }
-            cargarTabla();
+           
 
         }
 
-        private void cargarTabla() {
+        private void cargarTabla(DataSet ajustes) {
 
-            DataSet dataSet = manejadorA.listarAjustesBL();
+            DataSet dataSet;
+            if (ajustes == null)
+                dataSet = manejadorA.listarAjustesBL();
+            else
+                dataSet = ajustes;
 
             String cuerpoTablaHTML = "";
 
-            foreach (DataRow dr in dataSet.Tables[0].Rows)
-            {
-                //fecha, peso, movimiento, stock   12/20/2019 12:00:00 AM
-                String fechaInfo =  Convert.ToString(dr["Fecha_Ajuste"]);
-   
+                foreach (DataRow dr in dataSet.Tables[0].Rows)
+                {
+                    //fecha, peso, movimiento, stock   12/20/2019 12:00:00 AM
+                    String fechaInfo = Convert.ToString(dr["Fecha_Ajuste"]);
 
-                String peso = Convert.ToString(dr["PESO_AJUSTE"]);
-                String movimientoNumber = Convert.ToString(dr["MOVIMIENTO_A"]);
-                String movimiento = "";
-                switch (movimientoNumber) {
-                    case "1":
-                        movimiento = "ENTRADA";
-                        break;
 
-                    case "0":
-                        movimiento = "SALIDA";
-                        break;
-                       
+                    String peso = Convert.ToString(dr["PESO_AJUSTE"]);
+                    String movimientoNumber = Convert.ToString(dr["MOVIMIENTO_A"]);
+                    String movimiento = "";
+                    switch (movimientoNumber)
+                    {
+                        case "1":
+                            movimiento = "ENTRADA";
+                            break;
+
+                        case "0":
+                            movimiento = "SALIDA";
+                            break;
+
+                    }
+
+
+                    String stock = Convert.ToString(dr["ID_STOCK"]);
+                    String idAjuste = Convert.ToString(dr["ID_AJUSTE"]);
+                    String idBodega = Convert.ToString(dr["ID_BODEGA"]);
+
+                    String btnHTML2 = "<a href='#' data-toggle='popover' data-placement='left' title='Detalle ajuste' data-html='true' data-content='Some content " + idAjuste + " popover'>Ver</a>";
+                    String idEncriptado = BLManejadorEncripcion.Encrypt(idAjuste);
+                    String btnHTML = "<input id='" + idAjuste + "' type='button' class='btn btn-sm btn-link' value='" + idAjuste + "' >";
+                    String filaHTML = "<tr onclick='abrirDetalleClick(" + idAjuste + ")'>" +
+                    "<td>" + idAjuste + "</td>" +
+                    "<td>" + fechaInfo + "</td>" +
+                    "<td>" + peso + "</td>" +
+                    "<td>" + idBodega + "</td>" +
+                    "<td>" + movimiento + "</td >" +
+                    "</tr> ";
+                    cuerpoTablaHTML += filaHTML;
                 }
 
-                
-                String stock = Convert.ToString(dr["ID_STOCK"]);
-                String idAjuste = Convert.ToString(dr["ID_AJUSTE"]);
-                String idBodega = Convert.ToString(dr["ID_BODEGA"]);
-
-                String btnHTML2 = "<a href='#' data-toggle='popover' data-placement='left' title='Detalle ajuste' data-html='true' data-content='Some content "+ idAjuste+" popover'>Ver</a>";
-                String idEncriptado = BLManejadorEncripcion.Encrypt(idAjuste);
-                String btnHTML = "<input id='" + idAjuste + "' type='button' class='btn btn-sm btn-link' value='"+idAjuste+"' >";
-                String filaHTML = "<tr onclick='abrirDetalleClick(" + idAjuste + ")'>" +
-                "<td>" + idAjuste + "</td>" +
-                "<td>" + fechaInfo + "</td>" +
-                "<td>" + peso + "</td>" +
-                "<td>" + idBodega + "</td>" +
-                "<td>" + movimiento + "</td >" +
-                "</tr> ";
-                cuerpoTablaHTML += filaHTML;
-            }
             tablaPlaceHolder.Controls.Add(new Literal { Text = cuerpoTablaHTML.ToString() });
-
+            tablaPlaceHolder.DataBind();
 
         }
 
@@ -98,8 +114,37 @@ namespace ProyectoAMCRL {
 
         }
 
+        protected void btnFiltros_Click(object sender, EventArgs e)
+        {
+            String fechaInicio = "";
+            String fechaFin = "";
+            String tipo = "";
+            String pesoMaximo = "";
+            String pesoMinimo = "";
+            String bodega = "";
+            List<String> materiales = new List<string>();
 
+            if (!String.IsNullOrEmpty(fechaInicioTB.Text))
+                fechaInicio = fechaInicioTB.Text;
+            if (!String.IsNullOrEmpty(fechaFinTB.Text))
+                fechaFin = fechaFinTB.Text;
+            if (tipoRadioL.SelectedItem != null && tipoRadioL.SelectedItem != tipoRadioL.Items[0])
+                tipo = tipoRadioL.SelectedItem.Text;
+            if (!String.IsNullOrEmpty(pesoMax.Text))
+                pesoMaximo = pesoMax.Text;
+            if (!String.IsNullOrEmpty(pesoMin.Text))
+                pesoMinimo = pesoMin.Text;
+            if (bodegasDrop.SelectedItem != bodegasDrop.Items[0])
+                bodega = bodegasDrop.SelectedItem.Value;
 
+            foreach (ListItem material in materialesCB.Items) {
 
+                if (material.Selected)
+                    materiales.Add(material.Value);
+
+            }
+            DataSet ajustesFiltrados = manejadorA.filtrarAjustes(fechaInicio, fechaFin, tipo, pesoMaximo, pesoMinimo, bodega, materiales);
+            cargarTabla(ajustesFiltrados);
+        }
     }
 }

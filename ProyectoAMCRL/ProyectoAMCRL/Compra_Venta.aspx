@@ -90,7 +90,7 @@
                     <div>
                         <asp:TextBox OnTextChanged="buscarSocioBTN_Click" Width="98%" CssClass="form-control " runat="server" ID="identificacionTB" placeholder="24876612"></asp:TextBox>
                     </div>
-                    <asp:LinkButton CssClass="btn btn-secondary" ID="buscarSocioBTN" runat="server" Text="Buscar" OnClick="buscarSocioBTN_Click"><i class="fa fa-search" style="margin-right:3px"></i></asp:LinkButton>
+                    <asp:LinkButton CssClass="btn btn-light" ID="buscarSocioBTN" runat="server" Text="Buscar" OnClick="buscarSocioBTN_Click"><i class="fa fa-search" style="margin-right:3px"></i></asp:LinkButton>
                 </div>
             </div>
             <%-- direccion --%>

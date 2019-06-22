@@ -40,22 +40,31 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.TextBox fechaFinTB;
         
         /// <summary>
-        /// montoMinimo control.
+        /// tipoRadioL control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox montoMinimo;
+        protected global::System.Web.UI.WebControls.RadioButtonList tipoRadioL;
         
         /// <summary>
-        /// montoMax control.
+        /// pesoMin control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox montoMax;
+        protected global::System.Web.UI.WebControls.TextBox pesoMin;
+        
+        /// <summary>
+        /// pesoMax control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox pesoMax;
         
         /// <summary>
         /// bodegasDrop control.
@@ -74,6 +83,24 @@ namespace ProyectoAMCRL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBoxList materialesCB;
+        
+        /// <summary>
+        /// btnFiltros control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnFiltros;
+        
+        /// <summary>
+        /// labelP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelP;
         
         /// <summary>
         /// tablaPlaceHolder control.
