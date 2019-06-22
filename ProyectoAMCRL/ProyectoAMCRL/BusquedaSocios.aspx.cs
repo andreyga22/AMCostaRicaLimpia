@@ -59,30 +59,21 @@ namespace ProyectoAMCRL
 
         }
 
-        /*  private void buscar()
+        private void buscar()
         {
             BLManejadorSocios manejador = new BLManejadorSocios();
             String filtro = "";
 
-            if (rolCb.Checked)
-            {
-                if () {
-                    filtro += "ROL = Cliente ";
-                }
-                else
-                {
-                    filtro += "ROL = Proveedor ";
-                }
-            }
+
             
-        //gridSocios.DataSource = manejador.buscarFiltrado();
-        gridSocios.DataBind();
+            gridSocios.DataSource = manejador.buscarFiltrado(filtro);
+            gridSocios.DataBind();
             gridSocios.HeaderRow.Cells[0].Text = "Cedula";
             gridSocios.HeaderRow.Cells[1].Text = "Nombre";
             gridSocios.HeaderRow.Cells[2].Text = "Primer apellido";
             gridSocios.HeaderRow.Cells[3].Text = "Segundo Apellido";
             gridSocios.HeaderRow.Cells[4].Text = "Rol";
 
-        }*/
+        }
     }
 }
