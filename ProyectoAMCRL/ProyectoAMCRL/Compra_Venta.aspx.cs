@@ -173,10 +173,11 @@ namespace ProyectoAMCRL
         {
             if (!(String.IsNullOrEmpty(cantidad2TB.Value)))
             {
+                cantidad2TB.Style.Add("border-color", "transparent");
                 String lineaAjusteInfo = "";
-                cantidad2TB.Style.Add("background-color", "white"); 
+                Double precioEspecificado = String.IsNullOrEmpty(precioKg2TB.Value) ? 0 : Double.Parse(precioKg2TB.Value);
                 lineaAjusteInfo = materialDD.SelectedItem.Value+'#'+materialDD.SelectedItem.Text + "&" +
-                precioKg2TB.Value + "&" + cantidad2TB.Value  + "&" + unidadDD.SelectedItem.Value + '#' + unidadDD.SelectedItem.Text;
+                precioEspecificado + "&" + cantidad2TB.Value  + "&" + unidadDD.SelectedItem.Value + '#' + unidadDD.SelectedItem.Text;
                 detalles.Add(lineaAjusteInfo);
                 Session.Add("listaDetallesC", detalles);
                 pegarLineasTabla();
@@ -185,7 +186,7 @@ namespace ProyectoAMCRL
             }
             else
             {
-                
+                cantidad2TB.Style.Add("border-color", "red");
                 pegarLineasTabla();
                 lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>Cantidad especificada incorrecta, intente de nuevo</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\" onclick=\"cerrarError()\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                 lblError.Visible = true;
