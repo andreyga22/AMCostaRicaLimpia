@@ -231,5 +231,81 @@ namespace DAO {
             }
             return false;  
         }
+
+
+
+        public TOSocioNegocio buscarSocio(string id, String tipoSocio)
+        {
+            TOSocioNegocio socioTO = new TOSocioNegocio(); ;
+
+            String sql = "SELECT SOCIO_NEGOCIO.CEDULA, SOCIO_NEGOCIO.NOMBRE, SOCIO_NEGOCIO.APELLIDO1, SOCIO_NEGOCIO.APELLIDO2, SOCIO_NEGOCIO.ROL_SOCIO, SOCIO_NEGOCIO.ESTADO_SOCIO," +
+            "CONTACTOS.TELEFONO_HAB, CONTACTOS.TELEFONO_PERS, CONTACTOS.EMAIL," +
+            "DIRECCION.PROVINCIA, DIRECCION.CANTON, DIRECCION.DISTRITO, DIRECCION.OTRAS_SENNAS, DIRECCION.COD_DIRECCION " +
+            "FROM SOCIO_NEGOCIO, CONTACTOS, DIRECCION " +
+            "where SOCIO_NEGOCIO.CEDULA = CONTACTOS.CEDULA and SOCIO_NEGOCIO.COD_DIRECCION = DIRECCION.COD_DIRECCION and SOCIO_NEGOCIO.CEDULA = @ID and SOCIO_NEGOCIO.ROL_SOCIO = @ROL";
+
+
+            using (conexion)
+            {
+
+                SqlCommand cmd = new SqlCommand(sql, conexion);
+
+                try
+                {
+
+                    conexion.Open();
+                    cmd.Parameters.AddWithValue("@ID", id);
+                    cmd.Parameters.AddWithValue("@ROL", tipoSocio);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    if (!reader.HasRows)
+                        return null;
+
+                    while (reader.Read())
+                    {
+                        socioTO.cedula = (String)reader.GetSqlString(0).ToString();
+                        socioTO.nombre = (String)reader.GetSqlString(1).ToString();
+                        socioTO.apellido1 = (String)reader.GetSqlString(2).ToString();
+                        socioTO.apellido2 = (String)reader.GetSqlString(3).ToString();
+                        String rol = (String)reader.GetSqlString(4).ToString();
+
+                        socioTO.rol = rol;
+                        socioTO.estado_socio = (Boolean)reader.GetBoolean(5);
+
+                        //CONTACTOS
+                        Object telHObject = (Object)(reader.GetSqlValue(6));
+                        String telHString = telHObject.ToString();
+                        int telH = Int32.Parse(telHString);
+                        Object telPObject = (Object)(reader.GetSqlValue(7));
+                        String telPString = telPObject.ToString();
+                        int telP = Int32.Parse(telPString);
+                        String correo = (String)reader.GetSqlString(8).ToString();
+                        TOContactos contactos = new TOContactos(telH, telP, correo);
+                        socioTO.contactos = contactos;
+
+                        //DIRECCION
+                        TODireccion tODireccion = new TODireccion();
+                        tODireccion.provincia = (String)reader.GetSqlString(9).ToString();
+                        tODireccion.canton = (String)reader.GetSqlString(10).ToString();
+                        tODireccion.distrito = (String)reader.GetSqlString(11).ToString();
+                        tODireccion.otras_sennas = (String)reader.GetSqlString(12).ToString();
+                        tODireccion.cod_direccion = (Int32)reader.GetSqlInt32(13);
+                        socioTO.direccion = tODireccion;
+                    }
+                    conexion.Close();
+                    return socioTO;
+
+                }
+                catch (Exception e)
+                {
+                    Console.Out.WriteLine(e.ToString());
+                    return null;
+                }
+            }
+        }
+
+
+
+
     }
 }
