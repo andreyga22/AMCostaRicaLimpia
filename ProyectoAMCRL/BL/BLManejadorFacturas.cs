@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DAO;
 using TO;
+using System.Data;
 
 namespace BL
 {
@@ -17,12 +18,12 @@ namespace BL
         //    return manejador.registrarDetalles();
         //}
 
-        public List<BLFactura> facturasVentas()
+        public List<BLFactura> listaFact(string busqueda)
         {
             try
             {
                 DAOManejadorFacturas dao = new DAOManejadorFacturas();
-                List<TOFactura> lista = dao.lista_Facturas();
+                List<TOFactura> lista = dao.lista_Facturas(busqueda);
                 List<BLFactura> listaBL = new List<BLFactura>();
                 foreach (TOFactura venta in lista)
                 {
@@ -61,6 +62,83 @@ namespace BL
                 throw;
             }
         }
+
+        public List<BLFactura> listaMontos(double monto1, double monto2)
+        {
+            try
+            {
+                DAOManejadorFacturas dao = new DAOManejadorFacturas();
+                List<TOFactura> lista = dao.listaPorMonto(monto1, monto2);
+                List<BLFactura> listaBL = new List<BLFactura>();
+                foreach (TOFactura factura in lista)
+                {
+                    listaBL.Add(convert(factura));
+                }
+                return listaBL;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public List<BLFactura> listaRangoFecha(DateTime fecha1, DateTime fecha2)
+        {
+            DAOManejadorFacturas facturas = new DAOManejadorFacturas();
+            List<BLFactura> listaFiltradaFactTO = new List<BLFactura>();
+            List<TOFactura> listFacturas= facturas.lista_Facturas("");
+            if (listFacturas.Count > 0)
+            {
+                foreach (TOFactura factTO in listFacturas)
+                {
+                    factTO.fecha = new DateTime(factTO.fecha.Year, factTO.fecha.Month, factTO.fecha.Day);
+                    int resultado1 = DateTime.Compare(fecha1, factTO.fecha);
+                    int resultado2 = DateTime.Compare(fecha2, factTO.fecha);
+                    if (resultado1 <= 0 && resultado2 >= 0)
+                    {
+                        listaFiltradaFactTO.Add(convert(factTO));
+                    }
+                }
+            }
+            return listaFiltradaFactTO;
+        }
+
+        public DataTable buscar(string busqueda)
+        {
+            try
+            {
+                return new DAOManejadorFacturas().buscar(busqueda);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public List<BLFactura> facturasTipo(string tipo)
+        {
+            try
+            {
+                DAOManejadorFacturas dao = new DAOManejadorFacturas();
+                List<TOFactura> lista = dao.listaPorTipo(tipo);
+                List<BLFactura> listaBL = new List<BLFactura>();
+                foreach (TOFactura factura in lista)
+                {
+                    listaBL.Add(convert(factura));
+                }
+                return listaBL;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
+
+
+
+
 
         public BLFactura convert(TOFactura to)
         {
@@ -158,7 +236,7 @@ namespace BL
                 //  cantidad                *   equivalencia en kilos
                 double kilosLinea = (Int32.Parse(infoLinea[2]) * equivalencia);
                 detalleTO.kilos_Linea = kilosLinea;
-                int precioKg = Int32.Parse(infoLinea[1]);
+                double precioKg = Double.Parse(infoLinea[1]);
                 detalleTO.monto_Linea = precioKg * kilosLinea;
 
                 detallesTO.Add(detalleTO);

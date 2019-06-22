@@ -13,13 +13,22 @@ namespace ProyectoAMCRL {
     public partial class Compra_Venta {
         
         /// <summary>
-        /// labelBreadCrum control.
+        /// labelBreadCrum1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelBreadCrum;
+        protected global::System.Web.UI.WebControls.Label labelBreadCrum1;
+        
+        /// <summary>
+        /// labelBreadCrum2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelBreadCrum2;
         
         /// <summary>
         /// lblError control.
@@ -40,13 +49,22 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.Label labelDatosSocio;
         
         /// <summary>
-        /// labelCedula control.
+        /// identificacionTB control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelCedula;
+        protected global::System.Web.UI.WebControls.TextBox identificacionTB;
+        
+        /// <summary>
+        /// buscarSocioBTN control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton buscarSocioBTN;
         
         /// <summary>
         /// labelDireccion control.
@@ -58,13 +76,13 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.Label labelDireccion;
         
         /// <summary>
-        /// labelNombre control.
+        /// nombreLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelNombre;
+        protected global::System.Web.UI.WebControls.Label nombreLabel;
         
         /// <summary>
         /// labelTel control.
@@ -112,13 +130,13 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.DropDownList monedasDD;
         
         /// <summary>
-        /// datepicker control.
+        /// datepickerT control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText datepicker;
+        protected global::System.Web.UI.WebControls.TextBox datepickerT;
         
         /// <summary>
         /// labelAgregados control.
@@ -148,22 +166,22 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.DropDownList materialDD;
         
         /// <summary>
-        /// precioKgTB control.
+        /// precioKg2TB control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox precioKgTB;
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl precioKg2TB;
         
         /// <summary>
-        /// cantidadTB control.
+        /// cantidad2TB control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox cantidadTB;
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl cantidad2TB;
         
         /// <summary>
         /// unidadDD control.

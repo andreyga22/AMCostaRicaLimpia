@@ -130,45 +130,34 @@ namespace DAO {
             return true;
         }
 
-        //ajustar al filtro
+        //ajustar al filtro, revisar el null.
         public DataTable buscarSociosFiltro(String busqueda)
         {
-            using (conexion)
-            {
-                SqlCommand buscar = conexion.CreateCommand();
-                String sql = "Select cedula, nombre, apellido1, apellido2 from SOCIO_NEGOCIO";
-                if (!string.IsNullOrEmpty(busqueda))
+            try {
+                using (conexion)
                 {
-                    sql += " WHERE (cedula LIKE '%' + @pal + '%')  or (nombre LIKE '%' + @pal + '%') or (apellido1 LIKE '%' + @pal + '%') or (apellido2 LIKE '%' + @pal + '%');";
-                    buscar.Parameters.AddWithValue("@pal", busqueda);
-                }
-                buscar.CommandText = sql;
-                buscar.Connection = conexion;
-                using (SqlDataAdapter adapter = new SqlDataAdapter(buscar))
-                {
-                    DataTable tabla = new DataTable();
-                    adapter.Fill(tabla);
-
-                    foreach (DataRow fila in tabla.Rows) // search whole table
+                    SqlCommand buscar = conexion.CreateCommand();
+                    String sql = "Select cedula, nombre, apellido1, apellido2, rol from SOCIO_NEGOCIO";
+                    if (!string.IsNullOrEmpty(busqueda))
                     {
-                        if (fila["rol_socio"].Equals("Proveedor")) // si es proveedor
+                        sql += busqueda;
+                        buscar.CommandText = sql;
+                        buscar.Connection = conexion;
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(buscar))
                         {
-                            fila["rol_socio"] = "Proveedor"; //change the name
-                                                         //break; break or not depending on you
+                            DataTable tabla = new DataTable();
+                            adapter.Fill(tabla);
+                            return tabla;
                         }
-                        else
-                        {
-                            if (fila["rol_socio"].Equals("Cliente"))
-                            {
-                                fila["rol_socio"] = "Cliente";
-                            }
-                        }
+
 
                     }
-
-                    return tabla;
                 }
+                
+            }catch(Exception ex){
+                throw;
             }
+            return null;
         }
 
         public TODireccion buscarDireccion(String cedula)
@@ -223,5 +212,100 @@ namespace DAO {
             }
             return contacto;
         }
+
+        public Boolean asociarSocio(String cedulaAsociado, String cedulaSocio) {
+            SqlCommand asociar = new SqlCommand("Insert into Asociaciones (SOCIO, ASOCIADO) values (@SOCIO, @ASOCIADO)", conexion);
+            if (conexion.State == ConnectionState.Closed)
+            {
+                conexion.Open();
+
+                asociar.Parameters.AddWithValue("@SOCIO", cedulaSocio);
+                asociar.Parameters.AddWithValue("@ASOCIADO", cedulaAsociado);
+
+                asociar.ExecuteNonQuery();
+                if (conexion.State == ConnectionState.Open)
+                {
+                    conexion.Close();
+                }
+                return true;
+            }
+            return false;  
+        }
+
+
+
+        public TOSocioNegocio buscarSocio(string id, String tipoSocio)
+        {
+            TOSocioNegocio socioTO = new TOSocioNegocio(); ;
+
+            String sql = "SELECT SOCIO_NEGOCIO.CEDULA, SOCIO_NEGOCIO.NOMBRE, SOCIO_NEGOCIO.APELLIDO1, SOCIO_NEGOCIO.APELLIDO2, SOCIO_NEGOCIO.ROL_SOCIO, SOCIO_NEGOCIO.ESTADO_SOCIO," +
+            "CONTACTOS.TELEFONO_HAB, CONTACTOS.TELEFONO_PERS, CONTACTOS.EMAIL," +
+            "DIRECCION.PROVINCIA, DIRECCION.CANTON, DIRECCION.DISTRITO, DIRECCION.OTRAS_SENNAS, DIRECCION.COD_DIRECCION " +
+            "FROM SOCIO_NEGOCIO, CONTACTOS, DIRECCION " +
+            "where SOCIO_NEGOCIO.CEDULA = CONTACTOS.CEDULA and SOCIO_NEGOCIO.COD_DIRECCION = DIRECCION.COD_DIRECCION and SOCIO_NEGOCIO.CEDULA = @ID and SOCIO_NEGOCIO.ROL_SOCIO = @ROL";
+
+
+            using (conexion)
+            {
+
+                SqlCommand cmd = new SqlCommand(sql, conexion);
+
+                try
+                {
+
+                    conexion.Open();
+                    cmd.Parameters.AddWithValue("@ID", id);
+                    cmd.Parameters.AddWithValue("@ROL", tipoSocio);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    if (!reader.HasRows)
+                        return null;
+
+                    while (reader.Read())
+                    {
+                        socioTO.cedula = (String)reader.GetSqlString(0).ToString();
+                        socioTO.nombre = (String)reader.GetSqlString(1).ToString();
+                        socioTO.apellido1 = (String)reader.GetSqlString(2).ToString();
+                        socioTO.apellido2 = (String)reader.GetSqlString(3).ToString();
+                        String rol = (String)reader.GetSqlString(4).ToString();
+
+                        socioTO.rol = rol;
+                        socioTO.estado_socio = (Boolean)reader.GetBoolean(5);
+
+                        //CONTACTOS
+                        Object telHObject = (Object)(reader.GetSqlValue(6));
+                        String telHString = telHObject.ToString();
+                        int telH = Int32.Parse(telHString);
+                        Object telPObject = (Object)(reader.GetSqlValue(7));
+                        String telPString = telPObject.ToString();
+                        int telP = Int32.Parse(telPString);
+                        String correo = (String)reader.GetSqlString(8).ToString();
+                        TOContactos contactos = new TOContactos(telH, telP, correo);
+                        socioTO.contactos = contactos;
+
+                        //DIRECCION
+                        TODireccion tODireccion = new TODireccion();
+                        tODireccion.provincia = (String)reader.GetSqlString(9).ToString();
+                        tODireccion.canton = (String)reader.GetSqlString(10).ToString();
+                        tODireccion.distrito = (String)reader.GetSqlString(11).ToString();
+                        tODireccion.otras_sennas = (String)reader.GetSqlString(12).ToString();
+                        tODireccion.cod_direccion = (Int32)reader.GetSqlInt32(13);
+                        socioTO.direccion = tODireccion;
+                    }
+                    conexion.Close();
+                    return socioTO;
+
+                }
+                catch (Exception e)
+                {
+                    Console.Out.WriteLine(e.ToString());
+                    return null;
+                }
+            }
+        }
+
+
+
+
     }
 }

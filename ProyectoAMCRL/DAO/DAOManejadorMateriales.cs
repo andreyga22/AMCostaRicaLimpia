@@ -17,7 +17,7 @@ namespace DAO
 
         public DataSet obtenerMateriales(){
 
-                SqlCommand cmd = new SqlCommand("select * from MATERIAL", conexion);
+                SqlCommand cmd = new SqlCommand("select * from MATERIAL order by NOMBRE_MATERIAL", conexion);
                 SqlDataAdapter sda = new SqlDataAdapter(cmd);
                 sda.SelectCommand = cmd;
                 DataSet ds = new DataSet("materiales");

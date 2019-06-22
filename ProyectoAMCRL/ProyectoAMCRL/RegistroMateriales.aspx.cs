@@ -25,7 +25,7 @@ namespace ProyectoAMCRL
                 if (Request.QueryString.Get("idM") != null)
                 {
                     deshabilitarSeccionStock("Esta sección está habilitada solo para registrar materiales");
-                    labelAccion.Text = "Actualización material";
+                    labelAccion.Text = "Actualización de material";
 
                     BLMaterial material = manejadorM.buscarMaterial(Request.QueryString.Get("idM"));
                     cargarMaterialAPantalla(material);
