@@ -33,15 +33,16 @@ namespace ProyectoAMCRL
                 detalles = new List<string>();
                 manejadorU = new BLManejadorUnidades();
                 manejadorB = new BLManejadorBodega();
-
+               
                 //Estilo de espera para cuando se realiza la compra
                 btnGuardar.Attributes.Add("onclick", "document.body.style.cursor = 'wait';");
+                buscarSocioBTN.Attributes.Add("onclick", "document.body.style.cursor = 'wait';");
 
                 // Se cargan las unidades, bodegas, monedas y materiales existentes 
                 // (La seleccion de bodega debe especificar los materiales disponibles)
                 cargarUnidadesBodegasMonedas();
                 cargarMateriales(bodegasDrop.Items[0].Value);
-                datepicker.Value = DateTime.Today.Day + "/" + DateTime.Today.Month + "/" + DateTime.Today.Year;
+                datepickerT.Text = DateTime.Today.Day + "/" + DateTime.Today.Month + "/" + DateTime.Today.Year;
 
                 if (Request.QueryString.Get("vd") != null)//vista detalle === vd
                 {
@@ -71,8 +72,9 @@ namespace ProyectoAMCRL
 
                     if (Request.QueryString.Get("del") != null)//Se agrega el parametro [del] cuando se va a eliminar una linea
                     {
+                        String valorDesecriptado = BLManejadorEncripcion.Decrypt(Request.QueryString.Get("del"));
                         //se obtiene el indice del parametro en la url
-                        int indiceAremover = Int32.Parse(Request.QueryString.Get("del"));
+                        int indiceAremover = Int32.Parse(valorDesecriptado);
                         removerDetalle(indiceAremover);
 
                         //REMOVER EL PARAMETRO DEL URL
@@ -89,16 +91,19 @@ namespace ProyectoAMCRL
         */
         private void cargarPantalla(String modo) {
 
-            String textoBreadCrum = "Registrar Compra";
+            String textoBreadCrum1 = "Compra";
+            String textoBreadCrum2 = "Registrar Compra";
             String textoDatoSocio = "Datos del proveedor";
             String textoDatoConsecutivo = "Compra #";
 
             if (modo.Equals("venta")) {
-                textoBreadCrum = "Registrar Venta";
+                textoBreadCrum1 = "Venta";
+                textoBreadCrum2 = "Registrar Venta";
                 textoDatoSocio = "Datos del cliente";
                 textoDatoConsecutivo = "Venta #";
             }
-            labelBreadCrum.Text = textoBreadCrum;
+            labelBreadCrum1.Text = textoBreadCrum1;
+            labelBreadCrum2.Text = textoBreadCrum2;
             labelDatosSocio.Text = textoDatoSocio;
             labelDatoConsecutivo.Text = textoDatoConsecutivo;
         }
@@ -138,12 +143,12 @@ namespace ProyectoAMCRL
                 {
                     case "compra":
                         mensajeRespuesta = "Compra registrada con éxito";
-                        m = manejadorF.registrarCompraBL(labelCedula.Text, idBodega, moneda, datepicker.Value, detalles);
+                        m = manejadorF.registrarCompraBL(identificacionTB.Text, idBodega, moneda, datepickerT.Text, detalles);
                         break;
 
                     case "venta":
                         mensajeRespuesta = "Venta registrada con éxito";
-                        m = manejadorF.registrarVentaBL(labelCedula.Text, idBodega, moneda, datepicker.Value, detalles);
+                        m = manejadorF.registrarVentaBL(identificacionTB.Text, idBodega, moneda, datepickerT.Text, detalles);
                         break;
                 }
 
@@ -166,12 +171,12 @@ namespace ProyectoAMCRL
 
         protected void agregarLineaClick(object sender, EventArgs e)
         {
-            if (!cantidadTB.Text.Contains("-") && !(String.IsNullOrEmpty(cantidadTB.Text)))
+            if (!(String.IsNullOrEmpty(cantidad2TB.Value)))
             {
                 String lineaAjusteInfo = "";
-                cantidadTB.BorderColor = System.Drawing.Color.White;
+                cantidad2TB.Style.Add("background-color", "white"); 
                 lineaAjusteInfo = materialDD.SelectedItem.Value+'#'+materialDD.SelectedItem.Text + "&" +
-                precioKgTB.Text + "&" + cantidadTB.Text + "&" + unidadDD.SelectedItem.Value + '#' + unidadDD.SelectedItem.Text;
+                precioKg2TB.Value + "&" + cantidad2TB.Value  + "&" + unidadDD.SelectedItem.Value + '#' + unidadDD.SelectedItem.Text;
                 detalles.Add(lineaAjusteInfo);
                 Session.Add("listaDetallesC", detalles);
                 pegarLineasTabla();
@@ -180,7 +185,7 @@ namespace ProyectoAMCRL
             }
             else
             {
-                cantidadTB.BorderColor = System.Drawing.Color.Red;
+                
                 pegarLineasTabla();
                 lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>Cantidad especificada incorrecta, intente de nuevo</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\" onclick=\"cerrarError()\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                 lblError.Visible = true;
@@ -226,7 +231,8 @@ namespace ProyectoAMCRL
                 unidadCell.Text = unidadInfo[1];
 
                 LinkButton btn = new LinkButton();
-                btn.PostBackUrl = "Compra_Venta.aspx?del=" + (i);
+                String valorEncriptado = BLManejadorEncripcion.Encrypt(i.ToString());
+                btn.PostBackUrl = "Compra_Venta.aspx?del=" + (valorEncriptado);
 
                 btn.Text = "Borrar";
 
@@ -240,7 +246,9 @@ namespace ProyectoAMCRL
                 filaNueva.Cells.Add(quitarFilaCampo);
                 tablaDetalles.Rows.Add(filaNueva);
             }
-            labelAgregados.Text = detalles.Count.ToString(); ;
+            labelAgregados.Text = detalles.Count.ToString();
+            BLManejadorFacturas manejadorF = new BLManejadorFacturas();//strategy(?)
+            totalLabel.Text = manejadorF.calcularTotalActual(detalles).ToString();
             tablaDetalles.DataBind();
         }
 
@@ -250,8 +258,8 @@ namespace ProyectoAMCRL
         private void refrescarDatos()
         {
             materialDD.SelectedIndex = 0;
-            precioKgTB.Text = "";
-            cantidadTB.Text = "";
+            precioKg2TB.Value = "";
+            cantidad2TB.Value = "";
             unidadDD.SelectedIndex = 1;
         }
 
@@ -320,7 +328,6 @@ namespace ProyectoAMCRL
                 monedasDD.Items.Add(moneda);
 
             }
-            ListItem monedaKim = new ListItem();
         }
 
 
@@ -343,6 +350,42 @@ namespace ProyectoAMCRL
         {
             String idBodega = bodegasDrop.SelectedItem.Value;
             cargarMateriales(idBodega);
+        }
+
+        protected void buscarSocioBTN_Click(object sender, EventArgs e)
+        {
+            String id = identificacionTB.Text;
+            nombreLabel.Text = "";
+            labelDireccion.Text = "";
+            labelTel.Text = "";
+            String tipoSocio = labelBreadCrum1.Text.Equals("Compra") ? "Proveedor" : "Cliente";
+
+            if (!String.IsNullOrEmpty(id))
+            {
+                BLManejadorSocios manejadorS = new BLManejadorSocios();
+                BLSocioNegocio socio = manejadorS.buscarSocio(id, tipoSocio);
+                if (socio != null)
+                {       
+                    nombreLabel.Text = socio.nombre + " "+ socio.apellido1 + " "+ socio.apellido2;
+
+                    if (socio.direccion != null)
+                        labelDireccion.Text = socio.direccion.provincia + ", " + socio.direccion.canton
+                        + ", " + socio.direccion.distrito;
+
+                    if(socio.contactos != null)
+                    labelTel.Text = socio.contactos.telefono_pers.ToString();
+
+                }
+                else {
+                    lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>" + tipoSocio +" no encontrado, intente de nuevo. " + "</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\" onclick=\"cerrarError()\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                    lblError.Visible = true;
+                }
+                
+            }
+            else {
+                lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>" + "Ingrese una identificación válida e intente de nuevo. "  + "</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\" onclick=\"cerrarError()\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                lblError.Visible = true;
+            }
         }
     }
 }

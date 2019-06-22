@@ -40,22 +40,13 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.Label labelDatoConsecutivo;
         
         /// <summary>
-        /// labelNumero control.
+        /// labelDatoConsecutivoValor control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelNumero;
-        
-        /// <summary>
-        /// datepicker control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText datepicker;
+        protected global::System.Web.UI.WebControls.Label labelDatoConsecutivoValor;
         
         /// <summary>
         /// bodegasDrop control.
@@ -76,6 +67,24 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.RadioButtonList radioAccion;
         
         /// <summary>
+        /// datepickerTB control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox datepickerTB;
+        
+        /// <summary>
+        /// agregadosTextLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label agregadosTextLabel;
+        
+        /// <summary>
         /// labelAgregados control.
         /// </summary>
         /// <remarks>
@@ -92,6 +101,24 @@ namespace ProyectoAMCRL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Table Table1;
+        
+        /// <summary>
+        /// fila0Encabezado1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TableHeaderRow fila0Encabezado1;
+        
+        /// <summary>
+        /// filaEncabezado control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TableRow filaEncabezado;
         
         /// <summary>
         /// materialDD control.
@@ -137,6 +164,33 @@ namespace ProyectoAMCRL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Table tablaDetalles;
+        
+        /// <summary>
+        /// fila0EncabezadoT2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TableRow fila0EncabezadoT2;
+        
+        /// <summary>
+        /// columnaAccionCuerpo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TableCell columnaAccionCuerpo;
+        
+        /// <summary>
+        /// fila0Encabezado2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TableHeaderRow fila0Encabezado2;
         
         /// <summary>
         /// razonTb control.

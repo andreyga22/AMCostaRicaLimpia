@@ -10,9 +10,17 @@ using System.Data;
 namespace BL {
     public class BLManejadorBodega {
 
-        public void guardarModificarBodega(BLBodega bod) {
+        public void guardarModificarBodegaAdmin(BLBodega bod) {
             try {
-                new DAOBodegas().guardarModificarBodega(convert(bod));
+                new DAOBodegas().guardarModificarBodegaAdmin(convert(bod));
+            } catch(Exception) {
+                throw;
+            }
+        }
+
+        public void guardarModificarBodegaRegular(BLBodega bod) {
+            try {
+                new DAOBodegas().guardarModificarBodegaRegular(convert(bod));
             } catch(Exception) {
                 throw;
             }
@@ -20,7 +28,7 @@ namespace BL {
 
         public List<BLBodegaTabla> listaBodegas() {
             try {
-                List<TOBodegaTabla> to = new DAOBodegas().listaBodega();
+                List<TOBodegaTabla> to = new DAOBodegas().listaBodegaUsuarioRegular();
                 List<BLBodegaTabla> listaBL = new List<BLBodegaTabla>();
                 foreach(TOBodegaTabla bodega in to) {
                     listaBL.Add(convert(bodega));
@@ -33,15 +41,31 @@ namespace BL {
 
         public DataTable buscar(string busqueda) {
             try {
-                return new DAOBodegas().buscar(busqueda);
+                return new DAOBodegas().buscarUsuarioRegular(busqueda);
             } catch(Exception) {
                 throw;
             }
         }
 
-        public BLBodega consultarBodega(String id) {
+        public DataTable buscarAdmin(string busqueda) {
             try {
-                return convert(new DAOBodegas().consultarBodega(id));
+                return new DAOBodegas().buscarUsuarioAdmin(busqueda);
+            } catch(Exception) {
+                throw;
+            }
+        }
+
+        public BLBodega consultarBodegaAdmin(String id) {
+            try {
+                return convert(new DAOBodegas().consultarBodegaAdmin(id));
+            } catch(Exception) {
+                throw;
+            }
+        }
+
+        public BLBodega consultarBodegaRegular(String id) {
+            try {
+                return convert(new DAOBodegas().consultarBodegaRegular(id));
             } catch(Exception) {
                 throw;
             }

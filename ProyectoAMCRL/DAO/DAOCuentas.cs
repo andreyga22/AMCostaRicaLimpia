@@ -34,13 +34,7 @@ namespace DAO {
                 "insert into credenciales(id_usuario, clave, rol, estado, nombre_usuario) values(@id_usuario, @clave, @rol, @estado, @nombre_usuario);";
                     sentencia.Parameters.AddWithValue("@id_usuario", cuenta.id_usuario);
                     sentencia.Parameters.AddWithValue("@clave", cuenta.clave);
-                    string rol = "";
-                    if(cuenta.rol.Equals("Activado")) {
-                        rol = "a";
-                    } else {
-                        rol = "d";
-                    }
-                    sentencia.Parameters.AddWithValue("@rol", rol);
+                    sentencia.Parameters.AddWithValue("@rol", cuenta.rol);
                     sentencia.Parameters.AddWithValue("@estado", cuenta.estado);
                     sentencia.Parameters.AddWithValue("@nombre_usuario", cuenta.nombre_usuario);
                     sentencia.ExecuteNonQuery();

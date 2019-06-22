@@ -111,6 +111,94 @@ namespace DAO
             }
         }
 
+        public DataSet filtrarAjustesDAO(string fechaInicio, string fechaFin, string tipo, string pesoMaximo, string pesoMinimo, string bodega, List<string> materiales)
+        {
+            DataSet dataSet = new DataSet("ajustes");
+            String parteFechas = "";
+            String parteTipo = "";
+            String tipoBD = tipo.Equals("Entrada") ? "1" : "0";
+            String partePeso= "";
+            String parteBodega = "";
+            String parteMateriales = "";
+            
+
+            
+
+            try
+            {
+            if (!String.IsNullOrEmpty(fechaInicio)) {
+             String[] fecha = fechaInicio.Split('/');
+             fechaInicio = fecha[2] + "-" + fecha[1] + "-" + fecha[0];
+             parteFechas = " Fecha_Ajuste >= '"+ fechaInicio+"' ";
+             }
+
+            if (!String.IsNullOrEmpty(fechaFin)) {
+             String[] fecha = fechaFin.Split('/');
+             fechaFin = fecha[2] + "-" + fecha[1] + "-" + fecha[0];
+
+               if (!String.IsNullOrEmpty(fechaInicio))
+                    parteFechas = " Fecha_Ajuste >= '" + fechaInicio+"' and Fecha_Ajuste <= '"+fechaFin+"' ";
+               else
+                    parteFechas = " Fecha_Ajuste <= '" + fechaFin+"' ";
+            }
+
+            if (!String.IsNullOrEmpty(tipo)) 
+                parteTipo = " MOVIMIENTO_A = "+ tipoBD +" ";
+
+
+            if (!String.IsNullOrEmpty(pesoMaximo))
+                partePeso= " PESO_AJUSTE <= "+pesoMaximo +" ";
+
+            if (!String.IsNullOrEmpty(pesoMinimo))
+                if (!String.IsNullOrEmpty(pesoMaximo))
+                    partePeso = " PESO_AJUSTE >= " + pesoMinimo + " " + " and PESO_AJUSTE <= " + pesoMaximo + " ";
+                else
+                    partePeso = " PESO_AJUSTE >= " + pesoMinimo + " ";
+
+            if (!String.IsNullOrEmpty(bodega))
+                parteBodega = " s.ID_BODEGA = '"+bodega.Trim(' ')+"' ";
+
+            if (materiales.Count > 0) {
+                parteMateriales = " s.COD_MATERIAL in ( ";
+
+                foreach (String id in materiales) 
+                    parteMateriales += " "+id+" ,";
+
+                parteMateriales = parteMateriales.Remove(parteMateriales.Length-1);
+                parteMateriales += " )";
+
+            }
+
+            String sqlEncabezado = "SELECT [ID_AJUSTE],(convert(varchar, [Fecha_Ajuste], 103)) as Fecha_Ajuste, [RAZON], [PESO_AJUSTE], [MOVIMIENTO_A], a.[ID_STOCK], s.[ID_BODEGA]  FROM AJUSTE a" +
+            " inner join STOCK s on(a.ID_STOCK = s.ID_STOCK ";
+                String sqlFinal = " ) ORDER BY Fecha_Ajuste DESC;";
+
+            String[] sqlArray = { parteFechas, parteTipo, partePeso, parteBodega, parteMateriales };
+
+                Boolean whereSetted = false;
+              
+                for (int i = 0;i < sqlArray.Length; i++ ) {
+                    String parte = sqlArray[i];
+
+                    if (!parte.Equals("")) { 
+                       parte = " and " + parte;
+                       sqlArray[i] = parte;
+                    }
+                }
+
+                String sql = sqlEncabezado+sqlArray[0]+ sqlArray[1]+ sqlArray[2]+ sqlArray[3]+ sqlArray[4]+sqlFinal;
+
+                SqlDataAdapter adapter = new SqlDataAdapter(sql, conexion);
+                adapter.Fill(dataSet);
+            }
+            catch (Exception e) {
+                return null;
+            }
+
+
+           return dataSet;
+        }
+
         public String buscarAjusteDAO(string idAjuste)
         {
             //conexion = new SqlConnection(Properties.Settings.Default.conexionHost);
@@ -140,7 +228,7 @@ namespace DAO
                         String nombreBodega = reader.GetSqlString(4).ToString();
                         String razon = reader.GetSqlString(5).ToString();
 
-                        ajusteInfo = fecha.ToString() + "_" + movimiento + "_" +
+                    ajusteInfo = fecha.ToString() + "_" + movimiento + "_" +
                             peso + "_" + nomMaterial + "_" + nombreBodega + "_" + razon;
                     }
                     conexion.Close();

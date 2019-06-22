@@ -36,6 +36,9 @@ namespace ProyectoAMCRL {
             Response.Redirect("Login.aspx");
         }
 
-
+        protected void cambiarContra(object sender, EventArgs e) {
+            Session["accionCuenta"] = 2;
+            Response.Redirect("Cuenta.aspx");
+        }
     }
 }

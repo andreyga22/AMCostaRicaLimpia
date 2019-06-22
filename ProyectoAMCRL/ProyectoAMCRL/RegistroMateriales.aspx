@@ -4,7 +4,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="breadcrumbBodyHolder" runat="server">
-    <li class="breadcrumb-item"><a href="AdministrarMateriales.aspx">Materiales</a></li>
+    <li class="breadcrumb-item"><a href="AdministrarMateriales.aspx" style="color: dodgerblue">Materiales</a></li>
     <li class="breadcrumb-item">
         <asp:Label ID="breadLabel" runat="server">Nuevo</asp:Label></li>
 </asp:Content>
@@ -13,17 +13,16 @@
     <div class="row justify-content-center">
         <asp:Literal ID="lblError" runat="server" Visible="false"></asp:Literal>
     </div>
-     <div class="row" style="float: right; margin-right:0.5%; margin-top:0%">
+    <div class="row" style="float: right; margin-right: 0.5%; margin-top: 0%">
         <label class="h6">Bodega:</label>
         <asp:Label runat="server" CssClass="h6" Text=" B01"></asp:Label>
     </div>
+    <asp:Label runat="server" ID="labelAccion" CssClass="h5">Nuevo material</asp:Label>
     <br>
-
+    <br>
     <div class="row">
-        <div class="col-4" style="margin-left: 2%">
-            <asp:Label runat="server" ID="labelAccion" CssClass="h5">Nuevo material</asp:Label>
-            <br>
-            <br>
+        <div class="col-lg-4"></div>
+        <div class="col-lg-5" style="margin-left: 0%;">
             <asp:HiddenField runat="server" ID="escondidillo" Value="" />
             <div class="row">
                 <asp:TextBox type="text" ID="nombreTB" class="form-control" runat="server" TextMode="SingleLine" placeholder="Nombre">
@@ -35,13 +34,15 @@
                 </asp:TextBox>
             </div>
             <br>
-            <div class="row justify-content-end" style="">
+            <div class="row justify-content-start" style="">
                 <asp:Button runat="server" CssClass="btn btn-info" ID="btnGuardarActualizar" Text="Guardar" OnClick="btnGuardarActualizar_Click" />
             </div>
-
-
+            <br>
+            <a href="DetalleAjuste.aspx" class="btn btn-link" style="float: right">Registrar Stock</a>
         </div>
-        <div class="col">
+
+    </div>
+    <%--<div class="col">
         </div>
         <div class="col-6 card text-white bg-success mb-3">
             <div class="row">
@@ -62,12 +63,12 @@
                 </div>
             </div>
         </div>
-    </div>
-    <br>
-    <br>
+    </div>--%>
+    <%-- <br>
+    <br>--%>
 
     <%-- SECCION PARA REGISTRAR EN UN STOCK ESPECIFICO --%>
-    <div id="divStockNuevo" class="rounded" style="background-color: lightgray; padding-bottom: 20px; padding-top: 10px">
+    <%-- <div id="divStockNuevo" class="rounded" style="background-color: lightgray; padding-bottom: 20px; padding-top: 10px">
         <div   class="row" style="width: 100%; margin-left: 2%">
             <asp:Label Text="Actualización de inventarios" runat="server" CssClass="h5 font-weight-bolder" />
         </div>
@@ -104,7 +105,5 @@
             <asp:Button ID="btnEnlazarStock" runat="server" Text="Guardar" CssClass="btn btn-info" />
         </div>
 
-    </div>
-
-
+    </div>--%>
 </asp:Content>

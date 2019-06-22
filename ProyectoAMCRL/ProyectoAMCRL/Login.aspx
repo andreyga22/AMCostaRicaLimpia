@@ -5,6 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <link rel="stylesheet" type="text/css" href="login.css" />
+    <link rel="stylesheet" type="text/css" href="ownStyles.css" />
     <title>AM Costa Rica Limpia | Login</title>
 
 
@@ -50,19 +51,19 @@
                         <%--                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>--%>
                     </div>
                     <div class="form-group">
-                        <label for="contraTb">Password</label>
+                        <label for="contraTb">Contraseña</label>
                         <asp:TextBox ID="contraTb" type="password" class="form-control" runat="server"></asp:TextBox>
                         <%--<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">--%>
                     </div>
                    <%-- <div class="row">--%>
 
-                        <asp:Button ID="btnEntrar" type="submit" runat="server" Text="Entrar" class="btn btn-primary" OnClick="btnEntrar_Click" />
+                        <asp:Button ID="btnEntrar" type="submit" runat="server" Text="Entrar" class="btn btn-info" OnClick="btnEntrar_Click" />
                         
                     <%--</div>--%>
                     <br />
                     <br />
                     <div class="offset-6">
-                        <asp:LinkButton ID="olvidoLb" runat="server">¿Olvidó su contraseña?</asp:LinkButton>
+                        <asp:LinkButton ID="olvidoLb" runat="server" OnClick="olvidoLb_Click">¿Olvidó su contraseña?</asp:LinkButton>
                     </div>
 
                 </form>

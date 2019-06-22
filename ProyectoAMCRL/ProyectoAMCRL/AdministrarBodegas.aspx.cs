@@ -38,18 +38,24 @@ namespace ProyectoAMCRL {
 
 
         private void buscar() {
-            BLManejadorBodega man = new BLManejadorBodega();
-            gridBodegas.DataSource = man.buscar(palabraTb.Text.Trim());
-            gridBodegas.DataBind();
-            gridBodegas.HeaderRow.Cells[0].Text = "Código Bodega";
-            gridBodegas.HeaderRow.Cells[1].Text = "Nombre Bodega";
-            gridBodegas.HeaderRow.Cells[2].Text = "Ubicación";
-            gridBodegas.HeaderRow.Cells[3].Text = "Estado";
+            BLCuenta usuarioLogin = (BLCuenta)Session["cuentaLogin"];
+            if(usuarioLogin.rol.Equals("r")) {
+                BLManejadorBodega man = new BLManejadorBodega();
+                gridBodegas.DataSource = man.buscar(palabraTb.Text.Trim());
+                gridBodegas.DataBind();
+                gridBodegas.HeaderRow.Cells[0].Text = "Código Bodega";
+                gridBodegas.HeaderRow.Cells[1].Text = "Nombre Bodega";
+                gridBodegas.HeaderRow.Cells[2].Text = "Ubicación";
+            } else {
+                BLManejadorBodega man = new BLManejadorBodega();
+                gridBodegas.DataSource = man.buscarAdmin(palabraTb.Text.Trim());
+                gridBodegas.DataBind();
+                gridBodegas.HeaderRow.Cells[0].Text = "Código Bodega";
+                gridBodegas.HeaderRow.Cells[1].Text = "Nombre Bodega";
+                gridBodegas.HeaderRow.Cells[2].Text = "Ubicación";
+                gridBodegas.HeaderRow.Cells[3].Text = "Estado";
+            }
 
-            //foreach(GridViewRow row in gridBodegas.Rows) {
-            //    LinkButton lb = (LinkButton)row.Cells[0].Controls[0];
-            //    lb.Text = "Abrir";
-            //}
         }
 
         protected void palabraTb_TextChanged(object sender, EventArgs e) {

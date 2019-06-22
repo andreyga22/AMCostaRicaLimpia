@@ -13,6 +13,15 @@ namespace ProyectoAMCRL {
     public partial class Cuenta {
         
         /// <summary>
+        /// breadObj control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl breadObj;
+        
+        /// <summary>
         /// lblError control.
         /// </summary>
         /// <remarks>
@@ -20,6 +29,15 @@ namespace ProyectoAMCRL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal lblError;
+        
+        /// <summary>
+        /// tituloCuenta control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl tituloCuenta;
         
         /// <summary>
         /// identi control.
@@ -103,24 +121,6 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.TextBox nombreTB;
         
         /// <summary>
-        /// rol control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl rol;
-        
-        /// <summary>
-        /// rolDd control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList rolDd;
-        
-        /// <summary>
         /// estado control.
         /// </summary>
         /// <remarks>
@@ -137,6 +137,24 @@ namespace ProyectoAMCRL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButtonList estadoRb;
+        
+        /// <summary>
+        /// rol control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl rol;
+        
+        /// <summary>
+        /// rolDd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList rolDd;
         
         /// <summary>
         /// nueva control.

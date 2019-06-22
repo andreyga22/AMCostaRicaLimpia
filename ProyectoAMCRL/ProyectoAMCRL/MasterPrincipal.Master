@@ -36,114 +36,104 @@
                 $('#sidebar').toggleClass('active');
             });
         });
-
-
-        <%--function setHourglass() {
-            document.body.style.cursor = 'wait';
-        }
-        --%>
-    </script>
+       
+</script>
 
     <%-- FIN MUEVO ESTILO --%>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
-<body <%--onbeforeunload="setHourglass();" onunload="setHourglass();"--%>>
+<body>
      <form runat="server">
     <div class="wrapper">
 
         <!-- SIDEBAR  -->
-        <nav id="sidebar">
+        <nav id="sidebar" class="overflow-auto" style="height:800px">
             <br>
             <div class="row">
                 <span class="col"  style="margin-left:10%">
-                <asp:Image ID="Image1" runat="server" ImageUrl="~/images/logomel2.png" Width="50%"/>
+               <a href="Principal.aspx" runat="server"> 
+                   <asp:Image ID="Image1" runat="server" ImageUrl="~/images/logomel2.png" Width="50%"/>
+                </a>
                 </span>
                
             </div>
             <ul class="list-unstyled components">
 
-                <li class="active">
-                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <li class="active"; style="margin-bottom:5px">
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle font-weight-bolder">
                         <i class="fas fa-users"></i>Socios</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
                         <li><a href="RegistroSociosUI.aspx">Agregar socio</a></li>
-                        <li><a href="BusquedaSocios.aspx">Busqueda socios</a></li>
+                        <li><a href="BusquedaSocios.aspx">Búsqueda socios</a></li>
                     </ul>
-                    <br>
                 </li>
 
-                <li class="active">
-                    <a href="#comprasSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <li class="active" style="margin-bottom:5px">
+                    <a href="#comprasSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle font-weight-bolder">
                         <i class="fa fa-coins"></i>Compras</a>
                     <ul class="collapse list-unstyled" id="comprasSubmenu">
                         <li>
                             <asp:LinkButton Text="Registrar compra" runat="server" ID="compraLB" OnClick="compraLB_Click"/>
                         </li>
-                        <li><a href="BusquedaFacturas.aspx?mod=c">Busqueda facturas</a></li>
+                        <li><a href="BusquedaFacturas.aspx?mod=c">Búsqueda facturas</a></li>
                     </ul>
-                    <br>
                 </li>
 
-                <li class="active">
-                    <a href="#ventasSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <li class="active" style="margin-bottom:5px">
+                    <a href="#ventasSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle font-weight-bolder">
                         <i class="fa fa-coins"></i>Ventas</a>
                     <ul class="collapse list-unstyled" id="ventasSubmenu">
                        <li>
                             <asp:LinkButton Text="Registrar venta" runat="server" ID="ventaLB" OnClick="ventaLB_Click"/>
                         </li>
-                        <li><a href="BusquedaFacturas.aspx?mod=v">Busqueda facturas</a></li>
+                        <li><a href="BusquedaFacturas.aspx?mod=v">Búsqueda facturas</a></li>
                     </ul>
-                    <br>
                 </li>
 
-                <li class="active">
-                    <a href="#stockSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <li class="active"style="margin-bottom:5px">
+                    <a href="#stockSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle font-weight-bolder">
                         <i class="fas fa-boxes"></i>Inventario</a>
                     <ul class="collapse list-unstyled" id="stockSubmenu">
                         <li><a href="AdministrarBodegas.aspx">Administrar bodegas</a></li>
                         <li><a href="AdministrarMateriales.aspx">Materiales</a></li>
                         <li><a href="Ajustes.aspx">Ajustes</a></li>
                     </ul>
-                    <br>
                 </li>
 
-                <li class="active">
-                    <a href="#reportesSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <li class="active" style="margin-bottom:5px">
+                    <a href="#reportesSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle font-weight-bolder">
                         <i class="fas fa-chart-line"></i>Reportes</a>
                     <ul class="collapse list-unstyled" id="reportesSubmenu">
                         <li><a href="Reporte_General.aspx">Reporte General</a></li>
                         <li> <a href="ReporteGrafico.aspx">Reporte Gráfico</a></li>
                     </ul>
-                    <br>
                 </li>
 
-                <li class="active">
-                    <a href="#otrosSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <li class="active" style=" margin-bottom:80px">
+                    <a href="#otrosSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle font-weight-bolder">
                         <i class="fas fa-wrench"></i>Otros</a>
                     <ul class="collapse list-unstyled" id="otrosSubmenu">
                         <li><a href="Monedas.aspx">Monedas</a></li>
                         <li> <a href="#">Unidades medida</a></li>
                     </ul>
-                    <br />
                 </li>
-
-                <li class="active">
-                    <a href="#cuentasSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                        <i class="fa fa-cog"></i>Cuentas de usuario</a>
+ 
+                <li class="active"style="margin-bottom:5px">
+                    <a href="#cuentasSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle font-weight-bolder">
+                        <i class="fa fa-cog"></i>Cuentas</a>
                     <ul class="collapse list-unstyled" id="cuentasSubmenu">
-                        <li><asp:LinkButton ID="cuentasLb" runat="server" OnClick="cuentasLb_Click">Administrar cuentas</asp:LinkButton></li>
+                        <li><asp:LinkButton ID="cuentasLb" CausesValidation="False" runat="server" OnClick="cuentasLb_Click">Administrar cuentas</asp:LinkButton></li>
                     </ul>
-                    <br />
                 </li>
 
-                <li class="active">
+                <%--<li class="active">
                     <a href="#configSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <i class="fa fa-cog"></i>Configuración</a>
                     <ul class="collapse list-unstyled" id="configSubmenu">
-                        <li><asp:LinkButton ID="contrasenaLb" runat="server" OnClick="contrasenaLb_Click">Cambiar contraseña</asp:LinkButton></li>
+                        <li><asp:LinkButton ID="contrasenaLb" CausesValidation="False" runat="server" OnClick="contrasenaLb_Click">Cambiar contraseña</asp:LinkButton></li>
                     </ul>
-                </li>
+                </li>--%>
 
             </ul>
         </nav>
@@ -160,15 +150,20 @@
                             <span>Menú</span>
                         </button>
                     </li>
-                    <li class="breadcrumb-item"><a href="Principal2.aspx" style="color:dodgerblue">Principal</a></li>
+                    <li class="breadcrumb-item"><a href="Principal.aspx" style="color:dodgerblue">Principal</a></li>
                     <asp:ContentPlaceHolder ID="breadcrumbBodyHolder" runat="server">
                     </asp:ContentPlaceHolder>
                     <div class="col" style="width:100%">
                      <div style="float:right;">
 
+                         <button runat="server" id="bntCambiarContraseña" class="btn btn-secondary btn-sm" CausesValidation="False" onserverclick="cambiarContra">
+                                    <i class="fas fa-user" style="margin-right: 4%"></i>
+                                    Configuración</button>
                           <button runat="server" id="btnSalir" class="btn btn-secondary btn-sm" CausesValidation="False" onserverclick="cerrarSesion">
                                     <i class="fas fa-sign-out-alt" style="margin-right: 4%"></i>
                                     Salir</button>
+
+                         
                      </div>
                      </div>
                     </ol>
