@@ -10,6 +10,21 @@ using BL;
 
 namespace ProyectoAMCRL {
     public partial class Cuenta : System.Web.UI.Page {
+        /*
+           Carga todos los componentes de la pantalla. 
+           Reisa si hay un usuario en sesión para permitir o negar la carga 
+           de la página. En caso de negarlo vuelve al login.
+           En caso de que se abra esta pantalla desde al seleccionar una opcion de la tabla
+           cuentas de la página AdministrarCuentas.aspx, los campos se cargarán con los datos de la cuenta
+           seleccionada.
+
+            variables = 
+            String id = guardar el id traido de la pagina AdministrarCuentas.aspx
+            String accionCuenta = Dependiendo de este caracter se decide si se debe; guardar por primera vez
+            la informacion, actualizarla, o solamente cambiar la contraseña.
+            int est = almacena el estado del objeto bodega, para luego adecuarlo a la parte visual para el usuario.
+            
+            */
         protected void Page_Load(object sender, EventArgs e) {
             if(Session["cuentaLogin"] != null) {
                 if(!IsPostBack) {
