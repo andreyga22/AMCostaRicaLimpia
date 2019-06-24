@@ -44,7 +44,7 @@ namespace BL
             return convert(to);
         }
 
-        public List<BLDetalleFactura> listaDetalle(String id)
+        public List<BLDetalleFactura> listaDetalle(int id)
         {
             try
             {

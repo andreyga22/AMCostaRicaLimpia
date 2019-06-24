@@ -57,6 +57,18 @@
             border-right: 1px solid #e8e8e8;
             border-bottom: 1px solid #e8e8e8;
         }
+        .auto-style1 {
+            position: relative;
+            width: 100%;
+            -ms-flex: 0 0 8.333333%;
+            flex: 0 0 8.333333%;
+            max-width: 8.333333%;
+            min-height: 1px;
+            left: 0px;
+            top: 0px;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
     </style>
 </asp:Content>
 
@@ -82,7 +94,7 @@
 
         <div class="row" style="margin-left: 0%; width: 100%">
             <%-- identificacion --%>
-            <div class="col-lg-1" style="margin-right: 30px; padding-top: 5px">
+            <div class="auto-style1" style="margin-right: 30px; padding-top: 5px">
                 <asp:Label runat="server" CssClass="d-inline-block" for="identificacionTB" Text="Identificación:"></asp:Label>
             </div>
             <div class="col-lg-4">

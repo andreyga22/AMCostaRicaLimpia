@@ -21,7 +21,7 @@ namespace ProyectoAMCRL
             {
                 if (!this.IsPostBack)
                 {
-                    this.buscar(new List<BLFactura>());
+                    this.buscar();
                     cargarMateriales();
                     Session["idFactura"] = "";
                 }
@@ -48,7 +48,7 @@ namespace ProyectoAMCRL
                 String nombre = Convert.ToString(dr["NOMBRE_MATERIAL"]);
                 item.Text = nombre;
                 item.Value = codigo;
-                materialDda.Items.Add(item);
+                materialesCB.Items.Add(item);
             }
         }
 
@@ -63,19 +63,24 @@ namespace ProyectoAMCRL
                 BLManejadorFacturas man = new BLManejadorFacturas();
                 List<BLFactura> list = man.listaFact(txtPalabra.Text.Trim());
 
+
+
                 gridFacturas.DataSource = list;
             }
             gridFacturas.DataBind();
             cargarEncabezados();
         }
 
-        private void buscar(DataTable table)
+        private void buscar()
         {
             BLManejadorFacturas man = new BLManejadorFacturas();
             DataTable tabla = man.buscar(txtPalabra.Text.Trim());
 
+            //foreach (DataRow dr in tabla.Rows)
+            //{
+            //    dr["FECHA_FACTURA"] = DateTime.Parse((dr["FECHA_FACTURA"].ToString())).ToShortDateString();
+            //}
             gridFacturas.DataSource = tabla;
-
             gridFacturas.DataBind();
             cargarEncabezados();
         }
@@ -137,7 +142,7 @@ namespace ProyectoAMCRL
                 }
                 string id = gridFacturas.SelectedRow.Cells[0].Text;
                 Session["idFactura"] = id;
-                Response.Redirect("Factura.aspx");
+                Response.Redirect("Compra_Venta.aspx");
             }
             catch (Exception)
             {
@@ -166,19 +171,20 @@ namespace ProyectoAMCRL
             //Filtro montos
             List<BLFactura> listaFiltrada = new List<BLFactura>();
             if ((!String.IsNullOrEmpty(montoMinimo.Text) || (!String.IsNullOrWhiteSpace(montoMinimo.Text))) &&
-                (!String.IsNullOrEmpty(montoMax.Text) || (!String.IsNullOrWhiteSpace(montoMax.Text))))
+                (!String.IsNullOrEmpty(montoMaximo.Text) || (!String.IsNullOrWhiteSpace(montoMaximo.Text))))
             {
-                listaFiltrada = filtrarMonto(Convert.ToDouble(montoMinimo.Text), Convert.ToDouble(montoMax.Text));
+                listaFiltrada = filtrarMonto(Convert.ToDouble(montoMinimo.Text), Convert.ToDouble(montoMaximo.Text));
                 buscar(listaFiltrada);
             }
 
 
             //Filtro Fecha
-            if ((!String.IsNullOrEmpty(datepicker.Value) || (!String.IsNullOrWhiteSpace(datepicker.Value))) &&
-                (!String.IsNullOrEmpty(datepicker2.Value) || (!String.IsNullOrWhiteSpace(datepicker2.Value))))
+            if ((!String.IsNullOrEmpty(fechaInicio.Text.Trim()) || (!String.IsNullOrWhiteSpace(fechaInicio.Text.Trim()))) &&
+                (!String.IsNullOrEmpty(fechaFin.Text.Trim()) || (!String.IsNullOrWhiteSpace(fechaFin.Text.Trim()))))
             {
-                List<BLFactura> rangoFecha = manej.listaRangoFecha(Convert.ToDateTime(datepicker.Value), Convert.ToDateTime(datepicker2.Value));
 
+                List<BLFactura> rangoFecha = manej.listaRangoFecha(Convert.ToDateTime(fechaInicio.Text.Trim()), Convert.ToDateTime(fechaFin.Text.Trim()));
+             
                 if (listaFiltrada.Count == 0)
                 {
                     foreach (BLFactura blF in rangoFecha)
@@ -208,10 +214,10 @@ namespace ProyectoAMCRL
             }
 
             //Filtro tipo
-            if (radioRol.Checked || radioRol2.Checked)
+            if (!tipoRadioL.SelectedValue.ToString().Equals("No especificar"))
             {
                 string tipo = "";
-                if (radioRol.Checked)
+                if (tipoRadioL.SelectedValue.ToString().Equals("Venta"))
                 {
                     tipo = "v";
                 }
@@ -219,6 +225,7 @@ namespace ProyectoAMCRL
                 {
                     tipo = "c";
                 }
+
                 List<BLFactura> listaTipo = manej.facturasTipo(tipo);
                 if (listaFiltrada.Count == 0)
                 {
@@ -257,15 +264,6 @@ namespace ProyectoAMCRL
             }
         }
 
-        //boton de actualizar
-        protected void btnActualizar_Click(object sender, EventArgs e)
-        {
-            BLManejadorFacturas manej = new BLManejadorFacturas();
-            if ((!String.IsNullOrEmpty(txtPalabra.Text) || (!String.IsNullOrWhiteSpace(txtPalabra.Text))))
-            {
-                buscar(manej.buscar(txtPalabra.Text.Trim()));
-            }
-        }
 
         private List<BLFactura> filtrarMonto(double monto1, double monto2)
         {
@@ -279,17 +277,28 @@ namespace ProyectoAMCRL
             //cargarMateriales(idBodega);
         }
 
-        protected void palabraTb_TextChanged(object sender, EventArgs e)
-        {
-            this.buscar(new List<BLFactura>());
-        }
+
 
         private void txt_Item_Number_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                this.buscar(new List<BLFactura>());
+                this.buscar();
             }
         }
+
+        protected void txtPalabra_TextChanged(object sender, EventArgs e)
+        {
+            this.buscar();
+        }
+
+        //boton de actualizar
+        //protected void btnActualizar_Click(object sender, EventArgs e)
+        //{
+        //    if ((!String.IsNullOrEmpty(txtPalabra.Text) || (!String.IsNullOrWhiteSpace(txtPalabra.Text))))
+        //    {
+        //        this.buscar();
+        //    }
+        //}
     }
 }
