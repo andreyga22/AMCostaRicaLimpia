@@ -85,7 +85,9 @@ namespace BL
         public DataSet filtrarFacturas(string fechaInicio, string fechaFin, string tipo, string montoMaximo, string montoMinimo, List<string> materiales)
         {
             DAOManejadorFacturas manej = new DAOManejadorFacturas();
-            return manej.filtrarFacturasDAO(fechaInicio, fechaFin, tipo, montoMaximo, montoMinimo, materiales);
+
+            //asdas
+            //return manej.filtrarFacturasDAO(fechaInicio, fechaFin, tipo, montoMaximo, montoMinimo, materiales);
             //List<BLFactura> listaBL = new List<BLFactura>();
             //List<TOFactura> listaTO = manej.filtrarFacturasDAO(fechaInicio, fechaFin, tipo, montoMaximo, montoMinimo, materiales);
             //foreach (TOFactura factura in listaTO)
@@ -93,6 +95,7 @@ namespace BL
             //    listaBL.Add(convert(factura));
             //}
             //return listaBL;
+            return null;
         }
 
 
