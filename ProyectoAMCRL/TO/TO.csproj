@@ -47,6 +47,7 @@
     <Compile Include="TOBodegaTabla.cs" />
     <Compile Include="TOContactos.cs" />
     <Compile Include="TOCuenta.cs" />
+    <Compile Include="TODetalleAjuste.cs" />
     <Compile Include="TODetalleFactura.cs" />
     <Compile Include="TODireccion.cs" />
     <Compile Include="TOMaterial.cs" />

@@ -75,6 +75,7 @@ namespace DAO
                     codCompra = Convert.ToInt32(command.ExecuteScalar());
 
                     //REGISTRAR DETALLES   (?)bloquear materiales(?)
+                    
                     foreach (var detalle in detalles)
                         sqlDetalles += "(" + codCompra + ", '" + detalle.cod_Material + "'," + detalle.kilos_Linea + "," + detalle.monto_Linea + "),";
 
@@ -102,10 +103,8 @@ namespace DAO
                     command.Parameters.AddWithValue("@ID_BOD", idBodega);
                     command.CommandText = sqlSumarStock;
 
-
-
                     //puede tirar excepcion del trigger
-                        command.ExecuteNonQuery();
+                    command.ExecuteNonQuery();
                     
                     
                     
