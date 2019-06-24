@@ -94,7 +94,6 @@
     <Content Include="AdministrarCuentas.aspx" />
     <Content Include="Cuenta.aspx" />
     <Content Include="DetalleAjuste.aspx" />
-    <Content Include="Factura.aspx" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="images\compra.png" />
     <Content Include="images\facturas.png" />
@@ -236,13 +235,6 @@
     </Compile>
     <Compile Include="DetalleAjuste.aspx.designer.cs">
       <DependentUpon>DetalleAjuste.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Factura.aspx.cs">
-      <DependentUpon>Factura.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Factura.aspx.designer.cs">
-      <DependentUpon>Factura.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>

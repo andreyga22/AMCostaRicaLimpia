@@ -105,10 +105,10 @@ namespace DAO
 
 
                     //puede tirar excepcion del trigger
-                        command.ExecuteNonQuery();
-                    
-                    
-                    
+                    command.ExecuteNonQuery();
+
+
+
                     //COMMIT A LA TRANSACCION
                     transaction.Commit();
                     return "SUCCCES";
@@ -148,7 +148,7 @@ namespace DAO
                 try
                 {
                     List<TOFactura> lista = new List<TOFactura>();
-                    String sql = "Select v.COD_FACTURA, v.CEDULA, v.ID_BODEGA, v.ID_MONEDA, v.MONTO_TOTAL, v.FECHA_FACTURA, v.TIPO, s.NOMBRE, s.APELLIDO1, s.APELLIDO2 from FACTURA v, SOCIO_NEGOCIO s where v.CEDULA = s.CEDULA";
+                    String sql = "Select v.COD_FACTURA, v.CEDULA, v.ID_BODEGA, v.ID_MONEDA, v.MONTO_TOTAL, (convert(varchar, [Fecha_Factura], 103)), v.TIPO, s.NOMBRE, s.APELLIDO1, s.APELLIDO2 from FACTURA v, SOCIO_NEGOCIO s where v.CEDULA = s.CEDULA";
                     SqlCommand cmdVenta = new SqlCommand(sql, conexion);
 
                     if (string.IsNullOrEmpty(busqueda) == false)
@@ -179,29 +179,6 @@ namespace DAO
                             lista.Add(to);
                         }
                     }
- 
-
-
-                    //DataTable table = new DataTable();
-                    //SqlDataAdapter adapter = new SqlDataAdapter();
-                    //adapter.SelectCommand = cmdVenta;
-                    //adapter.Fill(table);
-                    //List<TOFactura> lista = new List<TOFactura>();
-
-                    //for (int x = 0; x < table.Rows.Count; x++)
-                    //{
-                    //    TOFactura venta = new TOFactura();
-                    //    venta.cod_Factura = Convert.ToInt16(table.Rows[x]["COD_FACTURA"]);
-                    //    venta.cedula = Convert.ToString(table.Rows[x]["CEDULA"]);
-                    //    venta.id_Bodega = Convert.ToString(table.Rows[x]["ID_BODEGA"]);
-                    //    venta.id_Moneda = Convert.ToString(table.Rows[x]["ID_MONEDA"]);
-                    //    venta.monto_Total = Convert.ToDouble(table.Rows[x]["MONTO_TOTAL"]);
-                    //    venta.fecha = Convert.ToDateTime(table.Rows[x]["FECHA_FACTURA"]);
-                    //    venta.tipo = Convert.ToString(table.Rows[x]["TIPO"]);
-                    //    venta.nombreCompleto = Convert.ToString(table.Rows[x]["NOMBRE"]) + " " + Convert.ToString(table.Rows[x]["APELLIDO1"]) + " " + Convert.ToString(table.Rows[x]["APELLIDO2"]);
-
-                    //    lista.Add(venta);
-                    //}
                     if (conexion.State != ConnectionState.Closed)
                     {
                         conexion.Close();
@@ -225,7 +202,7 @@ namespace DAO
             try
             {
                 TOFactura to = new TOFactura();
-                String qry = "select v.COD_FACTURA, v.CEDULA, v.ID_BODEGA, v.ID_MONEDA, v.MONTO_TOTAL, v.FECHA_FACTURA, v.TIPO, s.NOMBRE, s.APELLIDO1, s.APELLIDO2 from FACTURA v, SOCIO_NEGOCIO s where v.CEDULA = s.CEDULA and v.COD_FACTURA = @num;";
+                String qry = "select v.COD_FACTURA, v.CEDULA, v.ID_BODEGA, v.ID_MONEDA, v.MONTO_TOTAL, (convert(varchar, [Fecha_Factura], 103)), v.TIPO, s.NOMBRE, s.APELLIDO1, s.APELLIDO2 from FACTURA v, SOCIO_NEGOCIO s where v.CEDULA = s.CEDULA and v.COD_FACTURA = @num;";
                 SqlCommand comm = new SqlCommand(qry, conexion);
                 comm.Parameters.AddWithValue("@num", id);
                 if (conexion.State != ConnectionState.Open)
@@ -270,7 +247,7 @@ namespace DAO
             {
                 try
                 {
-                    SqlCommand cmdFacturas = new SqlCommand("Select v.COD_FACTURA, v.CEDULA, v.ID_BODEGA, v.ID_MONEDA, v.MONTO_TOTAL, v.FECHA_FACTURA, v.TIPO, s.NOMBRE, s.APELLIDO1, s.APELLIDO2 from FACTURA v, SOCIO_NEGOCIO s where v.CEDULA = s.CEDULA  and MONTO_TOTAL >= @monto1 and MONTO_TOTAL <= @monto2;", conexion);
+                    SqlCommand cmdFacturas = new SqlCommand("Select v.COD_FACTURA, v.CEDULA, v.ID_BODEGA, v.ID_MONEDA, v.MONTO_TOTAL, (convert(varchar, [Fecha_Factura], 103)), v.TIPO, s.NOMBRE, s.APELLIDO1, s.APELLIDO2 from FACTURA v, SOCIO_NEGOCIO s where v.CEDULA = s.CEDULA  and MONTO_TOTAL >= @monto1 and MONTO_TOTAL <= @monto2;", conexion);
                     cmdFacturas.Parameters.AddWithValue("@monto1", monto1);
                     cmdFacturas.Parameters.AddWithValue("@monto2", monto2);
 
@@ -324,7 +301,7 @@ namespace DAO
         {
             try
             {
-                SqlCommand cmdFacturas = new SqlCommand("Select v.COD_FACTURA, v.CEDULA, v.ID_BODEGA, v.ID_MONEDA, v.MONTO_TOTAL, v.FECHA_FACTURA, v.TIPO, s.NOMBRE, s.APELLIDO1, s.APELLIDO2 from FACTURA v, SOCIO_NEGOCIO s where v.CEDULA = s.CEDULA  and v.TIPO = @tipo", conexion);
+                SqlCommand cmdFacturas = new SqlCommand("Select v.COD_FACTURA, v.CEDULA, v.ID_BODEGA, v.ID_MONEDA, v.MONTO_TOTAL, (convert(varchar, [Fecha_Factura], 103)), v.TIPO, s.NOMBRE, s.APELLIDO1, s.APELLIDO2 from FACTURA v, SOCIO_NEGOCIO s where v.CEDULA = s.CEDULA  and v.TIPO = @tipo", conexion);
                 cmdFacturas.Parameters.AddWithValue("@tipo", tipo);
 
                 if (conexion.State != ConnectionState.Open)
@@ -449,6 +426,128 @@ namespace DAO
                 throw;
             }
         }
+
+
+
+
+
+        public DataSet filtrarFacturasDAO(string fechaInicio, string fechaFin, string tipo, string montoMaximo, string montoMinimo, List<string> materiales)
+        {
+            DataSet dataSet = new DataSet("ajustes");
+            String parteFechas = "";
+            String parteTipo = "";
+            String tipoFactura = tipo.Equals("v") ? "1" : "0";
+            String partePeso = "";
+            String parteMateriales = "";
+
+            //try
+            //{
+                if (!String.IsNullOrEmpty(fechaInicio))
+                {
+                    String[] fecha = fechaInicio.Split('/');
+                    fechaInicio = fecha[2] + "-" + fecha[1] + "-" + fecha[0];
+                    parteFechas = " Fecha_Factura >= '" + fechaInicio + "' ";
+                }
+
+                if (!String.IsNullOrEmpty(fechaFin))
+                {
+                    String[] fecha = fechaFin.Split('/');
+                    fechaFin = fecha[2] + "-" + fecha[1] + "-" + fecha[0];
+
+                    if (!String.IsNullOrEmpty(fechaInicio))
+                        parteFechas = " Fecha_Factura >= '" + fechaInicio + "' and Fecha_Factura <= '" + fechaFin + "' ";
+                    else
+                        parteFechas = " Fecha_Factura <= '" + fechaFin + "' ";
+                }
+
+                if (!String.IsNullOrEmpty(tipo))
+                    parteTipo = " TIPO = " + tipoFactura + " ";
+
+
+                if (!String.IsNullOrEmpty(montoMaximo))
+                    partePeso = " MONTO_TOTAL <= " + montoMaximo + " ";
+
+                if (!String.IsNullOrEmpty(montoMinimo))
+                    if (!String.IsNullOrEmpty(montoMaximo))
+                        partePeso = " MONTO_TOTAL >= " + montoMinimo + " " + " and MONTO_TOTAL <= " + montoMaximo + " ";
+                    else
+                        partePeso = " MONTO_TOTAL >= " + montoMinimo + " ";
+
+                if (materiales.Count > 0)
+                {
+                    parteMateriales = " s.COD_MATERIAL in ( ";
+
+                    foreach (String id in materiales)
+                        parteMateriales += " " + id + " ,";
+
+                    parteMateriales = parteMateriales.Remove(parteMateriales.Length - 1);
+                    parteMateriales += " )";
+
+                }
+
+                String sqlEncabezado = "SELECT f.[COD_FACTURA], f.[CEDULA], f.[ID_BODEGA], f.[ID_MONEDA], f.[MONTO_TOTAL], (convert(varchar, [Fecha_Factura], 103)) as Fecha_Factura, s.NOMBRE + s.APELLIDO1 + s.APELLIDO2 AS SOCIO FROM FACTURA f inner join SOCIO_NEGOCIO s on(f.CEDULA = s.CEDULA);";
+                String sqlFinal = " ) ORDER BY Fecha_FACTURA DESC;";
+
+                String[] sqlArray = { parteFechas, parteTipo, partePeso, parteMateriales };
+
+
+                for (int i = 0; i < sqlArray.Length; i++)
+                {
+                    String parte = sqlArray[i];
+
+                    if (!parte.Equals(""))
+                    {
+                        parte = " and " + parte;
+                        sqlArray[i] = parte;
+                    }
+                }
+
+                String sql = sqlEncabezado + sqlArray[0] + sqlArray[1] + sqlArray[2] + sqlArray[3] + sqlFinal;
+
+
+                //SqlCommand cmdFact = new SqlCommand(sql, conexion);
+                //List<TOFactura> list = new List<TOFactura>();
+
+                //if (conexion.State != ConnectionState.Open)
+                //{
+                //    conexion.Open();
+                //}
+
+                //SqlDataReader reader = cmdFact.ExecuteReader();
+                //if (reader.HasRows)
+                //{
+                //    while (reader.Read())
+                //    {
+                //        TOFactura to = new TOFactura();
+                //        to.cod_Factura = (Int16)reader.GetDecimal(0);
+                //        to.cedula = reader.GetString(1);
+                //        to.id_Bodega = (reader.GetString(2));
+                //        to.id_Moneda = reader.GetString(3);
+                //        to.monto_Total = (Double)reader.GetDecimal(4);
+                //        to.fecha = reader.GetDateTime(5);
+                //        to.tipo = reader.GetString(6);
+
+                //        to.nombreCompleto = reader.GetString(7) + " " + reader.GetString(8) + " " + reader.GetString(9);
+                //        list.Add(to);
+                //    }
+                //}
+                //if (conexion.State != ConnectionState.Closed)
+                //{
+                //    conexion.Close();
+                //}
+                //return list;
+
+                SqlDataAdapter adapter = new SqlDataAdapter(sql, conexion);
+                adapter.Fill(dataSet);
+                return dataSet;
+            }
+            //catch (Exception e)
+            //{
+            //    return null;
+            //}
+
+
+       // }
 
     }
 }
