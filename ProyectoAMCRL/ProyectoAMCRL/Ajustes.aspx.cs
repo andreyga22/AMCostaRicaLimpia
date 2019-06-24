@@ -49,8 +49,8 @@ namespace ProyectoAMCRL {
                     String fechaInfo = Convert.ToString(dr["Fecha_Ajuste"]);
 
 
-                    String peso = Convert.ToString(dr["PESO_AJUSTE"]);
-                    String movimientoNumber = Convert.ToString(dr["MOVIMIENTO_A"]);
+                //String materiales = Convert.ToString(dr["MATERIALES"]);
+                String movimientoNumber = Convert.ToString(dr["MOVIMIENTO_A"]);
                     String movimiento = "";
                     switch (movimientoNumber)
                     {
@@ -75,7 +75,7 @@ namespace ProyectoAMCRL {
                     String filaHTML = "<tr onclick='abrirDetalleClick(" + idAjuste + ")'>" +
                     "<td>" + idAjuste + "</td>" +
                     "<td>" + fechaInfo + "</td>" +
-                    "<td>" + peso + "</td>" +
+                    //"<td>" + materiales + "</td>" +
                     "<td>" + idBodega + "</td>" +
                     "<td>" + movimiento + "</td >" +
                     "</tr> ";

@@ -29,28 +29,35 @@ namespace BL
             return resultado;
         }
 
-        public string registrarActualizarMaterialBL(string code, string nom, string precioT)
+        public string registrarActualizarMaterialBL(string codigo, string nom, string precioT, string unidadBaseCodigo, char tipo)
         {
-            if (nom.Equals("") || precioT.Equals(""))
+            if (String.IsNullOrEmpty(codigo) || String.IsNullOrWhiteSpace(codigo) ||
+                String.IsNullOrEmpty(nom) || String.IsNullOrWhiteSpace(nom) ||
+                String.IsNullOrEmpty(precioT) || String.IsNullOrWhiteSpace(precioT))
                 return "Datos incompletos. Por favor, verifique e intente de nuevo";
 
-            int codigo;
+            double precioBase = 0;
             try {
-               codigo = Int32.Parse(code);
+            precioBase = Double.Parse(precioT);
             }
-            catch (Exception ex) {
-                codigo = -1;
+            catch (Exception e) {
+                return "El formato de precio solo admite números, por favor intente de nuevo.";
             }
-           
+            if (precioBase < 0)
+                return "El precio debe ser un valor positivo, por favor intente de nuevo.";
 
             double precio = Double.Parse(precioT);
-            TOMaterial m = new TOMaterial(codigo, nom, precio);
+
+            TOUnidad unidad = new TOUnidad();
+            unidad.codigo = unidadBaseCodigo;
+            TOMaterial m = new TOMaterial(codigo, nom, precio, unidad);
             
-            return manejador.registrarActualizarMaterialDAO(m);
+            return manejador.registrarActualizarMaterialDAO(m, tipo);
         }
 
         public BLMaterial buscarMaterial(string clave)
         {
+            
             TOMaterial materialTO = manejador.buscarMaterialDAO(clave);
             return parsearMaterialTO_BL(materialTO);
         }
@@ -64,7 +71,7 @@ namespace BL
                 m.nombreMaterial = mto.nombreMaterial;
                 m.codigoM = mto.codigoM;
                 m.precioKilo = mto.precioKilo;
-
+                m.unidadBase = new BLUnidad(mto.unidadBase.codigo, mto.unidadBase.nombre, mto.unidadBase.equivalencia);
             }
            
             return m;

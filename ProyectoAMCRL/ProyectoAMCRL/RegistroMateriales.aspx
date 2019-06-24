@@ -25,6 +25,11 @@
         <div class="col-lg-5" style="margin-left: 0%;">
             <asp:HiddenField runat="server" ID="escondidillo" Value="" />
             <div class="row">
+                <asp:TextBox type="text" ID="codigoMTB" class="form-control" runat="server" TextMode="SingleLine" placeholder="Código (Corregir sql)">
+                </asp:TextBox>
+            </div>
+            <br />
+            <div class="row">
                 <asp:TextBox type="text" ID="nombreTB" class="form-control" runat="server" TextMode="SingleLine" placeholder="Nombre">
                 </asp:TextBox>
             </div>
@@ -34,6 +39,10 @@
                 </asp:TextBox>
             </div>
             <br>
+            <div class="row">
+                <asp:DropDownList Width="100%" ID="unidadDD" runat="server" CssClass="btn btn-light"></asp:DropDownList>
+            </div>
+            <br />
             <div class="row justify-content-start" style="">
                 <asp:Button runat="server" CssClass="btn btn-info" ID="btnGuardarActualizar" Text="Guardar" OnClick="btnGuardarActualizar_Click" />
             </div>
@@ -42,68 +51,4 @@
         </div>
 
     </div>
-    <%--<div class="col">
-        </div>
-        <div class="col-6 card text-white bg-success mb-3">
-            <div class="row">
-                <div style="width: 50%; height: 100%; text-align: center" class="justify-content-center">
-                    <br>
-                    <asp:Label ID="accionMaterialLabel" Text="Material más vendido" runat="server" class="h4" />
-                    <br>
-                    <asp:Label ID="materialLabel" Text="Aluminio" runat="server" class="h1" />
-                    <br>
-                    <div class="row justify-content-center" style="height: 60px; width: 100%; margin-left: 1.5%;">
-                        <asp:Label ID="cantidadLabel" Text="24" runat="server" class="h1 align-bottom" />
-                        <h6 style="align-self: flex-end">Kg</h6>
-                    </div>
-
-                </div>
-                <div class="col-sm-3" style="padding-left: 10%; padding-top: 4%">
-                    <i class=' fas fa-award' style='font-size: 150px; color: black'></i>
-                </div>
-            </div>
-        </div>
-    </div>--%>
-    <%-- <br>
-    <br>--%>
-
-    <%-- SECCION PARA REGISTRAR EN UN STOCK ESPECIFICO --%>
-    <%-- <div id="divStockNuevo" class="rounded" style="background-color: lightgray; padding-bottom: 20px; padding-top: 10px">
-        <div   class="row" style="width: 100%; margin-left: 2%">
-            <asp:Label Text="Actualización de inventarios" runat="server" CssClass="h5 font-weight-bolder" />
-        </div>
-        <br>
-
-        <div class="row" style="margin-left: 0%">
-
-            <div class="col-lg-3">
-                <asp:Label Text="Bodega a actualizar" runat="server" CssClass="font-weight-bolder" />
-                <br>
-                <asp:DropDownList ID="dropDownBodegas" runat="server" CssClass="btn dropup btn-light" OnSelectedIndexChanged="dropDownBodegas_SelectedIndexChanged"></asp:DropDownList>
-            </div>
-
-            <div class="col-lg-3">
-                <asp:Label Text="Cantidad a registrar" runat="server" CssClass="font-weight-bolder" />
-                <br>
-                <asp:TextBox type="number" ID="cantidadTB" class="form-control" runat="server" TextMode="SingleLine" placeholder="Ejm: 100"></asp:TextBox>
-            </div>
-
-            <div class="col-lg-2" >
-                <asp:Label Text="Unidad de peso" runat="server" CssClass="font-weight-bolder" />
-                <br>
-                <asp:DropDownList ID="dropDownUnidades" runat="server" CssClass="btn dropup btn-light"></asp:DropDownList>
-            </div>
-            <div class="col-lg-3" style="height:100%">
-                <span style="width:100%">
-               <i class="fas fa-dolly" style="font-size: 115px; margin-left:20%"></i>
-                </span>
-                </div>
-         
-        </div>
-
-        <div class="row justify-content-start" style="margin-left: 45%">
-            <asp:Button ID="btnEnlazarStock" runat="server" Text="Guardar" CssClass="btn btn-info" />
-        </div>
-
-    </div>--%>
 </asp:Content>

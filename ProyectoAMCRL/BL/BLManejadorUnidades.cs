@@ -1,24 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DAO;
 
 namespace BL
 {
     public class BLManejadorUnidades
     {
-
-        public List<BLUnidad> unidades { get; set; }
-
-
-        public BLManejadorUnidades() {
-            unidades = new List<BLUnidad>();
-            unidades.Add(new BLUnidad("UND", "UNIDAD", 0));
-            unidades.Add(new BLUnidad("KG", "KILO", 1));
-            unidades.Add(new BLUnidad("TON", "TONELADA", 1000));
-            unidades.Add(new BLUnidad("CON", "CONTENEDOR", 2000));
+        DAOManejadorUnidades manejadorU = new DAOManejadorUnidades();
+        public DataSet listarUnidades() {
+            return manejadorU.listarUnidadesDAO();
         }
 
+        internal double consultarEquivalenciaUnidadBL(string codUnidad)
+        {
+            return manejadorU.consultarEquivalenciaUnidadDAO(codUnidad);
+        }
     }
 }

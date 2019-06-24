@@ -88,7 +88,7 @@
             <div class="col-lg-4">
                 <div class="row" style="margin-left: 0%">
                     <div>
-                        <asp:TextBox OnTextChanged="buscarSocioBTN_Click" Width="98%" CssClass="form-control " runat="server" ID="identificacionTB" placeholder="24876612"></asp:TextBox>
+                        <asp:TextBox OnTextChanged="buscarSocioBTN_Click" OnKeyDown="buscarSocioBTN_Click" Width="98%" CssClass="form-control " runat="server" ID="identificacionTB" placeholder="24876612"></asp:TextBox>
                     </div>
                     <asp:LinkButton CssClass="btn btn-light" ID="buscarSocioBTN" runat="server" Text="Buscar" OnClick="buscarSocioBTN_Click"><i class="fa fa-search" style="margin-right:3px"></i></asp:LinkButton>
                 </div>

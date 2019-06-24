@@ -43,24 +43,6 @@ namespace ProyectoAMCRL
                 cargarUnidadesBodegasMonedas();
                 cargarMateriales(bodegasDrop.Items[0].Value);
                 datepickerT.Text = DateTime.Today.Day + "/" + DateTime.Today.Month + "/" + DateTime.Today.Year;
-
-                if (Request.QueryString.Get("vd") != null)//vista detalle === vd
-                {
-                    int idFactura = Int32.Parse(Request.QueryString.Get("vd"));
-                    //REMOVER EL PARAMETRO DEL URL
-                    borrarParametroURL("vd");
-                    //Buscar factura
-                    BLManejadorFacturas manejadorF = new BLManejadorFacturas();
-                    BLFactura factura = manejadorF.buscarVentaID(idFactura);
-
-                    if (factura != null)
-                        cargarFactura(factura);
-                    else
-                    {
-                        lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>" + "Factura no encontrada" + "</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
-                        lblError.Visible = true;
-                    }
-                }
             }
             else
             {
@@ -126,6 +108,11 @@ namespace ProyectoAMCRL
             {
                 lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>No se han especificado detalles para la transacción, por favor intente de nuevo.</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\" onclick=\"cerrarError()\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                 lblError.Visible = true;
+            } else if (String.IsNullOrEmpty(nombreLabel.Text)) {
+                String tipoSocio = labelBreadCrum1.Text.Equals("Compra") ? "Proveedor" : "Cliente";
+                pegarLineasTabla();
+                lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong> "+ tipoSocio + " no especificado, por favor intente de nuevo.</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\" onclick=\"cerrarError()\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                lblError.Visible = true;
             }
             else
             {
@@ -157,6 +144,11 @@ namespace ProyectoAMCRL
                     Session.Remove("listaDetallesC");
                     detalles = new List<string>();
                     labelAgregados.Text = "0";
+                    totalLabel.Text = "";
+                    nombreLabel.Text = "";
+                    labelDireccion.Text = "";
+                    labelTel.Text = "";
+
                     lblError.Text = "<br /><br /><div class=\"alert alert-success alert-dismissible fade show\" role=\"alert\"> <strong>" + mensajeRespuesta + "</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                     lblError.Visible = true;
                 }
@@ -210,6 +202,7 @@ namespace ProyectoAMCRL
              */
         private void pegarLineasTabla()
         {
+            tablaDetalles.Rows.Clear();
             for (int i = 0; i < detalles.Count; i++)
             {
                 String linea = detalles[i];
@@ -302,11 +295,18 @@ namespace ProyectoAMCRL
 
         private void cargarUnidadesBodegasMonedas()
         {
-            List<BLUnidad> unidades = manejadorU.unidades;
+            DataSet unidades = manejadorU.listarUnidades();
 
-            foreach (BLUnidad u in unidades)
+            foreach (DataRow dr in unidades.Tables[0].Rows)
             {
-                ListItem item = new ListItem(u.nombre, u.equivalencia.ToString());
+                // COD_UNIDAD, NOMBRE_UNIDAD 
+
+                String codigo = Convert.ToString(dr["COD_UNIDAD"]);
+                String nombre = Convert.ToString(dr["NOMBRE_UNIDAD"]);
+                String equiv = Convert.ToString(dr["EQUIVALENCIA_KG"]);
+                String infoUnidad = codigo + "*" + equiv;
+
+                ListItem item = new ListItem(nombre, infoUnidad);
                 unidadDD.Items.Add(item);
             }
 
@@ -366,7 +366,9 @@ namespace ProyectoAMCRL
                 BLManejadorSocios manejadorS = new BLManejadorSocios();
                 BLSocioNegocio socio = manejadorS.buscarSocio(id, tipoSocio);
                 if (socio != null)
-                {       
+                {
+                   
+
                     nombreLabel.Text = socio.nombre + " "+ socio.apellido1 + " "+ socio.apellido2;
 
                     if (socio.direccion != null)
@@ -376,8 +378,10 @@ namespace ProyectoAMCRL
                     if(socio.contactos != null)
                     labelTel.Text = socio.contactos.telefono_pers.ToString();
 
+                    pegarLineasTabla();
                 }
                 else {
+                    pegarLineasTabla();
                     lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>" + tipoSocio +" no encontrado, intente de nuevo. " + "</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\" onclick=\"cerrarError()\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                     lblError.Visible = true;
                 }
@@ -385,6 +389,7 @@ namespace ProyectoAMCRL
 
             }
             else {
+                pegarLineasTabla();
                 lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>" + "Ingrese una identificación válida e intente de nuevo. "  + "</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\" onclick=\"cerrarError()\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                 lblError.Visible = true;
             }

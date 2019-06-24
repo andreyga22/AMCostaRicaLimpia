@@ -18,12 +18,12 @@ namespace BL
             return manejador.listarAjustesDAO();
         }
         //id_bod, peso, material, unidad, accion, razon
-        public String registrarAjusteBL(String id_bod, string id_material, string id_stock, string peso, string equivalenciaUnidad, string accion, string razon)
+        public String registrarAjusteBL(String id_bod, string id_material, string id_stock, string peso, string unidadInfo, string accion, string razon)
         {
             
             int pesoN = Int32.Parse(peso);
 
-            double pesoTotal = calcularTotalSegunUnidad(equivalenciaUnidad, pesoN);
+            double pesoTotal = calcularTotalSegunUnidad(unidadInfo, pesoN);
             int idStockN = Int32.Parse(id_stock);
 
             if (accion.Equals("0")) { // caso: se debe restar al stock
@@ -53,9 +53,10 @@ namespace BL
         private double calcularTotalSegunUnidad(string unidad, int pesoN)
         {
             //se deberia validar contra las unidades de peso y equivalencias respectivas guardadas en BD
-            
-            double equivalUn = Double.Parse(unidad);
-            return equivalUn * pesoN;
+            String[] codUnidadInfo = unidad.Split('*');
+            String codUnidad = codUnidadInfo[0];
+            double equivalencia = Double.Parse(codUnidadInfo[1]);
+            return equivalencia * pesoN;
         }
 
         public DataSet filtrarAjustes(string fechaInicio, string fechaFin, string tipo, string pesoMaximo, string pesoMinimo, string bodega, List<string> materiales)

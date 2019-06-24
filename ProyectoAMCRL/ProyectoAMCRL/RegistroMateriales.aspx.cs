@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Reflection;
 using System.Web;
@@ -24,10 +25,9 @@ namespace ProyectoAMCRL
                 //cantidadTB.CssClass = "btn form-control";
                 if (Request.QueryString.Get("idM") != null)
                 {
-                    deshabilitarSeccionStock("Esta sección está habilitada solo para registrar materiales");
                     labelAccion.Text = "Actualización de material";
-
-                    BLMaterial material = manejadorM.buscarMaterial(Request.QueryString.Get("idM"));
+                    String codMaterial = Request.QueryString.Get("idM");
+                    BLMaterial material = manejadorM.buscarMaterial(codMaterial);
                     cargarMaterialAPantalla(material);
                     PropertyInfo isreadonly =
                     typeof(System.Collections.Specialized.NameValueCollection).GetProperty(
@@ -36,20 +36,12 @@ namespace ProyectoAMCRL
                     isreadonly.SetValue(this.Request.QueryString, false, null);
                     // remove
                     this.Request.QueryString.Remove("idM");
-                    this.Request.QueryString.Remove("nom");
-                    this.Request.QueryString.Remove("prec");
                     this.DataBind();
                     isreadonly.SetValue(this.Request.QueryString, true, null);
-
-                    //materialLabel.Text = nombreTB.Text;
-                    fijarCantidad(escondidillo.Value);
                     btnGuardarActualizar.Text = "Actualizar";
                     breadLabel.Text = "Actualización";
-
                 }
-                else {
-                    deshabilitarSeccionStock("Por favor complete el registro del material para habilitar este campo.");
-                }
+                
 
             }
         }
@@ -59,7 +51,12 @@ namespace ProyectoAMCRL
             {
                 nombreTB.Text = material.nombreMaterial;
                 precioKgTB.Text = material.precioKilo.ToString();
-                escondidillo.Value = material.codigoM.ToString();
+                codigoMTB.Text= material.codigoM.ToString();
+                seleccionarUnidadMaterial(material.unidadBase.codigo);
+                codigoMTB.Width = nombreTB.Width;
+                codigoMTB.CssClass = "form-control";
+                codigoMTB.BackColor = System.Drawing.Color.LightYellow;
+                codigoMTB.Enabled = false;
             }
             else {
                 lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>" + "Material no encontrado" + "</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
@@ -68,27 +65,29 @@ namespace ProyectoAMCRL
            
         }
 
-        private void fijarCantidad(String id)
-        {
-            //accionMaterialLabel.Text = "Cantidad vendida";
-            //cantidadLabel.Text = ""+manejadorM.traerCantidadVendidaBL(id);
+        private void seleccionarUnidadMaterial(String codUnidad) {
+            foreach (ListItem unidad in unidadDD.Items) {
+                if (unidad.Value.Equals(codUnidad))
+                    unidad.Selected = true;
+            }
         }
 
         protected void btnGuardarActualizar_Click(object sender, EventArgs e)
         {
-            String cod = escondidillo.Value;
+            String cod = codigoMTB.Text;
             String nom = nombreTB.Text;
             String precio = precioKgTB.Text;
+            String codUnidad = unidadDD.SelectedItem.Value;
+
             String m = "";
+            char tipo = labelAccion.Text.Equals("Actualización de material") ? 'a': 'r';
 
-            m = manejadorM.registrarActualizarMaterialBL(cod, nom, precio);
+            m = manejadorM.registrarActualizarMaterialBL(cod, nom, precio, codUnidad, tipo);
 
-            if (m.Equals("Operación efectuada correctamente")){
+            if (m.Contains("correctamente")){
 
                 lblError.Text = "<br /><br /><div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>"+ m + "</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                 lblError.Visible = true;
-                if (escondidillo.Value == "") //registro de nuevo material
-                habilitarSeccionStock();
             }
             else {
                 lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>" + m + "</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
@@ -98,58 +97,20 @@ namespace ProyectoAMCRL
 
         }
 
-        private void habilitarSeccionStock() {
-            //dropDownBodegas.Enabled = true;
-            //dropDownBodegas.BackColor = System.Drawing.Color.WhiteSmoke;
-            //cantidadTB.Enabled = true;
-            //cantidadTB.BackColor = System.Drawing.Color.WhiteSmoke;
-            //dropDownUnidades.Enabled = true;
-            //dropDownUnidades.BackColor = System.Drawing.Color.WhiteSmoke;
-            //btnEnlazarStock.Enabled = true;
-            //btnEnlazarStock.Visible = true;
-            //dropDownBodegas.ToolTip = "Bodega donde va a ubicar el material";
-            //cantidadTB.ToolTip = "Cantidad a registrar a inventario";
-            //dropDownUnidades.ToolTip = "Unidad que se registra(Kg, Tonelada, etc)";
-        }
-
-        private void deshabilitarSeccionStock(String msg)
-        {
-            
-            //dropDownBodegas.Enabled = false;
-            //dropDownBodegas.BackColor = System.Drawing.Color.Red;
-            //cantidadTB.Enabled = false;
-            //cantidadTB.BackColor = System.Drawing.Color.Red;
-            //dropDownUnidades.Enabled = false;
-            //dropDownUnidades.BackColor = System.Drawing.Color.Red;
-            //btnEnlazarStock.Enabled = false;
-            //btnEnlazarStock.Visible = false;
-            //dropDownBodegas.ToolTip = msg;
-            //cantidadTB.ToolTip = msg;
-            //dropDownUnidades.ToolTip = msg;
-        }
-
-        protected void dropDownBodegas_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            
-        }
-
 
         private void cargarUnidadesBodegas()
         {
-            List<BLUnidad> unidades = manejadorU.unidades;
+            DataSet unidades = manejadorU.listarUnidades();
 
-            foreach (BLUnidad u in unidades)
+            foreach (DataRow dr in unidades.Tables[0].Rows)
             {
-                ListItem item = new ListItem(u.nombre, u.equivalencia.ToString());
-                //dropDownUnidades.Items.Add(item);
-            }
+                // COD_UNIDAD, NOMBRE_UNIDAD 
+                String codigo = Convert.ToString(dr["COD_UNIDAD"]);
+                String nombre = Convert.ToString(dr["NOMBRE_UNIDAD"]);
+                String equiv = Convert.ToString(dr["EQUIVALENCIA_KG"]);
 
-            List<BLBodegaTabla> bodegas = manejadorB.listaBodegas();
-            foreach (BLBodegaTabla b in bodegas)
-            {
-
-                ListItem item = new ListItem(b.nombre, b.codigo);
-                //dropDownBodegas.Items.Add(item);
+                ListItem item = new ListItem(nombre, codigo);
+                unidadDD.Items.Add(item);
             }
         }
     }

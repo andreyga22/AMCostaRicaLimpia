@@ -42,7 +42,7 @@ namespace DAO
             return ds;
         }
 
-        public string registrarActualizarMaterialDAO(TOMaterial material){
+        public string registrarActualizarMaterialDAO(TOMaterial material, char tipo){
 
             String msg = "";
             using (conexion)
@@ -51,32 +51,57 @@ namespace DAO
 
                 //Se inicializa la transaccion local
                 SqlTransaction transaction = conexion.BeginTransaction();
+                String respuesta = "";
 
                 //Se asigna un comando a la transaccion
                 SqlCommand command = conexion.CreateCommand();
                 command.Transaction = transaction;
 
+                String sqlInsertar = "insert into MATERIAL(COD_MATERIAL, NOMBRE_MATERIAL, PRECIO_KILO, COD_UNIDAD) values (@COD, @NOMBRE, @PRECIO, @UNIDAD_BASE);";
+                String sqlActualizar = "update MATERIAL set NOMBRE_MATERIAL = @NOMBRE, PRECIO_KILO = @PRECIO, COD_UNIDAD = @UNIDAD_BASE where COD_MATERIAL = @COD;";
+
                 //TEXTO SQL 
-                String sqlActualizarRegistrar =
-                 "begin tran " +
-                 "if exists(select * from MATERIAL with (updlock, serializable) where COD_MATERIAL = @COD) " +
-                 "begin update MATERIAL set NOMBRE_MATERIAL = @NOMBRE, PRECIO_KILO = @PRECIO where COD_MATERIAL = @COD; end " +
-                 "else " +
-                 "begin insert into MATERIAL(NOMBRE_MATERIAL, PRECIO_KILO) values (@NOMBRE, @PRECIO); " +
-                 "end commit tran";
+                //String sqlActualizarRegistrar =
+                // "begin tran " +
+                // "if exists(select * from MATERIAL with (updlock, serializable) where COD_MATERIAL = @COD) " +
+                // "begin update MATERIAL set NOMBRE_MATERIAL = @NOMBRE, PRECIO_KILO = @PRECIO, COD_UNIDAD = @UNIDAD_BASE where COD_MATERIAL = @COD; end " +
+                // "else " +
+                // "begin insert into MATERIAL(COD_MATERIAL, NOMBRE_MATERIAL, PRECIO_KILO, COD_UNIDAD) values (@COD, @NOMBRE, @PRECIO, @UNIDAD_BASE); " +
+                // "end commit tran";
 
                 try{
                     //REGISTRO MATERIAL
-                    command.CommandText = sqlActualizarRegistrar;
+                    if (tipo.Equals('r'))
+                    {
+                        command.CommandText = sqlInsertar;
+                        respuesta = "registrado";
+                    }
+                    else
+                    {
+                        command.CommandText = sqlActualizar;
+                        respuesta = "actualizado";
+                    }
 
                     command.Parameters.AddWithValue("@COD", material.codigoM); 
                     command.Parameters.AddWithValue("@NOMBRE", material.nombreMaterial);
                     command.Parameters.AddWithValue("@PRECIO", material.precioKilo);
+                    command.Parameters.AddWithValue("@UNIDAD_BASE", material.unidadBase.codigo);
+
                     command.ExecuteNonQuery();
+
+                    if (tipo.Equals('r')) {
+                        String sqlRegistrarStock = "insert into stock (COD_MATERIAL, ID_BODEGA, KILOS_STOCK) " +
+                            "values (@COD, 'B01', 0); ";
+                        command.CommandText = sqlRegistrarStock;
+                        command.ExecuteNonQuery();
+
+
+                    }
+
 
                     //COMMIT A LA TRANSACCION
                     transaction.Commit();
-                    return "Operación efectuada correctamente";
+                    return "Material "+ respuesta+" correctamente";
 
                 }
                 catch (Exception ex)
@@ -105,38 +130,62 @@ namespace DAO
         public TOMaterial buscarMaterialDAO(string clave)
         {
             TOMaterial MTO = new TOMaterial();
-            String sql = "select NOMBRE_MATERIAL, PRECIO_KILO from MATERIAL WHERE (COD_MATERIAL = @COD)";
+            String sql = "select m.COD_MATERIAL, m.NOMBRE_MATERIAL, m.PRECIO_KILO, um.COD_UNIDAD, um.NOMBRE_UNIDAD, um.EQUIVALENCIA_KG from MATERIAL m "+
+            " inner join UNIDAD_MEDIDA um on(m.COD_UNIDAD = um.COD_UNIDAD and m.COD_MATERIAL = @COD); ";
+            String codigo = "";
             String nombre = "";
             Double precioKilo = 0;
+
+            String codUnidad = "";
+            String nomUnidad = "";
+            Double equivalenciaUnidad = 0;
+
 
             using (conexion) {
                 SqlCommand cmd = new SqlCommand(sql,conexion);
                 cmd.Parameters.AddWithValue("@COD", clave);
-                //try {
+
+                try
+                {
+
                     conexion.Open();
                     SqlDataReader reader = cmd.ExecuteReader();
-                   
 
-                    while (reader.Read())
-                    {
-                         nombre = (String)reader.GetString(0);
-                         precioKilo = reader.GetSqlDecimal(1).ToDouble(); ;
+                    if (reader.HasRows) {
+
+                        while (reader.Read())
+                        {
+                            codigo = (String)reader.GetString(0);
+                            nombre = (String)reader.GetString(1);
+                            precioKilo = reader.GetSqlDecimal(2).ToDouble();
+
+                            codUnidad = (String)reader.GetString(3);
+                            nomUnidad = (String)reader.GetString(4);
+                            equivalenciaUnidad = reader.GetSqlDecimal(5).ToDouble();
+
+
+                        }
+
+                        MTO.codigoM = clave;
+                        MTO.nombreMaterial = nombre;
+                        MTO.precioKilo = precioKilo;
+                        //UNIDAD
+                        TOUnidad unidad = new TOUnidad(codUnidad, nomUnidad, equivalenciaUnidad);
+                        MTO.unidadBase = unidad;
+
+                        conexion.Close();
+                        return MTO;
+
                     }
-
-                MTO.codigoM = Int32.Parse(clave);
-                MTO.nombreMaterial = nombre;
-                MTO.precioKilo = precioKilo;
-
-                conexion.Close();
-                    return MTO;
-                //}
-                //catch (Exception e) {
-                //    return null;
-                //}
+                    else {
+                        return null;
+                    }
+                }
+                catch (Exception e)
+                {
+                    return null;
+                }
             }
-                
-
-            return MTO;
         }
 
         public double traerCantidadVendidaDAO(int v)
