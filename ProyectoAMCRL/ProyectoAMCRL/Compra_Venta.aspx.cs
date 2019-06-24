@@ -47,11 +47,12 @@ namespace ProyectoAMCRL
                     btnGuardar.Attributes.Add("onclick", "document.body.style.cursor = 'wait';");
                     buscarSocioBTN.Attributes.Add("onclick", "document.body.style.cursor = 'wait';");
 
-                // Se cargan las unidades, bodegas, monedas y materiales existentes 
-                // (La seleccion de bodega debe especificar los materiales disponibles)
-                cargarUnidadesBodegasMonedas();
-                cargarMateriales(bodegasDrop.Items[0].Value);
-                datepickerT.Text = DateTime.Today.Day + "/" + DateTime.Today.Month + "/" + DateTime.Today.Year;
+                    // Se cargan las unidades, bodegas, monedas y materiales existentes 
+                    // (La seleccion de bodega debe especificar los materiales disponibles)
+                    cargarUnidadesBodegasMonedas();
+                    cargarMateriales(bodegasDrop.Items[0].Value);
+                    datepickerT.Text = DateTime.Today.Day + "/" + DateTime.Today.Month + "/" + DateTime.Today.Year;
+                }
             }
             else
             {
@@ -94,6 +95,7 @@ namespace ProyectoAMCRL
         */
         private void cargarPantalla(String modo)
         {
+
 
             String textoBreadCrum1 = "Compra";
             String textoBreadCrum2 = "Registrar Compra";
