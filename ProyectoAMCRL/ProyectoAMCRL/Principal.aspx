@@ -18,9 +18,9 @@
                     <div class="card-body">
                         <h5 class="card-title text-secondary">Socios de negocio</h5>
                         <p class="card-text">Agregue o busque los socios de negocio.</p>
-                        <a href="#" class="card-link text-primary">Agregar Socio</a>
+                        <a href="RegistrosSocioUI.aspx" class="card-link text-primary">Agregar Socio</a>
                         <br />
-                        <a href="#" class="card-link text-primary">Búsqueda de Socios</a>
+                        <a href="BusquedaSocios.aspx" class="card-link text-primary">Búsqueda de Socios</a>
                     </div>
                 </div>
             </div>
@@ -42,11 +42,11 @@
                     <div class="card-body">
                         <h5 class="card-title text-secondary">Inventario</h5>
                         <p class="card-text">Maneje bodegas, materiales y realice ajustes de inventario.</p>
-                        <a href="#" class="card-link text-primary">Búsqueda de bodegas</a>
+                        <a href="AdministrarBodegas.aspx" class="card-link text-primary">Administrar bodegas</a>
                         <br />
-                        <a href="#" class="card-link text-primary">Materiales</a>
+                        <a href="AdministrarMateriales.aspx" class="card-link text-primary">Materiales</a>
                         <br />
-                        <a href="#" class="card-link text-primary">Ajustes de inventario</a>
+                        <a href="Ajustes.aspx" class="card-link text-primary">Ajustes de inventario</a>
                         <br />
 
                     </div>
@@ -63,7 +63,7 @@
                 <div class="card-body">
                         <h5 class="card-title text-secondary">Facturas</h5>
                         <p class="card-text">Busque y visualice facturas de compra o venta</p> 
-                       <a href="#" class="card-link text-primary">Búsqueda de facturas</a>
+                       <a href="BusquedaFacturas.aspx" class="card-link text-primary">Búsqueda de facturas</a>
                     </div>
                 </div>
             </div>
@@ -73,9 +73,9 @@
                     <div class="card-body">
                         <h5 class="card-title text-secondary">Reportes</h5>
                         <p class="card-text">Genere reportes de las entradas y salidas del negocio.</p>
-                          <a href="#" class="card-link text-primary">Reporte general</a>
+                          <a href="Reporte_General.aspx" class="card-link text-primary">Reporte General</a>
                         <br />
-                        <a href="#" class="card-link text-primary">Gráfico</a>
+                        <a href="ReporteGrafico.aspx" class="card-link text-primary">Reporte Gráfico</a>
                         <br />
                     </div>
                 </div>
@@ -86,7 +86,7 @@
                     <div class="card-body">
                         <h5 class="card-title text-secondary">Otros</h5>
                         <p class="card-text">Maneje monedas y unidades de medida del sistema.</p>
-                              <a href="#" class="card-link text-primary">Monedas</a>
+                              <a href="Monedas.aspx" class="card-link text-primary">Monedas</a>
                         <br />
                         <a href="#" class="card-link text-primary">Unidades de medida</a>
                         <br />

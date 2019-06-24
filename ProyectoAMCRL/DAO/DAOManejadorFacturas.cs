@@ -371,7 +371,7 @@ namespace DAO
 
 
         //lista de detalles de una factura
-        public List<TODetalleFactura> listaDetalle(String idFactura)
+        public List<TODetalleFactura> listaDetalle(int idFactura)
         {
             try
             {

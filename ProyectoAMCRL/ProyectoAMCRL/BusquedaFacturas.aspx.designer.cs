@@ -22,40 +22,40 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.Literal lblError;
         
         /// <summary>
-        /// Control ScriptManager2.
+        /// Control ScriptManager1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.ScriptManager ScriptManager2;
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
         
         /// <summary>
-        /// Control datepicker.
+        /// Control fechaInicio.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText datepicker;
+        protected global::System.Web.UI.WebControls.TextBox fechaInicio;
         
         /// <summary>
-        /// Control datepicker2.
+        /// Control fechaFin.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText datepicker2;
+        protected global::System.Web.UI.WebControls.TextBox fechaFin;
         
         /// <summary>
-        /// Control materialDda.
+        /// Control tipoRadioL.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox materialDda;
+        protected global::System.Web.UI.WebControls.RadioButtonList tipoRadioL;
         
         /// <summary>
         /// Control montoMinimo.
@@ -67,31 +67,22 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.TextBox montoMinimo;
         
         /// <summary>
-        /// Control montoMax.
+        /// Control montoMaximo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox montoMax;
+        protected global::System.Web.UI.WebControls.TextBox montoMaximo;
         
         /// <summary>
-        /// Control radioRol.
+        /// Control materialesCB.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton radioRol;
-        
-        /// <summary>
-        /// Control radioRol2.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton radioRol2;
+        protected global::System.Web.UI.WebControls.CheckBoxList materialesCB;
         
         /// <summary>
         /// Control btnFiltrarModal.
@@ -103,15 +94,6 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.Button btnFiltrarModal;
         
         /// <summary>
-        /// Control UpdatePanel2.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel2;
-        
-        /// <summary>
         /// Control txtPalabra.
         /// </summary>
         /// <remarks>
@@ -119,15 +101,6 @@ namespace ProyectoAMCRL {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPalabra;
-        
-        /// <summary>
-        /// Control btnActualizar.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnActualizar;
         
         /// <summary>
         /// Control gridFacturas.

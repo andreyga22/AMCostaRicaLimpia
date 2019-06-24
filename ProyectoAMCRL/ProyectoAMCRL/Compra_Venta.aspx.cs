@@ -22,21 +22,30 @@ namespace ProyectoAMCRL
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
-            if (!IsPostBack) 
+            if (!IsPostBack)
             {
-                String modo = (String)Session["modo"];
-                cargarPantalla(modo);
+                String id = Convert.ToString(Session["idFactura"]);
+                if (!String.IsNullOrEmpty(id) || (!String.IsNullOrWhiteSpace(id)))
+                {
+                    detalles = new List<string>();
+                    desactivarCampos();
+                    //hacer enable false todos los espacios
+                    cargarFactura(id);
+                }
+                else
+                {
+                    String modo = (String)Session["modo"];
+                    cargarPantalla(modo);
 
-                //Se remueve la lista de detalles de la sesion en caso de que ya estuviera instanciada.
-                Session.Remove("listaDetallesC");
-                detalles = new List<string>();
-                manejadorU = new BLManejadorUnidades();
-                manejadorB = new BLManejadorBodega();
-               
-                //Estilo de espera para cuando se realiza la compra
-                btnGuardar.Attributes.Add("onclick", "document.body.style.cursor = 'wait';");
-                buscarSocioBTN.Attributes.Add("onclick", "document.body.style.cursor = 'wait';");
+                    //Se remueve la lista de detalles de la sesion en caso de que ya estuviera instanciada.
+                    Session.Remove("listaDetallesC");
+                    detalles = new List<string>();
+                    manejadorU = new BLManejadorUnidades();
+                    manejadorB = new BLManejadorBodega();
+
+                    //Estilo de espera para cuando se realiza la compra
+                    btnGuardar.Attributes.Add("onclick", "document.body.style.cursor = 'wait';");
+                    buscarSocioBTN.Attributes.Add("onclick", "document.body.style.cursor = 'wait';");
 
                 // Se cargan las unidades, bodegas, monedas y materiales existentes 
                 // (La seleccion de bodega debe especificar los materiales disponibles)
@@ -67,18 +76,32 @@ namespace ProyectoAMCRL
             }
         }
 
+        private void desactivarCampos()
+        {
+            identificacionTB.Enabled = false;
+            nombreLabel.Enabled = false;
+            labelDireccion.Enabled = false;
+            monedasDD.Enabled = false;
+            bodegasDrop.Enabled = false;
+            datepickerT.Enabled = false;
+
+            btnGuardar.Visible = false;
+        }
+        //}
         /*
          Se setea el texto de los labels de la pantalla 
          segun la operacion que se va a realizar (compra/venta)
         */
-        private void cargarPantalla(String modo) {
+        private void cargarPantalla(String modo)
+        {
 
             String textoBreadCrum1 = "Compra";
             String textoBreadCrum2 = "Registrar Compra";
             String textoDatoSocio = "Datos del proveedor";
             String textoDatoConsecutivo = "Compra #";
 
-            if (modo.Equals("venta")) {
+            if (modo.Equals("venta"))
+            {
                 textoBreadCrum1 = "Venta";
                 textoBreadCrum2 = "Registrar Venta";
                 textoDatoSocio = "Datos del cliente";
@@ -91,13 +114,57 @@ namespace ProyectoAMCRL
         }
 
 
-        private void cargarFactura(BLFactura factura)
+        private void cargarFactura(string id)
         {
-            //labelFecha.Text = infoArray[0];
-            //labelTipo.Text = infoArray[1];
-            //labelCantidad.Text = infoArray[2];
-            //labelMaterial.Text = infoArray[3];
-            //labelBodega.Text = infoArray[4];
+            BLManejadorFacturas manejFact = new BLManejadorFacturas();
+            BLManejadorMoneda manejMond = new BLManejadorMoneda();
+            BLManejadorSocios manejSocios = new BLManejadorSocios();
+            BLManejadorBodega manejBod = new BLManejadorBodega();
+
+            String tipoFact = "";
+            BLFactura blFactura = manejFact.buscarVentaID(Convert.ToInt32(id));
+
+            if (blFactura.tipo.Equals("V"))
+            {
+                tipoFact = "venta";
+            }
+            else
+            {
+                tipoFact = "compra";
+            }
+            cargarPantalla(tipoFact);
+            String tipoSocio = "";
+            if (tipoFact.Equals("venta"))
+            {
+                tipoSocio = "Cliente";
+            }
+            else
+            {
+                tipoSocio = "Proveedor";
+            }
+
+            BLSocioNegocio socio = manejSocios.buscarSocio(blFactura.cedula, tipoSocio);
+            List<BLDetalleFactura> detallesFactura = manejFact.listaDetalle(blFactura.cod_Factura);
+            foreach (BLDetalleFactura bl in detallesFactura)
+            {
+                String lineaDetalle = "";
+                lineaDetalle = bl.nombreMaterial + "&" +
+                bl.monto_Linea + "&" + bl.kilos_Linea + "&" + "KILOS";
+
+                detalles.Add(lineaDetalle);
+                pegarLineasTablaFacturaCargada();
+                labelAgregados.Text = detalles.Count().ToString();
+            }
+
+            identificacionTB.Text = blFactura.cedula;
+            nombreLabel.Text = blFactura.nombreCompleto;
+            labelDireccion.Text = socio.direccion.distrito + ", " + socio.direccion.canton;
+            //telefono cliente ?
+            monedasDD.Items.Add(manejMond.buscarMonedaId(blFactura.id_Moneda).detalleMoneda);
+            bodegasDrop.Items.Add(manejBod.consultarBodegaAdmin(blFactura.id_Bodega).nombre);
+            datepickerT.Text = blFactura.fecha.Day + "/" + blFactura.fecha.Month + "/" + blFactura.fecha.Year;
+            labelValorDatoConsecutivo.Text = Convert.ToString(blFactura.cod_Factura);
+            totalLabel.Text = Convert.ToString(blFactura.monto_Total);
 
         }
 
@@ -168,8 +235,8 @@ namespace ProyectoAMCRL
                 cantidad2TB.Style.Add("border-color", "transparent");
                 String lineaAjusteInfo = "";
                 Double precioEspecificado = String.IsNullOrEmpty(precioKg2TB.Value) ? 0 : Double.Parse(precioKg2TB.Value);
-                lineaAjusteInfo = materialDD.SelectedItem.Value+'#'+materialDD.SelectedItem.Text + "&" +
-                precioEspecificado + "&" + cantidad2TB.Value  + "&" + unidadDD.SelectedItem.Value + '#' + unidadDD.SelectedItem.Text;
+                lineaAjusteInfo = materialDD.SelectedItem.Value + '#' + materialDD.SelectedItem.Text + "&" +
+                precioEspecificado + "&" + cantidad2TB.Value + "&" + unidadDD.SelectedItem.Value + '#' + unidadDD.SelectedItem.Text;
                 detalles.Add(lineaAjusteInfo);
                 Session.Add("listaDetallesC", detalles);
                 pegarLineasTabla();
@@ -246,6 +313,36 @@ namespace ProyectoAMCRL
             tablaDetalles.DataBind();
         }
 
+        private void pegarLineasTablaFacturaCargada()
+        {
+            for (int i = 0; i < detalles.Count; i++)
+            {
+                String linea = detalles[i];
+
+                String[] lineaInfo = linea.Split('&');
+                TableCell productoCell = new TableCell();
+                TableCell precioKg = new TableCell();
+                TableCell cantidadCell = new TableCell();
+
+                TableCell unidadCell = new TableCell();
+                TableRow filaNueva = new TableRow();
+
+           
+                productoCell.Text = lineaInfo[0];
+                precioKg.Text = lineaInfo[1];
+                cantidadCell.Text = lineaInfo[2];
+                unidadCell.Text = lineaInfo[3];
+
+                filaNueva.Cells.Add(productoCell);
+                filaNueva.Cells.Add(precioKg);
+                filaNueva.Cells.Add(cantidadCell);
+                filaNueva.Cells.Add(unidadCell);
+                tablaDetalles.Rows.Add(filaNueva);
+            }
+            labelAgregados.Text = detalles.Count.ToString();
+            tablaDetalles.DataBind();
+        }
+
         /*
          Se borra el texto de la seccion para agreagar detalles
          */
@@ -259,7 +356,7 @@ namespace ProyectoAMCRL
 
         private void cargarMateriales(String idBodega)
         {
-            
+
             String nombreBodegaSeleccionada = bodegasDrop.SelectedItem.Text;
             manejadorM = new BLManejadorMateriales();
             materialDD.Items.Clear();
@@ -269,10 +366,10 @@ namespace ProyectoAMCRL
 
             DataSet materialesDS = manejadorM.listarMaterialesEnBodegaBL(idBodega);
 
-            if (materialesDS == null ||  materialesDS.Tables[0].Rows.Count == 0)
+            if (materialesDS == null || materialesDS.Tables[0].Rows.Count == 0)
             {
                 bodegasDrop.BorderColor = System.Drawing.Color.Red;
-                lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>" + "No existen materiales registrados para la bodega "+ nombreBodegaSeleccionada + "</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\" onclick=\"cerrarError()\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>" + "No existen materiales registrados para la bodega " + nombreBodegaSeleccionada + "</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\" onclick=\"cerrarError()\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                 lblError.Visible = true;
             }
             else
@@ -325,7 +422,7 @@ namespace ProyectoAMCRL
             {
                 ListItem moneda = new ListItem();
                 moneda.Text = Convert.ToString(dr["DETALLE_MONEDA"]);
-                moneda.Value = (Convert.ToString(dr["ID_MONEDA"]))+"#"+(Convert.ToString(dr["EQUIVALENCIA_COLON"]));
+                moneda.Value = (Convert.ToString(dr["ID_MONEDA"])) + "#" + (Convert.ToString(dr["EQUIVALENCIA_COLON"]));
                 monedasDD.Items.Add(moneda);
 
             }
@@ -375,8 +472,8 @@ namespace ProyectoAMCRL
                         labelDireccion.Text = socio.direccion.provincia + ", " + socio.direccion.canton
                         + ", " + socio.direccion.distrito;
 
-                    if(socio.contactos != null)
-                    labelTel.Text = socio.contactos.telefono_pers.ToString();
+                    if (socio.contactos != null)
+                        labelTel.Text = socio.contactos.telefono_pers.ToString();
 
                     pegarLineasTabla();
                 }
@@ -385,7 +482,7 @@ namespace ProyectoAMCRL
                     lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>" + tipoSocio +" no encontrado, intente de nuevo. " + "</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\" onclick=\"cerrarError()\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                     lblError.Visible = true;
                 }
-                
+
 
             }
             else {

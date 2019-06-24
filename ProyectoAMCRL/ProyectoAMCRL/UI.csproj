@@ -99,6 +99,7 @@
     <Content Include="images\compra.png" />
     <Content Include="images\facturas.png" />
     <Content Include="images\fondo.jpeg" />
+    <Content Include="images\fondo.jpg" />
     <Content Include="images\inventario.png" />
     <Content Include="images\logo.jpeg" />
     <Content Include="images\logo.png" />

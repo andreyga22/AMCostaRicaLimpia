@@ -4,10 +4,20 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using BL;
 
 namespace ProyectoAMCRL {
     public partial class MasterPrincipal : System.Web.UI.MasterPage {
         protected void Page_Load(object sender, EventArgs e) {
+            BLCuenta usuarioLogin = (BLCuenta)Session["cuentaLogin"];
+            if (usuarioLogin.rol.Equals("r"))
+            {
+                cuentasSubmenu2.Visible = false;
+            }
+            else
+            {
+                cuentasSubmenu2.Visible = true;
+            }
         }
 
         protected void contrasenaLb_Click(object sender, EventArgs e) {
