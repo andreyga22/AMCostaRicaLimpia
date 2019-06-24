@@ -88,7 +88,6 @@ namespace ProyectoAMCRL
             monedasDD.Enabled = false;
             bodegasDrop.Enabled = false;
             datepickerT.Enabled = false;
-
             btnGuardar.Visible = false;
         }
 
@@ -98,7 +97,6 @@ namespace ProyectoAMCRL
         */
         private void cargarPantalla(String modo)
         {
-
 
             String textoBreadCrum1 = "Compra";
             String textoBreadCrum2 = "Registrar Compra";

@@ -12,22 +12,25 @@ namespace BL
         public int idAjuste { get; set; }
         public DateTime fecha { get; set; }
         public String razon { get; set; }
-        public double peso { get; set; }
-        public int accion { get; set; }
-        public int id_stock { get; set; }
+        public String accion { get; set; }
+        public List<BLDetalleAjuste> detalles { get; set; }
 
-        public BLAjuste(DateTime fecha, int idAjuste, string razon, double peso, int accion, int id_stock)
+        public BLAjuste(DateTime fecha, int idAjuste, string razon, String accion, List<BLDetalleAjuste> detalles)
         {
             this.fecha = fecha;
             this.idAjuste = idAjuste;
             this.razon = razon;
-            this.peso = peso;
             this.accion = accion;
-            this.id_stock = id_stock;
+            this.detalles = detalles; 
         }
 
         public BLAjuste()
         {
+        }
+
+        public String traerFecha()
+        {
+            return fecha.Day + "/" + fecha.Month + "/" + fecha.Year;
         }
     }
 }

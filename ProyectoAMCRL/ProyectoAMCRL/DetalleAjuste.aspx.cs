@@ -14,7 +14,7 @@ namespace ProyectoAMCRL
     public partial class DetalleAjuste : System.Web.UI.Page
     {
 
-        private static List<String> detalles;
+        private static List<BLDetalleAjuste> detalles;
 
         BLManejadorMateriales manejadorM;
         BLManejadorUnidades manejadorU;
@@ -33,7 +33,7 @@ namespace ProyectoAMCRL
                 btnGuardar.Attributes.Add("onclick", "document.body.style.cursor = 'wait';");
 
                 Session.Remove("listaDetalles");//debe eliminar la lista de la sesion en caso de que ya estuviera instanciada
-                detalles = new List<string>();
+                detalles = new List<BLDetalleAjuste>();
 
                 cargarUnidadesBodegas();
                 cargarMateriales(bodegasDrop.Items[0].Value);
@@ -47,19 +47,21 @@ namespace ProyectoAMCRL
                     labelDatoConsecutivo.Visible = true;
                     labelDatoConsecutivoValor.Visible = true;
                     labelBreadCrumb.Text = "Vista de ajuste";
-                        String idAjuste = Request.QueryString.Get("view");
-                        //REMOVER EL PARAMETRO DEL URL
-                        borrarParametroURL("view");
-                        BLManejadorAjustes manejadorA = new BLManejadorAjustes();
-                        String ajusteInfo = manejadorA.buscarAjusteBL(idAjuste);
-                    if (!ajusteInfo.Equals("No encontrado") && !ajusteInfo.Equals("Error"))
+                    //id, bod : '-'
+                    String[] info = Request.QueryString.Get("view").Split('-');
+                    String idAjuste = info[0];
+                    String bodegaId = info[1];
+                    //REMOVER EL PARAMETRO DEL URL
+                    borrarParametroURL("view");
+                    BLManejadorAjustes manejadorA = new BLManejadorAjustes();
+                    BLAjuste ajuste = manejadorA.buscarAjusteBL(idAjuste);
+                    if ( ajuste != null)
                     {
-                        ajusteInfo += ("_" + idAjuste);
-                        cargarAjuste(ajusteInfo);
+                        cargarAjuste(ajuste, bodegaId);
                     }
                     else
                     {
-                        lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>" + ajusteInfo + "</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                        lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>" + "Error, por favor contácte con el administrador." + "</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                         lblError.Visible = true;
                     }
                     
@@ -71,7 +73,7 @@ namespace ProyectoAMCRL
                     Session.Add("listaDetalles", detalles);
                 else
                 {//ya existe la lista
-                    detalles = (List<String>)Session["listaDetalles"];
+                    detalles = (List<BLDetalleAjuste>)Session["listaDetalles"];
 
                     if (Request.QueryString.Get("del") != null)
                     {
@@ -87,10 +89,10 @@ namespace ProyectoAMCRL
             }
         }
 
-        private void cargarAjuste( String info)
+        private void cargarAjuste( BLAjuste ajuste, String idBodega)
         {
 
-           
+            cargarUnidadesBodegas();
             materialDD.Visible = false;
             cantidadTB.Visible = false;
             unidadDD.Visible = false;
@@ -99,31 +101,36 @@ namespace ProyectoAMCRL
             labelAgregados.Visible = false;
             agregadosTextLabel.Visible = false;
             Color color = Color.LightYellow;
-            //fecha, movimiento, peso, nombreMaterial, nombreBodega, razon
-            String[] infoArray = info.Split('_');
 
-            String[] fechaInfo = infoArray[0].Split(' ');
+            detalles = ajuste.detalles;
 
-            datepickerTB.Text = fechaInfo[0];
+            datepickerTB.Text = ajuste.traerFecha();
             datepickerTB.Enabled = false;
             datepickerTB.BackColor = color;
             datepickerTB.CssClass = "form-control font-weight-bolder";
 
-            if (infoArray[1].Equals("ENTRADA"))
+            if (ajuste.accion.Equals("ENTRADA"))
                 radioAccion.Items[0].Selected = true;
             else
                 radioAccion.Items[1].Selected = true;
 
             radioAccion.Enabled = false;
 
-            labelDatoConsecutivoValor.Text = infoArray[6];
+            labelDatoConsecutivoValor.Text = ajuste.idAjuste.ToString();
 
-            bodegasDrop.Text = infoArray[4];
+            for (int i = 0; i < bodegasDrop.Items.Count; i++) {
+                if (bodegasDrop.Items[i].Value.Contains(idBodega))
+                {
+                    bodegasDrop.Items[i].Selected = true;
+                    break;
+                }
+            }
+
             bodegasDrop.Enabled = false;
             bodegasDrop.BackColor = color;
             bodegasDrop.CssClass = "btn btn-light btn-sm dropdown-toggle dropup";
 
-            razonTb.Text = infoArray[5];
+            razonTb.Text = ajuste.razon;
             razonTb.Enabled = false;
             razonTb.BackColor = color;
             razonTb.CssClass = "form-control";
@@ -132,18 +139,22 @@ namespace ProyectoAMCRL
             fila0EncabezadoT2.Visible = false;
             fila0Encabezado2.Visible = true;
 
-            TableCell productoCell = new TableCell();
-            TableCell cantidadCell = new TableCell();
-            TableCell unidadCell = new TableCell();
-            productoCell.Text = infoArray[3];
-            cantidadCell.Text = infoArray[2];
-            unidadCell.Text = "Kg";
-            TableRow filaNueva = new TableRow();
-            filaNueva.Cells.Add(productoCell);
-            filaNueva.Cells.Add(cantidadCell);
-            filaNueva.Cells.Add(unidadCell);
 
-            tablaDetalles.Rows.Add(filaNueva);
+            foreach (BLDetalleAjuste a in ajuste.detalles) {
+
+                TableCell productoCell = new TableCell();
+                TableCell cantidadCell = new TableCell();
+                TableCell unidadCell = new TableCell();
+                productoCell.Text = a.id_Material;
+                cantidadCell.Text = a.kilos_Linea.ToString();
+                unidadCell.Text =a.unidadMedida;
+                TableRow filaNueva = new TableRow();
+                filaNueva.Cells.Add(productoCell);
+                filaNueva.Cells.Add(cantidadCell);
+                filaNueva.Cells.Add(unidadCell);
+
+                tablaDetalles.Rows.Add(filaNueva);
+            }
             tablaDetalles.DataBind();
 
         }
@@ -162,17 +173,14 @@ namespace ProyectoAMCRL
                 {
                     String m = "";
                     //id_bod, peso, material, unidad, accion, razon
-                    String[] materialInfo = materialDD.SelectedItem.Value.Split('-');
-                    String idMaterial = materialInfo[0];
-                    String idStockMaterial = materialInfo[1];
 
                     BLManejadorAjustes manejadorA = new BLManejadorAjustes();
-                    m = manejadorA.registrarAjusteBL(bodegasDrop.SelectedItem.Value, idMaterial, idStockMaterial, cantidadTB.Text, unidadDD.SelectedItem.Value, radioAccion.SelectedItem.Value, razonTb.Text);
+                    m = manejadorA.registrarAjusteBL(bodegasDrop.SelectedItem.Value, radioAccion.SelectedItem.Value, razonTb.Text, detalles, datepickerTB.Text);
 
-                    if (m.Equals("Operación efectuada correctamente"))
+                    if (m.Equals("Ajuste realizado correctamente"))
                     {
                         Session.Remove("listaDetalles");
-                        detalles = new List<string>();
+                        detalles = new List<BLDetalleAjuste>();
                         lblError.Text = "<br /><br /><div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>" + m + "</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                         lblError.Visible = true;
                     }
@@ -197,13 +205,20 @@ namespace ProyectoAMCRL
             if (!cantidadTB.Text.Contains("-") && !(String.IsNullOrEmpty(cantidadTB.Text)) )
             {
                 cantidadTB.BorderColor = System.Drawing.Color.Transparent;
-                String lineaAjusteInfo = "";
-                lineaAjusteInfo = materialDD.SelectedItem.Text + "&" +
-                cantidadTB.Text + "&" + unidadDD.SelectedItem.Text;
-                detalles.Add(lineaAjusteInfo);
+
+                String[] materialInfo = materialDD.SelectedItem.Value.Split('*');
+                String idMaterial = materialInfo[0];
+                int idStockMaterial = Int32.Parse(materialInfo[2]);
+                //String claveNombreM = idMaterial + "&" + materialDD.SelectedItem.Text;
+                Double cantidad = Double.Parse(cantidadTB.Text);
+                String unidadPesoClave = unidadDD.SelectedItem.Value;
+
+                BLDetalleAjuste lineaA = new BLDetalleAjuste(materialDD.SelectedItem.Value, idStockMaterial, cantidad, unidadPesoClave);
+                detalles.Add(lineaA);
                 Session.Add("listaDetalles", detalles);
                 pegarLineasTabla();
                 labelAgregados.Text = detalles.Count().ToString();
+                refrescarDatos();
             }
             else {
                 pegarLineasTabla();
@@ -212,6 +227,7 @@ namespace ProyectoAMCRL
                 lblError.Visible = true;
             }    
         }
+
 
         private void removerDetalle(int index)
         {
@@ -226,9 +242,8 @@ namespace ProyectoAMCRL
         {
 
             for (int i = 0; i < detalles.Count; i++) {
-                String linea = detalles[i];
+                BLDetalleAjuste linea = detalles[i];
 
-                String[] lineaInfo = linea.Split('&');
                 TableCell productoCell = new TableCell();
                 TableCell cantidadCell = new TableCell();
                 TableCell unidadCell = new TableCell();
@@ -236,9 +251,15 @@ namespace ProyectoAMCRL
                 TableCell quitarFilaCampo = new TableCell();
                 TableRow filaNueva = new TableRow();
 
-                productoCell.Text = lineaInfo[0];
-                cantidadCell.Text = lineaInfo[1];
-                unidadCell.Text = lineaInfo[2];
+                String[] materialInfo = linea.id_Material.Split('*');
+                String nombreMaterial = materialInfo[1];
+
+                String[] unidadInfo = linea.unidadMedida.Split('*');
+                String nombreUnidad = unidadInfo[1];
+
+                productoCell.Text = nombreMaterial;
+                cantidadCell.Text = linea.kilos_Linea.ToString();
+                unidadCell.Text = nombreUnidad;
 
                 LinkButton btn = new LinkButton();
                 btn.PostBackUrl = "DetalleAjuste.aspx?del="+(i);
@@ -270,7 +291,7 @@ namespace ProyectoAMCRL
             String nombreBodegaSeleccionada = bodegasDrop.SelectedItem.Text;
             manejadorM = new BLManejadorMateriales();
             materialDD.Items.Clear();
-            detalles = new List<string>();
+            detalles = new List<BLDetalleAjuste>();
             Session.Add("listaDetallesC", detalles);
             pegarLineasTabla();
 
@@ -293,7 +314,7 @@ namespace ProyectoAMCRL
                     String nombre = Convert.ToString(dr["NOMBRE_MATERIAL"]);
                     String id_stock = Convert.ToString(dr["ID_STOCK"]);
                     item.Text = nombre;
-                    item.Value = codigo + "-" + id_stock;
+                    item.Value = codigo + "*" + nombre + "*" + id_stock;
                     materialDD.Items.Add(item);
                 }
             }
@@ -310,7 +331,7 @@ namespace ProyectoAMCRL
                 String codigo = Convert.ToString(dr["COD_UNIDAD"]);
                 String nombre = Convert.ToString(dr["NOMBRE_UNIDAD"]);
                 String equiv = Convert.ToString(dr["EQUIVALENCIA_KG"]);
-                String infoUnidad = codigo + "*" + equiv;
+                String infoUnidad = codigo + "*" + nombre + "*" + equiv;
 
                 ListItem item = new ListItem(nombre, infoUnidad);
                 unidadDD.Items.Add(item);
