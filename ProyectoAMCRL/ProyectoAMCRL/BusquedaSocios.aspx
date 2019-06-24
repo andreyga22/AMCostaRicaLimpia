@@ -5,35 +5,16 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <link href="ownStyles.css" rel="stylesheet" />
     <script>
-        $(document).ready(function () {
-            $("#montosCb").click(function () {
-                if (document.getElementById("montosCb").checked == true) {
-                    $("#divMontos").show();
-                } else {
-                    $("#divMontos").hide();
-                }
-            });
-        });
 
-        $(document).ready(function () {
-            $("#materialesCb").click(function () {
-                if (document.getElementById("materialesCb").checked == true) {
-                    $("#divMateriales").show();
+        <%-- $(document).ready(function () {
+            $("#nombreCb").click(function () {
+                if (document.getElementById("nombreCb").checked == true) {
+                    $("#divNombre").show();
                 } else {
-                    $("#divMateriales").hide();
+                    $("#divNombre").hide();
                 }
             });
-        });
-
-        $(document).ready(function () {
-            $("#ubicacionCb").click(function () {
-                if (document.getElementById("ubicacionCb").checked == true) {
-                    $("#divUbicaciones").show();
-                } else {
-                    $("#divUbicaciones").hide();
-                }
-            });
-        });
+        });--%>
 
         $(document).ready(function () {
             $("#rolCb").click(function () {
@@ -52,9 +33,7 @@
         });
 
         function ocultarFiltros() {
-            $("#divMontos").hide();
-            $("#divMateriales").hide();
-            $("#divUbicaciones").hide();
+            <%--$("#divNombre").hide();--%>
             $(".rolDiv").hide();
 
         }
@@ -77,64 +56,77 @@
         <div class="row">
             <h4 class="font-weight-bold">Búsqueda de socios</h4>
         </div>
+    <br />
+
+        <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#filtros">
+            Filtros
+        </button>
+
         <br>
         <%-- SECCION 1 FILTROS--%>
-        <div class="row">
-            <h5>Seleccione uno o más filtros:</h5>
-        </div>
-        <div class="row" id="barraFiltros">
-            <%--  <div class="col-lg-2" style="background-color:lightgrey">
-                    <label for="palabraTb">Palabra Clave</label>
-                    <asp:TextBox type="text" ID="palabraTb" class="form-control" runat="server" TextMode="SingleLine" placeholder="Código o nombre">
-                    </asp:TextBox>
-                </div>--%>
-            <%-- FILTRO MONTOS --%>
-            <div class="filtroCell col-lg-3">
-                <label>
-                    <input class="form-check-input" type="checkbox" id="montosCb" value="">Monto en facturas</label>
-                <div class="row" id="divMontos">
-                    <asp:TextBox ID="montoMinimo" Height="30px" runat="server" type="number" CssClass="btn btn-light" Width="90%" placeholder="Máximo" />
-                    <asp:TextBox ID="montoMax" Height="30px" runat="server" type="number" CssClass="btn btn-light" Width="90%" placeholder="Mínimo" />
-                </div>
-            </div>
-            <%-- FILTRO MATERIALES --%>
-            <div class="col-lg-3 filtroCell">
-                <div class="form-group">
-                    <label>
-                        <input class="form-check-input" type="checkbox" id="materialesCb" value="">Material</label>
-                    <div class="row" id="divMateriales">
-                        <asp:DropDownList class="btn btn-light" Height="40px" ID="materialDd" runat="server" Width="90%" AutoPostBack="false">
-                            <asp:ListItem>Aluminio</asp:ListItem>
-                            <asp:ListItem>Cobre</asp:ListItem>
-                            <asp:ListItem>Hierro</asp:ListItem>
-                        </asp:DropDownList>
+
+                <!-- Modal -->
+            <div class="container">
+        <div class="modal fade" id="filtros" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Filtros</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row" id="barraFiltros">
+
+                             <%--FILTRO NOMBRE--%>
+                             <%--<div class="col-lg-6 filtroCell">
+
+                                <strong>
+                                    <input class="form-check-input" type="checkbox" id="nombreCb" value="" font-weight: bold>Nombre</strong>
+                                <br />
+
+                                <div class="row" id="divNombre">
+                                    <p>
+                                        Nombre:
+        <input type="text" id="nombretb" runat="server" clientidmode="Static" />
+                                    </p>
+
+                                </div>
+                            </div>--%>
+
+                             <%--FILTRO ROL--%>
+                            <div class="col-lg-6 filtroCell">
+                                <strong>
+                                    <input class="form-check-input" type="checkbox" id="rolCb" font-weight: bold value="">Tipo</strong>
+                                <div style="width: 100%" class="rolDiv">
+                                    <asp:RadioButton ID="radioRol" GroupName="MeasurementSystem" runat="server" Text="Cliente" />
+                                </div>
+                                <div style="width: 100%" class="rolDiv">
+                                    <asp:RadioButton ID="radioRol2" GroupName="MeasurementSystem" runat="server" Text="Proveedor" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <%--<button type="button" class="btn btn-primary">Filtrar</button>--%>
+                         <asp:Button ID="btnFiltrarModal" type="submit" runat="server" Text="Filtrar" class="btn btn-primary" OnClick="btnFiltrar_Click" />
                     </div>
                 </div>
             </div>
-            <%-- FILTRO UBICACION --%>
-            <div class="col-lg-3 filtroCell">
-                <label>
-                    <input class="form-check-input" type="checkbox" id="ubicacionCb" value="">Ubicacion</label>
-                <div class="row" id="divUbicaciones">
-                    <asp:TextBox class="form-control" ID="TextBox1" runat="server" Width="90%" Height="30px" type="text" CssClass="btn btn-light" placeholder="Provincia" />
-                    <asp:TextBox class="form-control" ID="TextBox2" runat="server" Width="90%" type="text" Height="30px" CssClass="btn btn-light" placeholder="Cantón" />
-                    <asp:TextBox class="form-control" ID="TextBox3" runat="server" Width="90%" type="text" Height="30px" CssClass="btn btn-light" placeholder="Distrito" />
-                </div>
-            </div>
-            <%-- FILTRO ROL --%>
-            <div class="col-lg-3 filtroCell">
-                <label>
-                    <input class="form-check-input" type="checkbox" id="rolCb" value="">Rol</label>
-                <div style="width: 100%" class="rolDiv">
-                    <asp:RadioButton GroupName="MeasurementSystem" runat="server" Text="PROVEEDOR" />
-                </div>
-                <div style="width: 100%" class="rolDiv">
-                    <asp:RadioButton GroupName="MeasurementSystem" runat="server" Text="CLIENTE" />
-                </div>
-            </div>
         </div>
-        <div class="row justify-content-center">
-            <asp:Button ID="btnActualizar" type="submit" runat="server" Text="Actualizar búsqueda" class="btn btn-outline-secondary" OnClick="btnActualizar_Click" />
+         </div>
+         <div class="row justify-content-center">
+            <div class="col-3 offset-7">
+                <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                    <ContentTemplate>
+         <asp:TextBox type="text" ID="txtPalabra" class="form-control" runat="server" TextMode="SingleLine" placeholder="Buscar" AutoPostBack="True" OnKeyDown="txt_Item_Number_KeyDown" OnDataBinding="palabraTb_TextChanged" OnTextChanged="palabraTb_TextChanged"></asp:TextBox>
+                        </ContentTemplate>
+                </asp:UpdatePanel>
+            </div>
+            <div class="col-1">
+        <asp:Button ID="actualizarBtn" type="submit" runat="server" class="btn btn-outline-secondary" OnClick="actualizarBtn_Click" Text="Actualizar búsqueda" />
         </div>
         <br />
         <%-- SECCION 2 --%>
@@ -151,4 +143,5 @@
             </div>
         </div>
     </div>
+        </div>
 </asp:Content>
