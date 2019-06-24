@@ -172,10 +172,10 @@
         <table class="table table-bordered table-sm" id="tablaAjustes">
             <thead class="tabla_encabezado">
                 <tr>
-                    <%--fecha, peso, movimiento, stock--%>
+                    <%--fecha, # de Materiales, movimiento, stock--%>
                     <th scope="col" style="width: 100px;">Consecutivo</th>
                     <th scope="col">Fecha</th>
-                    <th scope="col">Peso</th>
+                    <%--<th scope="col"># de Materiales</th>--%>
                     <th scope="col">Bodega</th>
                     <th scope="col">Tipo</th>
                 </tr>

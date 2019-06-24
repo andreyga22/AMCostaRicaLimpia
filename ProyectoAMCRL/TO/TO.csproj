@@ -53,6 +53,7 @@
     <Compile Include="TOMoneda.cs" />
     <Compile Include="TOSocioNegocio.cs" />
     <Compile Include="TOFactura.cs" />
+    <Compile Include="TOUnidad.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

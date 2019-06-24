@@ -45,7 +45,7 @@
     <br />
     <!-- Modal -->
     <div class="container">
-
+        
         <!-- Trigger the modal with a button -->
         <button type="button" class="btn btn-light btn-sm" data-toggle="modal" data-target="#myModal">Filtrar</button>
 

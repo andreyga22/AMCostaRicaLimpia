@@ -53,11 +53,11 @@ namespace ProyectoAMCRL
                 String codigo = Convert.ToString(dr["COD_MATERIAL"]);
                 String nombre = Convert.ToString(dr["NOMBRE_MATERIAL"]);
                 String precio = Convert.ToString(dr["PRECIO_KILO"]);
-
+                String comilla = "\"";
 
                 String infoBTN = codigo + "."+ nombre + '.' + precio;
                 String btnHTML = "<input id='"+ infoBTN + "' type='button' class='btn btn-sm btn-link' value='Editar'>";
-                String filaHTML = "<tr  onclick='abrirDetalleClick("+ codigo + ")' >" +
+                String filaHTML = "<tr  onclick= 'abrirDetalleClick("+ comilla + codigo + comilla + ")' >" +
                 "<td>"+codigo+"</td>" +
                 "<td>"+ nombre + "</td>" +
                 "<td>"+ precio + "</td >" +
@@ -66,6 +66,8 @@ namespace ProyectoAMCRL
             }
             tablaPlaceHolder.Controls.Add(new Literal { Text = cuerpoTablaHTML.ToString() });
             tablaPlaceHolder.DataBind();
+
+            
         }
 
         /*

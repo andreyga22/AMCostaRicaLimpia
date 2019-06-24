@@ -302,11 +302,17 @@ namespace ProyectoAMCRL
 
         private void cargarUnidadesBodegas()
         {
-            List<BLUnidad> unidades = manejadorU.unidades;
+            DataSet unidades = manejadorU.listarUnidades();
 
-            foreach (BLUnidad u in unidades)
+            foreach (DataRow dr in unidades.Tables[0].Rows)
             {
-                ListItem item = new ListItem(u.nombre, u.equivalencia.ToString());
+                // COD_UNIDAD, NOMBRE_UNIDAD 
+                String codigo = Convert.ToString(dr["COD_UNIDAD"]);
+                String nombre = Convert.ToString(dr["NOMBRE_UNIDAD"]);
+                String equiv = Convert.ToString(dr["EQUIVALENCIA_KG"]);
+                String infoUnidad = codigo + "*" + equiv;
+
+                ListItem item = new ListItem(nombre, infoUnidad);
                 unidadDD.Items.Add(item);
             }
 

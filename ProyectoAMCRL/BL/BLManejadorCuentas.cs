@@ -34,6 +34,14 @@ namespace BL {
             }
         }
 
+        public void restaurarContra(string id, String nueva) {
+            try {
+                new DAOCuentas().restaurarContra(id, nueva);
+            } catch(Exception) {
+                throw;
+            }
+        }
+
         public Boolean consultarContra(string id, string vieja) {
             try {
                return  new DAOCuentas().consultarContra(id, vieja);

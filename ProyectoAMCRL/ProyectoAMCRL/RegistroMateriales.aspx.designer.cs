@@ -49,6 +49,15 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.HiddenField escondidillo;
         
         /// <summary>
+        /// codigoMTB control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox codigoMTB;
+        
+        /// <summary>
         /// nombreTB control.
         /// </summary>
         /// <remarks>
@@ -65,6 +74,15 @@ namespace ProyectoAMCRL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox precioKgTB;
+        
+        /// <summary>
+        /// unidadDD control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList unidadDD;
         
         /// <summary>
         /// btnGuardarActualizar control.

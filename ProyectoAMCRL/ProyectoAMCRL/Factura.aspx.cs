@@ -32,9 +32,9 @@ namespace ProyectoAMCRL
                     lblTitulo.Text = "Factura de Compra";
                 }
 
-                List<BLDetalleFactura> listDetalle = new BLManejadorFacturas().listaDetalle(id);
+                //List<BLDetalleFactura> listDetalle = new BLManejadorFacturas().listaDetalle(id);
 
-                gridDetalle.DataSource = listDetalle;
+                //gridDetalle.DataSource = listDetalle;
 
                 gridDetalle.DataBind();
                 gridDetalle.HeaderRow.Cells[0].Text = "Código Línea";

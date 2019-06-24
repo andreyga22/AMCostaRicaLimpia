@@ -17,8 +17,9 @@ namespace DAO
         public DataSet listarAjustesDAO()
         {
             
-            String sql = "SELECT [ID_AJUSTE],(convert(varchar, [Fecha_Ajuste], 103)) as Fecha_Ajuste, [RAZON], [PESO_AJUSTE], [MOVIMIENTO_A], a.[ID_STOCK], s.[ID_BODEGA]  FROM AJUSTE a " +
-            "inner join STOCK s on (a.ID_STOCK = s.ID_STOCK and s.ID_BODEGA = @id_bodega) ORDER BY Fecha_Ajuste DESC; "; 
+            String sql = "select a.ID_AJUSTE, (convert(varchar, [Fecha_Ajuste], 103)) as Fecha_Ajuste, a.RAZON, a.MOVIMIENTO_A, s.ID_BODEGA  from AJUSTE a "+
+            " inner join AJUSTE_STOCK ajs on(a.ID_AJUSTE = ajs.ID_AJUSTE) "+
+            " inner join STOCK s on(a.ID_AJUSTE = ajs.ID_AJUSTE and ajs.ID_STOCK = s.ID_STOCK) ORDER BY Fecha_Ajuste DESC; "; 
             SqlCommand cmd = new SqlCommand(sql, conexion);
             cmd.Parameters.AddWithValue("@id_bodega", "B01");//cambiar el id de la bodega a parametro
             SqlDataAdapter sda = new SqlDataAdapter(cmd);

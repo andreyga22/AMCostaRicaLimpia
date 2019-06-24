@@ -30,7 +30,7 @@ namespace DAO
 
             DateTime fecha = new DateTime(anio, mes, dia);
             Double montoTotal = totalFacturaColones;
-            char operacion = (tipo.Equals('c') ? '-' : '+');
+            char operacion = (tipo.Equals('v') ? '-' : '+');
 
             //TRANSACCION
             using (conexion)
@@ -76,7 +76,7 @@ namespace DAO
 
                     //REGISTRAR DETALLES   (?)bloquear materiales(?)
                     foreach (var detalle in detalles)
-                        sqlDetalles += "(" + codCompra + "," + detalle.cod_Material + "," + detalle.kilos_Linea + "," + detalle.monto_Linea + "),";
+                        sqlDetalles += "(" + codCompra + ", '" + detalle.cod_Material + "'," + detalle.kilos_Linea + "," + detalle.monto_Linea + "),";
 
                     sqlDetalles = sqlDetalles.Remove(sqlDetalles.Length - 1);
                     sqlDetalles += ";";
@@ -90,8 +90,8 @@ namespace DAO
 
                     foreach (var detalle in detalles)
                     {
-                        sqlUpdateParte1 += "WHEN COD_MATERIAL = " + detalle.cod_Material +
-                        " THEN (KILOS_STOCK " + operacion + " " + detalle.kilos_Linea + ") ";
+                        sqlUpdateParte1 += "WHEN COD_MATERIAL = '" + detalle.cod_Material +
+                        "' THEN (KILOS_STOCK " + operacion + " " + detalle.kilos_Linea + ") ";
 
                         sqlUpdateParte2 += detalle.cod_Material + ",";
                     }
@@ -101,16 +101,24 @@ namespace DAO
                     sqlSumarStock = sqlUpdateParte1 + " END " + sqlUpdateParte2;
                     command.Parameters.AddWithValue("@ID_BOD", idBodega);
                     command.CommandText = sqlSumarStock;
-                    command.ExecuteNonQuery();
 
+
+
+                    //puede tirar excepcion del trigger
+                        command.ExecuteNonQuery();
+                    
+                    
+                    
                     //COMMIT A LA TRANSACCION
                     transaction.Commit();
                     return "SUCCCES";
                 }
                 catch (Exception ex)
                 {
-
-                    m = "Ocurrió un error en la operación, contacte al administrador. Error: " + ex.Source;
+                    String mensaje = ex.Message;
+                    String[] mensajeArray = mensaje.Split('*');
+                    mensaje = mensajeArray[0].Remove(mensajeArray[0].Length - 2);
+                    m = mensaje;
 
                     try
                     {
@@ -363,7 +371,7 @@ namespace DAO
 
 
         //lista de detalles de una factura
-        public List<TODetalleFactura> listaDetalle(String idFactura)
+        public List<TODetalleFactura> listaDetalle(int idFactura)
         {
             try
             {
@@ -387,7 +395,7 @@ namespace DAO
                     TODetalleFactura detVenta = new TODetalleFactura();
                     detVenta.cod_Linea = Convert.ToInt16(table.Rows[x]["COD_LINEA"]);
                     detVenta.cod_Factura = Convert.ToInt16(table.Rows[x]["COD_FACTURA"]);
-                    detVenta.cod_Material = Convert.ToInt16(table.Rows[x]["COD_MATERIAL"]);
+                    //detVenta.cod_Material = Convert.ToInt16(table.Rows[x]["COD_MATERIAL"]);
                     detVenta.nombreMaterial = Convert.ToString(table.Rows[x]["NOMBRE_MATERIAL"]);
                     detVenta.monto_Linea = Convert.ToDouble(table.Rows[x]["MONTO_LINEA"]);
                     detVenta.kilos_Linea = Convert.ToDouble(table.Rows[x]["KILOS"]);

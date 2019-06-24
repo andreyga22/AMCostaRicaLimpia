@@ -19,18 +19,19 @@
             <%--<div class="form-group">--%>
                 <h4>Administrar Cuentas de Usuario</h4>
             <%--</div>--%>
-        <%--</div>--%>
+        <%--</div>--%><br />
         <div class="row justify-content-center">
-            <div class="col-3 offset-7">
+            <div class="col-2">
+                <asp:Button ID="btnAgregar" runat="server" Text="Nuevo" class="btn btn-info" OnKeyDown="" OnClick="btnAgregar_Click" />
+            </div>
+            <div class="offset-7 col-3">
                 <asp:UpdatePanel ID="UpdatePanel2" runat="server">
                     <ContentTemplate>
                         <asp:TextBox type="text" ID="palabraTb" class="form-control" runat="server" TextMode="SingleLine" placeholder="Buscar" OnTextChanged="palabraTb_TextChanged" AutoPostBack="true" OnKeyDown="txt_Item_Number_KeyDown"></asp:TextBox>
                     </ContentTemplate>
                 </asp:UpdatePanel>
             </div>
-            <div class="col-1">
-                <asp:Button ID="btnAgregar" runat="server" Text="Nuevo" class="btn btn-info" OnKeyDown="" Width="180%" OnClick="btnAgregar_Click" />
-            </div>
+            
         </div>
         <br />
 

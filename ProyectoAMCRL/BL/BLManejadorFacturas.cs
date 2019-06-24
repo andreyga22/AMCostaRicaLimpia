@@ -44,7 +44,7 @@ namespace BL
             return convert(to);
         }
 
-        public List<BLDetalleFactura> listaDetalle(String id)
+        public List<BLDetalleFactura> listaDetalle(int id)
         {
             try
             {
@@ -134,12 +134,6 @@ namespace BL
             }
         }
 
-
-
-
-
-
-
         public BLFactura convert(TOFactura to)
         {
             return new BLFactura(to.cod_Factura, to.cedula, to.id_Bodega, to.id_Moneda, to.monto_Total, to.tipo, to.fecha, to.nombreCompleto);
@@ -224,14 +218,13 @@ namespace BL
                 //[0]material; [2]precioKilo; [3]cantidad; [4]unidad; 
                 String[] materialInfo = infoLinea[0].Split('#');
                 String[] idANDstock = materialInfo[0].Split('-'); 
-                detalleTO.cod_Material = Int32.Parse(idANDstock[0]);
-                String[] infoUnidad = infoLinea[3].Split('#');
-                double equivalencia = 0;
+                detalleTO.cod_Material = idANDstock[0];
 
-                if (infoUnidad[1].Equals("UNIDAD"))
-                    equivalencia = 1;
-                else
-                    equivalencia = Int32.Parse(infoUnidad[0]);
+                String[] infoUnidad = infoLinea[3].Split('#');
+                String[] codUnidadInfo = infoUnidad[0].Split('*');
+                String codUnidad = codUnidadInfo[0];
+                double equivalencia = Double.Parse(codUnidadInfo[1]);
+
 
                 //  cantidad                *   equivalencia en kilos
                 double kilosLinea = (Int32.Parse(infoLinea[2]) * equivalencia);

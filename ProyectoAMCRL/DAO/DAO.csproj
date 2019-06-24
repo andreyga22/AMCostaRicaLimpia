@@ -72,6 +72,7 @@
     <Compile Include="DAOManejadorMoneda.cs" />
     <Compile Include="DAOManejadorSocios.cs" />
     <Compile Include="DAOManejadorFacturas.cs" />
+    <Compile Include="DAOManejadorUnidades.cs" />
     <Compile Include="DETALLE_COMPRA.cs">
       <DependentUpon>ModeloAMCRL.tt</DependentUpon>
     </Compile>
