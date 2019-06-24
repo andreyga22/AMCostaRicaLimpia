@@ -25,7 +25,7 @@ namespace ProyectoAMCRL {
             if(cuenta != null) {
                 if(cuenta.estado) {
                     Session["cuentaLogin"] = cuenta;
-                    Response.Redirect("AdministrarCuentas.aspx");
+                    Response.Redirect("Principal.aspx");
                 } else {
                     lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> Su cuenta se encuentra deshabilitada. Contacte con un administrador del sistema.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                     lblError.Visible = true;

@@ -23,7 +23,7 @@
                         <a href="BusquedaSocios.aspx" class="card-link text-primary">Búsqueda de Socios</a>
                     </div>
                 </div>
-            </div>
+            </div> 
 
             <div class="col-lg-4">
                 <div class="card bg-light" style="width: 18rem; height: 14rem;">
