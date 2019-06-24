@@ -161,7 +161,11 @@ namespace ProyectoAMCRL
             labelDireccion.Text = socio.direccion.distrito + ", " + socio.direccion.canton;
             //telefono cliente ?
             monedasDD.Items.Add(manejMond.buscarMonedaId(blFactura.id_Moneda).detalleMoneda);
+            monedasDD.CssClass = "btn btn-light dropdown-toggle";
+            
             bodegasDrop.Items.Add(manejBod.consultarBodegaAdmin(blFactura.id_Bodega).nombre);
+            bodegasDrop.CssClass = "btn btn-light dropdown-toggle";
+
             datepickerT.Text = blFactura.fecha.Day + "/" + blFactura.fecha.Month + "/" + blFactura.fecha.Year;
             labelValorDatoConsecutivo.Text = Convert.ToString(blFactura.cod_Factura);
             totalLabel.Text = Convert.ToString(blFactura.monto_Total);
