@@ -29,7 +29,6 @@ namespace ProyectoAMCRL
                 {
                     detalles = new List<string>();
                     desactivarCampos();
-                    //hacer enable false todos los espacios
                     cargarFactura(id);
                 }
                 else
@@ -77,6 +76,10 @@ namespace ProyectoAMCRL
             }
         }
 
+        /*
+        Desactiva y coloca no visibles algunos espacios de la pantalla
+        para el modo de ver como factura ya realizada
+        */
         private void desactivarCampos()
         {
             identificacionTB.Enabled = false;
@@ -87,7 +90,7 @@ namespace ProyectoAMCRL
             datepickerT.Enabled = false;
             btnGuardar.Visible = false;
         }
-        //}
+
         /*
          Se setea el texto de los labels de la pantalla 
          segun la operacion que se va a realizar (compra/venta)
@@ -114,6 +117,12 @@ namespace ProyectoAMCRL
         }
 
 
+        /*
+         Carga la pantalla, como modo de vista únicamente, con una 
+         factura ya realizada
+         Entradas: 
+         id = identificador de la factura que se va a mostrar en la pantalla
+        */
         private void cargarFactura(string id)
         {
             BLManejadorFacturas manejFact = new BLManejadorFacturas();
@@ -179,10 +188,12 @@ namespace ProyectoAMCRL
             {
                 lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>No se han especificado detalles para la transacción, por favor intente de nuevo.</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\" onclick=\"cerrarError()\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                 lblError.Visible = true;
-            } else if (String.IsNullOrEmpty(nombreLabel.Text)) {
+            }
+            else if (String.IsNullOrEmpty(nombreLabel.Text))
+            {
                 String tipoSocio = labelBreadCrum1.Text.Equals("Compra") ? "Proveedor" : "Cliente";
                 pegarLineasTabla();
-                lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong> "+ tipoSocio + " no especificado, por favor intente de nuevo.</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\" onclick=\"cerrarError()\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong> " + tipoSocio + " no especificado, por favor intente de nuevo.</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\" onclick=\"cerrarError()\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                 lblError.Visible = true;
             }
             else
@@ -317,6 +328,11 @@ namespace ProyectoAMCRL
             tablaDetalles.DataBind();
         }
 
+
+        /*
+      Se agregan las líneas a la pantalla según los detalles en la lista, 
+      en el modo de ver factura realizada con anterioridad
+      */
         private void pegarLineasTablaFacturaCargada()
         {
             for (int i = 0; i < detalles.Count; i++)
@@ -331,7 +347,7 @@ namespace ProyectoAMCRL
                 TableCell unidadCell = new TableCell();
                 TableRow filaNueva = new TableRow();
 
-           
+
                 productoCell.Text = lineaInfo[0];
                 precioKg.Text = lineaInfo[1];
                 cantidadCell.Text = lineaInfo[2];
@@ -468,9 +484,9 @@ namespace ProyectoAMCRL
                 BLSocioNegocio socio = manejadorS.buscarSocio(id, tipoSocio);
                 if (socio != null)
                 {
-                   
 
-                    nombreLabel.Text = socio.nombre + " "+ socio.apellido1 + " "+ socio.apellido2;
+
+                    nombreLabel.Text = socio.nombre + " " + socio.apellido1 + " " + socio.apellido2;
 
                     if (socio.direccion != null)
                         labelDireccion.Text = socio.direccion.provincia + ", " + socio.direccion.canton
@@ -481,17 +497,19 @@ namespace ProyectoAMCRL
 
                     pegarLineasTabla();
                 }
-                else {
+                else
+                {
                     pegarLineasTabla();
-                    lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>" + tipoSocio +" no encontrado, intente de nuevo. " + "</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\" onclick=\"cerrarError()\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                    lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>" + tipoSocio + " no encontrado, intente de nuevo. " + "</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\" onclick=\"cerrarError()\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                     lblError.Visible = true;
                 }
 
 
             }
-            else {
+            else
+            {
                 pegarLineasTabla();
-                lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>" + "Ingrese una identificación válida e intente de nuevo. "  + "</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\" onclick=\"cerrarError()\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>" + "Ingrese una identificación válida e intente de nuevo. " + "</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\" onclick=\"cerrarError()\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                 lblError.Visible = true;
             }
         }

@@ -82,26 +82,40 @@ namespace BL
             }
         }
 
-        public List<BLFactura> listaRangoFecha(DateTime fecha1, DateTime fecha2)
+        public DataSet filtrarFacturas(string fechaInicio, string fechaFin, string tipo, string montoMaximo, string montoMinimo, List<string> materiales)
         {
-            DAOManejadorFacturas facturas = new DAOManejadorFacturas();
-            List<BLFactura> listaFiltradaFactTO = new List<BLFactura>();
-            List<TOFactura> listFacturas= facturas.lista_Facturas("");
-            if (listFacturas.Count > 0)
-            {
-                foreach (TOFactura factTO in listFacturas)
-                {
-                    factTO.fecha = new DateTime(factTO.fecha.Year, factTO.fecha.Month, factTO.fecha.Day);
-                    int resultado1 = DateTime.Compare(fecha1, factTO.fecha);
-                    int resultado2 = DateTime.Compare(fecha2, factTO.fecha);
-                    if (resultado1 <= 0 && resultado2 >= 0)
-                    {
-                        listaFiltradaFactTO.Add(convert(factTO));
-                    }
-                }
-            }
-            return listaFiltradaFactTO;
+            DAOManejadorFacturas manej = new DAOManejadorFacturas();
+            return manej.filtrarFacturasDAO(fechaInicio, fechaFin, tipo, montoMaximo, montoMinimo, materiales);
+            //List<BLFactura> listaBL = new List<BLFactura>();
+            //List<TOFactura> listaTO = manej.filtrarFacturasDAO(fechaInicio, fechaFin, tipo, montoMaximo, montoMinimo, materiales);
+            //foreach (TOFactura factura in listaTO)
+            //{
+            //    listaBL.Add(convert(factura));
+            //}
+            //return listaBL;
         }
+
+
+        //public List<BLFactura> listaRangoFecha(DateTime fecha1, DateTime fecha2)
+        //{
+        //    DAOManejadorFacturas facturas = new DAOManejadorFacturas();
+        //    List<BLFactura> listaFiltradaFactTO = new List<BLFactura>();
+        //    List<TOFactura> listFacturas= facturas.lista_Facturas("");
+        //    if (listFacturas.Count > 0)
+        //    {
+        //        foreach (TOFactura factTO in listFacturas)
+        //        {
+        //            factTO.fecha = new DateTime(factTO.fecha.Year, factTO.fecha.Month, factTO.fecha.Day);
+        //            int resultado1 = DateTime.Compare(fecha1, factTO.fecha);
+        //            int resultado2 = DateTime.Compare(fecha2, factTO.fecha);
+        //            if (resultado1 <= 0 && resultado2 >= 0)
+        //            {
+        //                listaFiltradaFactTO.Add(convert(factTO));
+        //            }
+        //        }
+        //    }
+        //    return listaFiltradaFactTO;
+        //}
 
         public DataTable buscar(string busqueda)
         {
