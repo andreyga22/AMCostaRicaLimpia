@@ -47,35 +47,21 @@ namespace ProyectoAMCRL {
                 {
                     //fecha, peso, movimiento, stock   12/20/2019 12:00:00 AM
                     String fechaInfo = Convert.ToString(dr["Fecha_Ajuste"]);
-
-
-                //String materiales = Convert.ToString(dr["MATERIALES"]);
-                String movimientoNumber = Convert.ToString(dr["MOVIMIENTO_A"]);
-                    String movimiento = "";
-                    switch (movimientoNumber)
-                    {
-                        case "1":
-                            movimiento = "ENTRADA";
-                            break;
-
-                        case "0":
-                            movimiento = "SALIDA";
-                            break;
-
-                    }
-
-
-                    String stock = Convert.ToString(dr["ID_STOCK"]);
                     String idAjuste = Convert.ToString(dr["ID_AJUSTE"]);
+                    String materiales = Convert.ToString(dr["MATERIALES"]);
+                    String movimientoNumber = Convert.ToString(dr["MOVIMIENTO_A"]);
+                    String movimiento = movimientoNumber.Equals("1")? "ENTRADA": "SALIDA";
                     String idBodega = Convert.ToString(dr["ID_BODEGA"]);
+                    String comilla = "\"";
+                    String parametro = idAjuste + "-" + idBodega; 
 
                     String btnHTML2 = "<a href='#' data-toggle='popover' data-placement='left' title='Detalle ajuste' data-html='true' data-content='Some content " + idAjuste + " popover'>Ver</a>";
-                    String idEncriptado = BLManejadorEncripcion.Encrypt(idAjuste);
+                    
                     String btnHTML = "<input id='" + idAjuste + "' type='button' class='btn btn-sm btn-link' value='" + idAjuste + "' >";
-                    String filaHTML = "<tr onclick='abrirDetalleClick(" + idAjuste + ")'>" +
+                    String filaHTML = "<tr onclick='abrirDetalleClick("+comilla + parametro + comilla+")'>" +
                     "<td>" + idAjuste + "</td>" +
                     "<td>" + fechaInfo + "</td>" +
-                    //"<td>" + materiales + "</td>" +
+                    "<td>" + materiales + "</td>" +
                     "<td>" + idBodega + "</td>" +
                     "<td>" + movimiento + "</td >" +
                     "</tr> ";

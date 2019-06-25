@@ -75,6 +75,7 @@ namespace DAO
                     codCompra = Convert.ToInt32(command.ExecuteScalar());
 
                     //REGISTRAR DETALLES   (?)bloquear materiales(?)
+                    
                     foreach (var detalle in detalles)
                         sqlDetalles += "(" + codCompra + ", '" + detalle.cod_Material + "'," + detalle.kilos_Linea + "," + detalle.monto_Linea + "),";
 
@@ -102,10 +103,8 @@ namespace DAO
                     command.Parameters.AddWithValue("@ID_BOD", idBodega);
                     command.CommandText = sqlSumarStock;
 
-
-
                     //puede tirar excepcion del trigger
-                        command.ExecuteNonQuery();
+                    command.ExecuteNonQuery();
                     
                     
                     
@@ -148,7 +147,7 @@ namespace DAO
                 try
                 {
                     List<TOFactura> lista = new List<TOFactura>();
-                    String sql = "Select v.COD_FACTURA, v.CEDULA, v.ID_BODEGA, v.ID_MONEDA, v.MONTO_TOTAL, v.FECHA_FACTURA, v.TIPO, s.NOMBRE, s.APELLIDO1, s.APELLIDO2 from FACTURA v, SOCIO_NEGOCIO s where v.CEDULA = s.CEDULA";
+                    String sql = "Select v.COD_FACTURA, v.ID_BODEGA, v.ID_MONEDA, v.CEDULA, v.MONTO_TOTAL, v.FECHA_FACTURA, v.TIPO, s.NOMBRE, s.APELLIDO1, s.APELLIDO2 from FACTURA v, SOCIO_NEGOCIO s where v.CEDULA = s.CEDULA";
                     SqlCommand cmdVenta = new SqlCommand(sql, conexion);
 
                     if (string.IsNullOrEmpty(busqueda) == false)
@@ -168,9 +167,9 @@ namespace DAO
                         {
                             TOFactura to = new TOFactura();
                             to.cod_Factura = (Int16)reader.GetDecimal(0);
-                            to.cedula = reader.GetString(1);
-                            to.id_Bodega = (reader.GetString(2));
-                            to.id_Moneda = reader.GetString(3);
+                            to.cedula = reader.GetString(3);
+                            to.id_Bodega = (reader.GetString(1));
+                            to.id_Moneda = reader.GetString(2);
                             to.monto_Total = (Double)reader.GetDecimal(4);
                             to.fecha = reader.GetDateTime(5);
                             to.tipo = reader.GetString(6);
@@ -426,7 +425,8 @@ namespace DAO
                 using (conexion)
                 {
                     SqlCommand cmd = conexion.CreateCommand();
-                    string sql = "Select v.COD_FACTURA, v.CEDULA, v.ID_BODEGA, v.ID_MONEDA, v.MONTO_TOTAL, v.FECHA_FACTURA, v.TIPO, s.NOMBRE + ' ' + s.APELLIDO1 + ' ' +  s.APELLIDO2 as SOCIO from FACTURA v, SOCIO_NEGOCIO s where v.CEDULA = s.CEDULA ";
+                    //cod, bod, moneda, cedula, monto, fecha, tipo, socio
+                    string sql = "Select v.COD_FACTURA, v.ID_BODEGA, v.ID_MONEDA, v.CEDULA, v.MONTO_TOTAL, v.FECHA_FACTURA, v.TIPO, s.NOMBRE + ' ' + s.APELLIDO1 + ' ' +  s.APELLIDO2 as SOCIO from FACTURA v, SOCIO_NEGOCIO s where v.CEDULA = s.CEDULA ";
 
                     if (string.IsNullOrEmpty(busqueda) == false)
                     {

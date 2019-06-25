@@ -18,29 +18,77 @@ namespace BL
             return manejador.listarAjustesDAO();
         }
         //id_bod, peso, material, unidad, accion, razon
-        public String registrarAjusteBL(String id_bod, string id_material, string id_stock, string peso, string unidadInfo, string accion, string razon)
+        public String registrarAjusteBL(String id_bod, string accion, string razon, List<BLDetalleAjuste> lista, String fecha)
         {
-            
-            int pesoN = Int32.Parse(peso);
+            List<BLDetalleAjuste> listaBL = new List<BLDetalleAjuste>();
+            foreach (BLDetalleAjuste linea in lista) {
+                BLDetalleAjuste nuevo = new BLDetalleAjuste();
+               
+                Double pesoTotalLinea = 0;
+                String[] materialInfo = linea.id_Material.Split('*');
+                String codMaterial = materialInfo[0];
+                //linea.id_Material = codMaterial;
+                nuevo.id_Material = codMaterial;
+                nuevo.id_Stock = linea.id_Stock;
 
-            double pesoTotal = calcularTotalSegunUnidad(unidadInfo, pesoN);
-            int idStockN = Int32.Parse(id_stock);
+              String[] unidadInfo = linea.unidadMedida.Split('*');
+                Double equiv = Double.Parse(unidadInfo[2]);
+                pesoTotalLinea = linea.kilos_Linea * equiv;
+                nuevo.kilos_Linea = pesoTotalLinea;
+                nuevo.unidadMedida = unidadInfo[1];
+                listaBL.Add(nuevo);
 
-            if (accion.Equals("0")) { // caso: se debe restar al stock
-                double resultadoRestaStock = stockMinimoSuperadoBL(pesoTotal, idStockN);
-
-            if (resultadoRestaStock < 0) 
-                    return "Error: la cantidad en inventario (" + (resultadoRestaStock + pesoTotal) +" kg), " +
-                        "es menor a la cantidad del ajuste (" + pesoTotal+" kg).";
             }
 
-            return manejador.registrarAjusteDAO(id_bod, id_material, idStockN, pesoTotal, accion,  razon);
+            List<TODetalleAjuste> listaTO = parsearDetalles(listaBL);
+            return manejador.registrarAjusteDAO(id_bod, accion,  razon, listaTO, fecha);
 
         }
 
-        public String buscarAjusteBL(string idAjuste)
+        private List<TODetalleAjuste> parsearDetalles(List<BLDetalleAjuste> listaBL) {
+            List<TODetalleAjuste> listaTO = new List<TODetalleAjuste>();
+
+            if (listaBL != null) {
+                foreach (BLDetalleAjuste dbl in listaBL) {
+                    TODetalleAjuste dto = new TODetalleAjuste(dbl.id_Material, dbl.id_Stock, dbl.kilos_Linea);
+                    listaTO.Add(dto);
+                }
+            }
+
+            return listaTO;
+        }
+
+        private List<BLDetalleAjuste> parsearDetalles(List<TODetalleAjuste> listaBL)
         {
-            return manejador.buscarAjusteDAO(idAjuste);
+            List<BLDetalleAjuste> listaTO = new List<BLDetalleAjuste>();
+
+            if (listaBL != null)
+            {
+                foreach (TODetalleAjuste dto in listaBL)
+                {
+                    BLDetalleAjuste dbl = new BLDetalleAjuste(dto.id_Material, dto.id_Stock, dto.kilos_Linea);
+                    dbl.unidadMedida = dto.unidadMedida;
+                    listaTO.Add(dbl);
+                }
+            }
+
+            return listaTO;
+        }
+
+        public BLAjuste buscarAjusteBL(string idAjuste)
+        {
+            TOAjuste ajusteTO = manejador.buscarAjusteDAO(idAjuste);
+            BLAjuste ajusteBL = new BLAjuste();
+
+            ajusteBL.idAjuste = ajusteTO.idAjuste;
+            ajusteBL.accion = ajusteTO.accion;
+            ajusteBL.fecha = ajusteTO.fecha;
+            ajusteBL.razon = ajusteTO.razon;
+
+            List<BLDetalleAjuste> detallesBL = parsearDetalles(ajusteTO.detalles);
+            ajusteBL.detalles = detallesBL;
+
+            return ajusteBL;
         }
 
         private double stockMinimoSuperadoBL(double peso, int id_stock)
