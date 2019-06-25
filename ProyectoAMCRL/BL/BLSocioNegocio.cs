@@ -30,9 +30,19 @@ namespace BL
             this.apellido1 = apellido1;
             this.apellido2 = apellido2;
             this.direccion = direccion;
+            this.contactos = contactos;
             this.estado_socio = estado;
         }
 
+        public BLSocioNegocio(String cedula, String nombre, String rol, String apellido1, String apellido2, Boolean estado)
+        {
+            this.cedula = cedula;
+            this.nombre = nombre;
+            this.rol = rol;
+            this.apellido1 = apellido1;
+            this.apellido2 = apellido2;
+            this.estado_socio = estado;
+        }
     }
 }
 

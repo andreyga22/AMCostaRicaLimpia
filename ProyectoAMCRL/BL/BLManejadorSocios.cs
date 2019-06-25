@@ -25,8 +25,55 @@ namespace BL
             socioTO.contactos = new TOContactos(socioBL.contactos.telefono_hab, socioBL.contactos.telefono_pers, socioBL.contactos.email);
             socioTO.direccion = new TODireccion(socioBL.direccion.provincia, socioBL.direccion.canton, socioBL.direccion.distrito, socioBL.direccion.otras_sennas);
             socioTO.estado_socio = socioBL.estado_socio;
-            manejadorDAO.agregarModificarSocio(socioTO);
+            manejadorDAO.guardarModificarSocio(socioTO);
             return true;
+        }
+
+        public List<BLSocioNegocio> listaSoc(String busqueda)
+        {
+            try
+            {
+                DAOManejadorSocios dao = new DAOManejadorSocios();
+                List<TOSocioNegocio> lista = dao.lista_Socios(busqueda);
+                List<BLSocioNegocio> listaBL = new List<BLSocioNegocio>();
+                foreach (TOSocioNegocio socio in lista)
+                {
+                    listaBL.Add(convert(socio));
+                }
+                return listaBL;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public DataTable buscarDatos(string busqueda)
+        {
+            try
+            {
+                return new DAOManejadorSocios().buscarTabla(busqueda);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public BLSocioNegocio convert(TOSocioNegocio socio)
+        {
+            return new BLSocioNegocio(socio.cedula, socio.nombre, socio.rol, socio.apellido1, socio.apellido2, 
+            convert(socio.direccion), convert(socio.contactos), socio.estado_socio);
+        }
+
+        private BLDireccion convert(TODireccion dir)
+        {
+            return new BLDireccion(dir.provincia, dir.canton, dir.distrito, dir.otras_sennas, dir.cod_direccion);
+        }
+
+        private BLContactos convert(TOContactos cont)
+        {
+            return new BLContactos(cont.telefono_hab, cont.telefono_pers, cont.email);
         }
 
         public DataTable buscarFiltrado(string busqueda)
@@ -67,6 +114,12 @@ namespace BL
             return socioBL;
         }
 
+
+        public BLSocioNegocio buscarCedula(string cedula)
+        {
+
+            return convert((new DAOManejadorSocios().buscarSocioCedula(cedula)));
+        }
 
     }
 }
