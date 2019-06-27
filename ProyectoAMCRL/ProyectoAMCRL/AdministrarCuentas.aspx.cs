@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Web;
@@ -21,7 +22,9 @@ namespace ProyectoAMCRL {
         protected void Page_Load(object sender, EventArgs e) {
             if(Session["cuentaLogin"] != null) {
                 if(!this.IsPostBack) {
-                    this.buscar();
+                    if(ViewState["sorting"] == null) {
+                        this.buscar();
+                    }
                 }
             } else {
                 Response.Redirect("Login.aspx");
@@ -55,7 +58,20 @@ namespace ProyectoAMCRL {
 
 
         protected void gridCuentas_Sorting(object sender, GridViewSortEventArgs e) {
+            DataTable datat = this.buscar();
+            DataView dv = new DataView(datat);
+            if(ViewState["sorting"] == null || ViewState["sorting"].ToString() == "DESC") {
+                dv.Sort = e.SortExpression + " ASC";
+                ViewState["sorting"] = "ASC";
+            } else {
+                if(ViewState["sorting"].ToString() == "ASC") {
+                    dv.Sort = e.SortExpression + " DESC";
+                    ViewState["sorting"] = "DESC";
+                }
+            }
 
+            gridCuentas.DataSource = dv;
+            gridCuentas.DataBind();
         }
 
         /*
@@ -66,15 +82,16 @@ namespace ProyectoAMCRL {
          Variables:
          man = instancia del objeto BLManejadorCuentas, el cúal contiene toda la funcionalidad de las cuentas.
              */
-        private void buscar() {
+        private DataTable buscar() {
             BLManejadorCuentas man = new BLManejadorCuentas();
-            gridCuentas.DataSource = man.buscar(palabraTb.Text.Trim());
+            DataTable datat = man.buscar(palabraTb.Text.Trim());
+            gridCuentas.DataSource = datat;
             gridCuentas.DataBind();
-            gridCuentas.HeaderRow.Cells[0].Text = "Identificador";
-            gridCuentas.HeaderRow.Cells[1].Text = "Nombre Usuario";
-            gridCuentas.HeaderRow.Cells[2].Text = "Rol";
-            gridCuentas.HeaderRow.Cells[3].Text = "Estado";
-
+            //gridCuentas.HeaderRow.Cells[0].Text = "Identificador";
+            //gridCuentas.HeaderRow.Cells[1].Text = "Nombre Usuario";
+            //gridCuentas.HeaderRow.Cells[2].Text = "Rol";
+            //gridCuentas.HeaderRow.Cells[3].Text = "Estado";
+            return datat;
         }
 
         /*

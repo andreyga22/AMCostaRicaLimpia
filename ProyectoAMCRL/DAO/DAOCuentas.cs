@@ -191,7 +191,7 @@ namespace DAO {
             try {
                 using(conexion) {
                     SqlCommand cmd = conexion.CreateCommand();
-                    string sql = "select id_usuario, nombre_usuario, rol, estado from credenciales";
+                    string sql = "select id_usuario as Identificador, nombre_usuario as 'Nombre Usuario', rol as Rol, estado as Estado from credenciales";
                     if(!string.IsNullOrEmpty(busqueda)) {
                         sql += " WHERE (id_usuario LIKE '%' + @pal + '%')  or (rol LIKE '%' + @pal + '%') or (estado LIKE '%' + @pal + '%') or (nombre_usuario LIKE '%' + @pal + '%');";
                         cmd.Parameters.AddWithValue("@pal", busqueda);

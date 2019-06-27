@@ -24,14 +24,142 @@
 
 </head>
 <body id="miBack">
-    <div class="container">
-
+    
         <br />
 
 
 
 
 
+
+
+        <%--<div style="width: 60%; float: right; height: 300px">
+            <asp:Image ID="Image2" runat="server" ImageUrl="~/images/fondo.jpg" />
+        </div>--%>
+
+        <%--<div style="width: 50%; text-align: left; min-height: 100%; bottom: 0; background-color:white" >--%>
+    <%--<div class="col-5" style="background-color:white; min-height: 100%; bottom: 0;">--%>
+            <div class="mx-auto mt-auto fixed-top">
+                <div class="row">
+                <div class="col-lg-4">
+                    <br />
+                    <div class="container">
+            <form id="form1" runat="server">
+                <div class="row justify-content-center">
+                    <asp:Image ID="Image1" runat="server" ImageUrl="~/images/logomel2_1.png" Width="30%" Height="30%" />
+                </div>
+                <br />
+                <div class="row justify-content-center">
+                    <asp:Literal ID="lblError" runat="server" Visible="false"></asp:Literal>
+                </div>
+                <div class="form-group">
+                    <label for="usuarioTb">Nombre de usuario</label>
+                    <asp:TextBox ID="usuarioTb" type="email" runat="server" class="form-control"></asp:TextBox>
+                </div>
+                <div class="form-group">
+                    <label for="contraTb">Contraseña</label>
+                    <asp:TextBox ID="contraTb" type="password" class="form-control" runat="server"></asp:TextBox>
+                </div>
+
+                <asp:Button ID="btnEntrar" runat="server" Text="Entrar" class="btn btn-info" type="button" OnClick="btnEntrar_Click" />
+
+                <br />
+                <br />
+                <div class="offset-6">
+                    <asp:LinkButton ID="olvidoLb" runat="server" data-toggle="modal" data-target="#exampleModalCenter" OnClick="olvidoLb_Click">¿Olvidó su contraseña?</asp:LinkButton>
+                </div>
+
+
+
+
+                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalCenterTitle">Recuperar contraseña</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+
+                                <div class="row justify-content-center">
+                                    <asp:Literal ID="lblError2" runat="server" Visible="false"></asp:Literal>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="recuperarUsuarioTb">Ingrese el correo electronico al que le desea restaurar la contraseña</label><asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Campo Requerido" ControlToValidate="recuperarUsuarioTb" ForeColor="Red" ValidationGroup="modal"></asp:RequiredFieldValidator>
+                                    <asp:TextBox ID="recuperarUsuarioTb" type="email" runat="server" class="form-control" OnKeyDown="" ValidationGroup="modal"></asp:TextBox>
+
+                                    <small id="emailHelp" class="form-text text-danger">Este cambio no se puede deshacer.</small>
+                                </div>
+
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                <asp:Button ID="btnEnviar" type="button" class="btn btn-primary" runat="server" Text="Enviar" ValidationGroup="modal" OnClick="btnEnviar_Click" />
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div id="themodal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;  </button>
+                                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>
+                                The most important modal ever created
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </form>
+                        </div>
+                  </div>
+                <div class="col-lg-8 d-none d-lg-block d-sm-none">
+            <asp:Image ID="Image2" runat="server" ImageUrl="~/images/fondo.jpg"  Width="106%" Height="106%"/>
+        </div>
+                 </div>
+    </div>
+
+        <%--</div>--%>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <%--
         <div class="jumbotron jumbotron-fluid col-lg-4">
             <div class="container">
 
@@ -47,19 +175,14 @@
                     <div class="form-group">
                         <label for="usuarioTb">Nombre de usuario</label>
                         <asp:TextBox ID="usuarioTb" type="email" runat="server" class="form-control"></asp:TextBox>
-                        <%--<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">--%>
-                        <%--                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>--%>
-                    </div>
+                     </div>
                     <div class="form-group">
                         <label for="contraTb">Contraseña</label>
                         <asp:TextBox ID="contraTb" type="password" class="form-control" runat="server"></asp:TextBox>
-                        <%--<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">--%>
                     </div>
-                    <%-- <div class="row">--%>
 
                     <asp:Button ID="btnEntrar" runat="server" Text="Entrar" class="btn btn-info" type="button" OnClick="btnEntrar_Click" />
 
-                    <%--</div>--%>
                     <br />
                     <br />
                     <div class="offset-6">
@@ -69,9 +192,6 @@
 
 
 
-
-
-                    <!-- Modal -->
                     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
@@ -90,7 +210,7 @@
                                     <div class="form-group">
                                         <label for="recuperarUsuarioTb">Ingrese el correo electronico al que le desea restaurar la contraseña</label><asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Campo Requerido" ControlToValidate="recuperarUsuarioTb" ForeColor="Red" ValidationGroup="modal"></asp:RequiredFieldValidator>
                                         <asp:TextBox ID="recuperarUsuarioTb" type="email" runat="server" class="form-control" OnKeyDown="" ValidationGroup="modal"></asp:TextBox>
-                                        <%--OnKeyDown="txt_Item_Number_KeyDown"--%>
+                 
                                         <small id="emailHelp" class="form-text text-danger">Este cambio no se puede deshacer.</small>
                                     </div>
 
@@ -130,15 +250,16 @@
                 </form>
             </div>
         </div>
+            --%>
 
 
 
 
+        <%--</div>--%>
 
 
 
-
-    </div>
+  
 
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
