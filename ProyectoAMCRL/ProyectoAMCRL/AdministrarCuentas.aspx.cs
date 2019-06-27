@@ -54,6 +54,10 @@ namespace ProyectoAMCRL {
         protected void gridCuentas_PageIndexChanging(object sender, GridViewPageEventArgs e) {
             gridCuentas.PageIndex = e.NewPageIndex;
             this.buscar();
+            if(Session["SortedView"] != null) {
+                gridCuentas.DataSource = Session["SortedView"];
+                gridCuentas.DataBind();
+            }
         }
 
 
@@ -72,6 +76,7 @@ namespace ProyectoAMCRL {
                     //gridCuentas.HeaderRow.Cells[GetColumnIndex(e.SortExpression)].CssClass = "sortdesc";
                 }
             }
+            Session["sortedView"] = dv;
             gridCuentas.DataSource = dv;
             gridCuentas.DataBind();
 
