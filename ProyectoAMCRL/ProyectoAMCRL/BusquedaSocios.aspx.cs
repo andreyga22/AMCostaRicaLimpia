@@ -1,11 +1,13 @@
 ﻿using BL;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Windows.Forms;
 using KeyEventArgs = System.Windows.Forms.KeyEventArgs;
 
 namespace ProyectoAMCRL
@@ -19,7 +21,7 @@ namespace ProyectoAMCRL
             {
                 if (!this.IsPostBack)
                 {
-                    this.buscar(new List<BLSocioNegocio>());
+                    this.buscar();
                     Session["idSocio"] = "";
                 }
             }
@@ -38,10 +40,19 @@ namespace ProyectoAMCRL
             else
             {
                 BLManejadorSocios manejador = new BLManejadorSocios();
-                /* List<BLSocioNegocio> list = manejador.listaSoc(txtPalabra.Text.Trim()); */
+                List<BLSocioNegocio> list = manejador.listaSoc(txtPalabra.Text.Trim()); 
 
-                /*gridSocios.DataSource = list;*/
+                gridSocios.DataSource = list;
             }
+            gridSocios.DataBind();
+            cargarEncabezados();
+        }
+
+        private void buscar()
+        {
+            BLManejadorSocios manejador = new BLManejadorSocios();
+            DataTable tabla = manejador.buscarDatos(txtPalabra.Text.Trim());
+            gridSocios.DataSource = tabla;
             gridSocios.DataBind();
             cargarEncabezados();
         }
@@ -54,28 +65,12 @@ namespace ProyectoAMCRL
             gridSocios.HeaderRow.Cells[3].Text = "Segundo Apellido";
             gridSocios.HeaderRow.Cells[4].Text = "Rol";
 
-            gridSocios.HeaderRow.Cells[1].Visible = false;
-            for (int i = 0; i < gridSocios.Rows.Count; i++)
-            {
-                gridSocios.Rows[i].Cells[1].Visible = false;
-            }
-
-            gridSocios.HeaderRow.Cells[2].Visible = false;
-            for (int i = 0; i < gridSocios.Rows.Count; i++)
-            {
-                gridSocios.Rows[i].Cells[2].Visible = false;
-            }
-
-            gridSocios.HeaderRow.Cells[4].Visible = false;
-            for (int i = 0; i < gridSocios.Rows.Count; i++)
-            {
-                gridSocios.Rows[i].Cells[4].Visible = false;
-            }
         }
 
         protected void gridSocios_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-
+            gridSocios.PageIndex = e.NewPageIndex;
+            this.buscar();
         }
 
         protected void gridSocios_Sorting(object sender, GridViewSortEventArgs e)
@@ -99,6 +94,9 @@ namespace ProyectoAMCRL
                 }
 
             }
+            string id = gridSocios.SelectedRow.Cells[0].Text;
+            Session["idSocio"] = id;
+            Response.Redirect("RegistroSociosUI.aspx");
         }
 
         protected void gridSocios_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -115,22 +113,6 @@ namespace ProyectoAMCRL
 
         }
 
-        private void buscar()
-        {
-            BLManejadorSocios manejador = new BLManejadorSocios();
-            String filtro = "";
-
-
-            
-            gridSocios.DataSource = manejador.buscarFiltrado(filtro);
-            gridSocios.DataBind();
-            gridSocios.HeaderRow.Cells[0].Text = "Cedula";
-            gridSocios.HeaderRow.Cells[1].Text = "Nombre";
-            gridSocios.HeaderRow.Cells[2].Text = "Primer apellido";
-            gridSocios.HeaderRow.Cells[3].Text = "Segundo Apellido";
-            gridSocios.HeaderRow.Cells[4].Text = "Rol";
-
-        }
 
         protected void btnFiltrar_Click(object sender, EventArgs e)
         {
@@ -138,14 +120,17 @@ namespace ProyectoAMCRL
             
         }
 
-        protected void palabraTb_TextChanged(object sender, EventArgs e)
+        protected void txtPalabra_TextChanged(object sender, EventArgs e)
         {
-
+            this.buscar();
         }
 
-        protected void actualizarBtn_Click(object sender, EventArgs e)
-        {
-
+        private void txt_Item_Number_KeyDown(object sender, KeyEventArgs e) {
+            if (e.KeyCode == Keys.Enter) {
+                this.buscar();
+            }
         }
+
+
     }
 }

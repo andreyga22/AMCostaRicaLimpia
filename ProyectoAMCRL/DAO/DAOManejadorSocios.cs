@@ -7,7 +7,8 @@ using System.Data.SqlClient;
 using System.Data;
 using TO;
 
-namespace DAO {
+namespace DAO
+{
     public class DAOManejadorSocios
     {
 
@@ -16,124 +17,161 @@ namespace DAO {
 
         AMCRLEntities context = new AMCRLEntities();
 
-
-        public Boolean agregarModificarSocio(TOSocioNegocio socio)
-        {
-            
-            int direccion = agregarDireccionSocio(socio.direccion);
-            
-
-            SqlCommand insertar = new SqlCommand("BEGIN Tran if exists(select * from SOCIO_NEGOCIO with (updlock, serializable)" +
-                            "where CEDULA = @CEDULA) begin update SOCIO_NEGOCIO set COD_DIRECCION = @COD_DIRECCION, "
-                            + "NOMBRE = @NOMBRE, ROL_SOCIO = @ROL_SOCIO, APELLIDO1 = @APELLIDO1, " +
-                            "APELLIDO2 = @APELLIDO2, ESTADO_SOCIO = @ESTADO_SOCIO where CEDULA = @CEDULA;" +
-                            " end else begin insert into SOCIO_NEGOCIO(CEDULA, COD_DIRECCION, NOMBRE, ROL_SOCIO, " +
-                            "APELLIDO1, APELLIDO2, ESTADO_SOCIO) values(@CEDULA, @COD_DIRECCION, @NOMBRE," +
-                            " @ROL_SOCIO, @APELLIDO1, @APELLIDO2, @ESTADO_SOCIO); END commit tran;", conexion);
-
-                if (conexion.State == ConnectionState.Closed)
-                    conexion.Open();
-                insertar.Parameters.AddWithValue("@COD_DIRECCION", direccion);
-                insertar.Parameters.AddWithValue("@CEDULA", socio.cedula);
-                insertar.Parameters.AddWithValue("@NOMBRE", socio.nombre);
-                insertar.Parameters.AddWithValue("@ROL_SOCIO", socio.rol);
-                insertar.Parameters.AddWithValue("@APELLIDO1", socio.apellido1);
-                insertar.Parameters.AddWithValue("@APELLIDO2", socio.apellido2);
-                
-            if (socio.estado_socio == true) {
-                    insertar.Parameters.AddWithValue("@ESTADO_SOCIO", 1);
-                }
-                else
-                {
-                    insertar.Parameters.AddWithValue("@ESTADO_SOCIO", 0);
-                }
-                
-                insertar.ExecuteNonQuery();
-
-                conexion.Close();
-
-            Boolean contacto = agregarContactosSocio(socio.cedula, socio.contactos);
-
-            return true;
-        }
-
-        private int agregarDireccionSocio(TODireccion direccion)
+        public void guardarModificarSocio(TOSocioNegocio soc)
         {
 
-            int codigo = 0;
-            SqlCommand insertar = new SqlCommand("BEGIN Tran if exists(select * from DIRECCION with (updlock, serializable)" +
-                            "where COD_DIRECCION = @COD_DIRECCION) begin update DIRECCION set PROVINCIA = @PROVINCIA, "
-                            + "CANTON = @CANTON, DISTRITO = @DISTRITO, OTRAS_SENNAS = @SENNAS;" +
-                            " end else begin insert into DIRECCION(PROVINCIA, CANTON, DISTRITO, OTRAS_SENNAS) values" +
-                            "(@PROVINCIA, @CANTON, @DISTRITO, @SENNAS); END commit tran;", conexion);
-
-            insertar.Parameters.AddWithValue("@PROVINCIA", direccion.provincia);
-            insertar.Parameters.AddWithValue("@CANTON", direccion.canton);
-            insertar.Parameters.AddWithValue("@DISTRITO", direccion.distrito);
-            insertar.Parameters.AddWithValue("@SENNAS", direccion.otras_sennas);
-
-            SqlCommand buscarCodigo = new SqlCommand("Select COD_DIRECCION from DIRECCION where OTRAS_SENNAS = @SENNAS;", conexion);
-            buscarCodigo.Parameters.AddWithValue("@SENNAS", direccion.otras_sennas);
-
-            if (conexion.State == ConnectionState.Closed)
-                    conexion.Open();
-
-            SqlDataReader reader = buscarCodigo.ExecuteReader();
-            if (reader.HasRows)
+            using (conexion)
             {
-                while (reader.Read())
+                if (conexion.State != ConnectionState.Open)
                 {
-                    codigo = reader.GetInt32(0);
+                    conexion.Open();
+                }
+
+                // Start a local transaction.
+                SqlTransaction sqlTran = conexion.BeginTransaction();
+
+                // Enlist a command in the current transaction.
+                SqlCommand sentencia = conexion.CreateCommand();
+                sentencia.Transaction = sqlTran;
+
+                try
+                {
+                    if (soc.direccion.cod_direccion == 0)
+                    {
+                        sentencia.CommandText =
+                "insert into direccion(provincia, canton, distrito, otras_sennas) values(@prov, @cant, @dist, @otras);" +
+            " SELECT SCOPE_IDENTITY();";
+                        //sentencia.Parameters.AddWithValue("@cod", bod.direccion.cod_direccion);
+                        sentencia.Parameters.AddWithValue("@prov", soc.direccion.provincia);
+                        sentencia.Parameters.AddWithValue("@cant", soc.direccion.canton);
+                        sentencia.Parameters.AddWithValue("@dist", soc.direccion.distrito);
+                        sentencia.Parameters.AddWithValue("@otras", soc.direccion.otras_sennas);
+                        int resul = 0;
+                        resul = Convert.ToInt32(sentencia.ExecuteScalar());
+
+
+                        sentencia.CommandText =
+                     "insert into Socio_Negocio (cedula, nombre, rol_socio, apellido1, apellido2, estado_socio, cod_direccion) values (@cedula, @nombre, @rol, @apellido1, @apellido2, @estado, @cod_dir);";
+                        sentencia.Parameters.AddWithValue("@cedula", soc.cedula);
+                        sentencia.Parameters.AddWithValue("@nombre", soc.nombre);
+                        sentencia.Parameters.AddWithValue("@rol", soc.rol);
+                        sentencia.Parameters.AddWithValue("@apellido1", soc.apellido1);
+                        sentencia.Parameters.AddWithValue("@apellido2", soc.apellido2);
+                        sentencia.Parameters.AddWithValue("@estado", soc.estado_socio);
+                        sentencia.Parameters.AddWithValue("@cod_dir", resul);
+
+
+                        sentencia.ExecuteNonQuery();
+
+                        sentencia.CommandText =
+                     "insert into Contactos (cedula, telefono_hab, telefono_pers, email) values (@cedula, @telefono_hab, @telefono_pers, @email);";
+                        sentencia.Parameters.AddWithValue("@cedula", soc.cedula);
+                        sentencia.Parameters.AddWithValue("@telefono_hab", soc.contactos.telefono_hab);
+                        sentencia.Parameters.AddWithValue("@telefono_pers", soc.contactos.telefono_pers);
+                        sentencia.Parameters.AddWithValue("@email", soc.contactos.email);
+                        
+                        sentencia.ExecuteNonQuery();
+
+                        sqlTran.Commit();
+                        if (conexion.State != ConnectionState.Closed)
+                        {
+                            conexion.Close();
+                        }
+                    }
+                    else
+                    {
+                        sentencia.CommandText =
+               "update direccion set provincia = @prov, canton= @cant, distrito= @dist, otras_sennas= @otras where cod_Direccion = @cod;";
+                        sentencia.Parameters.AddWithValue("@cod", soc.direccion.cod_direccion);
+                        sentencia.Parameters.AddWithValue("@prov", soc.direccion.provincia);
+                        sentencia.Parameters.AddWithValue("@cant", soc.direccion.canton);
+                        sentencia.Parameters.AddWithValue("@dist", soc.direccion.distrito);
+                        sentencia.Parameters.AddWithValue("@otras", soc.direccion.otras_sennas);
+                        sentencia.ExecuteNonQuery();
+
+
+
+                        sentencia.CommandText =
+                         "update socio_negocio set nombre = @nombre, rol_socio = @rol, apellido1 = @apellido1, apellido2 = @apellido2, " +
+                         "estado_socio = @estado where cedula = @cedula;";
+                        sentencia.Parameters.AddWithValue("@cedula", soc.cedula);
+                        sentencia.Parameters.AddWithValue("@nombre", soc.nombre);
+                        sentencia.Parameters.AddWithValue("@rol", soc.rol);
+                        sentencia.Parameters.AddWithValue("@apellido1", soc.apellido1);
+                        sentencia.Parameters.AddWithValue("@apellido2", soc.apellido2);
+                        sentencia.Parameters.AddWithValue("@estado", soc.estado_socio);
+
+
+
+                        sentencia.CommandText =
+                         "update contactos set  telefono_hab = @telefono_hab, telefono_pers = @telefono_pers, email = @email where cedula = @cedula;";
+                        sentencia.Parameters.AddWithValue("@cedula", soc.cedula);
+                        sentencia.Parameters.AddWithValue("@telefono_hab", soc.contactos.telefono_hab);
+                        sentencia.Parameters.AddWithValue("@telefono_pers", soc.contactos.telefono_pers);
+                        sentencia.Parameters.AddWithValue("@email", soc.contactos.email);
+
+
+                        sentencia.ExecuteNonQuery();
+                        sqlTran.Commit();
+                        if (conexion.State != ConnectionState.Closed)
+                        {
+                            conexion.Close();
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    try
+                    {
+                        // Attempt to roll back the transaction.
+                        sqlTran.Rollback();
+                    }
+                    catch (Exception)
+                    {
+
+                        throw;
+                    }
                 }
             }
-            reader.Close();
-
-
-            if (direccion.cod_direccion != 0) {
-                insertar.Parameters.AddWithValue("@COD_DIRECCION", direccion.cod_direccion);
-            }
-            else
-            {
-                insertar.Parameters.AddWithValue("@COD_DIRECCION", codigo);
-            }
-
-            insertar.ExecuteNonQuery();
-            conexion.Close();
-
-            
-
-            return codigo;
         }
 
 
-        private Boolean agregarContactosSocio(String cedula, TOContactos contactos)
+            public DataTable buscarTabla(string busqueda)
         {
-            SqlCommand insertar = new SqlCommand("BEGIN Tran if exists(select * from CONTACTOS with (updlock, serializable)" +
-                            "where CEDULA = @CEDULA) begin update CONTACTOS set CEDULA = @CEDULA, "
-                            + "TELEFONO_HAB = @TEL_HAB, TELEFONO_PERS = @TEL_PERS, EMAIL = @EMAIL;" +
-                            " end else begin insert into CONTACTOS(CEDULA, TELEFONO_HAB, TELEFONO_PERS, EMAIL) values" +
-                            "(@CEDULA, @TEL_HAB, @TEL_PERS, @EMAIL); END commit tran;", conexion);
+            try
+            {
+                using (conexion)
+                {
+                    SqlCommand cmd = conexion.CreateCommand();
+                    string sql = "Select CEDULA, NOMBRE, APELLIDO1, APELLIDO2, ROL_SOCIO from SOCIO_NEGOCIO";
 
-                if (conexion.State == ConnectionState.Closed)
-                    conexion.Open();
+                    if (string.IsNullOrEmpty(busqueda) == false)
+                    {
+                        sql += " where ((CEDULA LIKE '%' + @pal + '%') or (NOMBRE LIKE '%' + @pal + '%')  or (APELLIDO1 LIKE '%' + @pal + '%') or (APELLIDO2 LIKE '%' + @pal + '%')) AND ESTADO_SOCIO = 1;";
 
-                insertar.Parameters.AddWithValue("@CEDULA", cedula);
-                insertar.Parameters.AddWithValue("@TEL_HAB", contactos.telefono_hab);
-                insertar.Parameters.AddWithValue("@TEL_PERS", contactos.telefono_pers);
-                insertar.Parameters.AddWithValue("@EMAIL", contactos.email);
-
-                insertar.ExecuteNonQuery();
-
-                conexion.Close();
-
-            
-            return true;
+                        cmd.Parameters.AddWithValue("@pal", busqueda);
+                    }
+                    cmd.CommandText = sql;
+                    cmd.Connection = conexion;
+                    using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        sda.Fill(dt);
+                        return dt;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
-        //ajustar al filtro, revisar el null.
+
         public DataTable buscarSociosFiltro(String busqueda)
         {
-            try {
+            try
+            {
                 using (conexion)
                 {
                     SqlCommand buscar = conexion.CreateCommand();
@@ -153,20 +191,78 @@ namespace DAO {
 
                     }
                 }
-                
-            }catch(Exception ex){
+
+            }
+            catch (Exception ex)
+            {
                 throw;
             }
             return null;
         }
 
-        public TODireccion buscarDireccion(String cedula)
+        public TOSocioNegocio buscarSocioCedula(String cedula)
         {
-            SqlCommand buscar = new SqlCommand("Select PROVINCIA, CANTON, DISTRITO, OTRAS_SENNAS from DIRECCION where CEDULA = @CEDULA", conexion);
-            TODireccion direccion = new TODireccion();
-            if (conexion.State != ConnectionState.Open)
+            int codigo = 0;
+            try
             {
-                conexion.Open();
+                using (conexion)
+                {
+                    SqlCommand buscar = conexion.CreateCommand();
+                    String texto = "Select cedula, nombre, apellido1, apellido2, rol_socio, estado_socio, cod_direccion from SOCIO_NEGOCIO where CEDULA = @CEDULA";
+                    buscar.CommandText = texto;
+                    if (!string.IsNullOrEmpty(cedula))
+                    {
+                        buscar.Parameters.AddWithValue("@CEDULA", cedula);
+                        TOSocioNegocio socio = new TOSocioNegocio();
+                        TODireccion dir = new TODireccion();
+
+                        if (conexion.State != ConnectionState.Open)
+                        {
+                            conexion.Open();
+                        }
+
+                        SqlDataReader reader = buscar.ExecuteReader();
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                socio.cedula = reader.GetString(0);
+                                socio.nombre = reader.GetString(1);
+                                socio.apellido1 = reader.GetString(2);
+                                socio.apellido2 = reader.GetString(3);
+                                socio.rol = reader.GetString(4);
+                                socio.estado_socio = reader.GetBoolean(5);
+                                codigo = reader.GetInt32(6);
+                            }
+                            reader.Close();
+                        }
+                        socio.direccion = this.buscarDireccion(codigo);
+                        socio.contactos = this.buscarContacto(socio.cedula);
+                        if (conexion.State != ConnectionState.Closed)
+                        {
+                            conexion.Close();
+                        }
+                        return socio;
+                    }
+                    
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return null;
+        }
+
+        public TODireccion buscarDireccion(int codigo)
+        {
+            SqlConnection conexion2 = new SqlConnection(Properties.Settings.Default.conexionHost);
+            SqlCommand buscar = new SqlCommand("Select PROVINCIA, CANTON, DISTRITO, OTRAS_SENNAS from DIRECCION where COD_DIRECCION = @CODIGO;" , conexion2);
+            buscar.Parameters.AddWithValue("@CODIGO", codigo);
+            TODireccion direccion = new TODireccion();
+            if (conexion2.State != ConnectionState.Open)
+            {
+                conexion2.Open();
             }
 
             SqlDataReader reader = buscar.ExecuteReader();
@@ -179,21 +275,28 @@ namespace DAO {
                     direccion.distrito = reader.GetString(2);
                     direccion.otras_sennas = reader.GetString(3);
                 }
-            }
-            else
-            {
+                if (conexion2.State != ConnectionState.Closed)
+                {
+                    conexion2.Close();
+                }
                 return direccion;
             }
-            return direccion;
+            if (conexion2.State != ConnectionState.Closed)
+            {
+                conexion2.Close();
+            }
+            return null;
         }
 
         public TOContactos buscarContacto(String cedula)
         {
-            SqlCommand buscarContacto = new SqlCommand("Select TELEFONO_HAB, TELEFONO_PERS, EMAIL from CONTACTOS where CEDULA = @CEDULA", conexion);
+            SqlConnection conexion2 = new SqlConnection(Properties.Settings.Default.conexionHost);
+            SqlCommand buscarContacto = new SqlCommand("Select TELEFONO_HAB, TELEFONO_PERS, EMAIL from CONTACTOS where CEDULA = @CEDULA", conexion2);
+            buscarContacto.Parameters.AddWithValue("@CEDULA", cedula);
             TOContactos contacto = new TOContactos();
-            if (conexion.State != ConnectionState.Open)
+            if (conexion2.State != ConnectionState.Open)
             {
-                conexion.Open();
+                conexion2.Open();
             }
 
             SqlDataReader reader = buscarContacto.ExecuteReader();
@@ -201,19 +304,26 @@ namespace DAO {
             {
                 while (reader.Read())
                 {
-                    contacto.telefono_hab = Int32.Parse(reader.GetString(0));
-                    contacto.telefono_pers = Int32.Parse(reader.GetString(1));
+                    contacto.telefono_hab = Convert.ToInt32(reader.GetDecimal(0));
+                    contacto.telefono_pers = Convert.ToInt32(reader.GetDecimal(1));
                     contacto.email = reader.GetString(2);
+                    
                 }
-            }
-            else
-            {
+                if (conexion2.State != ConnectionState.Closed)
+                {
+                    conexion2.Close();
+                }
                 return contacto;
             }
-            return contacto;
+            if (conexion2.State != ConnectionState.Closed)
+            {
+                conexion2.Close();
+            }
+            return null;
         }
 
-        public Boolean asociarSocio(String cedulaAsociado, String cedulaSocio) {
+        public Boolean asociarSocio(String cedulaAsociado, String cedulaSocio)
+        {
             SqlCommand asociar = new SqlCommand("Insert into Asociaciones (SOCIO, ASOCIADO) values (@SOCIO, @ASOCIADO)", conexion);
             if (conexion.State == ConnectionState.Closed)
             {
@@ -229,7 +339,7 @@ namespace DAO {
                 }
                 return true;
             }
-            return false;  
+            return false;
         }
 
 
@@ -304,8 +414,56 @@ namespace DAO {
             }
         }
 
+        public List<TOSocioNegocio> lista_Socios(String busqueda)
+        {
+            {
+                try
+                {
+                    List<TOSocioNegocio> lista = new List<TOSocioNegocio>();
+                    String sql = "Select NOMBRE, APELLIDO1, APELLIDO2, ROL_SOCIO from SOCIO_NEGOCIO";
+                    SqlCommand cmdSocio = new SqlCommand(sql, conexion);
 
+                    if (string.IsNullOrEmpty(busqueda) == false)
+                    {
+                        sql += " where ESTADO_SOCIO = 1 AND ((NOMBRE LIKE '%' + @pal + '%')  or (APELLIDO1 LIKE '%' + @pal + '%') or (APELLIDO2 LIKE '%' + @pal + '%'));";
+                        cmdSocio.Parameters.AddWithValue("@pal", busqueda);
+                    }
+                    if (conexion.State != ConnectionState.Open)
+                    {
+                        conexion.Open();
+                    }
 
+                    SqlDataReader reader = cmdSocio.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            TOSocioNegocio to = new TOSocioNegocio();
+                            to.cedula = reader.GetString(0);
+                            to.nombre = reader.GetString(1);
+                            to.rol = reader.GetString(2);
+                            to.apellido1 = reader.GetString(3);
+                            to.apellido2 = reader.GetString(4);
+                            to.estado_socio = true;
+                            lista.Add(to);
+                        }
+                    }
 
+                    if (conexion.State != ConnectionState.Closed)
+                    {
+                        conexion.Close();
+                    }
+                    return lista;
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+                finally
+                {
+                    conexion.Close();
+                }
+            }
+        }
     }
 }
