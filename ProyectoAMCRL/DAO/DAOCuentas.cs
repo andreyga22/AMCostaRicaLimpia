@@ -148,7 +148,6 @@ namespace DAO {
 
         public void restaurarContra(string id, string nueva) {
 
-
             using(conexion) {
                 if(conexion.State != ConnectionState.Open) {
                     conexion.Open();

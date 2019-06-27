@@ -19,6 +19,8 @@ namespace ProyectoAMCRL {
            de la página. En caso de negarlo vuelve al login.
            Carga la tabla con los datos de las cuentas.
             */
+
+            /*Ordenar: el if del viewstate es necesario*/
         protected void Page_Load(object sender, EventArgs e) {
             if(Session["cuentaLogin"] != null) {
                 if(!this.IsPostBack) {
@@ -51,6 +53,10 @@ namespace ProyectoAMCRL {
         /*
          Evento que permite el cambio de páginas de la tabla de cuentas. Se actualiza la tabla después del cambio.
              */
+
+            /*
+             Ordenar: es necesario el if de session
+             */
         protected void gridCuentas_PageIndexChanging(object sender, GridViewPageEventArgs e) {
             gridCuentas.PageIndex = e.NewPageIndex;
             this.buscar();
@@ -60,7 +66,9 @@ namespace ProyectoAMCRL {
             }
         }
 
-
+        /*
+         ordenar: se ocupa todo
+             */
         protected void gridCuentas_Sorting(object sender, GridViewSortEventArgs e) {
             DataTable datat = this.buscar();
             DataView dv = new DataView(datat);
@@ -91,6 +99,9 @@ namespace ProyectoAMCRL {
 
         }
 
+        /*
+         Ordenar: se ocupa todo
+             */
         private int GetColumnIndex(DataTable dt, string name) {
             return dt.Columns.IndexOf(name);
         }
