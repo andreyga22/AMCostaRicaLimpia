@@ -63,16 +63,33 @@ namespace ProyectoAMCRL {
             if(ViewState["sorting"] == null || ViewState["sorting"].ToString() == "DESC") {
                 dv.Sort = e.SortExpression + " ASC";
                 ViewState["sorting"] = "ASC";
+                //gridCuentas.HeaderRow.Cells[GetColumnIndex(e.SortExpression)].CssClass = "sortasc";
+                
             } else {
                 if(ViewState["sorting"].ToString() == "ASC") {
                     dv.Sort = e.SortExpression + " DESC";
                     ViewState["sorting"] = "DESC";
+                    //gridCuentas.HeaderRow.Cells[GetColumnIndex(e.SortExpression)].CssClass = "sortdesc";
                 }
             }
-
             gridCuentas.DataSource = dv;
             gridCuentas.DataBind();
+
+           
+            if(ViewState["sorting"].ToString() == "ASC") {
+                int index = GetColumnIndex(datat, e.SortExpression);
+                gridCuentas.HeaderRow.Cells[index].CssClass = "SortedAscendingHeaderStyle";
+            } else {
+                int index = GetColumnIndex(datat, e.SortExpression);
+                gridCuentas.HeaderRow.Cells[index].CssClass = "SortedDescendingHeaderStyle";
+            }
+
         }
+
+        private int GetColumnIndex(DataTable dt, string name) {
+            return dt.Columns.IndexOf(name);
+        }
+
 
         /*
          Método que permite la función de busqueda para la tabla. Consulta la base de datos en caso de 
@@ -138,5 +155,7 @@ namespace ProyectoAMCRL {
                 e.Row.ToolTip = "Clic para abrir.";
             }
         }
+
+        
     }
 }
