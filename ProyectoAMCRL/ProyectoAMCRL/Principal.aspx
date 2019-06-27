@@ -18,9 +18,9 @@
                     <div class="card-body">
                         <h5 class="card-title text-secondary">Socios de negocio</h5>
                         <p class="card-text">Agregue o busque los socios de negocio.</p>
-                        <a href="RegistrosSocioUI.aspx" class="card-link text-primary">Agregar Socio</a>
+                        <a href="#" class="card-link text-primary">Agregar Socio</a>
                         <br />
-                        <a href="BusquedaSocios.aspx" class="card-link text-primary">Búsqueda de Socios</a>
+                        <a href="#" class="card-link text-primary">Búsqueda de Socios</a>
                     </div>
                 </div>
             </div> 
@@ -31,9 +31,9 @@
                         <h5 class="card-title text-secondary">Compras o Ventas</h5>
                         <p class="card-text">Realice compras y ventas</p>
                         <br />
-                        <a href="#" class="card-link text-primary">Realizar Compra</a>
+                        <a href="#" class="card-link text-primary">Registrar compra</a>
                         <br />
-                        <a href="#" class="card-link text-primary">Realice Venta</a>
+                        <a href="#" class="card-link text-primary">Registrar venta</a>
                     </div>
                 </div>
             </div>
@@ -46,7 +46,7 @@
                         <br />
                         <a href="AdministrarMateriales.aspx" class="card-link text-primary">Materiales</a>
                         <br />
-                        <a href="Ajustes.aspx" class="card-link text-primary">Ajustes de inventario</a>
+                        <a href="Ajustes.aspx" class="card-link text-primary">Ajustes</a>
                         <br />
 
                     </div>
@@ -63,7 +63,7 @@
                 <div class="card-body">
                         <h5 class="card-title text-secondary">Facturas</h5>
                         <p class="card-text">Busque y visualice facturas de compra o venta</p> 
-                       <a href="BusquedaFacturas.aspx" class="card-link text-primary">Búsqueda de facturas</a>
+                       <a href="BusquedaFacturas.aspx" class="card-link text-primary">Búsqueda facturas</a>
                     </div>
                 </div>
             </div>

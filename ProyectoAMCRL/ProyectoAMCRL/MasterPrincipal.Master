@@ -64,14 +64,14 @@
                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle font-weight-bolder">
                         <i class="fas fa-users"></i>Socios</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
-                        <li><a href="RegistroSociosUI.aspx">Agregar socio</a></li>
-                        <li><a href="BusquedaSocios.aspx">Búsqueda socios</a></li>
+                        <li><a href="#">Agregar socio</a></li>
+                        <li><a href="#">Búsqueda socios</a></li>
                     </ul>
                 </li>
 
                 <li class="active" style="margin-bottom:5px">
                     <a href="#compraVentaSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle font-weight-bolder">
-                        <i class="fa fa-coins"></i>Compra/Venta</a>
+                        <i class="fa fa-coins"></i>Compra Venta</a>
                     <ul class="collapse list-unstyled" id="compraVentaSubmenu">
                         <li>
                             <asp:LinkButton Text="Registrar compra" runat="server" ID="compraLB" OnClick="compraLB_Click"/>
