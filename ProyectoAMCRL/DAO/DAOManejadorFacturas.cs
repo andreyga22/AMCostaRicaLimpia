@@ -418,15 +418,17 @@ namespace DAO
         }
 
 
-        public DataTable buscar(string busqueda)
+        public DataTable buscar(string busqueda, string tipo)
         {
-            try
-            {
+            //try
+            //{
                 using (conexion)
                 {
                     SqlCommand cmd = conexion.CreateCommand();
                     //cod, bod, moneda, cedula, monto, fecha, tipo, socio
-                    string sql = "Select v.COD_FACTURA, v.ID_BODEGA, v.ID_MONEDA, v.CEDULA, v.MONTO_TOTAL, v.FECHA_FACTURA, v.TIPO, s.NOMBRE + ' ' + s.APELLIDO1 + ' ' +  s.APELLIDO2 as SOCIO from FACTURA v, SOCIO_NEGOCIO s where v.CEDULA = s.CEDULA ";
+                    string sql = "Select v.COD_FACTURA, v.ID_BODEGA, v.ID_MONEDA, v.CEDULA, v.MONTO_TOTAL, v.FECHA_FACTURA, v.TIPO, s.NOMBRE + ' ' + s.APELLIDO1 + ' ' +  s.APELLIDO2 as SOCIO from FACTURA v, SOCIO_NEGOCIO s where v.CEDULA = s.CEDULA and v.TIPO = @tipo ";
+
+                    cmd.Parameters.AddWithValue("@tipo", tipo);
 
                     if (string.IsNullOrEmpty(busqueda) == false)
                     {
@@ -444,11 +446,11 @@ namespace DAO
                     }
                 }
             }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+            //catch (Exception)
+            //{
+            //    throw;
+            //}
+        //}
 
     }
 }

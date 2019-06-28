@@ -26,6 +26,7 @@ namespace ProyectoAMCRL
             {
                 if (!this.IsPostBack)
                 {
+
                     this.buscar();
                     cargarMateriales();
                     Session["idFactura"] = "";
@@ -87,7 +88,16 @@ namespace ProyectoAMCRL
         private void buscar()
         {
             BLManejadorFacturas man = new BLManejadorFacturas();
-            DataTable tabla = man.buscar(txtPalabra.Text.Trim());
+            String modo = (String)Session["modo"];
+            String modoCarac = "";
+            if (modo.Equals("compra"))
+            {
+                modoCarac = "c";
+            } else
+            {
+                modoCarac = "v";
+            }
+            DataTable tabla = man.buscar(txtPalabra.Text.Trim(), modoCarac);
             gridFacturas.DataSource = tabla;
             gridFacturas.DataBind();
             cargarEncabezados();

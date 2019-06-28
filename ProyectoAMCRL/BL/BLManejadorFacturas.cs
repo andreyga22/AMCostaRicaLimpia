@@ -120,11 +120,11 @@ namespace BL
         //    return listaFiltradaFactTO;
         //}
 
-        public DataTable buscar(string busqueda)
+        public DataTable buscar(string busqueda, string tipo)
         {
             try
             {
-                return new DAOManejadorFacturas().buscar(busqueda);
+                return new DAOManejadorFacturas().buscar(busqueda, tipo);
             }
             catch (Exception)
             {

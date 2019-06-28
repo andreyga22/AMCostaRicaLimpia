@@ -40,6 +40,15 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.LinkButton compraLB;
         
         /// <summary>
+        /// Control btnBusqFactComp.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnBusqFactComp;
+        
+        /// <summary>
         /// Control ventaLB.
         /// </summary>
         /// <remarks>
@@ -47,6 +56,15 @@ namespace ProyectoAMCRL {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton ventaLB;
+        
+        /// <summary>
+        /// Control btnBusqFactVent.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnBusqFactVent;
         
         /// <summary>
         /// Control cuentasSubmenu2.

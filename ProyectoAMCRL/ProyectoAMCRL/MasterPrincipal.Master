@@ -71,18 +71,19 @@
 
                 <li class="active" style="margin-bottom:5px">
                     <a href="#compraVentaSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle font-weight-bolder">
-                        <i class="fa fa-coins"></i>Compra/Venta</a>
+                        <i class="fa fa-coins"></i>Compras</a>
                     <ul class="collapse list-unstyled" id="compraVentaSubmenu">
                         <li>
                             <asp:LinkButton Text="Registrar compra" runat="server" ID="compraLB" OnClick="compraLB_Click"/>
                         </li>
-                         <li>
-                            <asp:LinkButton Text="Registrar venta" runat="server" ID="ventaLB" OnClick="ventaLB_Click"/>
+                             <li>
+                                  <asp:LinkButton Text="Búsqueda facturas" runat="server" ID="btnBusqFactComp" OnClick="btnBusqFactComp_Click"/>
+                            <%--<a href="BusquedaFacturas.aspx">Búsqueda facturas</a>--%>
                         </li>
                     </ul>
                 </li>
 
-                 <li class="active" style="margin-bottom:5px">
+             <%--    <li class="active" style="margin-bottom:5px">
                      <a href="#facturasSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle font-weight-bolder">
                         <i class="fa fa-coins"></i>Facturas</a>
                       <ul class="collapse list-unstyled" id="facturasSubmenu">
@@ -90,17 +91,20 @@
                             <a href="BusquedaFacturas.aspx">Búsqueda facturas</a>
                         </li>
                           </ul>
-                     </li>
-                <%--<li class="active" style="margin-bottom:5px">
+                     </li>--%>
+                <li class="active" style="margin-bottom:5px">
                     <a href="#ventasSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle font-weight-bolder">
                         <i class="fa fa-coins"></i>Ventas</a>
                     <ul class="collapse list-unstyled" id="ventasSubmenu">
                        <li>
                             <asp:LinkButton Text="Registrar venta" runat="server" ID="ventaLB" OnClick="ventaLB_Click"/>
                         </li>
-                        <li><a href="BusquedaFacturas.aspx?mod=v">Búsqueda facturas</a></li>
+                        <li>
+                             <asp:LinkButton Text="Búsqueda facturas" runat="server" ID="btnBusqFactVent" OnClick="btnBusqFactVent_Click"/>
+                        </li>
+                        <li><%--<a href="BusquedaFacturas.aspx?mod=v">Búsqueda facturas</a>--%></li>
                     </ul>
-                </li>--%>
+                </li>
 
                 <li class="active"style="margin-bottom:5px">
                     <a href="#stockSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle font-weight-bolder">

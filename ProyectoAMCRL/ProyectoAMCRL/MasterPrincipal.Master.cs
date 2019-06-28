@@ -6,9 +6,12 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using BL;
 
-namespace ProyectoAMCRL {
-    public partial class MasterPrincipal : System.Web.UI.MasterPage {
-        protected void Page_Load(object sender, EventArgs e) {
+namespace ProyectoAMCRL
+{
+    public partial class MasterPrincipal : System.Web.UI.MasterPage
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
             //BLCuenta usuarioLogin = (BLCuenta)Session["cuentaLogin"];
             //if (usuarioLogin.rol.Equals("r"))
             //{
@@ -20,12 +23,14 @@ namespace ProyectoAMCRL {
             //}
         }
 
-        protected void contrasenaLb_Click(object sender, EventArgs e) {
+        protected void contrasenaLb_Click(object sender, EventArgs e)
+        {
             Session["accionCuenta"] = 2;
             Response.Redirect("Cuenta.aspx");
         }
 
-        protected void cuentasLb_Click(object sender, EventArgs e) {
+        protected void cuentasLb_Click(object sender, EventArgs e)
+        {
             Session["accionCuenta"] = null;
             Response.Redirect("AdministrarCuentas.aspx");
         }
@@ -42,13 +47,27 @@ namespace ProyectoAMCRL {
             Response.Redirect("Compra_Venta.aspx");
         }
 
-        protected void cerrarSesion(object sender, EventArgs e) {
+        protected void cerrarSesion(object sender, EventArgs e)
+        {
             Response.Redirect("Login.aspx");
         }
 
-        protected void cambiarContra(object sender, EventArgs e) {
+        protected void cambiarContra(object sender, EventArgs e)
+        {
             Session["accionCuenta"] = 2;
             Response.Redirect("Cuenta.aspx");
+        }
+
+        protected void btnBusqFactVent_Click(object sender, EventArgs e)
+        {
+            Session.Add("modo", "venta");
+            Response.Redirect("BusquedaFacturas.aspx");
+        }
+
+        protected void btnBusqFactComp_Click(object sender, EventArgs e)
+        {
+            Session.Add("modo", "compra");
+            Response.Redirect("BusquedaFacturas.aspx");
         }
     }
 }
