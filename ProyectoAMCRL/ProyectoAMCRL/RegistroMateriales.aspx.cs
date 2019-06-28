@@ -20,6 +20,7 @@ namespace ProyectoAMCRL
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack) {
+
                 btnGuardarActualizar.Attributes.Add("onclick", "document.body.style.cursor = 'wait';");
                 cargarUnidadesBodegas();
                 //cantidadTB.CssClass = "btn form-control";

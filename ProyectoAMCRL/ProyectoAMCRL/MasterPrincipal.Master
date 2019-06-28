@@ -64,8 +64,8 @@
                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle font-weight-bolder">
                         <i class="fas fa-users"></i>Socios</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
-                        <li><a href="RegistroSociosUI.aspx">Agregar socio</a></li>
-                        <li><a href="BusquedaSocios.aspx">Búsqueda socios</a></li>
+                        <li><a href="#">Agregar socio</a></li>
+                        <li><a href="#">Búsqueda socios</a></li>
                     </ul>
                 </li>
 

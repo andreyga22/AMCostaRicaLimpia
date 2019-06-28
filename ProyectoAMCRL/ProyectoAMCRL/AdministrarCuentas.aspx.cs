@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Web;
@@ -18,10 +19,14 @@ namespace ProyectoAMCRL {
            de la página. En caso de negarlo vuelve al login.
            Carga la tabla con los datos de las cuentas.
             */
+
+            /*Ordenar: el if del viewstate es necesario*/
         protected void Page_Load(object sender, EventArgs e) {
             if(Session["cuentaLogin"] != null) {
                 if(!this.IsPostBack) {
-                    this.buscar();
+                    if(ViewState["sorting"] == null) {
+                        this.buscar();
+                    }
                 }
             } else {
                 Response.Redirect("Login.aspx");
@@ -48,15 +53,59 @@ namespace ProyectoAMCRL {
         /*
          Evento que permite el cambio de páginas de la tabla de cuentas. Se actualiza la tabla después del cambio.
              */
+
+            /*
+             Ordenar: es necesario el if de session
+             */
         protected void gridCuentas_PageIndexChanging(object sender, GridViewPageEventArgs e) {
             gridCuentas.PageIndex = e.NewPageIndex;
             this.buscar();
+            if(Session["SortedView"] != null) {
+                gridCuentas.DataSource = Session["SortedView"];
+                gridCuentas.DataBind();
+            }
         }
 
-
+        /*
+         ordenar: se ocupa todo
+             */
         protected void gridCuentas_Sorting(object sender, GridViewSortEventArgs e) {
+            DataTable datat = this.buscar();
+            DataView dv = new DataView(datat);
+            if(ViewState["sorting"] == null || ViewState["sorting"].ToString() == "DESC") {
+                dv.Sort = e.SortExpression + " ASC";
+                ViewState["sorting"] = "ASC";
+                //gridCuentas.HeaderRow.Cells[GetColumnIndex(e.SortExpression)].CssClass = "sortasc";
+                
+            } else {
+                if(ViewState["sorting"].ToString() == "ASC") {
+                    dv.Sort = e.SortExpression + " DESC";
+                    ViewState["sorting"] = "DESC";
+                    //gridCuentas.HeaderRow.Cells[GetColumnIndex(e.SortExpression)].CssClass = "sortdesc";
+                }
+            }
+            Session["sortedView"] = dv;
+            gridCuentas.DataSource = dv;
+            gridCuentas.DataBind();
+
+           
+            if(ViewState["sorting"].ToString() == "ASC") {
+                int index = GetColumnIndex(datat, e.SortExpression);
+                gridCuentas.HeaderRow.Cells[index].CssClass = "SortedAscendingHeaderStyle";
+            } else {
+                int index = GetColumnIndex(datat, e.SortExpression);
+                gridCuentas.HeaderRow.Cells[index].CssClass = "SortedDescendingHeaderStyle";
+            }
 
         }
+
+        /*
+         Ordenar: se ocupa todo
+             */
+        private int GetColumnIndex(DataTable dt, string name) {
+            return dt.Columns.IndexOf(name);
+        }
+
 
         /*
          Método que permite la función de busqueda para la tabla. Consulta la base de datos en caso de 
@@ -66,15 +115,16 @@ namespace ProyectoAMCRL {
          Variables:
          man = instancia del objeto BLManejadorCuentas, el cúal contiene toda la funcionalidad de las cuentas.
              */
-        private void buscar() {
+        private DataTable buscar() {
             BLManejadorCuentas man = new BLManejadorCuentas();
-            gridCuentas.DataSource = man.buscar(palabraTb.Text.Trim());
+            DataTable datat = man.buscar(palabraTb.Text.Trim());
+            gridCuentas.DataSource = datat;
             gridCuentas.DataBind();
-            gridCuentas.HeaderRow.Cells[0].Text = "Identificador";
-            gridCuentas.HeaderRow.Cells[1].Text = "Nombre Usuario";
-            gridCuentas.HeaderRow.Cells[2].Text = "Rol";
-            gridCuentas.HeaderRow.Cells[3].Text = "Estado";
-
+            //gridCuentas.HeaderRow.Cells[0].Text = "Identificador";
+            //gridCuentas.HeaderRow.Cells[1].Text = "Nombre Usuario";
+            //gridCuentas.HeaderRow.Cells[2].Text = "Rol";
+            //gridCuentas.HeaderRow.Cells[3].Text = "Estado";
+            return datat;
         }
 
         /*
@@ -121,5 +171,7 @@ namespace ProyectoAMCRL {
                 e.Row.ToolTip = "Clic para abrir.";
             }
         }
+
+        
     }
 }

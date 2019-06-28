@@ -30,6 +30,7 @@ namespace ProyectoAMCRL
                     detalles = new List<string>();
                     desactivarCampos();
                     cargarFactura(id);
+                    Session.Remove("idFactura");
                 }
                 else
                 {
@@ -132,23 +133,29 @@ namespace ProyectoAMCRL
 
             String tipoFact = "";
             BLFactura blFactura = manejFact.buscarVentaID(Convert.ToInt32(id));
-
+            String texto = "Vista de venta";
             if (blFactura.tipo.Equals("V"))
-            {
+            { 
                 tipoFact = "venta";
             }
             else
             {
+                texto  = "Vista de compra";
                 tipoFact = "compra";
             }
             cargarPantalla(tipoFact);
+            labelBreadCrum2.Text = texto;
+
+
             String tipoSocio = "";
             if (tipoFact.Equals("venta"))
             {
+                
                 tipoSocio = "Cliente";
             }
             else
             {
+               
                 tipoSocio = "Proveedor";
             }
 
@@ -176,8 +183,12 @@ namespace ProyectoAMCRL
             bodegasDrop.CssClass = "btn btn-light dropdown-toggle";
 
             datepickerT.Text = blFactura.fecha.Day + "/" + blFactura.fecha.Month + "/" + blFactura.fecha.Year;
+            datepickerT.CssClass = "form-control font-weight-bolder";
             labelValorDatoConsecutivo.Text = Convert.ToString(blFactura.cod_Factura);
             totalLabel.Text = Convert.ToString(blFactura.monto_Total);
+
+            filaAgregarDetalles.Visible = false;
+            buscarSocioBTN.Visible = false;
 
         }
 

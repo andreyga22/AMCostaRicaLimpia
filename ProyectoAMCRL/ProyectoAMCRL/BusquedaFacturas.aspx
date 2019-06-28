@@ -219,7 +219,8 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                         <%--<button type="button" class="btn btn-primary">Filtrar</button>--%>
-                        <asp:Button ID="btnFiltrarModal" type="submit" runat="server" Text="Filtrar" class="btn btn-primary" OnClick="btnFiltrar_Click" />
+                        <%--OnClick="btnFiltrar_Click"--%>
+                        <asp:Button ID="btnFiltrarModal" type="submit" runat="server" Text="Filtrar" class="btn btn-primary"  />
                     </div>
                 </div>
             </div>

@@ -171,7 +171,7 @@
                     <asp:TableCell Width="30%">Unidad</asp:TableCell>
                     <asp:TableCell Width="10%">Acción</asp:TableCell>
                 </asp:TableHeaderRow>
-                <asp:TableRow>
+                <asp:TableRow ID="filaAgregarDetalles">
                     <%-- Producto --%>
                     <asp:TableCell>
                         <asp:DropDownList Width="100%" ID="materialDD" AutoPostBack="false" runat="server" CssClass="btn btn-light btn-sm dropdown-toggle dropup"></asp:DropDownList>

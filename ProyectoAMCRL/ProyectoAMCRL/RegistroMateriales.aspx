@@ -25,7 +25,7 @@
         <div class="col-lg-5" style="margin-left: 0%;">
             <asp:HiddenField runat="server" ID="escondidillo" Value="" />
             <div class="row">
-                <asp:TextBox type="text" ID="codigoMTB" class="form-control" runat="server" TextMode="SingleLine" placeholder="Código (Corregir sql)">
+                <asp:TextBox type="text" ID="codigoMTB" class="form-control" runat="server" TextMode="SingleLine" placeholder="Código">
                 </asp:TextBox>
             </div>
             <br />
