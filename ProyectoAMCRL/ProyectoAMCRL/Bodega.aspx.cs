@@ -9,19 +9,16 @@ using BL;
 namespace ProyectoAMCRL {
     public partial class Bodega : System.Web.UI.Page {
 
-        /*
-           Carga todos los componentes de la pantalla. 
-           Reisa si hay un usuario en sesión para permitir o negar la carga 
-           de la página. En caso de negarlo vuelve al login.
-           En caso de que se abra esta pantalla desde al seleccionar una opcion de la tabla
-           bodegas de la página AdministrarBodegas.aspx, los campos se cargarán con los datos de la bodega
-           seleccionada.
-
-            variables = 
-            String id = guardar el id traido de la pagina AdministrarBodegas.aspx
-            BlBodega mibod = almacena el objeto consultado de bases de datos con el id.
-            int est = almacena el estado del objeto bodega, para luego adecuarlo a la parte visual para el usuario.
-            */
+        /// <summary>
+        /// Carga todos los componentes de la pantalla. 
+        ///Reisa si hay un usuario en sesión para permitir o negar la carga
+        ///de la página.En caso de negarlo vuelve al login.
+        ///En caso de que se abra esta pantalla desde al seleccionar una opcion de la tabla
+        ///bodegas de la página AdministrarBodegas.aspx, los campos se cargarán con los datos de la bodega
+        ///seleccionada.
+            /// </summary>
+            /// <param name="sender"></param>
+            /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e) {
             if(Session["cuentaLogin"] != null) {
                 if(!IsPostBack) {
@@ -69,10 +66,12 @@ namespace ProyectoAMCRL {
             }
         }
 
-        /*
-         Este metod permite al usuario guardar o actualizar los campos de texto en el sistema.
-         Contiene el evento de clic en el botón guardar.
-             */
+        /// <summary>
+        /// Este metod permite al usuario guardar o actualizar el contenido de la pagina Bodega en el sistema.
+        ///Contiene el evento de clic en el botón guardar.
+             /// </summary>
+             /// <param name="sender"></param>
+             /// <param name="e"></param>
         protected void btnGuardar_Click(object sender, EventArgs e) {
             try {
                 string id = (String)Session["idBodega"];
@@ -151,13 +150,12 @@ namespace ProyectoAMCRL {
             }
         }
 
-        /*
-         Sirve para traer una bodega desde la base de datos en el caso de que el usuario de sesión 
-         sea un usuario con privilegios de administrador.
-
-        Variables:
-        BLManejadorBodega man = es una instancia del objeto que maneja todo el funcionamiento de las bodegas.
-             */
+        /// <summary>
+        /// Sirve para traer una bodega desde la base de datos en el caso de que el usuario de sesión 
+        ///sea un usuario con privilegios de administrador.
+             /// </summary>
+             /// <param name="id"></param>
+             /// <returns></returns>
         private BLBodega consultarBodegaAdmin(String id) {
             try {
                 BLManejadorBodega man = new BLManejadorBodega();
@@ -169,13 +167,12 @@ namespace ProyectoAMCRL {
             }
         }
 
-        /*
-        Sirve para traer una bodega desde la base de datos en el caso de que el usuario de sesión 
-        sea un usuario con privilegios de regular.
-        
-      Variables:
-        BLManejadorBodega man = es una instancia del objeto que maneja todo el funcionamiento de las bodegas.
-             */
+        /// <summary>
+        /// Sirve para traer una bodega desde la base de datos en el caso de que el usuario de sesión 
+        ///sea un usuario con privilegios de regular.
+             /// </summary>
+             /// <param name="id"></param>
+             /// <returns></returns>
         private BLBodega consultarBodegaRegular(String id) {
             try {
                 BLManejadorBodega man = new BLManejadorBodega();

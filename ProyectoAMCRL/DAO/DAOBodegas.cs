@@ -15,7 +15,11 @@ namespace DAO {
 
         private SqlConnection conexion = new SqlConnection(Properties.Settings.Default.conexionHost);
 
-
+        /// <summary>
+        /// Permite el almacenamieto o actulización de los datos de una bodega en base de datos.
+        /// (Solo sirve con un usuario administrador)
+        /// </summary>
+        /// <param name="bod">Bodega que se desea actualizar o guardar</param>
         public void guardarModificarBodegaAdmin(TOBodega bod) {
 
 
@@ -111,6 +115,11 @@ namespace DAO {
             }
         }
 
+        /// <summary>
+        /// Permite el almacenamieto o actulización de los datos de una bodega en base de datos.
+        /// (Solo sirve con un usuario regular)
+        /// </summary>
+        /// <param name="bod">Bodega que se desea actualizar o guardar</param>
         public void guardarModificarBodegaRegular(TOBodega bod) {
 
 
@@ -239,6 +248,10 @@ namespace DAO {
         //    }
         //}
 
+            /// <summary>
+            /// Devuelve una lista con los principales datos de las bodegas.
+            /// </summary>
+            /// <returns>Lista con los datos de las bodegas</returns>
         public List<TOBodegaTabla> listaBodegaUsuarioRegular() {
             try {
                 string select = "select b.ID_BODEGA, b.NOMBRE_BOD, d.DISTRITO, b.ESTADO_BODEGA from bodega b join direccion d on b.COD_DIRECCION = d.COD_DIRECCION;";
@@ -293,12 +306,17 @@ namespace DAO {
         //    }
         //}
 
-
+        /// <summary>
+        /// Permite el filtro de los datos por medio de una palabra clave.
+        /// (Solo sirve para usuario regular)
+        /// </summary>
+        /// <param name="busqueda">Palabra clave para la busqueda</param>
+        /// <returns>Datatable con el resultado de la busqueda</returns>
         public DataTable buscarUsuarioRegular(string busqueda) {
             try {
                 using(conexion) {
                     SqlCommand cmd = conexion.CreateCommand();
-                    string sql = "select b.ID_BODEGA, b.NOMBRE_BOD, d.DISTRITO from bodega b join direccion d on b.COD_DIRECCION = d.COD_DIRECCION";
+                    string sql = "select b.ID_BODEGA as 'Código Bodega', b.NOMBRE_BOD as 'Nombre Bodega', d.DISTRITO as Ubicación from bodega b join direccion d on b.COD_DIRECCION = d.COD_DIRECCION";
                     if(!string.IsNullOrEmpty(busqueda)) {
                         sql += " WHERE ((b.ID_BODEGA LIKE '%' + @pal + '%')  or (b.NOMBRE_BOD LIKE '%' + @pal + '%') or (d.DISTRITO LIKE '%' + @pal + '%')) and b.ESTADO_BODEGA = 1;";
                         cmd.Parameters.AddWithValue("@pal", busqueda);
@@ -316,11 +334,17 @@ namespace DAO {
             }
         }
 
+        /// <summary>
+        /// Permite el filtro de los datos por medio de una palabra clave.
+        /// (Solo sirve para usuario administrador)
+        /// </summary>
+        /// <param name="busqueda">Palabra clave</param>
+        /// <returns>Datatable con el resultado de la busqueda</returns>
         public DataTable buscarUsuarioAdmin(string busqueda) {
             try {
                 using(conexion) {
                     SqlCommand cmd = conexion.CreateCommand();
-                    string sql = "select b.ID_BODEGA, b.NOMBRE_BOD, d.DISTRITO, b.ESTADO_BODEGa from bodega b join direccion d on b.COD_DIRECCION = d.COD_DIRECCION";
+                    string sql = "select b.ID_BODEGA as 'Código Bodega', b.NOMBRE_BOD as 'Nombre Bodega', d.DISTRITO as 'Ubicación', b.ESTADO_BODEGa as 'Estado' from bodega b join direccion d on b.COD_DIRECCION = d.COD_DIRECCION";
                     if(!string.IsNullOrEmpty(busqueda)) {
                         sql += " WHERE (b.ID_BODEGA LIKE '%' + @pal + '%')  or (b.NOMBRE_BOD LIKE '%' + @pal + '%') or (d.DISTRITO LIKE '%' + @pal + '%');";
                         cmd.Parameters.AddWithValue("@pal", busqueda);
@@ -338,7 +362,12 @@ namespace DAO {
             }
         }
 
-
+        /// <summary>
+        /// Permite la obtención de los datos de una bodega por medio de su identificador.
+        /// Solo sirve para usuario administrador
+        /// </summary>
+        /// <param name="idBodega">Identificador de la bodega</param>
+        /// <returns>TOBodega con el resultado de la consulta</returns>
         public TOBodega consultarBodegaAdmin(String idBodega) {
 
             TOBodega Bodega = new TOBodega();
@@ -372,6 +401,12 @@ namespace DAO {
             return Bodega;
         }
 
+        /// <summary>
+        ///  Permite la obtención de los datos de una bodega por medio de su identificador.
+        /// Solo sirve para usuario administrador
+        /// </summary>
+        /// <param name="idBodega">Identificador de la bodega</param>
+        /// <returns>TOBodega con el resultado de la consulta</returns>
         public TOBodega consultarBodegaRegular(String idBodega) {
 
             TOBodega Bodega = new TOBodega();

@@ -11,13 +11,25 @@ using System.Net.Mail;
 
 namespace ProyectoAMCRL {
     public partial class Login : System.Web.UI.Page {
+        /// <summary>
+        /// Carga el contenido de la pagina de Login y se asegura de que todas las variables de sesion esten en null
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e) {
             Session["accionCuenta"] = null;
             Session["idBodega"] = null;
             Session["idCuenta"] = null;
             Session["cuentaLogin"] = null;
+            Session["SortedView"] = null;
         }
 
+        /// <summary>
+        /// Método del evento entrar, que permite a una cuenta acceder al sistema por medio de las credenciales 
+        /// pre establecidas.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btnEntrar_Click(object sender, EventArgs e) {
             BLManejadorCuentas man = new BLManejadorCuentas();
             string securepass = FormsAuthentication.HashPasswordForStoringInConfigFile(contraTb.Text.Trim(), "MD5");
@@ -43,6 +55,12 @@ namespace ProyectoAMCRL {
 
         }
 
+        /// <summary>
+        /// Permite a un usuario reestablecer su contraseña de sistema en caso de que la olvide
+        /// Envia un correo electronico al usuario con una nueva contraseña autogenerada.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btnEnviar_Click(object sender, EventArgs e) {
             BLCuenta cuenta = new BLManejadorCuentas().consultarCuenta(recuperarUsuarioTb.Text.Trim());
             if(cuenta != null) {
