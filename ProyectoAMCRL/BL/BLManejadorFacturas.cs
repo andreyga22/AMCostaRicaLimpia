@@ -12,11 +12,31 @@ namespace BL
     public class BLManejadorFacturas
     {
 
-        //public String guadarDetallesVentaBL()
-        //{
-        //    DAOManejadorFacturas manejador = new DAOManejadorFacturas();
-        //    return manejador.registrarDetalles();
-        //}
+        /// <summary>
+        /// Método para buscar las facturas que se relacionen con una palabra o el tipo de factura
+        /// </summary>
+        /// <param name="busqueda">Palabra que se utiliza para buscar en el método</param>
+        /// <param name="tipo">Tipo de factura que se está revisando</param>
+        /// <returns></returns>
+        public DataTable buscar(string busqueda, string tipo)
+        {
+            try
+            {
+                return new DAOManejadorFacturas().buscar(busqueda, tipo);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
+
+
+
+
+
+
 
         public List<BLFactura> listaFact(string busqueda)
         {
@@ -82,11 +102,82 @@ namespace BL
             }
         }
 
-        public DataSet filtrarFacturas(string fechaInicio, string fechaFin, string tipo, string montoMaximo, string montoMinimo, List<string> materiales)
+        /// <summary>
+        /// Método para filtrar las facturas según un rango de fechas y montos
+        /// </summary>
+        /// <param name="fechaInicio">Fecha de inicio para el rango de filtro por fechas</param>
+        /// <param name="fechaFin">Fecha de fin para el rango de filtro por fechas</param>
+        /// <param name="montoMaximo">Monto máximo para el rango de filtro por monto</param>
+        /// <param name="montoMinimo">Monto mínimo para el rango de filtro por monto</param>
+        /// <param name="materiales">Lista de los materiales que se seleccionaron para filtrar</param>
+        /// <param name="tipo">Tipo de factura que se realiza</param>
+        /// <returns>Retorna una tabla con las facturas que cumplen con los filtros</returns>
+        public DataTable filtrarFacturas(string fechaInicio, string fechaFin, string montoMaximo, string montoMinimo, List<string> materiales, string tipo)
         {
             DAOManejadorFacturas manej = new DAOManejadorFacturas();
+            DateTime fechaInicioNuevo = new DateTime();
+            DateTime fechaFinNuevo = new DateTime();
+            string dia = "";
+            string mes = "";
+            string anno = "";
+            int montoMinimoNuevo = 0;
+            int montoMaximoNuevo = 0;
 
-            //asdas
+            if (string.IsNullOrEmpty(fechaInicio) == false && string.IsNullOrEmpty(fechaFin) == false)
+            {
+                dia = fechaInicio[0].ToString() + fechaInicio[1].ToString();
+                mes = fechaInicio[3].ToString() + fechaInicio[4].ToString();
+                anno = fechaInicio[6].ToString() + fechaInicio[7].ToString() + fechaInicio[8].ToString() + fechaInicio[9].ToString();
+                fechaInicioNuevo = new DateTime(int.Parse(anno), int.Parse(mes), int.Parse(dia));
+
+                dia = fechaFin[0].ToString() + fechaFin[1].ToString();
+                mes = fechaFin[3].ToString() + fechaFin[4].ToString();
+                anno = fechaFin[6].ToString() + fechaFin[7].ToString() + fechaFin[8].ToString() + fechaFin[9].ToString();
+                fechaFinNuevo = new DateTime(int.Parse(anno), int.Parse(mes), int.Parse(dia));
+            }
+            else
+            {
+                if ((string.IsNullOrEmpty(fechaInicio) == true && string.IsNullOrEmpty(fechaFin) == false) || (string.IsNullOrEmpty(fechaInicio) == false && string.IsNullOrEmpty(fechaFin) == true))
+                {
+                    if (string.IsNullOrEmpty(fechaInicio) == true)
+                    {
+                        fechaInicioNuevo = new DateTime(1800, 12, 25);
+                        dia = fechaFin[0].ToString() + fechaFin[1].ToString();
+                        mes = fechaFin[3].ToString() + fechaFin[4].ToString();
+                        anno = fechaFin[6].ToString() + fechaFin[7].ToString() + fechaFin[8].ToString() + fechaFin[9].ToString();
+                        fechaFinNuevo = new DateTime(int.Parse(anno), int.Parse(mes), int.Parse(dia));
+                    }
+                    else
+                    {
+                        dia = fechaInicio[0].ToString() + fechaInicio[1].ToString();
+                        mes = fechaInicio[3].ToString() + fechaInicio[4].ToString();
+                        anno = fechaInicio[6].ToString() + fechaInicio[7].ToString() + fechaInicio[8].ToString() + fechaInicio[9].ToString();
+                        fechaInicioNuevo = new DateTime(int.Parse(anno), int.Parse(mes), int.Parse(dia));
+                        fechaFinNuevo = new DateTime(5000, 12, 25);
+                    }
+                }
+                else
+                {
+                    fechaInicioNuevo = new DateTime(1800, 12, 25);
+                    fechaFinNuevo = new DateTime(5000, 12, 25);
+                }
+            }
+
+            if ((string.IsNullOrEmpty(montoMinimo) == true && string.IsNullOrEmpty(montoMaximo) == false) || (string.IsNullOrEmpty(montoMinimo) == false && string.IsNullOrEmpty(montoMaximo) == true))
+            {
+                if (string.IsNullOrEmpty(montoMinimo) == true)
+                {
+                    montoMinimoNuevo = 0;
+                    montoMaximoNuevo = Int32.Parse(montoMaximo);
+                }
+                else
+                {
+                    montoMinimoNuevo = Int32.Parse(montoMinimo);
+                    montoMaximoNuevo = 999999999;
+                }
+            }
+            
+            return manej.filtrarFacturas(fechaInicioNuevo, fechaFinNuevo, montoMaximoNuevo, montoMinimoNuevo, materiales, tipo);
             //return manej.filtrarFacturasDAO(fechaInicio, fechaFin, tipo, montoMaximo, montoMinimo, materiales);
             //List<BLFactura> listaBL = new List<BLFactura>();
             //List<TOFactura> listaTO = manej.filtrarFacturasDAO(fechaInicio, fechaFin, tipo, montoMaximo, montoMinimo, materiales);
@@ -95,7 +186,6 @@ namespace BL
             //    listaBL.Add(convert(factura));
             //}
             //return listaBL;
-            return null;
         }
 
 
@@ -120,17 +210,13 @@ namespace BL
         //    return listaFiltradaFactTO;
         //}
 
-        public DataTable buscar(string busqueda)
-        {
-            try
-            {
-                return new DAOManejadorFacturas().buscar(busqueda);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+        //public String guadarDetallesVentaBL()
+        //{
+        //    DAOManejadorFacturas manejador = new DAOManejadorFacturas();
+        //    return manejador.registrarDetalles();
+        //}
+
+
 
         public List<BLFactura> facturasTipo(string tipo)
         {
@@ -150,6 +236,8 @@ namespace BL
                 throw;
             }
         }
+
+
 
         public BLFactura convert(TOFactura to)
         {
@@ -186,7 +274,7 @@ namespace BL
             double totalFacturaColones = sumaMontosDetalle * equivalenciaColon;
 
             DAOManejadorFacturas manejadorDAO = new DAOManejadorFacturas();
-            
+
             return manejadorDAO.registrarFacturaDAO(cedula, idBodega, idMoneda, fecha, 'v', detallesTO, totalFacturaColones);
         }
 
@@ -205,36 +293,41 @@ namespace BL
             double totalFacturaColones = sumaMontosDetalle * equivalenciaColon;
 
             DAOManejadorFacturas manejadorDAO = new DAOManejadorFacturas();
-           
+
             return manejadorDAO.registrarFacturaDAO(cedula, idBodega, idMoneda, fecha, 'c', detallesTO, totalFacturaColones);
         }
 
-        public double calcularTotalActual(List<String> detalles) {
+        public double calcularTotalActual(List<String> detalles)
+        {
             return calcularSumaDetalles(parsearDetalles(detalles));
         }
 
-        private double calcularSumaDetalles(List<TODetalleFactura> detallesTO) {
+        private double calcularSumaDetalles(List<TODetalleFactura> detallesTO)
+        {
             double suma = 0;
 
-            foreach (TODetalleFactura detalle in detallesTO) {
+            foreach (TODetalleFactura detalle in detallesTO)
+            {
                 suma += detalle.monto_Linea;
-                
+
             }
 
             return suma;
         }
 
 
-        private List<TODetalleFactura> parsearDetalles(List<String> listaInfo) {
+        private List<TODetalleFactura> parsearDetalles(List<String> listaInfo)
+        {
             List<TODetalleFactura> detallesTO = new List<TODetalleFactura>();
             TODetalleFactura detalleTO = null;
 
-            foreach (String detalle in listaInfo) {
+            foreach (String detalle in listaInfo)
+            {
                 detalleTO = new TODetalleFactura();
                 String[] infoLinea = detalle.Split('&');
                 //[0]material; [2]precioKilo; [3]cantidad; [4]unidad; 
                 String[] materialInfo = infoLinea[0].Split('#');
-                String[] idANDstock = materialInfo[0].Split('-'); 
+                String[] idANDstock = materialInfo[0].Split('-');
                 detalleTO.cod_Material = idANDstock[0];
 
                 String[] infoUnidad = infoLinea[3].Split('#');

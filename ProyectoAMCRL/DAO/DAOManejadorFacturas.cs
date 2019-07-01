@@ -178,29 +178,6 @@ namespace DAO
                             lista.Add(to);
                         }
                     }
- 
-
-
-                    //DataTable table = new DataTable();
-                    //SqlDataAdapter adapter = new SqlDataAdapter();
-                    //adapter.SelectCommand = cmdVenta;
-                    //adapter.Fill(table);
-                    //List<TOFactura> lista = new List<TOFactura>();
-
-                    //for (int x = 0; x < table.Rows.Count; x++)
-                    //{
-                    //    TOFactura venta = new TOFactura();
-                    //    venta.cod_Factura = Convert.ToInt16(table.Rows[x]["COD_FACTURA"]);
-                    //    venta.cedula = Convert.ToString(table.Rows[x]["CEDULA"]);
-                    //    venta.id_Bodega = Convert.ToString(table.Rows[x]["ID_BODEGA"]);
-                    //    venta.id_Moneda = Convert.ToString(table.Rows[x]["ID_MONEDA"]);
-                    //    venta.monto_Total = Convert.ToDouble(table.Rows[x]["MONTO_TOTAL"]);
-                    //    venta.fecha = Convert.ToDateTime(table.Rows[x]["FECHA_FACTURA"]);
-                    //    venta.tipo = Convert.ToString(table.Rows[x]["TIPO"]);
-                    //    venta.nombreCompleto = Convert.ToString(table.Rows[x]["NOMBRE"]) + " " + Convert.ToString(table.Rows[x]["APELLIDO1"]) + " " + Convert.ToString(table.Rows[x]["APELLIDO2"]);
-
-                    //    lista.Add(venta);
-                    //}
                     if (conexion.State != ConnectionState.Closed)
                     {
                         conexion.Close();
@@ -417,16 +394,23 @@ namespace DAO
             }
         }
 
-
-        public DataTable buscar(string busqueda)
+        /// <summary>
+        /// Método para buscar las facturas que se relacionen con una palabra o el tipo de factura
+        /// </summary>
+        /// <param name="busqueda">Palabra que se utiliza para buscar en el método</param>
+        /// <param name="tipo">Tipo de factura que se está buscando</param>
+        /// <returns></returns>
+        public DataTable buscar(string busqueda, string tipo)
         {
-            try
-            {
+            //try
+            //{
                 using (conexion)
                 {
                     SqlCommand cmd = conexion.CreateCommand();
                     //cod, bod, moneda, cedula, monto, fecha, tipo, socio
-                    string sql = "Select v.COD_FACTURA, v.ID_BODEGA, v.ID_MONEDA, v.CEDULA, v.MONTO_TOTAL, v.FECHA_FACTURA, v.TIPO, s.NOMBRE + ' ' + s.APELLIDO1 + ' ' +  s.APELLIDO2 as SOCIO from FACTURA v, SOCIO_NEGOCIO s where v.CEDULA = s.CEDULA ";
+                    string sql = "Select s.NOMBRE + ' ' + s.APELLIDO1 + ' ' +  s.APELLIDO2 as SOCIO,  v.CEDULA as 'CÉDULA', v.COD_FACTURA as 'NÚMERO FACTURA', v.FECHA_FACTURA as 'FECHA FACTURA', v.MONTO_TOTAL as 'MONTO TOTAL' from FACTURA v, SOCIO_NEGOCIO s where v.CEDULA = s.CEDULA and v.TIPO = @tipo ";
+
+                    cmd.Parameters.AddWithValue("@tipo", tipo);
 
                     if (string.IsNullOrEmpty(busqueda) == false)
                     {
@@ -444,11 +428,96 @@ namespace DAO
                     }
                 }
             }
-            catch (Exception)
+        //catch (Exception)
+        //{
+        //    throw;
+        //}
+        //}
+
+        /// <summary>
+        /// Método para filtrar las facturas según un rango de fechas y montos
+        /// </summary>
+        /// <param name="fechaInicio">Fecha de inicio para el rango de filtro por fechas</param>
+        /// <param name="fechaFin">Fecha de fin para el rango de filtro por fechas</param>
+        /// <param name="montoMaximo">Monto máximo para el rango de filtro por monto</param>
+        /// <param name="montoMinimo">Monto mínimo para el rango de filtro por monto</param>
+        /// <param name="materiales">Lista de los materiales que se seleccionaron para filtrar</param>
+        /// <param name="tipo">Tipo de factura que se realiza</param>
+        /// <returns>Retorna una tabla con las facturas que cumplen con los filtros</returns>
+        public DataTable filtrarFacturas(DateTime fechaInicio, DateTime fechaFin, int montoMaximo, int montoMinimo, List<string> materiales, string tipo)
+        {
+            using (conexion)
             {
-                throw;
+                SqlCommand cmd = conexion.CreateCommand();
+                string sql = "Select s.NOMBRE + ' ' + s.APELLIDO1 + ' ' +  s.APELLIDO2 as SOCIO,  v.CEDULA as 'CÉDULA', v.COD_FACTURA as 'NÚMERO FACTURA', v.FECHA_FACTURA as 'FECHA FACTURA', v.MONTO_TOTAL as 'MONTO TOTAL' from FACTURA v, SOCIO_NEGOCIO s, DETALLE_FACTURA d where v.CEDULA = s.CEDULA and v.COD_FACTURA = d.COD_FACTURA and v.TIPO = @tipo ";
+                cmd.Parameters.AddWithValue("@tipo", tipo);
+
+                if (fechaInicio != null && fechaFin != null)
+                {
+                    sql += " and FECHA_FACTURA between @fechaInicio and @fechaFin";
+
+                    cmd.Parameters.AddWithValue("@fechaInicio", fechaInicio);
+                    cmd.Parameters.AddWithValue("@fechaFin", fechaFin);
+                }
+                //if (string.IsNullOrEmpty(montoMinimo) == false && string.IsNullOrEmpty(montoMaximo) == false)
+                if(montoMinimo != 0 && montoMaximo != 0)
+                {
+                    sql += " and v.MONTO_TOTAL between @montoMinimo and @montoMaximo";
+
+                    cmd.Parameters.AddWithValue("@montoMinimo", montoMinimo);
+                    cmd.Parameters.AddWithValue("@montoMaximo", montoMaximo);
+                }
+                if(materiales.Count > 0)
+                {
+                    sql += " and d.COD_MATERIAL in (";
+                    foreach (String id in materiales)
+                    {
+                        sql += " @id,";
+                        cmd.Parameters.AddWithValue("@id", id);
+                    }
+                    sql = sql.Remove(sql.Length - 1);
+                    sql += " )";
+                }
+                cmd.CommandText = sql;
+                cmd.Connection = conexion;
+                using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                {
+                    DataTable dt = new DataTable();
+                    sda.Fill(dt);
+                    return dt;
+                }
             }
         }
+
+        public DataTable buscarTodo(string busqueda, string tipo)
+        {
+            //try
+            //{
+            using (conexion)
+            {
+                SqlCommand cmd = conexion.CreateCommand();
+                //cod, bod, moneda, cedula, monto, fecha, tipo, socio
+                string sql = "Select v.COD_FACTURA, v.ID_BODEGA, v.ID_MONEDA, v.CEDULA, v.MONTO_TOTAL, v.FECHA_FACTURA, v.TIPO, s.NOMBRE + ' ' + s.APELLIDO1 + ' ' +  s.APELLIDO2 as SOCIO from FACTURA v, SOCIO_NEGOCIO s where v.CEDULA = s.CEDULA and v.TIPO = @tipo ";
+
+                cmd.Parameters.AddWithValue("@tipo", tipo);
+
+                if (string.IsNullOrEmpty(busqueda) == false)
+                {
+                    sql += " and ((v.COD_FACTURA LIKE '%' + @pal + '%')  or (V.CEDULA LIKE '%' + @pal + '%') or (v.MONTO_TOTAL LIKE '%' + @pal + '%') or (v.FECHA_FACTURA LIKE '%' + @pal + '%') or (s.NOMBRE LIKE '%' + @pal + '%') or (s.APELLIDO1 LIKE '%' + @pal + '%') or (s.APELLIDO2 LIKE '%' + @pal + '%'));";
+
+                    cmd.Parameters.AddWithValue("@pal", busqueda);
+                }
+                cmd.CommandText = sql;
+                cmd.Connection = conexion;
+                using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                {
+                    DataTable dt = new DataTable();
+                    sda.Fill(dt);
+                    return dt;
+                }
+            }
+        }
+
 
     }
 }
