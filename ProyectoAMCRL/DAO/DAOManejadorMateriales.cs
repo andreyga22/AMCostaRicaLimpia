@@ -127,66 +127,66 @@ namespace DAO
 
         }
 
-        public TOMaterial buscarMaterialDAO(string clave)
-        {
-            TOMaterial MTO = new TOMaterial();
-            String sql = "select m.COD_MATERIAL, m.NOMBRE_MATERIAL, m.PRECIO_KILO, um.COD_UNIDAD, um.NOMBRE_UNIDAD, um.EQUIVALENCIA_KG from MATERIAL m "+
-            " inner join UNIDAD_MEDIDA um on(m.COD_UNIDAD = um.COD_UNIDAD and m.COD_MATERIAL = @COD); ";
-            String codigo = "";
-            String nombre = "";
-            Double precioKilo = 0;
+        //public TOMaterial buscarMaterialDAO(string clave)
+        //{
+        //    TOMaterial MTO = new TOMaterial();
+        //    String sql = "select m.COD_MATERIAL, m.NOMBRE_MATERIAL, m.PRECIO_KILO, um.COD_UNIDAD, um.NOMBRE_UNIDAD, um.EQUIVALENCIA_KG from MATERIAL m "+
+        //    " inner join UNIDAD_MEDIDA um on(m.COD_UNIDAD = um.COD_UNIDAD and m.COD_MATERIAL = @COD); ";
+        //    String codigo = "";
+        //    String nombre = "";
+        //    Double precioKilo = 0;
 
-            String codUnidad = "";
-            String nomUnidad = "";
-            Double equivalenciaUnidad = 0;
-
-
-            using (conexion) {
-                SqlCommand cmd = new SqlCommand(sql,conexion);
-                cmd.Parameters.AddWithValue("@COD", clave);
-
-                try
-                {
-
-                    conexion.Open();
-                    SqlDataReader reader = cmd.ExecuteReader();
-
-                    if (reader.HasRows) {
-
-                        while (reader.Read())
-                        {
-                            codigo = (String)reader.GetString(0);
-                            nombre = (String)reader.GetString(1);
-                            precioKilo = reader.GetSqlDecimal(2).ToDouble();
-
-                            codUnidad = (String)reader.GetString(3);
-                            nomUnidad = (String)reader.GetString(4);
-                            equivalenciaUnidad = reader.GetSqlDecimal(5).ToDouble();
+        //    String codUnidad = "";
+        //    String nomUnidad = "";
+        //    Double equivalenciaUnidad = 0;
 
 
-                        }
+        //    using (conexion) {
+        //        SqlCommand cmd = new SqlCommand(sql,conexion);
+        //        cmd.Parameters.AddWithValue("@COD", clave);
 
-                        MTO.codigoM = clave;
-                        MTO.nombreMaterial = nombre;
-                        MTO.precioKilo = precioKilo;
-                        //UNIDAD
-                        TOUnidad unidad = new TOUnidad(codUnidad, nomUnidad, equivalenciaUnidad);
-                        MTO.unidadBase = unidad;
+        //        try
+        //        {
 
-                        conexion.Close();
-                        return MTO;
+        //            conexion.Open();
+        //            SqlDataReader reader = cmd.ExecuteReader();
 
-                    }
-                    else {
-                        return null;
-                    }
-                }
-                catch (Exception e)
-                {
-                    return null;
-                }
-            }
-        }
+        //            if (reader.HasRows) {
+
+        //                while (reader.Read())
+        //                {
+        //                    codigo = (String)reader.GetString(0);
+        //                    nombre = (String)reader.GetString(1);
+        //                    precioKilo = reader.GetSqlDecimal(2).ToDouble();
+
+        //                    codUnidad = (String)reader.GetString(3);
+        //                    nomUnidad = (String)reader.GetString(4);
+        //                    equivalenciaUnidad = reader.GetSqlDecimal(5).ToDouble();
+
+
+        //                }
+
+        //                MTO.codigoM = clave;
+        //                MTO.nombreMaterial = nombre;
+        //                MTO.precioKilo = precioKilo;
+        //                //UNIDAD
+        //                //TOUnidad unidad = new TOUnidad(codUnidad, nomUnidad, equivalenciaUnidad);
+        //                MTO.unidadBase = unidad;
+
+        //                conexion.Close();
+        //                return MTO;
+
+        //            }
+        //            else {
+        //                return null;
+        //            }
+        //        }
+        //        catch (Exception e)
+        //        {
+        //            return null;
+        //        }
+        //    }
+        //}
 
         public double traerCantidadVendidaDAO(int v)
         {

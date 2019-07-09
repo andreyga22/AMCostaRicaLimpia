@@ -193,6 +193,5 @@ namespace ProyectoAMCRL {
             }
         }
 
-        
     }
 }

@@ -4,6 +4,7 @@
     <link href="ownStyles.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="breadcrumbBodyHolder" runat="server">
+
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="body" runat="server">
 
@@ -88,7 +89,7 @@
                         <p class="card-text">Maneje monedas y unidades de medida del sistema.</p>
                               <a href="Monedas.aspx" class="card-link text-primary">Monedas</a>
                         <br />
-                        <a href="#" class="card-link text-primary">Unidades de medida</a>
+                        <a href="AdministrarUnidadesMedida.aspx" class="card-link text-primary">Unidades de medida</a>
                         <br />
                     </div>
                 </div>

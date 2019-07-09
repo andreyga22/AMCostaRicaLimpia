@@ -22,6 +22,7 @@ namespace ProyectoAMCRL {
             Session["idCuenta"] = null;
             Session["cuentaLogin"] = null;
             Session["SortedView"] = null;
+            Session["idUnidad"] = null;
         }
 
         /// <summary>
