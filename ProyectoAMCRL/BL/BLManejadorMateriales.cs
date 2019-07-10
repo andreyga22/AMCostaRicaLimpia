@@ -55,27 +55,26 @@ namespace BL
             return manejador.registrarActualizarMaterialDAO(m, tipo);
         }
 
-        public BLMaterial buscarMaterial(string clave)
-        {
-            
-            TOMaterial materialTO = manejador.buscarMaterialDAO(clave);
-            return parsearMaterialTO_BL(materialTO);
-        }
+        //public BLMaterial buscarMaterial(string clave) {
 
-        private BLMaterial parsearMaterialTO_BL(TOMaterial mto) {
+        //    TOMaterial materialTO = manejador.buscarMaterialDAO(clave);
+        //    return parsearMaterialTO_BL(materialTO);
+        //}
 
-            BLMaterial m = null;
-            if(mto != null)
-            {
-                m = new BLMaterial();
-                m.nombreMaterial = mto.nombreMaterial;
-                m.codigoM = mto.codigoM;
-                m.precioKilo = mto.precioKilo;
-                m.unidadBase = new BLUnidad(mto.unidadBase.codigo, mto.unidadBase.nombre, mto.unidadBase.equivalencia);
-            }
-           
-            return m;
-        }
+        //private BLMaterial parsearMaterialTO_BL(TOMaterial mto) {
+
+        //    BLMaterial m = null;
+        //    if(mto != null)
+        //    {
+        //        m = new BLMaterial();
+        //        m.nombreMaterial = mto.nombreMaterial;
+        //        m.codigoM = mto.codigoM;
+        //        m.precioKilo = mto.precioKilo;
+        //        m.unidadBase = new BLUnidad(mto.unidadBase.codigo, mto.unidadBase.nombre, mto.unidadBase.equivalencia);
+        //    }
+
+        //    return m;
+        //}
 
     }
 }

@@ -12,7 +12,10 @@ namespace DAO {
 
         private SqlConnection conexion = new SqlConnection(Properties.Settings.Default.conexionHost);
 
-
+        /// <summary>
+        /// Permite guardar una cuenta en el sistema.
+        /// </summary>
+        /// <param name="cuenta">Objeto cuenta que se desea guardar en el sistema</param>
         public void guardarCuenta(TOCuenta cuenta) {
 
 
@@ -56,6 +59,10 @@ namespace DAO {
             }
         }
 
+        /// <summary>
+        /// Permite la actualización de los datos de una cuenta
+        /// </summary>
+        /// <param name="cuenta">Cuenta con los datos que se desean actualizar</param>
         public void modificarCuenta(TOCuenta cuenta) {
 
 
@@ -104,6 +111,12 @@ namespace DAO {
             }
         }
 
+        /// <summary>
+        /// Permite la modificación de la contraseña de un usuario.
+        /// </summary>
+        /// <param name="id">Identificador de la cuenta a modificar</param>
+        /// <param name="vieja">Contraseña anterior</param>
+        /// <param name="nueva">Nueva contraseña</param>
         public void modificarContrasena(string id, string vieja, string nueva) {
 
 
@@ -145,9 +158,12 @@ namespace DAO {
             }
         }
 
-
+        /// <summary>
+        /// Permite la restauración de una contraseña en caso de extravío.
+        /// </summary>
+        /// <param name="id">Identificador de la cuenta</param>
+        /// <param name="nueva">Nueva contraseña</param>
         public void restaurarContra(string id, string nueva) {
-
 
             using(conexion) {
                 if(conexion.State != ConnectionState.Open) {
@@ -186,12 +202,16 @@ namespace DAO {
             }
         }
 
-
+        /// <summary>
+        /// Permite el filtro de cuentas por medio de una palabra clave
+        /// </summary>
+        /// <param name="busqueda">Palabra clave</param>
+        /// <returns>Datatable con el resultado de la busqueda</returns>
         public DataTable buscar(string busqueda) {
             try {
                 using(conexion) {
                     SqlCommand cmd = conexion.CreateCommand();
-                    string sql = "select id_usuario, nombre_usuario, rol, estado from credenciales";
+                    string sql = "select id_usuario as Identificador, nombre_usuario as 'Nombre Usuario', rol as Rol, estado as Estado from credenciales";
                     if(!string.IsNullOrEmpty(busqueda)) {
                         sql += " WHERE (id_usuario LIKE '%' + @pal + '%')  or (rol LIKE '%' + @pal + '%') or (estado LIKE '%' + @pal + '%') or (nombre_usuario LIKE '%' + @pal + '%');";
                         cmd.Parameters.AddWithValue("@pal", busqueda);
@@ -223,6 +243,11 @@ namespace DAO {
             }
         }
 
+        /// <summary>
+        /// Permite la busqueda de una cuenta por medio del identificador de la cuenta.
+        /// </summary>
+        /// <param name="idCuenta">Identificador de la cuenta</param>
+        /// <returns>TOCuenta con el resultado de la busqueda</returns>
         public TOCuenta consultarCuenta(String idCuenta) {
             try {
                 TOCuenta cuenta = new TOCuenta();
@@ -252,6 +277,12 @@ namespace DAO {
             }
         }
 
+        /// <summary>
+        /// Permite el login de una cuenta de usuario al sistema.
+        /// </summary>
+        /// <param name="idCuenta">Identificador de la cuenta</param>
+        /// <param name="contra">Contraseña de la cuenta</param>
+        /// <returns>TOCuenta con  los datos del usuario de login</returns>
         public TOCuenta login(String idCuenta, string contra) {
             try {
                 TOCuenta cuenta = null;
@@ -283,6 +314,12 @@ namespace DAO {
             }
         }
 
+        /// <summary>
+        /// Permite la consulta de la existencia de una cuenta pormedio del identificador y su contraseña
+        /// </summary>
+        /// <param name="idCuenta">Identificador de la cuenta</param>
+        /// <param name="contra">Contraseña de la cuenta</param>
+        /// <returns>Boolean que confirme la existencia de la cuenta</returns>
         public Boolean consultarContra(String idCuenta, string contra) {
             try {
                 String id = "";

@@ -96,6 +96,7 @@
     <Content Include="DetalleAjuste.aspx" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="images\compra.png" />
+    <Content Include="images\downarrow.png" />
     <Content Include="images\facturas.png" />
     <Content Include="images\fondo.jpeg" />
     <Content Include="images\fondo.jpg" />
@@ -108,6 +109,7 @@
     <Content Include="images\reportes.png" />
     <Content Include="images\socios.png" />
     <Content Include="AdministrarMateriales.aspx" />
+    <Content Include="images\uparrow.png" />
     <Content Include="Login.aspx" />
     <Content Include="login.css" />
     <Content Include="Monedas.aspx" />
@@ -161,6 +163,8 @@
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="sideNavStyle.css" />
+    <Content Include="AdministrarUnidadesMedida.aspx" />
+    <Content Include="UnidadMedida.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -306,6 +310,20 @@
     </Compile>
     <Compile Include="Reporte_General.aspx.designer.cs">
       <DependentUpon>Reporte_General.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdministrarUnidadesMedida.aspx.cs">
+      <DependentUpon>AdministrarUnidadesMedida.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdministrarUnidadesMedida.aspx.designer.cs">
+      <DependentUpon>AdministrarUnidadesMedida.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UnidadMedida.aspx.cs">
+      <DependentUpon>UnidadMedida.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UnidadMedida.aspx.designer.cs">
+      <DependentUpon>UnidadMedida.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

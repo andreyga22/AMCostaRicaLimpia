@@ -31,6 +31,15 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.ScriptManager ScriptManager1;
         
         /// <summary>
+        /// Control txtPalabra.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPalabra;
+        
+        /// <summary>
         /// Control fechaInicio.
         /// </summary>
         /// <remarks>
@@ -47,15 +56,6 @@ namespace ProyectoAMCRL {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox fechaFin;
-        
-        /// <summary>
-        /// Control tipoRadioL.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList tipoRadioL;
         
         /// <summary>
         /// Control montoMinimo.
@@ -85,22 +85,22 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.CheckBoxList materialesCB;
         
         /// <summary>
-        /// Control btnFiltrarModal.
+        /// Control btnBusquedaAvanzada.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnFiltrarModal;
+        protected global::System.Web.UI.WebControls.Button btnBusquedaAvanzada;
         
         /// <summary>
-        /// Control txtPalabra.
+        /// Control UpdatePanel2.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPalabra;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel2;
         
         /// <summary>
         /// Control gridFacturas.

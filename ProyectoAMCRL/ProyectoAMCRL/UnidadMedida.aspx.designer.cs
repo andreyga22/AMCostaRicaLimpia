@@ -10,25 +10,16 @@
 namespace ProyectoAMCRL {
     
     
-    public partial class Login {
+    public partial class UnidadMedida {
         
         /// <summary>
-        /// form1 control.
+        /// breadObj control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
-        
-        /// <summary>
-        /// Image1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image1;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl breadObj;
         
         /// <summary>
         /// lblError control.
@@ -40,49 +31,22 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.Literal lblError;
         
         /// <summary>
-        /// usuarioTb control.
+        /// valCodigo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox usuarioTb;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator valCodigo;
         
         /// <summary>
-        /// contraTb control.
+        /// codigoTb control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox contraTb;
-        
-        /// <summary>
-        /// btnEntrar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEntrar;
-        
-        /// <summary>
-        /// olvidoLb control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton olvidoLb;
-        
-        /// <summary>
-        /// lblError2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal lblError2;
+        protected global::System.Web.UI.WebControls.TextBox codigoTb;
         
         /// <summary>
         /// RequiredFieldValidator1 control.
@@ -94,30 +58,48 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
         
         /// <summary>
-        /// recuperarUsuarioTb control.
+        /// nombreTB control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox recuperarUsuarioTb;
+        protected global::System.Web.UI.WebControls.TextBox nombreTB;
         
         /// <summary>
-        /// btnEnviar control.
+        /// RequiredFieldValidator2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEnviar;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
         
         /// <summary>
-        /// Image2 control.
+        /// equivalenciaTb control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image2;
+        protected global::System.Web.UI.WebControls.TextBox equivalenciaTb;
+        
+        /// <summary>
+        /// estadoRb control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButtonList estadoRb;
+        
+        /// <summary>
+        /// btnGuardar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnGuardar;
     }
 }

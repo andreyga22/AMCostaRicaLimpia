@@ -20,6 +20,7 @@ namespace ProyectoAMCRL
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack) {
+
                 btnGuardarActualizar.Attributes.Add("onclick", "document.body.style.cursor = 'wait';");
                 cargarUnidadesBodegas();
                 //cantidadTB.CssClass = "btn form-control";
@@ -27,8 +28,8 @@ namespace ProyectoAMCRL
                 {
                     labelAccion.Text = "Actualización de material";
                     String codMaterial = Request.QueryString.Get("idM");
-                    BLMaterial material = manejadorM.buscarMaterial(codMaterial);
-                    cargarMaterialAPantalla(material);
+                    //BLMaterial material = manejadorM.buscarMaterial(codMaterial);
+                    //cargarMaterialAPantalla(material);
                     PropertyInfo isreadonly =
                     typeof(System.Collections.Specialized.NameValueCollection).GetProperty(
                     "IsReadOnly", BindingFlags.Instance | BindingFlags.NonPublic);
