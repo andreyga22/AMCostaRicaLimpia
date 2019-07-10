@@ -88,43 +88,66 @@ namespace ProyectoAMCRL
             {
                 sub1Fac.Text = listaFact[0].nombreCompleto;
                 Session["idFactura1"] = listaFact[0].cod_Factura;
-                //sub1Fact.HRef = "Compra_Venta.aspx";
                 if (listaFact.Count > 1)
                 {
-                    sub2Fact.InnerText = listaFact[1].nombreCompleto;
+                    sub2Fac.Text = listaFact[1].nombreCompleto;
                     Session["idFactura2"] = listaFact[1].cod_Factura;
-                    //sub2Fact.HRef = "Compra_Venta.aspx";
                 }
                 if (listaFact.Count > 2)
                 {
-                    sub3Fact.InnerText = listaFact[2].nombreCompleto;
+                    sub3Fac.Text = listaFact[2].nombreCompleto;
                     Session["idFactura3"] = listaFact[2].cod_Factura;
-                    //sub3Fact.HRef = "Compra_Venta.aspx";
                 }
             }
             else
             {
-                sub1Fac.Text = "No hay facturas";
-                //sub1Fac.HRef = "Compra_Venta.aspx";
+                factNoHay.Text = "No hay facturas";
             }
 
         }
 
-
+        /// <summary>
+        /// Método del evento que que muestra la última factura realizada
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void click_SeleccFact1(object sender, EventArgs e)
         {
             Session["idFactura"] = Session["idFactura1"];
             Response.Redirect("Compra_Venta.aspx");
         }
 
+        /// <summary>
+        /// Método del evento que muestra la penúltima factura realizada
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void click_SeleccFact2(object sender, EventArgs e)
         {
             Session["idFactura"] = Session["idFactura2"];
+            Response.Redirect("Compra_Venta.aspx");
         }
 
+        /// <summary>
+        /// Método del evento que muestra la antepenúltima factura realizada
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void click_SeleccFact3(object sender, EventArgs e)
         {
             Session["idFactura"] = Session["idFactura3"];
+            Response.Redirect("Compra_Venta.aspx");
+        }
+
+        /// <summary>
+        /// Método que muestra la ventana para la creación de una nueva factura
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void click_NuevaFact(object sender, EventArgs e)
+        {
+            Session["idFactura"] = "";
+            Response.Redirect("Compra_Venta.aspx");
         }
     }
 }

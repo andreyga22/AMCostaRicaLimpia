@@ -75,14 +75,12 @@
                     <div class="card-body">
                         <h5 class="card-title text-secondary">Últimas Facturas</h5>
                         <br />
-                        <%--<a onclick="click_SeleccFact1"  id="sub1Fact" runat="server" class="card-link text-primary"></a>--%>
-                  
-                            <%--<asp:LinkButton ID="sub1Fact" runat="server" ></asp:LinkButton>--%>
-                        <asp:LinkButton ID="sub1Fac" runat="server" OnClick="click_SeleccFact1"></asp:LinkButton>
+                     <asp:LinkButton style="color: dodgerblue" ID="factNoHay" runat="server" OnClick="click_NuevaFact"></asp:LinkButton>
+                        <asp:LinkButton style="color: dodgerblue" ID="sub1Fac" runat="server" OnClick="click_SeleccFact1"></asp:LinkButton>
                         <br />
-                        <a onclick="click_SeleccFact2" id="sub2Fact" runat="server" class="card-link text-primary"></a>
+                          <asp:LinkButton style="color: dodgerblue" ID="sub2Fac" runat="server" OnClick="click_SeleccFact2"></asp:LinkButton>
                         <br />
-                        <a onclick="click_SeleccFact3" id="sub3Fact" runat="server" class="card-link text-primary"></a>
+                          <asp:LinkButton style="color: dodgerblue" ID="sub3Fac" runat="server" OnClick="click_SeleccFact3"></asp:LinkButton>
                         <br />
                     </div>
                 </div>
