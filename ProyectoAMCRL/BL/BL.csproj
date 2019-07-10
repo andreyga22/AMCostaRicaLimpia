@@ -55,6 +55,7 @@
     <Compile Include="BLManejadorCuentas.cs" />
     <Compile Include="BLManejadorSocios.cs" />
     <Compile Include="BLManejadorFacturas.cs" />
+    <Compile Include="BLManejadorUnidad.cs" />
     <Compile Include="BLManejadorUnidades.cs" />
     <Compile Include="BLMaterial.cs" />
     <Compile Include="BLMoneda.cs" />

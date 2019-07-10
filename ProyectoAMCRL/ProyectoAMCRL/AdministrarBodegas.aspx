@@ -40,8 +40,10 @@
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                     <ContentTemplate>
                         <asp:GridView class="table table-hover table-bordered table-striped" ID="gridBodegas" runat="server" AllowSorting="True" AllowPaging="True" OnPageIndexChanging="gridBodegas_PageIndexChanging" OnSorting="gridBodegas_Sorting" PageSize="5" OnSelectedIndexChanged="gridBodegas_SelectedIndexChanged" OnKeyDown="" OnRowDataBound="gridBodegas_RowDataBound">
-                            <PagerSettings FirstPageText="Inicio" LastPageText="Fin" Mode="NumericFirstLast" PageButtonCount="4" />
+                            <PagerSettings FirstPageText="Inicio" LastPageText="Fin" Mode="NextPreviousFirstLast" PageButtonCount="4" />
                             <PagerStyle HorizontalAlign="Right" />
+                            <SortedAscendingHeaderStyle CssClass="SortedAscendingHeaderStyle"/>
+                            <SortedDescendingHeaderStyle CssClass="SortedDescendingHeaderStyle" />
                         </asp:GridView>
                     </ContentTemplate>
                 </asp:UpdatePanel>
