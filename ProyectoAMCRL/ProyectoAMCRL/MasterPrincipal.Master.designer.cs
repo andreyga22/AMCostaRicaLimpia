@@ -40,16 +40,16 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.LinkButton compraLB;
         
         /// <summary>
-        /// Control btnBusqFactComp.
+        /// btnBusqFactComp control.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton btnBusqFactComp;
         
         /// <summary>
-        /// Control ventaLB.
+        /// ventaLB control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
@@ -58,16 +58,16 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.LinkButton ventaLB;
         
         /// <summary>
-        /// Control btnBusqFactVent.
+        /// btnBusqFactVent control.
         /// </summary>
         /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton btnBusqFactVent;
         
         /// <summary>
-        /// Control cuentasSubmenu2.
+        /// cuentasSubmenu2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.

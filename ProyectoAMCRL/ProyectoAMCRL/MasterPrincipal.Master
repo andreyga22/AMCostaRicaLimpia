@@ -130,7 +130,7 @@
                         <i class="fas fa-wrench"></i>Otros</a>
                     <ul class="collapse list-unstyled" id="otrosSubmenu">
                         <li><a href="Monedas.aspx">Monedas</a></li>
-                        <li> <a href="#">Unidades medida</a></li>
+                        <li> <a href="UnidadMedida.aspx">Unidades medida</a></li>
                     </ul>
                 </li>
  <div id="cuentasSubmenu2" runat="server">
