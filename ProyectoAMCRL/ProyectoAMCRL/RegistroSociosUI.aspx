@@ -20,6 +20,13 @@
             <h4>Registro cliente/proveedor</h4>
         </div>
         <br />
+
+        <div class="row justify-content-center">
+            <div class="col-3 offset-7">
+                <asp:LinkButton ID="LinkAsoc" runat="server" style="color: dodgerblue" OnClick="LinkAsoc_Click">¿Desea asociarlo a otro socio existente?</asp:LinkButton>
+            </div>
+        </div>
+
         <asp:Button ID="btnFactur" type="submmit" runat="server" Text="Facturas" class="btn btn-outline-secondary" Width="15%" Visible="false" />
         <asp:Button ID="btnAsociar" type="submmit" runat="server" Text="Asociar" class="btn btn-outline-secondary" Width="15%" Visible="false" />
         <div class="row">

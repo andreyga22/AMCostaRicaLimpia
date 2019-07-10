@@ -21,8 +21,10 @@ namespace ProyectoAMCRL
             {
                 if (!this.IsPostBack)
                 {
-                    this.buscar();
-                    Session["idSocio"] = "";
+                    if (ViewState["sorting"] == null)
+                    {
+                        this.buscar();
+                    }
                 }
             }
             else
@@ -45,37 +47,73 @@ namespace ProyectoAMCRL
                 gridSocios.DataSource = list;
             }
             gridSocios.DataBind();
-            cargarEncabezados();
         }
 
-        private void buscar()
+        private DataTable buscar()
         {
             BLManejadorSocios manejador = new BLManejadorSocios();
             DataTable tabla = manejador.buscarDatos(txtPalabra.Text.Trim());
             gridSocios.DataSource = tabla;
             gridSocios.DataBind();
-            cargarEncabezados();
-        }
-
-        private void cargarEncabezados()
-        {
-            gridSocios.HeaderRow.Cells[0].Text = "Cedula";
-            gridSocios.HeaderRow.Cells[1].Text = "Nombre";
-            gridSocios.HeaderRow.Cells[2].Text = "Primer apellido";
-            gridSocios.HeaderRow.Cells[3].Text = "Segundo Apellido";
-            gridSocios.HeaderRow.Cells[4].Text = "Rol";
-
+            return tabla;
         }
 
         protected void gridSocios_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gridSocios.PageIndex = e.NewPageIndex;
             this.buscar();
+            if (Session["SortedView"] != null) {
+                gridSocios.DataSource = Session["SortedView"];
+                gridSocios.DataBind();
+            }
         }
 
         protected void gridSocios_Sorting(object sender, GridViewSortEventArgs e)
         {
+            try
+            {
+                DataTable datat = this.buscar();
+                DataView dv = new DataView(datat);
+                if (ViewState["sorting"] == null || ViewState["sorting"].ToString() == "DESC")
+                {
+                    dv.Sort = e.SortExpression + " ASC";
+                    ViewState["sorting"] = "ASC";
+                    //gridCuentas.HeaderRow.Cells[GetColumnIndex(e.SortExpression)].CssClass = "sortasc";
 
+                }
+                else
+                {
+                    if (ViewState["sorting"].ToString() == "ASC")
+                    {
+                        dv.Sort = e.SortExpression + " DESC";
+                        ViewState["sorting"] = "DESC";
+                        //gridCuentas.HeaderRow.Cells[GetColumnIndex(e.SortExpression)].CssClass = "sortdesc";
+                    }
+                }
+                Session["sortedView"] = dv;
+                gridSocios.DataSource = dv;
+                gridSocios.DataBind();
+
+
+                if (ViewState["sorting"].ToString() == "ASC")
+                {
+                    int index = GetColumnIndex(datat, e.SortExpression);
+                    gridSocios.HeaderRow.Cells[index].CssClass = "SortedAscendingHeaderStyle";
+                }
+                else
+                {
+                    int index = GetColumnIndex(datat, e.SortExpression);
+                    gridSocios.HeaderRow.Cells[index].CssClass = "SortedDescendingHeaderStyle";
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+
+        private int GetColumnIndex(DataTable dt, string name) {
+            return dt.Columns.IndexOf(name);
         }
 
         protected void gridSocios_SelectedIndexChanged(object sender, EventArgs e)
@@ -114,12 +152,6 @@ namespace ProyectoAMCRL
         }
 
 
-        protected void btnFiltrar_Click(object sender, EventArgs e)
-        {
-
-            
-        }
-
         protected void txtPalabra_TextChanged(object sender, EventArgs e)
         {
             this.buscar();
@@ -131,6 +163,10 @@ namespace ProyectoAMCRL
             }
         }
 
-
+        protected void NuevoBtn_Click(object sender, EventArgs e)
+        {
+            Session["idSocio"] = null;
+            Response.Redirect("RegistroSociosUI.aspx");
+        }
     }
 }
