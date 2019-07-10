@@ -30,20 +30,16 @@ namespace BL
             }
         }
 
-
-
-
-
-
-
-
-
-        public List<BLFactura> listaFact(string busqueda)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public List<BLFactura> listaFact_Top3()
         {
             try
             {
                 DAOManejadorFacturas dao = new DAOManejadorFacturas();
-                List<TOFactura> lista = dao.lista_Facturas(busqueda);
+                List<TOFactura> lista = dao.lista_Facturas_Top3();
                 List<BLFactura> listaBL = new List<BLFactura>();
                 foreach (TOFactura venta in lista)
                 {
@@ -64,18 +60,24 @@ namespace BL
             return convert(to);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public List<BLDetalleFactura> listaDetalle(int id)
         {
             try
             {
-                DAOManejadorFacturas dao = new DAOManejadorFacturas();
-                List<TODetalleFactura> lista = dao.listaDetalle(id);
-                List<BLDetalleFactura> listaBL = new List<BLDetalleFactura>();
-                foreach (TODetalleFactura detalleFactura in lista)
-                {
-                    listaBL.Add(convertDetalle(detalleFactura));
-                }
-                return listaBL;
+                //DAOManejadorFacturas dao = new DAOManejadorFacturas();
+                //List<TODetalleFactura> lista = dao.listaDetalle(id);
+                //List<BLDetalleFactura> listaBL = new List<BLDetalleFactura>();
+                //foreach (TODetalleFactura detalleFactura in lista)
+                //{
+                //    listaBL.Add(convertDetalle(detalleFactura));
+                //}
+                //return listaBL;
+                return null;
             }
             catch (Exception)
             {
@@ -114,79 +116,87 @@ namespace BL
         /// <returns>Retorna una tabla con las facturas que cumplen con los filtros</returns>
         public DataTable filtrarFacturas(string fechaInicio, string fechaFin, string montoMaximo, string montoMinimo, List<string> materiales, string tipo)
         {
-            DAOManejadorFacturas manej = new DAOManejadorFacturas();
-            DateTime fechaInicioNuevo = new DateTime();
-            DateTime fechaFinNuevo = new DateTime();
-            string dia = "";
-            string mes = "";
-            string anno = "";
-            int montoMinimoNuevo = 0;
-            int montoMaximoNuevo = 0;
-
-            if (string.IsNullOrEmpty(fechaInicio) == false && string.IsNullOrEmpty(fechaFin) == false)
+            try
             {
-                dia = fechaInicio[0].ToString() + fechaInicio[1].ToString();
-                mes = fechaInicio[3].ToString() + fechaInicio[4].ToString();
-                anno = fechaInicio[6].ToString() + fechaInicio[7].ToString() + fechaInicio[8].ToString() + fechaInicio[9].ToString();
-                fechaInicioNuevo = new DateTime(int.Parse(anno), int.Parse(mes), int.Parse(dia));
+                DAOManejadorFacturas manej = new DAOManejadorFacturas();
+                DateTime fechaInicioNuevo = new DateTime();
+                DateTime fechaFinNuevo = new DateTime();
+                string dia = "";
+                string mes = "";
+                string anno = "";
+                int montoMinimoNuevo = 0;
+                int montoMaximoNuevo = 0;
 
-                dia = fechaFin[0].ToString() + fechaFin[1].ToString();
-                mes = fechaFin[3].ToString() + fechaFin[4].ToString();
-                anno = fechaFin[6].ToString() + fechaFin[7].ToString() + fechaFin[8].ToString() + fechaFin[9].ToString();
-                fechaFinNuevo = new DateTime(int.Parse(anno), int.Parse(mes), int.Parse(dia));
-            }
-            else
-            {
-                if ((string.IsNullOrEmpty(fechaInicio) == true && string.IsNullOrEmpty(fechaFin) == false) || (string.IsNullOrEmpty(fechaInicio) == false && string.IsNullOrEmpty(fechaFin) == true))
+                if (string.IsNullOrEmpty(fechaInicio) == false && string.IsNullOrEmpty(fechaFin) == false)
                 {
-                    if (string.IsNullOrEmpty(fechaInicio) == true)
+                    dia = fechaInicio[0].ToString() + fechaInicio[1].ToString();
+                    mes = fechaInicio[3].ToString() + fechaInicio[4].ToString();
+                    anno = fechaInicio[6].ToString() + fechaInicio[7].ToString() + fechaInicio[8].ToString() + fechaInicio[9].ToString();
+                    fechaInicioNuevo = new DateTime(int.Parse(anno), int.Parse(mes), int.Parse(dia));
+
+                    dia = fechaFin[0].ToString() + fechaFin[1].ToString();
+                    mes = fechaFin[3].ToString() + fechaFin[4].ToString();
+                    anno = fechaFin[6].ToString() + fechaFin[7].ToString() + fechaFin[8].ToString() + fechaFin[9].ToString();
+                    fechaFinNuevo = new DateTime(int.Parse(anno), int.Parse(mes), int.Parse(dia));
+                }
+                else
+                {
+                    if ((string.IsNullOrEmpty(fechaInicio) == true && string.IsNullOrEmpty(fechaFin) == false) || (string.IsNullOrEmpty(fechaInicio) == false && string.IsNullOrEmpty(fechaFin) == true))
                     {
-                        fechaInicioNuevo = new DateTime(1800, 12, 25);
-                        dia = fechaFin[0].ToString() + fechaFin[1].ToString();
-                        mes = fechaFin[3].ToString() + fechaFin[4].ToString();
-                        anno = fechaFin[6].ToString() + fechaFin[7].ToString() + fechaFin[8].ToString() + fechaFin[9].ToString();
-                        fechaFinNuevo = new DateTime(int.Parse(anno), int.Parse(mes), int.Parse(dia));
+                        if (string.IsNullOrEmpty(fechaInicio) == true)
+                        {
+                            fechaInicioNuevo = new DateTime(1800, 12, 25);
+                            dia = fechaFin[0].ToString() + fechaFin[1].ToString();
+                            mes = fechaFin[3].ToString() + fechaFin[4].ToString();
+                            anno = fechaFin[6].ToString() + fechaFin[7].ToString() + fechaFin[8].ToString() + fechaFin[9].ToString();
+                            fechaFinNuevo = new DateTime(int.Parse(anno), int.Parse(mes), int.Parse(dia));
+                        }
+                        else
+                        {
+                            dia = fechaInicio[0].ToString() + fechaInicio[1].ToString();
+                            mes = fechaInicio[3].ToString() + fechaInicio[4].ToString();
+                            anno = fechaInicio[6].ToString() + fechaInicio[7].ToString() + fechaInicio[8].ToString() + fechaInicio[9].ToString();
+                            fechaInicioNuevo = new DateTime(int.Parse(anno), int.Parse(mes), int.Parse(dia));
+                            fechaFinNuevo = new DateTime(5000, 12, 25);
+                        }
                     }
                     else
                     {
-                        dia = fechaInicio[0].ToString() + fechaInicio[1].ToString();
-                        mes = fechaInicio[3].ToString() + fechaInicio[4].ToString();
-                        anno = fechaInicio[6].ToString() + fechaInicio[7].ToString() + fechaInicio[8].ToString() + fechaInicio[9].ToString();
-                        fechaInicioNuevo = new DateTime(int.Parse(anno), int.Parse(mes), int.Parse(dia));
+                        fechaInicioNuevo = new DateTime(1800, 12, 25);
                         fechaFinNuevo = new DateTime(5000, 12, 25);
                     }
                 }
-                else
-                {
-                    fechaInicioNuevo = new DateTime(1800, 12, 25);
-                    fechaFinNuevo = new DateTime(5000, 12, 25);
-                }
-            }
 
-            if ((string.IsNullOrEmpty(montoMinimo) == true && string.IsNullOrEmpty(montoMaximo) == false) || (string.IsNullOrEmpty(montoMinimo) == false && string.IsNullOrEmpty(montoMaximo) == true))
-            {
-                if (string.IsNullOrEmpty(montoMinimo) == true)
+                if ((string.IsNullOrEmpty(montoMinimo) == true && string.IsNullOrEmpty(montoMaximo) == false) || (string.IsNullOrEmpty(montoMinimo) == false && string.IsNullOrEmpty(montoMaximo) == true))
                 {
-                    montoMinimoNuevo = 0;
-                    montoMaximoNuevo = Int32.Parse(montoMaximo);
+                    if (string.IsNullOrEmpty(montoMinimo) == true)
+                    {
+                        montoMinimoNuevo = 0;
+                        montoMaximoNuevo = Int32.Parse(montoMaximo);
+                    }
+                    else
+                    {
+                        montoMinimoNuevo = Int32.Parse(montoMinimo);
+                        montoMaximoNuevo = 999999999;
+                    }
                 }
-                else
-                {
-                    montoMinimoNuevo = Int32.Parse(montoMinimo);
-                    montoMaximoNuevo = 999999999;
-                }
+
+                return manej.filtrarFacturas(fechaInicioNuevo, fechaFinNuevo, montoMaximoNuevo, montoMinimoNuevo, materiales, tipo);
             }
-            
-            return manej.filtrarFacturas(fechaInicioNuevo, fechaFinNuevo, montoMaximoNuevo, montoMinimoNuevo, materiales, tipo);
-            //return manej.filtrarFacturasDAO(fechaInicio, fechaFin, tipo, montoMaximo, montoMinimo, materiales);
-            //List<BLFactura> listaBL = new List<BLFactura>();
-            //List<TOFactura> listaTO = manej.filtrarFacturasDAO(fechaInicio, fechaFin, tipo, montoMaximo, montoMinimo, materiales);
-            //foreach (TOFactura factura in listaTO)
-            //{
-            //    listaBL.Add(convert(factura));
-            //}
-            //return listaBL;
+            catch (Exception)
+            {
+                throw;
+            }
         }
+        //return manej.filtrarFacturasDAO(fechaInicio, fechaFin, tipo, montoMaximo, montoMinimo, materiales);
+        //List<BLFactura> listaBL = new List<BLFactura>();
+        //List<TOFactura> listaTO = manej.filtrarFacturasDAO(fechaInicio, fechaFin, tipo, montoMaximo, montoMinimo, materiales);
+        //foreach (TOFactura factura in listaTO)
+        //{
+        //    listaBL.Add(convert(factura));
+        //}
+        //return listaBL;
+
 
 
         //public List<BLFactura> listaRangoFecha(DateTime fecha1, DateTime fecha2)
