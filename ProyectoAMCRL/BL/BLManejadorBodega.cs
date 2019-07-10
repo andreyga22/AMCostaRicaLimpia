@@ -87,11 +87,11 @@ namespace BL {
         /// <param name="id">Identificador de la bodega que se desea buscar</param>
         /// <returns>BLBodega con el resultado de la busqueda</returns>
         public BLBodega consultarBodegaAdmin(String id) {
-            try {
+            //try {
                 return convert(new DAOBodegas().consultarBodegaAdmin(id));
-            } catch(Exception) {
-                throw;
-            }
+            //} catch(Exception) {
+            //    throw;
+            //}
         }
 
         /// <summary>

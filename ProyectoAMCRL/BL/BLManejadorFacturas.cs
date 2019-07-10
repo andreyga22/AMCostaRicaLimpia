@@ -61,23 +61,22 @@ namespace BL
         }
 
         /// <summary>
-        /// 
+        /// Método para conocer la lista de detalle de una factura
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
+        /// <returns>Retorna la lista de detalle de una factura</returns>
         public List<BLDetalleFactura> listaDetalle(int id)
         {
             try
             {
-                //DAOManejadorFacturas dao = new DAOManejadorFacturas();
-                //List<TODetalleFactura> lista = dao.listaDetalle(id);
-                //List<BLDetalleFactura> listaBL = new List<BLDetalleFactura>();
-                //foreach (TODetalleFactura detalleFactura in lista)
-                //{
-                //    listaBL.Add(convertDetalle(detalleFactura));
-                //}
-                //return listaBL;
-                return null;
+                DAOManejadorFacturas dao = new DAOManejadorFacturas();
+                List<TODetalleFactura> lista = dao.listaDetalle(id);
+                List<BLDetalleFactura> listaBL = new List<BLDetalleFactura>();
+                foreach (TODetalleFactura detalleFactura in lista)
+                {
+                    listaBL.Add(convertDetalle(detalleFactura));
+                }
+                return listaBL;
             }
             catch (Exception)
             {
@@ -262,12 +261,12 @@ namespace BL
 
         public BLDetalleFactura convertDetalle(TODetalleFactura to)
         {
-            return new BLDetalleFactura(to.cod_Linea, to.cod_Factura, to.cod_Material, to.nombreMaterial, to.monto_Linea, to.kilos_Linea);
+            return new BLDetalleFactura(to.cod_Linea, to.cod_Factura, to.nombreMaterial, to.monto_Linea, to.kilos_Linea, to.cod_Stock);
         }
 
         public TODetalleFactura convertDetalle(BLDetalleFactura bl)
         {
-            return new TODetalleFactura(bl.cod_Linea, bl.cod_Factura, bl.cod_Material, bl.nombreMaterial, bl.monto_Linea, bl.kilos_Linea);
+            return new TODetalleFactura(bl.cod_Linea, bl.cod_Factura, bl.nombreMaterial, bl.monto_Linea, bl.kilos_Linea, bl.cod_Stock);
         }
 
         public string registrarVentaBL(String cedula, String idBodega, String moneda, String fecha, List<String> detalles)
@@ -338,7 +337,7 @@ namespace BL
                 //[0]material; [2]precioKilo; [3]cantidad; [4]unidad; 
                 String[] materialInfo = infoLinea[0].Split('#');
                 String[] idANDstock = materialInfo[0].Split('-');
-                detalleTO.cod_Material = idANDstock[0];
+                detalleTO.cod_Stock = Convert.ToInt16(idANDstock[0]);
 
                 String[] infoUnidad = infoLinea[3].Split('#');
                 String[] codUnidadInfo = infoUnidad[0].Split('*');

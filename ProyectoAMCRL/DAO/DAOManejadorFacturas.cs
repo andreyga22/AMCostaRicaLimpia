@@ -77,7 +77,7 @@ namespace DAO
                     //REGISTRAR DETALLES   (?)bloquear materiales(?)
 
                     foreach (var detalle in detalles)
-                        sqlDetalles += "(" + codCompra + ", '" + detalle.cod_Material + "'," + detalle.kilos_Linea + "," + detalle.monto_Linea + "),";
+                        sqlDetalles += "(" + codCompra + ", '" + detalle.cod_Stock + "'," + detalle.kilos_Linea + "," + detalle.monto_Linea + "),";
 
                     sqlDetalles = sqlDetalles.Remove(sqlDetalles.Length - 1);
                     sqlDetalles += ";";
@@ -91,10 +91,10 @@ namespace DAO
 
                     foreach (var detalle in detalles)
                     {
-                        sqlUpdateParte1 += "WHEN COD_MATERIAL = '" + detalle.cod_Material +
+                        sqlUpdateParte1 += "WHEN COD_MATERIAL = '" + detalle.cod_Stock +
                         "' THEN (KILOS_STOCK " + operacion + " " + detalle.kilos_Linea + ") ";
 
-                        sqlUpdateParte2 += detalle.cod_Material + ",";
+                        sqlUpdateParte2 += detalle.cod_Stock + ",";
                     }
 
                     sqlUpdateParte2 = sqlUpdateParte2.Remove(sqlUpdateParte2.Length - 1);
@@ -360,7 +360,7 @@ namespace DAO
         {
             try
             {
-                SqlCommand cmdDet = new SqlCommand("Select d.COD_LINEA, d.COD_FACTURA, m.NOMBRE_MATERIAL, d.MONTO_LINEA, d.KILOS, d.ID_STOCK from DETALLE_FACTURA d, FACTURA v, material m where d.COD_FACTURA = @codFact and d.COD_FACTURA = v.COD_FACTURA and d.COD_MATERIAL = m.COD_MATERIAL;", conexion);
+                SqlCommand cmdDet = new SqlCommand("  Select d.COD_LINEA, d.COD_FACTURA, m.NOMBRE_MATERIAL, d.MONTO_LINEA, d.KILOS, d.ID_STOCK from DETALLE_FACTURA d, FACTURA v, MATERIAL m, STOCK s where d.COD_FACTURA = @codFact and d.COD_FACTURA = v.COD_FACTURA and s.ID_STOCK = d.ID_STOCK and s.COD_MATERIAL = m.COD_MATERIAL;", conexion);
                 cmdDet.Parameters.AddWithValue("@codFact", idFactura);
 
                 if (conexion.State != ConnectionState.Open)
@@ -380,10 +380,10 @@ namespace DAO
                     TODetalleFactura detVenta = new TODetalleFactura();
                     detVenta.cod_Linea = Convert.ToInt16(table.Rows[x]["COD_LINEA"]);
                     detVenta.cod_Factura = Convert.ToInt16(table.Rows[x]["COD_FACTURA"]);
-                    //detVenta.cod_Material = Convert.ToInt16(table.Rows[x]["COD_MATERIAL"]);
                     detVenta.nombreMaterial = Convert.ToString(table.Rows[x]["NOMBRE_MATERIAL"]);
                     detVenta.monto_Linea = Convert.ToDouble(table.Rows[x]["MONTO_LINEA"]);
                     detVenta.kilos_Linea = Convert.ToDouble(table.Rows[x]["KILOS"]);
+                    detVenta.cod_Stock = Convert.ToInt16(table.Rows[x]["ID_STOCK"]);
 
                     lista.Add(detVenta);
                 }

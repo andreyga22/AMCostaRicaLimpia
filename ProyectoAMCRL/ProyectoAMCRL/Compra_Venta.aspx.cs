@@ -179,8 +179,9 @@ namespace ProyectoAMCRL
             monedasDD.Items.Add(manejMond.buscarMonedaId(blFactura.id_Moneda).detalleMoneda);
             monedasDD.CssClass = "btn btn-light dropdown-toggle";
             
-            bodegasDrop.Items.Add(manejBod.consultarBodegaAdmin(blFactura.id_Bodega).nombre);
-            bodegasDrop.CssClass = "btn btn-light dropdown-toggle";
+            ///arreglar que salga bodegas***************************
+            //bodegasDrop.Items.Add(manejBod.consultarBodegaAdmin(blFactura.id_Bodega).nombre);
+            //bodegasDrop.CssClass = "btn btn-light dropdown-toggle";
 
             datepickerT.Text = blFactura.fecha.Day + "/" + blFactura.fecha.Month + "/" + blFactura.fecha.Year;
             datepickerT.CssClass = "form-control font-weight-bolder";
