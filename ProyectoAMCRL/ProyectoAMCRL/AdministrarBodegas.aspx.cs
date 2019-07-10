@@ -22,14 +22,18 @@ namespace ProyectoAMCRL {
              /// <param name="sender"></param>
              /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e) {
-            if(Session["cuentaLogin"] != null) {
-                if(!this.IsPostBack) {
-                    if(ViewState["sorting"] == null) {
-                        this.buscar();
+            try {
+                if(Session["cuentaLogin"] != null) {
+                    if(!this.IsPostBack) {
+                        if(ViewState["sorting"] == null) {
+                            this.buscar();
+                        }
                     }
+                } else {
+                    Response.Redirect("Login.aspx");
                 }
-            } else {
-                Response.Redirect("Login.aspx");
+            } catch(Exception) {
+
             }
         }
 
@@ -39,12 +43,15 @@ namespace ProyectoAMCRL {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void gridBodegas_PageIndexChanging(object sender, GridViewPageEventArgs e) {
+            try {
+                gridBodegas.PageIndex = e.NewPageIndex;
+                this.buscar();
+                if(Session["SortedView"] != null) {
+                    gridBodegas.DataSource = Session["SortedView"];
+                    gridBodegas.DataBind();
+                }
+            } catch(Exception) {
 
-            gridBodegas.PageIndex = e.NewPageIndex;
-            this.buscar();
-            if(Session["SortedView"] != null) {
-                gridBodegas.DataSource = Session["SortedView"];
-                gridBodegas.DataBind();
             }
         }
 
@@ -54,6 +61,7 @@ namespace ProyectoAMCRL {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void gridBodegas_Sorting(object sender, GridViewSortEventArgs e) {
+            try { 
             DataTable datat = this.buscar();
             DataView dv = new DataView(datat);
             if(ViewState["sorting"] == null || ViewState["sorting"].ToString() == "DESC") {
@@ -80,7 +88,9 @@ namespace ProyectoAMCRL {
                 int index = GetColumnIndex(datat, e.SortExpression);
                 gridBodegas.HeaderRow.Cells[index].CssClass = "SortedDescendingHeaderStyle";
             }
+            } catch(Exception) {
 
+            }
         }
         /// <summary>
         /// Devuelve el indice de una columna en un datatable enviado, utilizando el nombre como parametro.
@@ -89,7 +99,9 @@ namespace ProyectoAMCRL {
         /// <param name="name"></param>
         /// <returns></returns>
         private int GetColumnIndex(DataTable dt, string name) {
+            
             return dt.Columns.IndexOf(name);
+            
         }
 
 
@@ -100,28 +112,25 @@ namespace ProyectoAMCRL {
              /// </summary>
              /// <returns></returns>
         private DataTable buscar() {
+            try { 
             BLCuenta usuarioLogin = (BLCuenta)Session["cuentaLogin"];
             if(usuarioLogin.rol.Equals("r")) {
                 BLManejadorBodega man = new BLManejadorBodega();
                 DataTable datat = man.buscar(palabraTb.Text.Trim());
                 gridBodegas.DataSource =  datat;
                 gridBodegas.DataBind();
-                //gridBodegas.HeaderRow.Cells[0].Text = "Código Bodega";
-                //gridBodegas.HeaderRow.Cells[1].Text = "Nombre Bodega";
-                //gridBodegas.HeaderRow.Cells[2].Text = "Ubicación";
                 return datat;
             } else {
                 BLManejadorBodega man = new BLManejadorBodega();
                 DataTable datat = man.buscarAdmin(palabraTb.Text.Trim());
                 gridBodegas.DataSource = datat;
                 gridBodegas.DataBind();
-                //gridBodegas.HeaderRow.Cells[0].Text = "Código Bodega";
-                //gridBodegas.HeaderRow.Cells[1].Text = "Nombre Bodega";
-                //gridBodegas.HeaderRow.Cells[2].Text = "Ubicación";
-                //gridBodegas.HeaderRow.Cells[3].Text = "Estado";
                 return datat;
             }
+            } catch(Exception) {
 
+            }
+            return null;
         }
 
         /// <summary>
@@ -130,7 +139,11 @@ namespace ProyectoAMCRL {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void palabraTb_TextChanged(object sender, EventArgs e) {
+            try { 
             this.buscar();
+            } catch(Exception) {
+
+            }
         }
 
         /// <summary>
@@ -141,7 +154,7 @@ namespace ProyectoAMCRL {
              /// <param name="sender"></param>
              /// <param name="e"></param>
         protected void gridBodegas_SelectedIndexChanged(object sender, EventArgs e) {
-
+            try { 
             foreach(GridViewRow row in gridBodegas.Rows) {
                 if(row.RowIndex == gridBodegas.SelectedIndex) {
                     row.BackColor = ColorTranslator.FromHtml("#A1DCF2");
@@ -156,6 +169,9 @@ namespace ProyectoAMCRL {
             string id = gridBodegas.SelectedRow.Cells[0].Text;
             Session["idBodega"] = id;
             Response.Redirect("Bodega.aspx");
+            } catch(Exception) {
+
+            }
         }
 
         /// <summary>
@@ -165,8 +181,12 @@ namespace ProyectoAMCRL {
              /// <param name="sender"></param>
              /// <param name="e"></param>
         protected void btnAgregar_Click(object sender, EventArgs e) {
+            try { 
             Session["idBodega"] = null;
             Response.Redirect("Bodega.aspx");
+            } catch(Exception) {
+
+            }
         }
 
         /// <summary>
@@ -175,8 +195,12 @@ namespace ProyectoAMCRL {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void txt_Item_Number_KeyDown(object sender, KeyEventArgs e) {
+            try { 
             if(e.KeyCode == Keys.Enter) {
                 this.buscar();
+            }
+            } catch(Exception) {
+
             }
         }
 
@@ -186,9 +210,13 @@ namespace ProyectoAMCRL {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void gridBodegas_RowDataBound(object sender, GridViewRowEventArgs e) {
+            try { 
             if(e.Row.RowType == DataControlRowType.DataRow) {
                 e.Row.Attributes["onclick"] = Page.ClientScript.GetPostBackClientHyperlink(gridBodegas, "Select$" + e.Row.RowIndex);
                 e.Row.ToolTip = "Clic para abrir.";
+            }
+            } catch(Exception) {
+
             }
         }
 

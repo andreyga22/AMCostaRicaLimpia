@@ -25,6 +25,7 @@ namespace ProyectoAMCRL {
             /// <param name="sender"></param>
             /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e) {
+            try { 
             if(Session["cuentaLogin"] != null) {
                 if(!this.IsPostBack) {
                     if(ViewState["sorting"] == null) {
@@ -33,6 +34,9 @@ namespace ProyectoAMCRL {
                 }
             } else {
                 Response.Redirect("Login.aspx");
+            }
+            } catch(Exception) {
+
             }
         }
 
