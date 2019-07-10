@@ -32,7 +32,7 @@ namespace ProyectoAMCRL
                     infoUltimosCliente();
                     infoUltimosProveedor();
                     infoMasMateriales();
-                    infoOtros();
+                    infoTotalFact();
                     infoUltimasFact();
                 }
             }
@@ -59,13 +59,36 @@ namespace ProyectoAMCRL
         }
 
         /// <summary>
-        /// Método utilizado para mostrar la ventas y compras realizadas al mes
+        /// Método utilizado para mostrar el total de ventas y compras realizadas al mes
         /// </summary>
-        private void infoOtros()
+        private void infoTotalFact()
         {
-            BLManejadorAjustes manejAjustes = new BLManejadorAjustes();
             BLManejadorFacturas manejFact = new BLManejadorFacturas();
+            subCompras.Text = "Total de compras: " + manejFact.numeroRangoFecha("c");
+            subVentas.Text = "Total de ventas: " + manejFact.numeroRangoFecha("v");
 
+        }
+
+        /// <summary>
+        /// Méetodo de evento que permite ir a la página Búsqueda de Facturas de compras
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void click_BusquedaFactC(object sender, EventArgs e)
+        {
+            Session["modo"] = "compra";
+            Response.Redirect("BusquedaFacturas.aspx");
+        }
+
+        /// <summary>
+        /// Méetodo de evento que permite ir a la página Búsqueda de Facturas de compras
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void click_BusquedaFactV(object sender, EventArgs e)
+        {
+            Session["modo"] = "venta";
+            Response.Redirect("BusquedaFacturas.aspx");
         }
 
         /// <summary>
@@ -76,6 +99,8 @@ namespace ProyectoAMCRL
             ///cambiar por stock (los más almacenados en bodegas, top 3)
 
         }
+
+      
 
         /// <summary>
         /// Método que permite mostrar las últimas 3 facturas que se realizaron

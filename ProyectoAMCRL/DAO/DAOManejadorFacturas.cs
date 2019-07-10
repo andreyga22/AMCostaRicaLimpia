@@ -443,6 +443,43 @@ namespace DAO
             }
         }
 
+        public int numeroRangoFecha(string tipo)
+        {
+            try
+            {
+                TOFactura to = new TOFactura();
+                String qry = "SELECT COUNT(COD_FACTURA) as 'Total' from FACTURA WHERE tipo=@tipo and YEAR(FECHA_FACTURA) = YEAR(GETDATE()) and MONTH(FECHA_FACTURA) = MONTH(GETDATE());";
+                SqlCommand comm = new SqlCommand(qry, conexion);
+                comm.Parameters.AddWithValue("@tipo", tipo);
+                Int32 numero = 0;
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+                SqlDataReader reader = comm.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        numero = reader.GetInt32(0);
+                    }
+                }
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+                return numero;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conexion.Close();
+            }
+        }
+
         /// <summary>
         /// Método para filtrar las facturas según un rango de fechas y montos
         /// </summary>

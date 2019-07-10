@@ -103,6 +103,24 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl subMater3;
         
         /// <summary>
+        /// Control subCompras.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton subCompras;
+        
+        /// <summary>
+        /// Control subVentas.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton subVentas;
+        
+        /// <summary>
         /// Control factNoHay.
         /// </summary>
         /// <remarks>

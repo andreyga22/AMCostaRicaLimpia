@@ -4,7 +4,6 @@
     <link href="ownStyles.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="breadcrumbBodyHolder" runat="server">
-
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="body" runat="server">
 
@@ -63,9 +62,11 @@
             <div class="col-lg-4">
                 <div class="card  bg-light" style="width: 18rem; height: 14rem;">
                     <div class="card-body">
-                        <h5 class="card-title text-secondary">Facturas</h5>
-                        <p class="card-text">Busque y visualice facturas de compra o venta</p>
-                        <a href="BusquedaFacturas.aspx" class="card-link text-primary">Búsqueda facturas</a>
+                        <h5 class="card-title text-secondary">Facturas del mes</h5>
+                        <br />
+                          <asp:LinkButton Style="color: dodgerblue" ID="subCompras" runat="server" OnClick="click_BusquedaFactC"></asp:LinkButton>
+                         <br />
+                          <asp:LinkButton Style="color: dodgerblue" ID="subVentas" runat="server" OnClick="click_BusquedaFactV"></asp:LinkButton>
                     </div>
                 </div>
             </div>
@@ -75,12 +76,12 @@
                     <div class="card-body">
                         <h5 class="card-title text-secondary">Últimas Facturas</h5>
                         <br />
-                     <asp:LinkButton style="color: dodgerblue" ID="factNoHay" runat="server" OnClick="click_NuevaFact"></asp:LinkButton>
-                        <asp:LinkButton style="color: dodgerblue" ID="sub1Fac" runat="server" OnClick="click_SeleccFact1"></asp:LinkButton>
+                        <asp:LinkButton Style="color: dodgerblue" ID="factNoHay" runat="server" OnClick="click_NuevaFact"></asp:LinkButton>
+                        <asp:LinkButton Style="color: dodgerblue" ID="sub1Fac" runat="server" OnClick="click_SeleccFact1"></asp:LinkButton>
                         <br />
-                          <asp:LinkButton style="color: dodgerblue" ID="sub2Fac" runat="server" OnClick="click_SeleccFact2"></asp:LinkButton>
+                        <asp:LinkButton Style="color: dodgerblue" ID="sub2Fac" runat="server" OnClick="click_SeleccFact2"></asp:LinkButton>
                         <br />
-                          <asp:LinkButton style="color: dodgerblue" ID="sub3Fac" runat="server" OnClick="click_SeleccFact3"></asp:LinkButton>
+                        <asp:LinkButton Style="color: dodgerblue" ID="sub3Fac" runat="server" OnClick="click_SeleccFact3"></asp:LinkButton>
                         <br />
                     </div>
                 </div>
