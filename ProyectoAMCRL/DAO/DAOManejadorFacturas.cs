@@ -75,9 +75,9 @@ namespace DAO
                     codCompra = Convert.ToInt32(command.ExecuteScalar());
 
                     //REGISTRAR DETALLES   (?)bloquear materiales(?)
-                    
+
                     foreach (var detalle in detalles)
-                        sqlDetalles += "(" + codCompra + ", '" + detalle.cod_Material + "'," + detalle.kilos_Linea + "," + detalle.monto_Linea + "),";
+                        sqlDetalles += "(" + codCompra + ", '" + detalle.cod_Stock + "'," + detalle.kilos_Linea + "," + detalle.monto_Linea + "),";
 
                     sqlDetalles = sqlDetalles.Remove(sqlDetalles.Length - 1);
                     sqlDetalles += ";";
@@ -91,10 +91,10 @@ namespace DAO
 
                     foreach (var detalle in detalles)
                     {
-                        sqlUpdateParte1 += "WHEN COD_MATERIAL = '" + detalle.cod_Material +
+                        sqlUpdateParte1 += "WHEN COD_MATERIAL = '" + detalle.cod_Stock +
                         "' THEN (KILOS_STOCK " + operacion + " " + detalle.kilos_Linea + ") ";
 
-                        sqlUpdateParte2 += detalle.cod_Material + ",";
+                        sqlUpdateParte2 += detalle.cod_Stock + ",";
                     }
 
                     sqlUpdateParte2 = sqlUpdateParte2.Remove(sqlUpdateParte2.Length - 1);
@@ -105,9 +105,9 @@ namespace DAO
 
                     //puede tirar excepcion del trigger
                     command.ExecuteNonQuery();
-                    
-                    
-                    
+
+
+
                     //COMMIT A LA TRANSACCION
                     transaction.Commit();
                     return "SUCCCES";
@@ -138,23 +138,26 @@ namespace DAO
 
         }//METODO REGISTRAR COMPRA
 
-        //Retorna todas Facturas de Ventas
 
-        //Retorna lista completa
-        public List<TOFactura> lista_Facturas(String busqueda)
+        /// <summary>
+        /// Retorna la lista completa de facturas, ordenadas por la fecha más reciente
+        /// </summary>
+        /// <param name="busqueda"></param>
+        /// <returns></returns>
+        public List<TOFactura> lista_Facturas_Top3()
         {
             {
                 try
                 {
                     List<TOFactura> lista = new List<TOFactura>();
-                    String sql = "Select v.COD_FACTURA, v.ID_BODEGA, v.ID_MONEDA, v.CEDULA, v.MONTO_TOTAL, v.FECHA_FACTURA, v.TIPO, s.NOMBRE, s.APELLIDO1, s.APELLIDO2 from FACTURA v, SOCIO_NEGOCIO s where v.CEDULA = s.CEDULA";
+                    String sql = "Select f.COD_FACTURA, f.CEDULA, f.ID_MONEDA, f.MONTO_TOTAL, f.FECHA_FACTURA, f.TIPO, s.NOMBRE, s.APELLIDO1, s.APELLIDO2 from FACTURA f, SOCIO_NEGOCIO s where f.CEDULA = s.CEDULA order by f.FECHA_FACTURA desc;";
                     SqlCommand cmdVenta = new SqlCommand(sql, conexion);
 
-                    if (string.IsNullOrEmpty(busqueda) == false)
-                    {
-                        sql += " and ((v.COD_FACTURA LIKE '%' + @pal + '%')  or (V.CEDULA LIKE '%' + @pal + '%') or (v.MONTO_TOTAL LIKE '%' + @pal + '%') or (v.FECHA_FACTURA LIKE '%' + @pal + '%') or (s.NOMBRE LIKE '%' + @pal + '%') or (s.APELLIDO1 LIKE '%' + @pal + '%') or (s.APELLIDO2 LIKE '%' + @pal + '%'));";
-                        cmdVenta.Parameters.AddWithValue("@pal", "'may'");
-                    }
+                    //if (string.IsNullOrEmpty(busqueda) == false)
+                    //{
+                    //    sql += " and ((v.COD_FACTURA LIKE '%' + @pal + '%')  or (V.CEDULA LIKE '%' + @pal + '%') or (v.MONTO_TOTAL LIKE '%' + @pal + '%') or (v.FECHA_FACTURA LIKE '%' + @pal + '%') or (s.NOMBRE LIKE '%' + @pal + '%') or (s.APELLIDO1 LIKE '%' + @pal + '%') or (s.APELLIDO2 LIKE '%' + @pal + '%'));";
+                    //    cmdVenta.Parameters.AddWithValue("@pal", "'may'");
+                    //}
                     if (conexion.State != ConnectionState.Open)
                     {
                         conexion.Open();
@@ -167,14 +170,13 @@ namespace DAO
                         {
                             TOFactura to = new TOFactura();
                             to.cod_Factura = (Int16)reader.GetDecimal(0);
-                            to.cedula = reader.GetString(3);
-                            to.id_Bodega = (reader.GetString(1));
+                            to.cedula = reader.GetString(1);
                             to.id_Moneda = reader.GetString(2);
-                            to.monto_Total = (Double)reader.GetDecimal(4);
-                            to.fecha = reader.GetDateTime(5);
-                            to.tipo = reader.GetString(6);
+                            to.monto_Total = (Double)reader.GetDecimal(3);
+                            to.fecha = reader.GetDateTime(4);
+                            to.tipo = reader.GetString(5);
 
-                            to.nombreCompleto = reader.GetString(7) + " " + reader.GetString(8) + " " + reader.GetString(9);
+                            to.nombreCompleto = reader.GetString(6) + " " + reader.GetString(7) + " " + reader.GetString(8);
                             lista.Add(to);
                         }
                     }
@@ -195,13 +197,17 @@ namespace DAO
             }
         }
 
-        //Retorna factura por identificador
+        /// <summary>
+        /// Buscar una factura por el número de factura
+        /// </summary>
+        /// <param name="id">Número de factura de la factura que se busca</param>
+        /// <returns>Retorna la factura que tiene el número de factura</returns>
         public TOFactura factPorId(int id)
         {
             try
             {
                 TOFactura to = new TOFactura();
-                String qry = "select v.COD_FACTURA, v.CEDULA, v.ID_BODEGA, v.ID_MONEDA, v.MONTO_TOTAL, v.FECHA_FACTURA, v.TIPO, s.NOMBRE, s.APELLIDO1, s.APELLIDO2 from FACTURA v, SOCIO_NEGOCIO s where v.CEDULA = s.CEDULA and v.COD_FACTURA = @num;";
+                String qry = "select v.COD_FACTURA, v.CEDULA,  v.ID_MONEDA, v.MONTO_TOTAL, v.FECHA_FACTURA, v.TIPO, s.NOMBRE, s.APELLIDO1, s.APELLIDO2 from FACTURA v, SOCIO_NEGOCIO s where v.CEDULA = s.CEDULA and v.COD_FACTURA = @num;";
                 SqlCommand comm = new SqlCommand(qry, conexion);
                 comm.Parameters.AddWithValue("@num", id);
                 if (conexion.State != ConnectionState.Open)
@@ -215,13 +221,12 @@ namespace DAO
                     {
                         to.cod_Factura = (Int16)reader.GetDecimal(0);
                         to.cedula = reader.GetString(1);
-                        to.id_Bodega = (reader.GetString(2));
-                        to.id_Moneda = reader.GetString(3);
-                        to.monto_Total = (Double)reader.GetDecimal(4);
-                        to.fecha = reader.GetDateTime(5);
-                        to.tipo = reader.GetString(6);
+                        to.id_Moneda = reader.GetString(2);
+                        to.monto_Total = (Double)reader.GetDecimal(3);
+                        to.fecha = reader.GetDateTime(4);
+                        to.tipo = reader.GetString(5);
 
-                        to.nombreCompleto = reader.GetString(7) + " " + reader.GetString(8) + " " + reader.GetString(9);
+                        to.nombreCompleto = reader.GetString(6) + " " + reader.GetString(7) + " " + reader.GetString(8);
                     }
                 }
                 if (conexion.State != ConnectionState.Closed)
@@ -346,12 +351,16 @@ namespace DAO
         }
 
 
-        //lista de detalles de una factura
+        /// <summary>
+        /// Lista los detalles de una factura
+        /// </summary>
+        /// <param name="idFactura">Número de factura de la factura que se desea el </param>
+        /// <returns></returns>
         public List<TODetalleFactura> listaDetalle(int idFactura)
         {
             try
             {
-                SqlCommand cmdDet = new SqlCommand("Select d.COD_LINEA, d.COD_FACTURA, d.COD_MATERIAL, m.NOMBRE_MATERIAL, d.MONTO_LINEA, d.KILOS from DETALLE_FACTURA d, FACTURA v, material m where d.COD_FACTURA = @codFact and d.COD_FACTURA = v.COD_FACTURA and d.COD_MATERIAL = m.COD_MATERIAL;", conexion);
+                SqlCommand cmdDet = new SqlCommand("  Select d.COD_LINEA, d.COD_FACTURA, m.NOMBRE_MATERIAL, d.MONTO_LINEA, d.KILOS, d.ID_STOCK from DETALLE_FACTURA d, FACTURA v, MATERIAL m, STOCK s where d.COD_FACTURA = @codFact and d.COD_FACTURA = v.COD_FACTURA and s.ID_STOCK = d.ID_STOCK and s.COD_MATERIAL = m.COD_MATERIAL;", conexion);
                 cmdDet.Parameters.AddWithValue("@codFact", idFactura);
 
                 if (conexion.State != ConnectionState.Open)
@@ -371,10 +380,10 @@ namespace DAO
                     TODetalleFactura detVenta = new TODetalleFactura();
                     detVenta.cod_Linea = Convert.ToInt16(table.Rows[x]["COD_LINEA"]);
                     detVenta.cod_Factura = Convert.ToInt16(table.Rows[x]["COD_FACTURA"]);
-                    //detVenta.cod_Material = Convert.ToInt16(table.Rows[x]["COD_MATERIAL"]);
                     detVenta.nombreMaterial = Convert.ToString(table.Rows[x]["NOMBRE_MATERIAL"]);
                     detVenta.monto_Linea = Convert.ToDouble(table.Rows[x]["MONTO_LINEA"]);
                     detVenta.kilos_Linea = Convert.ToDouble(table.Rows[x]["KILOS"]);
+                    detVenta.cod_Stock = Convert.ToInt16(table.Rows[x]["ID_STOCK"]);
 
                     lista.Add(detVenta);
                 }
@@ -402,8 +411,8 @@ namespace DAO
         /// <returns></returns>
         public DataTable buscar(string busqueda, string tipo)
         {
-            //try
-            //{
+            try
+            {
                 using (conexion)
                 {
                     SqlCommand cmd = conexion.CreateCommand();
@@ -428,11 +437,48 @@ namespace DAO
                     }
                 }
             }
-        //catch (Exception)
-        //{
-        //    throw;
-        //}
-        //}
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public int numeroRangoFecha(string tipo)
+        {
+            try
+            {
+                TOFactura to = new TOFactura();
+                String qry = "SELECT COUNT(COD_FACTURA) as 'Total' from FACTURA WHERE tipo=@tipo and YEAR(FECHA_FACTURA) = YEAR(GETDATE()) and MONTH(FECHA_FACTURA) = MONTH(GETDATE());";
+                SqlCommand comm = new SqlCommand(qry, conexion);
+                comm.Parameters.AddWithValue("@tipo", tipo);
+                Int32 numero = 0;
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+                SqlDataReader reader = comm.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        numero = reader.GetInt32(0);
+                    }
+                }
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+                return numero;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conexion.Close();
+            }
+        }
 
         /// <summary>
         /// Método para filtrar las facturas según un rango de fechas y montos
@@ -446,46 +492,53 @@ namespace DAO
         /// <returns>Retorna una tabla con las facturas que cumplen con los filtros</returns>
         public DataTable filtrarFacturas(DateTime fechaInicio, DateTime fechaFin, int montoMaximo, int montoMinimo, List<string> materiales, string tipo)
         {
-            using (conexion)
+            try
             {
-                SqlCommand cmd = conexion.CreateCommand();
-                string sql = "Select s.NOMBRE + ' ' + s.APELLIDO1 + ' ' +  s.APELLIDO2 as SOCIO,  v.CEDULA as 'CÉDULA', v.COD_FACTURA as 'NÚMERO FACTURA', v.FECHA_FACTURA as 'FECHA FACTURA', v.MONTO_TOTAL as 'MONTO TOTAL' from FACTURA v, SOCIO_NEGOCIO s, DETALLE_FACTURA d where v.CEDULA = s.CEDULA and v.COD_FACTURA = d.COD_FACTURA and v.TIPO = @tipo ";
-                cmd.Parameters.AddWithValue("@tipo", tipo);
-
-                if (fechaInicio != null && fechaFin != null)
+                using (conexion)
                 {
-                    sql += " and FECHA_FACTURA between @fechaInicio and @fechaFin";
+                    SqlCommand cmd = conexion.CreateCommand();
+                    string sql = "Select s.NOMBRE + ' ' + s.APELLIDO1 + ' ' +  s.APELLIDO2 as SOCIO,  v.CEDULA as 'CÉDULA', v.COD_FACTURA as 'NÚMERO FACTURA', v.FECHA_FACTURA as 'FECHA FACTURA', v.MONTO_TOTAL as 'MONTO TOTAL' from FACTURA v, SOCIO_NEGOCIO s, DETALLE_FACTURA d where v.CEDULA = s.CEDULA and v.COD_FACTURA = d.COD_FACTURA and v.TIPO = @tipo ";
+                    cmd.Parameters.AddWithValue("@tipo", tipo);
 
-                    cmd.Parameters.AddWithValue("@fechaInicio", fechaInicio);
-                    cmd.Parameters.AddWithValue("@fechaFin", fechaFin);
-                }
-                //if (string.IsNullOrEmpty(montoMinimo) == false && string.IsNullOrEmpty(montoMaximo) == false)
-                if(montoMinimo != 0 && montoMaximo != 0)
-                {
-                    sql += " and v.MONTO_TOTAL between @montoMinimo and @montoMaximo";
-
-                    cmd.Parameters.AddWithValue("@montoMinimo", montoMinimo);
-                    cmd.Parameters.AddWithValue("@montoMaximo", montoMaximo);
-                }
-                if(materiales.Count > 0)
-                {
-                    sql += " and d.COD_MATERIAL in (";
-                    foreach (String id in materiales)
+                    if (fechaInicio != null && fechaFin != null)
                     {
-                        sql += " @id,";
-                        cmd.Parameters.AddWithValue("@id", id);
+                        sql += " and FECHA_FACTURA between @fechaInicio and @fechaFin";
+
+                        cmd.Parameters.AddWithValue("@fechaInicio", fechaInicio);
+                        cmd.Parameters.AddWithValue("@fechaFin", fechaFin);
                     }
-                    sql = sql.Remove(sql.Length - 1);
-                    sql += " )";
+                    //if (string.IsNullOrEmpty(montoMinimo) == false && string.IsNullOrEmpty(montoMaximo) == false)
+                    if (montoMinimo != 0 && montoMaximo != 0)
+                    {
+                        sql += " and v.MONTO_TOTAL between @montoMinimo and @montoMaximo";
+
+                        cmd.Parameters.AddWithValue("@montoMinimo", montoMinimo);
+                        cmd.Parameters.AddWithValue("@montoMaximo", montoMaximo);
+                    }
+                    if (materiales.Count > 0)
+                    {
+                        sql += " and d.COD_MATERIAL in (";
+                        foreach (String id in materiales)
+                        {
+                            sql += " @id,";
+                            cmd.Parameters.AddWithValue("@id", id);
+                        }
+                        sql = sql.Remove(sql.Length - 1);
+                        sql += " )";
+                    }
+                    cmd.CommandText = sql;
+                    cmd.Connection = conexion;
+                    using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        sda.Fill(dt);
+                        return dt;
+                    }
                 }
-                cmd.CommandText = sql;
-                cmd.Connection = conexion;
-                using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
-                {
-                    DataTable dt = new DataTable();
-                    sda.Fill(dt);
-                    return dt;
-                }
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
 

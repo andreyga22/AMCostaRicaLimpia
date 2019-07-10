@@ -4,7 +4,6 @@
     <link href="ownStyles.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="breadcrumbBodyHolder" runat="server">
-
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="body" runat="server">
 
@@ -17,39 +16,40 @@
             <div class="col-lg-4">
                 <div class="card bg-light" style="width: 18rem; height: 14rem;">
                     <div class="card-body">
-                        <h5 class="card-title text-secondary">Socios de negocio</h5>
-                        <p class="card-text">Agregue o busque los socios de negocio.</p>
-                        <a href="#" class="card-link text-primary">Agregar Socio</a>
+                        <h5 class="card-title text-secondary">Últimos clientes registrados</h5>
+                        <p runat="server" id="sub1Clientes" class="card-text"></p>
                         <br />
-                        <a href="#" class="card-link text-primary">Búsqueda de Socios</a>
-                    </div>
-                </div>
-            </div> 
-
-            <div class="col-lg-4">
-                <div class="card bg-light" style="width: 18rem; height: 14rem;">
-                    <div class="card-body">
-                        <h5 class="card-title text-secondary">Compras o Ventas</h5>
-                        <p class="card-text">Realice compras y ventas</p>
+                        <p runat="server" id="sub2Clientes" class="card-text"></p>
                         <br />
-                        <a href="#" class="card-link text-primary">Registrar compra</a>
+                        <p runat="server" id="sub3Clientes" class="card-text"></p>
                         <br />
-                        <a href="#" class="card-link text-primary">Registrar venta</a>
+                        <a href="" id="prueba" runat="server" class="card-link text-primary"></a>
                     </div>
                 </div>
             </div>
+
             <div class="col-lg-4">
                 <div class="card bg-light" style="width: 18rem; height: 14rem;">
                     <div class="card-body">
-                        <h5 class="card-title text-secondary">Inventario</h5>
-                        <p class="card-text">Maneje bodegas, materiales y realice ajustes de inventario.</p>
-                        <a href="AdministrarBodegas.aspx" class="card-link text-primary">Administrar bodegas</a>
+                        <h5 class="card-title text-secondary">Últimos proveedores registrados</h5>
+                        <p runat="server" id="subProveed1" class="card-text"></p>
                         <br />
-                        <a href="AdministrarMateriales.aspx" class="card-link text-primary">Materiales</a>
+                        <p runat="server" id="subProveed2" class="card-text"></p>
                         <br />
-                        <a href="Ajustes.aspx" class="card-link text-primary">Ajustes</a>
-                        <br />
+                        <p runat="server" id="subProveed3" class="card-text"></p>
+                    </div>
+                </div>
+            </div>
 
+            <div class="col-lg-4">
+                <div class="card bg-light" style="width: 18rem; height: 14rem;">
+                    <div class="card-body">
+                        <h5 class="card-title text-secondary">Materiales más vendidos</h5>
+                        <p runat="server" id="subMater1" class="card-text"></p>
+                        <br />
+                        <p runat="server" id="subMater2" class="card-text"></p>
+                        <br />
+                        <p runat="server" id="subMater3" class="card-text"></p>
                     </div>
                 </div>
             </div>
@@ -61,10 +61,12 @@
         <div class="row">
             <div class="col-lg-4">
                 <div class="card  bg-light" style="width: 18rem; height: 14rem;">
-                <div class="card-body">
-                        <h5 class="card-title text-secondary">Facturas</h5>
-                        <p class="card-text">Busque y visualice facturas de compra o venta</p> 
-                       <a href="BusquedaFacturas.aspx" class="card-link text-primary">Búsqueda facturas</a>
+                    <div class="card-body">
+                        <h5 class="card-title text-secondary">Facturas del mes</h5>
+                        <br />
+                          <asp:LinkButton Style="color: dodgerblue" ID="subCompras" runat="server" OnClick="click_BusquedaFactC"></asp:LinkButton>
+                         <br />
+                          <asp:LinkButton Style="color: dodgerblue" ID="subVentas" runat="server" OnClick="click_BusquedaFactV"></asp:LinkButton>
                     </div>
                 </div>
             </div>
@@ -72,29 +74,31 @@
             <div class="col-lg-4">
                 <div class="card bg-light" style="width: 18rem; height: 14rem;">
                     <div class="card-body">
-                        <h5 class="card-title text-secondary">Reportes</h5>
-                        <p class="card-text">Genere reportes de las entradas y salidas del negocio.</p>
-                          <a href="Reporte_General.aspx" class="card-link text-primary">Reporte General</a>
+                        <h5 class="card-title text-secondary">Últimas Facturas</h5>
                         <br />
-                        <a href="ReporteGrafico.aspx" class="card-link text-primary">Reporte Gráfico</a>
+                        <asp:LinkButton Style="color: dodgerblue" ID="factNoHay" runat="server" OnClick="click_NuevaFact"></asp:LinkButton>
+                        <asp:LinkButton Style="color: dodgerblue" ID="sub1Fac" runat="server" OnClick="click_SeleccFact1"></asp:LinkButton>
+                        <br />
+                        <asp:LinkButton Style="color: dodgerblue" ID="sub2Fac" runat="server" OnClick="click_SeleccFact2"></asp:LinkButton>
+                        <br />
+                        <asp:LinkButton Style="color: dodgerblue" ID="sub3Fac" runat="server" OnClick="click_SeleccFact3"></asp:LinkButton>
                         <br />
                     </div>
                 </div>
             </div>
 
-            <div class="col-lg-4">
+            <%--   <div class="col-lg-4">
                 <div class="card bg-light" style="width: 18rem; height: 14rem;">
                     <div class="card-body">
                         <h5 class="card-title text-secondary">Otros</h5>
                         <p class="card-text">Maneje monedas y unidades de medida del sistema.</p>
-                              <a href="Monedas.aspx" class="card-link text-primary">Monedas</a>
+                        <a href="Monedas.aspx" class="card-link text-primary">Monedas</a>
                         <br />
                         <a href="AdministrarUnidadesMedida.aspx" class="card-link text-primary">Unidades de medida</a>
                         <br />
                     </div>
                 </div>
-            </div>
-
+            </div>--%>
         </div>
     </div>
 
