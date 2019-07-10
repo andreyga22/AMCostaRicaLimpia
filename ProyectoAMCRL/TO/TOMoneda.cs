@@ -11,7 +11,7 @@ namespace TO
         public String idMoneda { get; set; }
         public String detalleMoneda { get; set; }
         public double equivalencia_Colon { get; set; }
-
+        public Boolean estado { get; set; }
 
         public TOMoneda()
         {
@@ -23,6 +23,13 @@ namespace TO
             this.idMoneda = idMoneda;
             this.detalleMoneda = detalleMoneda;
             this.equivalencia_Colon = equivalencia_Colon;
+        }
+
+        public TOMoneda(String idMoneda, String detalleMoneda, double equivalencia_Colon, Boolean estado) {
+            this.idMoneda = idMoneda;
+            this.detalleMoneda = detalleMoneda;
+            this.equivalencia_Colon = equivalencia_Colon;
+            this.estado = estado;
         }
     }
 }

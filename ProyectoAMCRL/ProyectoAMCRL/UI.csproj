@@ -72,6 +72,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AdministrarMonedas.aspx" />
     <Content Include="Ajustes.aspx" />
     <Content Include="Asociar_Socio.aspx" />
     <Content Include="Bodega.aspx" />
@@ -167,6 +168,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdministrarMonedas.aspx.cs">
+      <DependentUpon>AdministrarMonedas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdministrarMonedas.aspx.designer.cs">
+      <DependentUpon>AdministrarMonedas.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Ajustes.aspx.cs">
       <DependentUpon>Ajustes.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

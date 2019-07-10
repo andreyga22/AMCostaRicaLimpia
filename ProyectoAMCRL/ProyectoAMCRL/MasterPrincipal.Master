@@ -64,8 +64,8 @@
                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle font-weight-bolder">
                         <i class="fas fa-users"></i>Socios</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
-                        <li><a href="#">Agregar socio</a></li>
-                        <li><a href="#">Búsqueda socios</a></li>
+                        <li><a href="RegistroSociosUI.aspx">Agregar socio</a></li>
+                        <li><a href="BusquedaSocios.aspx">Búsqueda socios</a></li>
                     </ul>
                 </li>
 
@@ -129,7 +129,7 @@
                     <a href="#otrosSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle font-weight-bolder">
                         <i class="fas fa-wrench"></i>Otros</a>
                     <ul class="collapse list-unstyled" id="otrosSubmenu">
-                        <li><a href="Monedas.aspx">Monedas</a></li>
+                        <li><a href="AdministrarMonedas.aspx">Administrar Monedas</a></li>
                         <li> <a href="UnidadMedida.aspx">Unidades medida</a></li>
                     </ul>
                 </li>

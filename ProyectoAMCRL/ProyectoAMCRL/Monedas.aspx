@@ -5,57 +5,53 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="breadcrumbBodyHolder" runat="server">
-    <li class="breadcrumb-item active">Administrar Monedas</li>
+    <li class="breadcrumb-item"><a href="AdministrarMonedas.aspx" style="color: dodgerblue">Administrar Monedas</a></li>
+    <li class="breadcrumb-item active" id="breadObj" runat="server">Moneda</li>
 </asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="body" runat="server">
 
-<asp:Content ID="Content5" ContentPlaceHolderID="body" runat="server">
-        <div class="row justify-content-center">
-            <asp:Literal ID="lblError" runat="server" Visible="false"></asp:Literal>
-        </div>
+
+    <div class="row justify-content-center">
+        <asp:Literal ID="lblError" runat="server" Visible="false"></asp:Literal>
+    </div>
     <div class="container">
-
-        <br />
         <div class="row">
-            <h4>Administrar Monedas</h4>
+            <div class="form-group">
+                <h4>Moneda</h4>
+            </div>
         </div>
         <br />
-        <br />
-        <br />
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Código Moneda</th>
-                    <th scope="col">Detalle</th>
-                    <th scope="col">Equivalencia colón</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>USD</td>
-                    <td>Dólar</td>
-                    <td>600</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>CRC</td>
-                    <td>Colón</td>
-                    <td>1</td>
-
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>EUR</td>
-                    <td>Euro</td>
-                    <td>700</td>
-                </tr>
-            </tbody>
-
-
-        </table>
+        <div class="form-row justify-content-center">
+            <div class="form-group col-sm-6">
+                <label for="codigoTb">Código Moneda*</label><asp:RequiredFieldValidator ID="valCodigo" runat="server" ErrorMessage="Campo requerido" ControlToValidate="codigoTb" ForeColor="Red"></asp:RequiredFieldValidator>
+                <asp:TextBox type="text" ID="codigoTb" class="form-control" placeholder="USD" runat="server"></asp:TextBox>
+            </div>
+        </div>
+        <div class="form-row justify-content-center">
+            <div class="form-group col-sm-6">
+                <label for="detalleTb">Detalle Moneda*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="detalleTb" ErrorMessage="Campo Requerido" ForeColor="Red"></asp:RequiredFieldValidator>
+                &nbsp;<asp:TextBox type="text" ID="detalleTb" class="form-control" placeholder="Dólares" runat="server"></asp:TextBox>
+            </div>
+        </div>
+        <div class="form-row justify-content-center">
+            <div class="form-group col-md-6">
+                <label for="equivalenciaTb">Equivalencia en colones*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="equivalenciaTb" ErrorMessage="Campo Requerido" ForeColor="Red"></asp:RequiredFieldValidator>
+                &nbsp;<asp:TextBox type="text" ID="equivalenciaTb" class="form-control" runat="server" placeholder="595"></asp:TextBox>
+            </div>
+        </div>
+        <div class="form-row justify-content-center">
+            <div class="form-group col-sm-6">
+                <asp:RadioButtonList ID="estadoRb" runat="server" RepeatDirection="Horizontal">
+                    <asp:ListItem Selected="True">Activado</asp:ListItem>
+                    <asp:ListItem>Desactivado</asp:ListItem>
+                </asp:RadioButtonList>
+            </div>
+        </div>
+        <%-- SUBMMIT BUTTON --%>
         <div class="row justify-content-center">
-            <asp:Button ID="btnAgregar" type="submmit" runat="server" Text="Guardar" class="btn btn-info" Width="15%" />
+            <div class="form-group">
+                <asp:Button ID="btnGuardar" type="submit" runat="server" Text="Guardar" class="btn btn-info" OnClick="btnGuardar_Click" />
+            </div>
         </div>
-        </div>
+    </div>
 </asp:Content>
