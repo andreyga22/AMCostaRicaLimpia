@@ -53,6 +53,11 @@ namespace BL
             }
         }
 
+        /// <summary>
+        /// Busca una factura por el identificador
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Retorna la factura con el identificador que se busca</returns>
         public BLFactura buscarVentaID(int id)
         {
             DAOManejadorFacturas dao = new DAOManejadorFacturas();
@@ -75,25 +80,6 @@ namespace BL
                 foreach (TODetalleFactura detalleFactura in lista)
                 {
                     listaBL.Add(convertDetalle(detalleFactura));
-                }
-                return listaBL;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        public List<BLFactura> listaMontos(double monto1, double monto2)
-        {
-            try
-            {
-                DAOManejadorFacturas dao = new DAOManejadorFacturas();
-                List<TOFactura> lista = dao.listaPorMonto(monto1, monto2);
-                List<BLFactura> listaBL = new List<BLFactura>();
-                foreach (TOFactura factura in lista)
-                {
-                    listaBL.Add(convert(factura));
                 }
                 return listaBL;
             }
@@ -357,4 +343,26 @@ namespace BL
         }
 
     }
+
+
+
+
+    //public List<BLFactura> listaMontos(double monto1, double monto2)
+    //{
+    //    try
+    //    {
+    //        DAOManejadorFacturas dao = new DAOManejadorFacturas();
+    //        List<TOFactura> lista = dao.listaPorMonto(monto1, monto2);
+    //        List<BLFactura> listaBL = new List<BLFactura>();
+    //        foreach (TOFactura factura in lista)
+    //        {
+    //            listaBL.Add(convert(factura));
+    //        }
+    //        return listaBL;
+    //    }
+    //    catch (Exception)
+    //    {
+    //        throw;
+    //    }
+    //}
 }

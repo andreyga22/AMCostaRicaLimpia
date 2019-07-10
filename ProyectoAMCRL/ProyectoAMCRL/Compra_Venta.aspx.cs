@@ -118,12 +118,10 @@ namespace ProyectoAMCRL
         }
 
 
-        /*
-         Carga la pantalla, como modo de vista únicamente, con una 
-         factura ya realizada
-         Entradas: 
-         id = identificador de la factura que se va a mostrar en la pantalla
-        */
+        /// <summary>
+        /// Carga la pantalla, como modo de vista únicamente, con una factura ya realizada
+        /// </summary>
+        /// <param name="id">Identificador de la factura que se va a mostrar en la pantalla</param>
         private void cargarFactura(string id)
         {
             BLManejadorFacturas manejFact = new BLManejadorFacturas();
