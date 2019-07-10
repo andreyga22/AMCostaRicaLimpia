@@ -13,22 +13,34 @@ namespace BL
     {
         private DAOManejadorSocios manejadorDAO = new DAOManejadorSocios();
 
-        //Sin asociacion
+        /// <summary>
+        /// Método para agregar los datos asociados a un cliente o proveedor
+        /// del negocio.
+        /// </summary>
+        /// <param name="socioBL">Socio del negocio</param>
+        /// <returns></returns>
         public Boolean agregarSocioBL(BLSocioNegocio socioBL)
         {
-            TOSocioNegocio socioTO = new TOSocioNegocio();
-            socioTO.cedula = socioBL.cedula;
-            socioTO.nombre = socioBL.nombre;
-            socioTO.rol = socioBL.rol;
-            socioTO.apellido1 = socioBL.apellido1;
-            socioTO.apellido2 = socioBL.apellido2;
-            socioTO.contactos = new TOContactos(socioBL.contactos.telefono_hab, socioBL.contactos.telefono_pers, socioBL.contactos.email);
-            socioTO.direccion = new TODireccion(socioBL.direccion.provincia, socioBL.direccion.canton, socioBL.direccion.distrito, socioBL.direccion.otras_sennas);
-            socioTO.estado_socio = socioBL.estado_socio;
-            manejadorDAO.guardarModificarSocio(socioTO);
-            return true;
+            try
+            {
+                TOSocioNegocio socioTO = new TOSocioNegocio();
+                socioTO.cedula = socioBL.cedula;
+                socioTO.nombre = socioBL.nombre;
+                socioTO.rol = socioBL.rol;
+                socioTO.apellido1 = socioBL.apellido1;
+                socioTO.apellido2 = socioBL.apellido2;
+                socioTO.contactos = new TOContactos(socioBL.contactos.telefono_hab, socioBL.contactos.telefono_pers, socioBL.contactos.email);
+                socioTO.direccion = new TODireccion(socioBL.direccion.provincia, socioBL.direccion.canton, socioBL.direccion.distrito, socioBL.direccion.otras_sennas, socioBL.direccion.cod_direccion);
+                socioTO.estado_socio = socioBL.estado_socio;
+                manejadorDAO.guardarModificarSocio(socioTO);
+                return true;
+            }catch (Exception)
+            {
+                throw;
+            }
         }
 
+        
         public List<BLSocioNegocio> listaSoc(String busqueda)
         {
             try
@@ -48,6 +60,28 @@ namespace BL
             }
         }
 
+        /// <summary>
+        /// Método para buscar el código de la dirección asociada a un socio en caso de que sea necesario
+        /// actualizar la información del mismo
+        /// </summary>
+        /// <param name="cedula">Cédula del socio del cual se desea conocer el código de dirección</param>
+        /// <returns>código de dirección asociado</returns>
+        public int buscarDir(String cedula) {
+            try
+            {
+                return manejadorDAO.buscarCodDireccion(cedula);
+            }catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Método para cargar los socios del negocio, según criterios que el usuario haya especificado,
+        /// en una tabla, a fin de que este pueda ver los detalles de los socios que cumplen con dichos criterios.
+        /// </summary>
+        /// <param name="busqueda">criterio bajo el cual se filtran los socios</param>
+        /// <returns>Una tabla con socios</returns>
         public DataTable buscarDatos(string busqueda)
         {
             try
@@ -60,26 +94,67 @@ namespace BL
             }
         }
 
+        /// <summary>
+        /// Método para crear un nuevo objeto BLSocio a partir de un objeto de transferencia de socio.
+        /// </summary>
+        /// <param name="socio">Objeto de transferencia de socio</param>
+        /// <returns>Objeto tipo BLSocio</returns>
         public BLSocioNegocio convert(TOSocioNegocio socio)
         {
-            return new BLSocioNegocio(socio.cedula, socio.nombre, socio.rol, socio.apellido1, socio.apellido2, 
-            convert(socio.direccion), convert(socio.contactos), socio.estado_socio);
+            try
+            {
+                return new BLSocioNegocio(socio.cedula, socio.nombre, socio.rol, socio.apellido1, socio.apellido2,
+                convert(socio.direccion), convert(socio.contactos), socio.estado_socio);
+            }
+            catch (Exception ex){
+                throw;
+            }
         }
 
+        /// <summary>
+        /// Método para crear un nuevo objeto BLDireccion a partir de un objeto de transferencia de dirección.
+        /// </summary>
+        /// <param name="dir">Objeto de trtansferencia de dirección</param>
+        /// <returns>Objeto tipo BLDireccion</returns>
         private BLDireccion convert(TODireccion dir)
         {
-            return new BLDireccion(dir.provincia, dir.canton, dir.distrito, dir.otras_sennas, dir.cod_direccion);
+            try
+            {
+                return new BLDireccion(dir.provincia, dir.canton, dir.distrito, dir.otras_sennas, dir.cod_direccion);
+            }catch (Exception ex)
+            {
+                throw;
+            }
         }
 
+        /// <summary>
+        /// Método para crear un nuevo objeto BLContacto a partir de un objeto de transferencia de contacto.
+        /// </summary>
+        /// <param name="cont">Objeto de trtansferencia de contacto</param>
+        /// <returns>Objeto tipo BLContacto</returns>
         private BLContactos convert(TOContactos cont)
         {
-            return new BLContactos(cont.telefono_hab, cont.telefono_pers, cont.email);
+            try
+            {
+                return new BLContactos(cont.telefono_hab, cont.telefono_pers, cont.email);
+            }catch (Exception ex)
+            {
+                throw;
+            }
         }
+
 
         public DataTable buscarFiltrado(string busqueda)
         {
-            return new DAOManejadorSocios().buscarSociosFiltro(busqueda);
+            try
+            {
+                return new DAOManejadorSocios().buscarSociosFiltro(busqueda);
+            }catch (Exception ex)
+            {
+                throw;
+            }
         }
+
 
         public BLSocioNegocio buscarSocio(String id, String tipoSocio) {
             DAOManejadorSocios manejadorDAO = new DAOManejadorSocios();
@@ -115,10 +190,20 @@ namespace BL
         }
 
 
+        /// <summary>
+        /// Método que busca a un socio en específico según su cédula.
+        /// </summary>
+        /// <param name="cedula">cédula del socio</param>
+        /// <returns>Un socio en específico</returns>
         public BLSocioNegocio buscarCedula(string cedula)
         {
-
-            return convert((new DAOManejadorSocios().buscarSocioCedula(cedula)));
+            try
+            {
+                return convert((new DAOManejadorSocios().buscarSocioCedula(cedula)));
+            }
+            catch (Exception ex){
+                throw;
+            }
         }
 
     }

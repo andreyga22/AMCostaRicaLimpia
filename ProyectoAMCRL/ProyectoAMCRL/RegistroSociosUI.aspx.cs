@@ -27,7 +27,8 @@ namespace ProyectoAMCRL
                         ape1TB.Text = socio.apellido1;
                         ape2TB.Text = socio.apellido2;
                         activaCb.Checked = true;
-                        if (socio.rol.Equals("Proveedor")) {
+                        if (socio.rol.Equals("Proveedor"))
+                        {
                             rolRadios.SelectedIndex = 0;
                         }
                         else
@@ -56,56 +57,78 @@ namespace ProyectoAMCRL
 
         protected void btnRegistrar_Click(object sender, EventArgs e)
         {
-            BLManejadorSocios manejador = new BLManejadorSocios();
-            
-            String cedula = (String)Session["idSocio"];
-            if (!String.IsNullOrEmpty(cedula)) {
 
-                BLSocioNegocio socio = new BLSocioNegocio();
-                socio.cedula = idTB.Text.ToString();
-                socio.nombre = nombreTB.Text.ToString();
-                socio.apellido1 = ape1TB.Text.ToString();
-                socio.apellido2 = ape2TB.Text.ToString();
-                socio.rol = rolRadios.SelectedValue.ToString();
-                BLSocioNegocio socioTemp = manejador.buscarCedula(cedula);
-                socio.direccion = new BLDireccion(provinciaTB.Text.ToString(), cantonTB.Text.ToString(),
-                distritoTB.Text.ToString(), sennas.Text.ToString(), socioTemp.direccion.cod_direccion);
-                socio.contactos = new BLContactos(int.Parse(telTB.Text.ToString()),
-                int.Parse(tel2TB.Text.ToString()), correoTB.Text.ToString());
-                if (activaCb.Checked)
+            BLManejadorSocios manejador = new BLManejadorSocios();
+
+            String cedula = (String)Session["idSocio"];
+            if (!String.IsNullOrEmpty(cedula))
+            {
+                try
                 {
-                    socio.estado_socio = true;
+                    BLSocioNegocio socio = new BLSocioNegocio();
+                    socio.cedula = idTB.Text.ToString();
+                    socio.nombre = nombreTB.Text.ToString();
+                    socio.apellido1 = ape1TB.Text.ToString();
+                    socio.apellido2 = ape2TB.Text.ToString();
+                    socio.rol = rolRadios.SelectedValue.ToString();
+                    BLSocioNegocio socioTemp = manejador.buscarCedula(cedula);
+                    socio.direccion = new BLDireccion(provinciaTB.Text.ToString(), cantonTB.Text.ToString(),
+                    distritoTB.Text.ToString(), sennas.Text.ToString(), socioTemp.direccion.cod_direccion);
+                    socio.contactos = new BLContactos(int.Parse(telTB.Text.ToString()),
+                    int.Parse(tel2TB.Text.ToString()), correoTB.Text.ToString());
+                    socio.direccion.cod_direccion = manejador.buscarDir(idTB.Text.ToString());
+                    if (activaCb.Checked)
+                    {
+                        socio.estado_socio = true;
+                    }
+                    else
+                    {
+                        socio.estado_socio = false;
+                    }
+                    Boolean insertado = manejador.agregarSocioBL(socio);
+                    lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong>Se modificó el socio correctamente.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                    lblError.Visible = true;
                 }
-                else {
-                    socio.estado_socio = false;
+                catch (Exception ex)
+                {
+                    lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> " + ex.Message + "<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                    lblError.Visible = true;
                 }
-                Boolean insertado = manejador.agregarSocioBL(socio);
             }
             else
             {
+                try
+                {
+                    BLSocioNegocio socio = new BLSocioNegocio();
+                    socio.cedula = idTB.Text.ToString();
+                    socio.nombre = nombreTB.Text.ToString();
+                    socio.apellido1 = ape1TB.Text.ToString();
+                    socio.apellido2 = ape2TB.Text.ToString();
+                    socio.rol = rolRadios.SelectedValue.ToString();
+                    socio.direccion = new BLDireccion(provinciaTB.Text.ToString(), cantonTB.Text.ToString(),
+                    distritoTB.Text.ToString(), sennas.Text.ToString(), 0);
+                    socio.contactos = new BLContactos(int.Parse(telTB.Text.ToString()),
+                    int.Parse(tel2TB.Text.ToString()), correoTB.Text.ToString());
+                    if (activaCb.Checked)
+                    {
+                        socio.estado_socio = true;
+                    }
+                    else
+                    {
+                        socio.estado_socio = false;
+                    }
+                    Boolean insertado = manejador.agregarSocioBL(socio);
+                    lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong>Se modificó el socio correctamente.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                    lblError.Visible = true;
 
-                BLSocioNegocio socio = new BLSocioNegocio();
-                socio.cedula = idTB.Text.ToString();
-                socio.nombre = nombreTB.Text.ToString();
-                socio.apellido1 = ape1TB.Text.ToString();
-                socio.apellido2 = ape2TB.Text.ToString();
-                socio.rol = rolRadios.SelectedValue.ToString();
-                socio.direccion = new BLDireccion(provinciaTB.Text.ToString(), cantonTB.Text.ToString(),
-                distritoTB.Text.ToString(), sennas.Text.ToString(), 0);
-                socio.contactos = new BLContactos(int.Parse(telTB.Text.ToString()),
-                int.Parse(tel2TB.Text.ToString()), correoTB.Text.ToString());
-                if (activaCb.Checked)
-                {
-                    socio.estado_socio = true;
                 }
-                else
+                catch (Exception ex)
                 {
-                    socio.estado_socio = false;
+                    lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> " + ex.Message + "<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                    lblError.Visible = true;
                 }
-                Boolean insertado = manejador.agregarSocioBL(socio);
 
             }
-
         }
     }
 }
