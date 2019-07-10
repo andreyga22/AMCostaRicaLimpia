@@ -144,16 +144,16 @@ namespace BL
         }
 
 
-        public DataTable buscarFiltrado(string busqueda)
-        {
-            try
-            {
-                return new DAOManejadorSocios().buscarSociosFiltro(busqueda);
-            }catch (Exception ex)
-            {
-                throw;
-            }
-        }
+        //public DataTable buscarFiltrado(string busqueda)
+        //{
+        //    try
+        //    {
+        //        return new DAOManejadorSocios().buscarSociosFiltro(busqueda);
+        //    }catch (Exception ex)
+        //    {
+        //        throw;
+        //    }
+        //}
 
 
         public BLSocioNegocio buscarSocio(String id, String tipoSocio) {
