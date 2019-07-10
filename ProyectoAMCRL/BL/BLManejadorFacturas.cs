@@ -89,6 +89,12 @@ namespace BL
             }
         }
 
+        public int numeroRangoFecha(string tipo)
+        {
+            DAOManejadorFacturas dao = new DAOManejadorFacturas();
+            return dao.numeroRangoFecha(tipo);
+        }
+
         /// <summary>
         /// Método para filtrar las facturas según un rango de fechas y montos
         /// </summary>

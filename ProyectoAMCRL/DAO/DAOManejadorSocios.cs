@@ -15,7 +15,7 @@ namespace DAO
 
         private SqlConnection conexion = new SqlConnection(Properties.Settings.Default.conexionHost);
 
-        AMCRLEntities context = new AMCRLEntities();
+        //AMCRLEntities context = new AMCRLEntities();
 
 
         /// <summary>
@@ -54,9 +54,9 @@ namespace DAO
                         int resul = 0;
                         resul = Convert.ToInt32(sentencia.ExecuteScalar());
 
-
+                        
                         sentencia.CommandText =
-                     "insert into Socio_Negocio (cedula, nombre, rol_socio, apellido1, apellido2, estado_socio, cod_direccion) values (@cedula, @nombre, @rol, @apellido1, @apellido2, @estado, @cod_dir);";
+                     "insert into Socio_Negocio (cedula, nombre, rol_socio, apellido1, apellido2, estado_socio, cod_direccion, fecha_ingreso) values (@cedula, @nombre, @rol, @apellido1, @apellido2, @estado, @cod_dir, @fecha);";
                         sentencia.Parameters.AddWithValue("@cedula", soc.cedula);
                         sentencia.Parameters.AddWithValue("@nombre", soc.nombre);
                         sentencia.Parameters.AddWithValue("@rol", soc.rol);
@@ -64,6 +64,7 @@ namespace DAO
                         sentencia.Parameters.AddWithValue("@apellido2", soc.apellido2);
                         sentencia.Parameters.AddWithValue("@estado", soc.estado_socio);
                         sentencia.Parameters.AddWithValue("@cod_dir", resul);
+                        sentencia.Parameters.AddWithValue("@fecha", DateTime.Now);
 
 
                         sentencia.ExecuteNonQuery();
@@ -73,6 +74,7 @@ namespace DAO
                         sentencia.Parameters.AddWithValue("@telefono_hab", soc.contactos.telefono_hab);
                         sentencia.Parameters.AddWithValue("@telefono_pers", soc.contactos.telefono_pers);
                         sentencia.Parameters.AddWithValue("@email", soc.contactos.email);
+                        
                         
                         sentencia.ExecuteNonQuery();
 
@@ -149,12 +151,13 @@ namespace DAO
             /// <returns>Tabla con socios</returns>
             public DataTable buscarTabla(string busqueda)
         {
-            try
-            {
+            //try
+            //{
                 using (conexion)
                 {
                     SqlCommand cmd = conexion.CreateCommand();
-                    string sql = "Select CEDULA, NOMBRE, APELLIDO1, APELLIDO2, ROL_SOCIO from SOCIO_NEGOCIO";
+                    string sql = "Select CEDULA as Cédula, NOMBRE as Nombre, APELLIDO1 as 'Primer apellido'," +
+                    " APELLIDO2 as 'Segundo apellido', ROL_SOCIO as Rol from SOCIO_NEGOCIO";
 
                     if (string.IsNullOrEmpty(busqueda) == false)
                     {
@@ -171,15 +174,15 @@ namespace DAO
                         return dt;
                     }
                 }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                conexion.Close();
-            }
+            //}
+            //catch (Exception)
+            //{
+            //    throw;
+            //}
+            //finally
+            //{
+            //    conexion.Close();
+            //}
         }
 
         /// <summary>

@@ -31,31 +31,13 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.ScriptManager ScriptManager1;
         
         /// <summary>
-        /// radioRol control.
+        /// NuevoBtn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton radioRol;
-        
-        /// <summary>
-        /// radioRol2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton radioRol2;
-        
-        /// <summary>
-        /// btnFiltrarModal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnFiltrarModal;
+        protected global::System.Web.UI.WebControls.Button NuevoBtn;
         
         /// <summary>
         /// UpdatePanel2 control.
@@ -74,6 +56,15 @@ namespace ProyectoAMCRL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPalabra;
+        
+        /// <summary>
+        /// UpdatePanel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         
         /// <summary>
         /// gridSocios control.

@@ -16,27 +16,27 @@
             });
         });--%>
 
-        $(document).ready(function () {
-            $("#rolCb").click(function () {
-                if (document.getElementById("rolCb").checked == true) {
-                    $(".rolDiv").show();
-                } else {
-                    $(".rolDiv").hide();
-                }
-            });
-        });
+        //$(document).ready(function () {
+        //    $("#rolCb").click(function () {
+        //        if (document.getElementById("rolCb").checked == true) {
+        //            $(".rolDiv").show();
+        //        } else {
+        //            $(".rolDiv").hide();
+        //        }
+        //    });
+        //});
 
-        $(document).keydown(function (keyPressed) {
-            if (keyPressed.keyCode == 13) {
-                alert("ENTER PRESIONADO");
-            }
-        });
+        //$(document).keydown(function (keyPressed) {
+        //    if (keyPressed.keyCode == 13) {
+        //        alert("ENTER PRESIONADO");
+        //    }
+        //});
 
-        function ocultarFiltros() {
+        //function ocultarFiltros() {
             <%--$("#divNombre").hide();--%>
-            $(".rolDiv").hide();
+        //    $(".rolDiv").hide();
 
-        }
+        //}
 
         window.onload = ocultarFiltros;
 
@@ -59,11 +59,11 @@
         <br />
 
         <br>
-        <%-- SECCION 1 FILTROS--%>
+       <%--<%-- <%-- SECCION 1 FILTROS--%>
 
         <!-- Modal -->
         <div class="container">
-            <div class="modal fade" id="filtros" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+           <%-- <div class="modal fade" id="filtros" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -74,11 +74,11 @@
                         </div>
                         <div class="modal-body">
                             <div class="container">
-                            <div class="row" id="barraFiltros">
+                            <div class="row" id="barraFiltros">--%>
 
 
                                 <%--FILTRO ROL--%>
-                                <div class="col-lg-6 filtroCell">
+                                <%--<div class="col-lg-6 filtroCell">
                                     <strong>
                                         <input class="form-check-input" type="checkbox" id="rolCb" font-weight: bold value="">Tipo</strong>
                                     <div style="width: 100%" class="rolDiv">
@@ -92,21 +92,19 @@
                           </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>--%>
                             <%--<button type="button" class="btn btn-primary">Filtrar</button>--%>
-                            <asp:Button ID="btnFiltrarModal" type="submit" runat="server" Text="Filtrar" class="btn btn-primary" OnClick="btnFiltrar_Click" />
+                           <%-- <asp:Button ID="btnFiltrarModal" type="submit" runat="server" Text="Filtrar" class="btn btn-primary" OnClick="btnFiltrar_Click" />
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div>--%>
 
 
-        <div class="row justify-content-center">
-            <div class="col-2">
-                <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#filtros">
-                    Filtros
-                </button>
+       <div class="row justify-content-center">
+           <div class="col-2">
+                <asp:Button ID="NuevoBtn" type="submit" runat="server" class="btn btn-info" Text="Nuevo" OnClick="NuevoBtn_Click" />
             </div>
             <div class="col-3 offset-7">
                 <asp:UpdatePanel ID="UpdatePanel2" runat="server">
@@ -116,23 +114,22 @@
                 </asp:UpdatePanel>
             </div>
         </div>
-        <%--<div class="col-1">
-                <asp:Button ID="actualizarBtn" type="submit" runat="server" class="btn btn-outline-secondary" OnClick="actualizarBtn_Click" Text="Actualizar búsqueda" />
-            </div>--%>
         <br />
         <%-- SECCION 2 --%>
         <div class="row justify-content-center">
             <div class="col-12">
-                <%--<asp:UpdatePanel ID="UpdatePanel1" runat="server">
-                    <ContentTemplate>--%>
+                <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                    <ContentTemplate>
                         <asp:GridView class="table table-hover table-bordered table-striped" ID="gridSocios" runat="server" AllowSorting="True" AllowPaging="True" OnPageIndexChanging="gridSocios_PageIndexChanging" OnSorting="gridSocios_Sorting" OnSelectedIndexChanged="gridSocios_SelectedIndexChanged" OnKeyDown="" OnRowDataBound="gridSocios_RowDataBound" PageSize="5">
-                            <PagerSettings FirstPageText="Inicio" LastPageText="Fin" Mode="NumericFirstLast" PageButtonCount="4" />
+                            <PagerSettings FirstPageText="Inicio" LastPageText="Fin" Mode="NextPreviousFirstLast" PageButtonCount="4" />
+                            <SortedAscendingHeaderStyle CssClass="SortedAscendingHeaderStyle"/>                             
+                            <SortedDescendingHeaderStyle CssClass="SortedDescendingHeaderStyle" />
                             <PagerStyle HorizontalAlign="Right" />
                         </asp:GridView>
                         <br />
-                    <%--</ContentTemplate>
-                </asp:UpdatePanel>--%>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
             </div>
         </div>
-    </div>
+        </div>
 </asp:Content>

@@ -14,11 +14,14 @@ namespace ProyectoAMCRL
         {
             if (Session["cuentaLogin"] != null)
             {
+                LinkAsoc.Visible = false;
                 if (!this.IsPostBack)
                 {
+ 
                     String cedula = (String)Session["idSocio"];
                     if (!String.IsNullOrEmpty(cedula))
                     {
+                        LinkAsoc.Visible = true;
                         BLManejadorSocios manejador = new BLManejadorSocios();
                         BLSocioNegocio socio = manejador.buscarCedula(cedula);
                         idTB.Enabled = false;
@@ -129,6 +132,11 @@ namespace ProyectoAMCRL
                 }
 
             }
+        }
+
+        protected void LinkAsoc_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Asociar_Socio.aspx");
         }
     }
 }
