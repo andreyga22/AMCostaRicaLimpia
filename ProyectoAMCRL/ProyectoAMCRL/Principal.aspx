@@ -19,9 +19,9 @@
                     <div class="card-body">
                         <h5 class="card-title text-secondary">Socios de negocio</h5>
                         <p class="card-text">Agregue o busque los socios de negocio.</p>
-                        <a href="#" class="card-link text-primary">Agregar Socio</a>
+                        <a href="RegistroSociosUI.aspx" class="card-link text-primary">Agregar Socio</a>
                         <br />
-                        <a href="#" class="card-link text-primary">Búsqueda de Socios</a>
+                        <a href="BusquedaSocios.aspx" class="card-link text-primary">Búsqueda de Socios</a>
                     </div>
                 </div>
             </div> 
