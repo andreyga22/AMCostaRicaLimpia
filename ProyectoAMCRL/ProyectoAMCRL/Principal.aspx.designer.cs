@@ -85,31 +85,40 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.LinkButton proveedNoHay;
         
         /// <summary>
-        /// Control subMater1.
+        /// Control subMat1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl subMater1;
+        protected global::System.Web.UI.WebControls.LinkButton subMat1;
         
         /// <summary>
-        /// Control subMater2.
+        /// Control subMat2.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl subMater2;
+        protected global::System.Web.UI.WebControls.LinkButton subMat2;
         
         /// <summary>
-        /// Control subMater3.
+        /// Control subMat3.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl subMater3;
+        protected global::System.Web.UI.WebControls.LinkButton subMat3;
+        
+        /// <summary>
+        /// Control matNoHay.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton matNoHay;
         
         /// <summary>
         /// Control subCompras.

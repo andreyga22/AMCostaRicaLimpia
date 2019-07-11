@@ -146,55 +146,55 @@ namespace DAO
         /// <returns></returns>
         public List<TOFactura> lista_Facturas_Top3()
         {
+
+            try
             {
-                try
+                List<TOFactura> lista = new List<TOFactura>();
+                String sql = "Select f.COD_FACTURA, f.CEDULA, f.ID_MONEDA, f.MONTO_TOTAL, f.FECHA_FACTURA, f.TIPO, s.NOMBRE, s.APELLIDO1, s.APELLIDO2 from FACTURA f, SOCIO_NEGOCIO s where f.CEDULA = s.CEDULA order by f.FECHA_FACTURA desc;";
+                SqlCommand cmdVenta = new SqlCommand(sql, conexion);
+
+                //if (string.IsNullOrEmpty(busqueda) == false)
+                //{
+                //    sql += " and ((v.COD_FACTURA LIKE '%' + @pal + '%')  or (V.CEDULA LIKE '%' + @pal + '%') or (v.MONTO_TOTAL LIKE '%' + @pal + '%') or (v.FECHA_FACTURA LIKE '%' + @pal + '%') or (s.NOMBRE LIKE '%' + @pal + '%') or (s.APELLIDO1 LIKE '%' + @pal + '%') or (s.APELLIDO2 LIKE '%' + @pal + '%'));";
+                //    cmdVenta.Parameters.AddWithValue("@pal", "'may'");
+                //}
+                if (conexion.State != ConnectionState.Open)
                 {
-                    List<TOFactura> lista = new List<TOFactura>();
-                    String sql = "Select f.COD_FACTURA, f.CEDULA, f.ID_MONEDA, f.MONTO_TOTAL, f.FECHA_FACTURA, f.TIPO, s.NOMBRE, s.APELLIDO1, s.APELLIDO2 from FACTURA f, SOCIO_NEGOCIO s where f.CEDULA = s.CEDULA order by f.FECHA_FACTURA desc;";
-                    SqlCommand cmdVenta = new SqlCommand(sql, conexion);
-
-                    //if (string.IsNullOrEmpty(busqueda) == false)
-                    //{
-                    //    sql += " and ((v.COD_FACTURA LIKE '%' + @pal + '%')  or (V.CEDULA LIKE '%' + @pal + '%') or (v.MONTO_TOTAL LIKE '%' + @pal + '%') or (v.FECHA_FACTURA LIKE '%' + @pal + '%') or (s.NOMBRE LIKE '%' + @pal + '%') or (s.APELLIDO1 LIKE '%' + @pal + '%') or (s.APELLIDO2 LIKE '%' + @pal + '%'));";
-                    //    cmdVenta.Parameters.AddWithValue("@pal", "'may'");
-                    //}
-                    if (conexion.State != ConnectionState.Open)
-                    {
-                        conexion.Open();
-                    }
-
-                    SqlDataReader reader = cmdVenta.ExecuteReader();
-                    if (reader.HasRows)
-                    {
-                        while (reader.Read())
-                        {
-                            TOFactura to = new TOFactura();
-                            to.cod_Factura = (Int16)reader.GetDecimal(0);
-                            to.cedula = reader.GetString(1);
-                            to.id_Moneda = reader.GetString(2);
-                            to.monto_Total = (Double)reader.GetDecimal(3);
-                            to.fecha = reader.GetDateTime(4);
-                            to.tipo = reader.GetString(5);
-
-                            to.nombreCompleto = reader.GetString(6) + " " + reader.GetString(7) + " " + reader.GetString(8);
-                            lista.Add(to);
-                        }
-                    }
-                    if (conexion.State != ConnectionState.Closed)
-                    {
-                        conexion.Close();
-                    }
-                    return lista;
+                    conexion.Open();
                 }
-                catch (Exception)
+
+                SqlDataReader reader = cmdVenta.ExecuteReader();
+                if (reader.HasRows)
                 {
-                    throw;
+                    while (reader.Read())
+                    {
+                        TOFactura to = new TOFactura();
+                        to.cod_Factura = (Int16)reader.GetDecimal(0);
+                        to.cedula = reader.GetString(1);
+                        to.id_Moneda = reader.GetString(2);
+                        to.monto_Total = (Double)reader.GetDecimal(3);
+                        to.fecha = reader.GetDateTime(4);
+                        to.tipo = reader.GetString(5);
+
+                        to.nombreCompleto = reader.GetString(6) + " " + reader.GetString(7) + " " + reader.GetString(8);
+                        lista.Add(to);
+                    }
                 }
-                finally
+                if (conexion.State != ConnectionState.Closed)
                 {
                     conexion.Close();
                 }
+                return lista;
             }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conexion.Close();
+            }
+
         }
 
         /// <summary>

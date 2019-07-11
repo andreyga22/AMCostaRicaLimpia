@@ -214,5 +214,47 @@ namespace DAO
               
             return res;
         }
+
+
+        public List<TOMaterial> top3_Materiales()
+        {
+            try
+            {
+                List<TOMaterial> lista = new List<TOMaterial>();
+                String sql = "SELECT TOP 3 s.COD_MATERIAL, m.NOMBRE_MATERIAL FROM STOCK s, MATERIAL m WHERE s.COD_MATERIAL = m.COD_MATERIAL ORDER BY s.KILOS_STOCK DESC;";
+                SqlCommand cmd_Materiales = new SqlCommand(sql, conexion);
+
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+
+                SqlDataReader reader = cmd_Materiales.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        TOMaterial to = new TOMaterial();
+                        to.codigoM = reader.GetString(0);
+                        to.nombreMaterial = reader.GetString(1);
+  
+                        lista.Add(to);
+                    }
+                }
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+                return lista;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conexion.Close();
+            }
+        }
     }
 }

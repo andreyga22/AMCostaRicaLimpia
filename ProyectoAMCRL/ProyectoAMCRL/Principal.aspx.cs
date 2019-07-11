@@ -212,12 +212,57 @@ namespace ProyectoAMCRL
         }
 
         /// <summary>
-        /// 
+        /// Método que permite mostrar los materiales con más cantidad en el stock
         /// </summary>
         private void infoMasMateriales()
         {
-            ///cambiar por stock (los más almacenados en bodegas, top 3)
+            BLManejadorMateriales manej = new BLManejadorMateriales();
+            List<BLMaterial> listaMat = manej.top3_Materiales();
+            if (listaMat.Count > 0)
+            {
+                subMat1.Text = listaMat[0].nombreMaterial;
+                Session["idMat1"] = listaMat[0].codigoM;
+                if (listaMat.Count > 1)
+                {
+                    subMat2.Text = listaMat[1].nombreMaterial;
+                    Session["idMat2"] = listaMat[1].codigoM;
+                }
+                if (listaMat.Count > 2)
+                {
+                    subMat3.Text = listaMat[2].nombreMaterial;
+                    Session["idMat3"] = listaMat[2].codigoM;
+                }
+            }
+            else
+            {
+                matNoHay.Text = "No hay materiales";
+            }
 
+        }
+
+        protected void click_SeleccMat1(object sender, EventArgs e)
+        {
+            string id = Convert.ToString(Session["idMat1"]);
+            Response.Redirect("RegistroMateriales.aspx");
+        }
+
+        protected void click_SeleccMat2(object sender, EventArgs e)
+        {
+            string id = Convert.ToString(Session["idMat2"]);
+            Response.Redirect("RegistroMateriales.aspx");
+        }
+
+        protected void click_SeleccMat3(object sender, EventArgs e)
+        {
+            string id = Convert.ToString(Session["idMat3"]);
+            //Response.Redirect("RegistroMateriales.aspx");
+            Response.Redirect("RegistroMateriales.aspx?idM=" + id);
+        }
+
+        protected void click_SeleccMatNo(object sender, EventArgs e)
+        {
+            string id = "";
+            Response.Redirect("RegistroMateriales.aspx");
         }
 
         /// <summary>
@@ -246,7 +291,6 @@ namespace ProyectoAMCRL
             {
                 factNoHay.Text = "No hay facturas";
             }
-
         }
 
         /// <summary>
