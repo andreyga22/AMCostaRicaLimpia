@@ -1,10 +1,14 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPrincipal.Master" AutoEventWireup="true" CodeBehind="Asociar_Socio.aspx.cs" Inherits="ProyectoAMCRL.Asociar_Socio" EnableEventValidation="false" %>
 
+
+
 <asp:Content ID="Content2" ContentPlaceHolderID="breadcrumbBodyHolder" runat="server">
     <li class="breadcrumb-item active">Asociar Socios</li>
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="body" runat="server">
+
+
     <div class="row justify-content-center" style="background-color: red">
         <asp:Literal ID="lblError" runat="server" Visible="false"></asp:Literal>
     </div>
@@ -17,41 +21,26 @@
         <br />
         <br>
 
-        <div class="row justify-content-center">
-            <div class="col-3">
-                <h4 class="font-weight-bold">Cédula:</h4>
-                <br />
-                <h4 class="font-weight-bold">Nombre:</h4>
-                <br />
-                <h4 class="font-weight-bold">Número telefónico:</h4>
-                <br />
-            </div>
+        <div class="col-2">
+            <h6 class="font-weight-bold">Cédula:</h6>
+            <br />
+            <h6 class="font-weight-bold">Nombre:</h6>
+            <br />
+            <h6 class="font-weight-bold">Rol:</h6>
+            <br />
         </div>
-        <div class="row justify-content-center">
-            <div class="col-3 offset-7">
-                <asp:UpdatePanel ID="UpdatePanel2" runat="server">
-                    <ContentTemplate>
-                        <asp:TextBox type="text" ID="txtPalabra" class="form-control" runat="server" TextMode="SingleLine" placeholder="Buscar" AutoPostBack="true" OnKeyDown="txt_Item_Number_KeyDown" OnTextChanged="txtPalabra_TextChanged"></asp:TextBox>
-                    </ContentTemplate>
-                </asp:UpdatePanel>
-            </div>
+
+        <select class="mdb-select md-form" multiple searchable="Search here..">
+  <option value="" disabled selected>Choose your country</option>
+  <option value="1">USA</option>
+  <option value="2">Germany</option>
+  <option value="3">France</option>
+  <option value="3">Poland</option>
+  <option value="3">Japan</option>
+</select>
+<button class="btn-save btn btn-primary btn-sm">Save</button>
+
         </div>
-        <br />
-        <%-- SECCION 2 --%>
-        <div class="row justify-content-center">
-            <div class="col-12">
-                <%--<asp:UpdatePanel ID="UpdatePanel1" runat="server">
-                    <ContentTemplate>--%>
-                <asp:GridView class="table table-hover table-bordered table-striped" ID="gridSocios" runat="server" AllowSorting="True" AllowPaging="True" OnPageIndexChanging="gridSocios_PageIndexChanging" OnSorting="gridSocios_Sorting" OnSelectedIndexChanged="gridSocios_SelectedIndexChanged" OnKeyDown="" OnRowDataBound="gridSocios_RowDataBound" PageSize="5">
-                    <PagerSettings FirstPageText="Inicio" LastPageText="Fin" Mode="NumericFirstLast" PageButtonCount="4" />
-                    <PagerStyle HorizontalAlign="Right" />
-                </asp:GridView>
-                <br />
-                <%--</ContentTemplate>
-                </asp:UpdatePanel>--%>
-            </div>
-        </div>
-    </div>
 </asp:Content>
 
 
