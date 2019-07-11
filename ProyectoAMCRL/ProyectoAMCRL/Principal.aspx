@@ -17,13 +17,14 @@
                 <div class="card bg-light" style="width: 18rem; height: 14rem;">
                     <div class="card-body">
                         <h5 class="card-title text-secondary">Últimos clientes registrados</h5>
-                        <p runat="server" id="sub1Clientes" class="card-text"></p>
                         <br />
-                        <p runat="server" id="sub2Clientes" class="card-text"></p>
+                        <asp:LinkButton Style="color: dodgerblue" ID="subCliente1" runat="server" OnClick="click_SeleccCliente1"></asp:LinkButton>
                         <br />
-                        <p runat="server" id="sub3Clientes" class="card-text"></p>
+                        <asp:LinkButton Style="color: dodgerblue" ID="subCliente2" runat="server" OnClick="click_SeleccCliente2"></asp:LinkButton>
                         <br />
-                        <a href="" id="prueba" runat="server" class="card-link text-primary"></a>
+                        <asp:LinkButton Style="color: dodgerblue" ID="subCliente3" runat="server" OnClick="click_SeleccCliente3"></asp:LinkButton>
+
+                        <asp:LinkButton Style="color: dodgerblue" ID="clienteNoHay" runat="server" OnClick="click_SeleccSocioNo"></asp:LinkButton>
                     </div>
                 </div>
             </div>
@@ -32,11 +33,13 @@
                 <div class="card bg-light" style="width: 18rem; height: 14rem;">
                     <div class="card-body">
                         <h5 class="card-title text-secondary">Últimos proveedores registrados</h5>
-                        <p runat="server" id="subProveed1" class="card-text"></p>
+                        <asp:LinkButton Style="color: dodgerblue" ID="subProv1" runat="server" OnClick="click_SeleccProveed1"></asp:LinkButton>
                         <br />
-                        <p runat="server" id="subProveed2" class="card-text"></p>
+                        <asp:LinkButton Style="color: dodgerblue" ID="subProv2" runat="server" OnClick="click_SeleccProveed2"></asp:LinkButton>
                         <br />
-                        <p runat="server" id="subProveed3" class="card-text"></p>
+                        <asp:LinkButton Style="color: dodgerblue" ID="subProv3" runat="server" OnClick="click_SeleccProveed3"></asp:LinkButton>
+
+                        <asp:LinkButton Style="color: dodgerblue" ID="proveedNoHay" runat="server" OnClick="click_SeleccSocioNo"></asp:LinkButton>
                     </div>
                 </div>
             </div>
@@ -64,9 +67,9 @@
                     <div class="card-body">
                         <h5 class="card-title text-secondary">Facturas del mes</h5>
                         <br />
-                          <asp:LinkButton Style="color: dodgerblue" ID="subCompras" runat="server" OnClick="click_BusquedaFactC"></asp:LinkButton>
-                         <br />
-                          <asp:LinkButton Style="color: dodgerblue" ID="subVentas" runat="server" OnClick="click_BusquedaFactV"></asp:LinkButton>
+                        <asp:LinkButton Style="color: dodgerblue" ID="subCompras" runat="server" OnClick="click_BusquedaFactC"></asp:LinkButton>
+                        <br />
+                        <asp:LinkButton Style="color: dodgerblue" ID="subVentas" runat="server" OnClick="click_BusquedaFactV"></asp:LinkButton>
                     </div>
                 </div>
             </div>
@@ -74,20 +77,21 @@
             <div class="col-lg-4">
                 <div class="card bg-light" style="width: 18rem; height: 14rem;">
                     <div class="card-body">
-                        <h5 class="card-title text-secondary">Últimas Facturas</h5>
+                        <h5 class="card-title text-secondary">Últimas facturas</h5>
+
                         <br />
-                        <asp:LinkButton Style="color: dodgerblue" ID="factNoHay" runat="server" OnClick="click_NuevaFact"></asp:LinkButton>
                         <asp:LinkButton Style="color: dodgerblue" ID="sub1Fac" runat="server" OnClick="click_SeleccFact1"></asp:LinkButton>
                         <br />
                         <asp:LinkButton Style="color: dodgerblue" ID="sub2Fac" runat="server" OnClick="click_SeleccFact2"></asp:LinkButton>
                         <br />
                         <asp:LinkButton Style="color: dodgerblue" ID="sub3Fac" runat="server" OnClick="click_SeleccFact3"></asp:LinkButton>
-                        <br />
+                        <asp:LinkButton Style="color: dodgerblue" ID="factNoHay" runat="server" OnClick="click_NuevaFact"></asp:LinkButton>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <%--   <div class="col-lg-4">
+        <%--   <div class="col-lg-4">
                 <div class="card bg-light" style="width: 18rem; height: 14rem;">
                     <div class="card-body">
                         <h5 class="card-title text-secondary">Otros</h5>
@@ -99,7 +103,7 @@
                     </div>
                 </div>
             </div>--%>
-        </div>
     </div>
+
 
 </asp:Content>

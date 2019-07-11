@@ -13,67 +13,76 @@ namespace ProyectoAMCRL {
     public partial class Principal {
         
         /// <summary>
-        /// Control sub1Clientes.
+        /// Control subCliente1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl sub1Clientes;
+        protected global::System.Web.UI.WebControls.LinkButton subCliente1;
         
         /// <summary>
-        /// Control sub2Clientes.
+        /// Control subCliente2.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl sub2Clientes;
+        protected global::System.Web.UI.WebControls.LinkButton subCliente2;
         
         /// <summary>
-        /// Control sub3Clientes.
+        /// Control subCliente3.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl sub3Clientes;
+        protected global::System.Web.UI.WebControls.LinkButton subCliente3;
         
         /// <summary>
-        /// Control prueba.
+        /// Control clienteNoHay.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor prueba;
+        protected global::System.Web.UI.WebControls.LinkButton clienteNoHay;
         
         /// <summary>
-        /// Control subProveed1.
+        /// Control subProv1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl subProveed1;
+        protected global::System.Web.UI.WebControls.LinkButton subProv1;
         
         /// <summary>
-        /// Control subProveed2.
+        /// Control subProv2.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl subProveed2;
+        protected global::System.Web.UI.WebControls.LinkButton subProv2;
         
         /// <summary>
-        /// Control subProveed3.
+        /// Control subProv3.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl subProveed3;
+        protected global::System.Web.UI.WebControls.LinkButton subProv3;
+        
+        /// <summary>
+        /// Control proveedNoHay.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton proveedNoHay;
         
         /// <summary>
         /// Control subMater1.
@@ -121,15 +130,6 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.LinkButton subVentas;
         
         /// <summary>
-        /// Control factNoHay.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton factNoHay;
-        
-        /// <summary>
         /// Control sub1Fac.
         /// </summary>
         /// <remarks>
@@ -155,5 +155,14 @@ namespace ProyectoAMCRL {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton sub3Fac;
+        
+        /// <summary>
+        /// Control factNoHay.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton factNoHay;
     }
 }
