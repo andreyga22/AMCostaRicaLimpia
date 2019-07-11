@@ -48,6 +48,72 @@ namespace ProyectoAMCRL
         private void infoUltimosCliente()
         {
             BLManejadorSocios manejSocios = new BLManejadorSocios();
+            List<BLSocioNegocio> listaClient = manejSocios.top3_UltimosSocios("Cliente");
+            clienteNoHay.Visible = false;
+            if (listaClient.Count > 0)
+            {
+                subCliente1.Text = listaClient[0].nombre;
+                Session["idCliente1"] = listaClient[0].cedula;
+                if (listaClient.Count > 1)
+                {
+                    subCliente2.Text = listaClient[1].nombre;
+                    Session["idCliente2"] = listaClient[1].cedula;
+                }
+                if (listaClient.Count > 2)
+                {
+                    subCliente3.Text = listaClient[2].nombre;
+                    Session["idCliente3"] = listaClient[2].cedula;
+                }
+            }
+            else
+            {
+                clienteNoHay.Text = "No hay clientes registrados";
+                clienteNoHay.Visible = true;
+            }
+        }
+
+        /// <summary>
+        /// Método del evento que que muestra el último cliente registrado
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void click_SeleccCliente1(object sender, EventArgs e)
+        {
+            Session["idSocio"] = Session["idCliente1"];
+            Response.Redirect("RegistroSociosUI.aspx");
+        }
+
+        /// <summary>
+        /// Método del evento que que redirecciona a crear un socio nuevo
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void click_SeleccSocioNo(object sender, EventArgs e)
+        {
+            Session["idSocio"] = "";
+            Response.Redirect("RegistroSociosUI.aspx");
+        }
+
+        /// <summary>
+        /// Método del evento que que muestra el penúltimo cliente registrado
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void click_SeleccCliente2(object sender, EventArgs e)
+        {
+            Session["idSocio"] = Session["idCliente2"];
+            Response.Redirect("RegistroSociosUI.aspx");
+        }
+
+        /// <summary>
+        /// Método del evento que que muestra el antepenúltimo cliente registrado
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void click_SeleccCliente3(object sender, EventArgs e)
+        {
+            Session["idSocio"] = Session["idCliente3"];
+            Response.Redirect("RegistroSociosUI.aspx");
         }
 
         /// <summary>
@@ -56,6 +122,61 @@ namespace ProyectoAMCRL
         private void infoUltimosProveedor()
         {
             BLManejadorSocios manejSocios = new BLManejadorSocios();
+            List<BLSocioNegocio> listaProveed = manejSocios.top3_UltimosSocios("Proveedor");
+            proveedNoHay.Visible = false;
+            if (listaProveed.Count > 0)
+            {
+                subProv1.Text = listaProveed[0].nombre;
+                Session["idProv1"] = listaProveed[0].cedula;
+                if (listaProveed.Count > 1)
+                {
+                    subProv2.Text = listaProveed[1].nombre;
+                    Session["idProv2"] = listaProveed[1].cedula;
+                }
+                if (listaProveed.Count > 2)
+                {
+                    subProv3.Text = listaProveed[2].nombre;
+                    Session["idProv3"] = listaProveed[2].cedula;
+                }
+            }
+            else
+            {
+                proveedNoHay.Text = "No hay proveedores registrados";
+                proveedNoHay.Visible = true;
+            }
+        }
+
+        /// <summary>
+        /// Método del evento que que muestra el último proveedor registrado
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void click_SeleccProveed1(object sender, EventArgs e)
+        {
+            Session["idSocio"] = Session["idProv1"];
+            Response.Redirect("RegistroSociosUI.aspx");
+        }
+
+        /// <summary>
+        /// Método del evento que que muestra el penúltimo proveedor registrado
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void click_SeleccProveed2(object sender, EventArgs e)
+        {
+            Session["idSocio"] = Session["idProv2"];
+            Response.Redirect("RegistroSociosUI.aspx");
+        }
+
+        /// <summary>
+        /// Método del evento que que muestra el antepenúltimo proveedor registrado
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void click_SeleccProveed3(object sender, EventArgs e)
+        {
+            Session["idSocio"] = Session["idProv3"];
+            Response.Redirect("RegistroSociosUI.aspx");
         }
 
         /// <summary>
@@ -66,7 +187,6 @@ namespace ProyectoAMCRL
             BLManejadorFacturas manejFact = new BLManejadorFacturas();
             subCompras.Text = "Total de compras: " + manejFact.numeroRangoFecha("c");
             subVentas.Text = "Total de ventas: " + manejFact.numeroRangoFecha("v");
-
         }
 
         /// <summary>
@@ -92,15 +212,58 @@ namespace ProyectoAMCRL
         }
 
         /// <summary>
-        /// 
+        /// Método que permite mostrar los materiales con más cantidad en el stock
         /// </summary>
         private void infoMasMateriales()
         {
-            ///cambiar por stock (los más almacenados en bodegas, top 3)
+            BLManejadorMateriales manej = new BLManejadorMateriales();
+            List<BLMaterial> listaMat = manej.top3_Materiales();
+            if (listaMat.Count > 0)
+            {
+                subMat1.Text = listaMat[0].nombreMaterial;
+                Session["idMat1"] = listaMat[0].codigoM;
+                if (listaMat.Count > 1)
+                {
+                    subMat2.Text = listaMat[1].nombreMaterial;
+                    Session["idMat2"] = listaMat[1].codigoM;
+                }
+                if (listaMat.Count > 2)
+                {
+                    subMat3.Text = listaMat[2].nombreMaterial;
+                    Session["idMat3"] = listaMat[2].codigoM;
+                }
+            }
+            else
+            {
+                matNoHay.Text = "No hay materiales";
+            }
 
         }
 
-      
+        protected void click_SeleccMat1(object sender, EventArgs e)
+        {
+            string id = Convert.ToString(Session["idMat1"]);
+            Response.Redirect("RegistroMateriales.aspx");
+        }
+
+        protected void click_SeleccMat2(object sender, EventArgs e)
+        {
+            string id = Convert.ToString(Session["idMat2"]);
+            Response.Redirect("RegistroMateriales.aspx");
+        }
+
+        protected void click_SeleccMat3(object sender, EventArgs e)
+        {
+            string id = Convert.ToString(Session["idMat3"]);
+            //Response.Redirect("RegistroMateriales.aspx");
+            Response.Redirect("RegistroMateriales.aspx?idM=" + id);
+        }
+
+        protected void click_SeleccMatNo(object sender, EventArgs e)
+        {
+            string id = "";
+            Response.Redirect("RegistroMateriales.aspx");
+        }
 
         /// <summary>
         /// Método que permite mostrar las últimas 3 facturas que se realizaron
@@ -128,7 +291,6 @@ namespace ProyectoAMCRL
             {
                 factNoHay.Text = "No hay facturas";
             }
-
         }
 
         /// <summary>

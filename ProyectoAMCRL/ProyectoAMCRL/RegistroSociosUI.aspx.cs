@@ -29,13 +29,20 @@ namespace ProyectoAMCRL
                         nombreTB.Text = socio.nombre;
                         ape1TB.Text = socio.apellido1;
                         ape2TB.Text = socio.apellido2;
-                        activaCb.Checked = true;
-                        if (socio.rol.Equals("Proveedor"))
-                        {
-                            rolRadios.SelectedIndex = 0;
+
+                        Boolean ess = socio.estado_socio;
+                        int est = 0;
+                        if(ess) {
+                            est = 0;
+                        } else {
+                            est = 1;
                         }
-                        else
-                        {
+                        estadoRb.SelectedIndex = est;
+
+                        //activaCb.Checked = true;
+                        if(socio.rol.Equals("Proveedor")) {
+                            rolRadios.SelectedIndex = 0;
+                        } else {
                             rolRadios.SelectedIndex = 1;
                         }
 
@@ -44,11 +51,11 @@ namespace ProyectoAMCRL
                         distritoTB.Text = socio.direccion.distrito;
                         sennas.Text = socio.direccion.otras_sennas;
 
-
                         telTB.Text = Convert.ToString(socio.contactos.telefono_hab);
                         tel2TB.Text = Convert.ToString(socio.contactos.telefono_pers);
                         correoTB.Text = socio.contactos.email;
 
+                        LinkAsoc.Visible = true;
                     }
                 }
             }
@@ -80,14 +87,23 @@ namespace ProyectoAMCRL
                     socio.contactos = new BLContactos(int.Parse(telTB.Text.ToString()),
                     int.Parse(tel2TB.Text.ToString()), correoTB.Text.ToString());
                     socio.direccion.cod_direccion = manejador.buscarDir(idTB.Text.ToString());
-                    if (activaCb.Checked)
-                    {
-                        socio.estado_socio = true;
+                    //if (activaCb.Checked)
+                    //{
+                    //    socio.estado_socio = true;
+                    //}
+                    //else
+                    //{
+                    //    socio.estado_socio = false;
+                    //}
+
+                    String estado = estadoRb.SelectedValue;
+                    Boolean estadoB = true;
+                    if(estado.Equals("Activado")) {
+                        estadoB = true;
+                    } else {
+                        estadoB = false;
                     }
-                    else
-                    {
-                        socio.estado_socio = false;
-                    }
+                    socio.estado_socio = estadoB;
                     Boolean insertado = manejador.agregarSocioBL(socio);
                     lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong>Se modificó el socio correctamente.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                     lblError.Visible = true;
@@ -112,14 +128,22 @@ namespace ProyectoAMCRL
                     distritoTB.Text.ToString(), sennas.Text.ToString(), 0);
                     socio.contactos = new BLContactos(int.Parse(telTB.Text.ToString()),
                     int.Parse(tel2TB.Text.ToString()), correoTB.Text.ToString());
-                    if (activaCb.Checked)
-                    {
-                        socio.estado_socio = true;
+                    //if (activaCb.Checked)
+                    //{
+                    //    socio.estado_socio = true;
+                    //}
+                    //else
+                    //{
+                    //    socio.estado_socio = false;
+                    //}
+                    String estado = estadoRb.SelectedValue;
+                    Boolean estadoB = true;
+                    if(estado.Equals("Activado")) {
+                        estadoB = true;
+                    } else {
+                        estadoB = false;
                     }
-                    else
-                    {
-                        socio.estado_socio = false;
-                    }
+                    socio.estado_socio = estadoB;
                     Boolean insertado = manejador.agregarSocioBL(socio);
                     lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong>Se modificó el socio correctamente.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                     lblError.Visible = true;

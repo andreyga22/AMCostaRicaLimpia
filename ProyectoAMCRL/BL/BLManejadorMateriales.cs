@@ -55,6 +55,24 @@ namespace BL
             return manejador.registrarActualizarMaterialDAO(m, tipo);
         }
 
+        public List<BLMaterial> top3_Materiales()
+        {
+            try
+            {
+                DAOManejadorMateriales dao = new DAOManejadorMateriales();
+                List<BLMaterial> listaBl = new List<BLMaterial>();
+                List<TOMaterial> listaTo = dao.top3_Materiales();
+                foreach (TOMaterial to in listaTo)
+                {
+                    listaBl.Add(new BLMaterial(to.codigoM, to.nombreMaterial, to.precioKilo));
+                }
+                return listaBl;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         //public BLMaterial buscarMaterial(string clave) {
 
         //    TOMaterial materialTO = manejador.buscarMaterialDAO(clave);
