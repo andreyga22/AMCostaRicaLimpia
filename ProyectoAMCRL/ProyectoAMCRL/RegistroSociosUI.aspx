@@ -7,7 +7,8 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="breadcrumbBodyHolder" runat="server">
-    <li class="breadcrumb-item active">Registrar y Modificar Socio</li>
+    <li class="breadcrumb-item"><a href="BusquedaSocios.aspx" style="color: dodgerblue">Búsqueda Socios</a></li>
+    <li class="breadcrumb-item active">Socio</li>
 </asp:Content>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="body" runat="server">
@@ -15,141 +16,117 @@
         <asp:Literal ID="lblError" runat="server" Visible="false"></asp:Literal>
     </div>
     <div class="container">
-
-        <div class="row">
-            <h4>Registro cliente/proveedor</h4>
+        <br />
+        <div class="form-row">
+            <div class="offset-1">
+                <h4>Socio</h4>
+            </div>
+            <div class="col-3 offset-7">
+                <asp:LinkButton ID="LinkAsoc" runat="server" Visible="false" Style="color: dodgerblue" OnClick="LinkAsoc_Click">¿Desea asociarlo a otro socio existente?</asp:LinkButton>
+            </div>
         </div>
         <br />
 
-        <div class="row justify-content-center">
-            <div class="col-3 offset-7">
-                <asp:LinkButton ID="LinkAsoc" runat="server" style="color: dodgerblue" OnClick="LinkAsoc_Click">¿Desea asociarlo a otro socio existente?</asp:LinkButton>
+        <%--<asp:Button ID="btnFactur" type="submmit" runat="server" Text="Facturas" class="btn btn-outline-secondary" Width="15%" Visible="false" />
+        <asp:Button ID="btnAsociar" type="submmit" runat="server" Text="Asociar" class="btn btn-outline-secondary" Width="15%" Visible="false" />--%>
+        <div class="offset-1">
+            <h5>Datos Personales</h5>
+        </div>
+        <br />
+        <div class="form-row">
+            <div class="form-group offset-1 col-md-5">
+                <label for="idTB">Identificación*</label>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Campo Requerido" ControlToValidate="idTB" ForeColor="Red" ValidationGroup="socioG"></asp:RequiredFieldValidator>
+                <asp:TextBox type="text" ID="idTB" class="form-control" runat="server"></asp:TextBox>
+            </div>
+            <div class="form-group col-md-5">
+                <label for="nombreTB">Nombre*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Campo Requerido" ControlToValidate="nombreTB" ForeColor="Red" ValidationGroup="socioG"></asp:RequiredFieldValidator>
+                <asp:TextBox type="text" ID="nombreTB" class="form-control" runat="server"></asp:TextBox>
             </div>
         </div>
 
-        <asp:Button ID="btnFactur" type="submmit" runat="server" Text="Facturas" class="btn btn-outline-secondary" Width="15%" Visible="false" />
-        <asp:Button ID="btnAsociar" type="submmit" runat="server" Text="Asociar" class="btn btn-outline-secondary" Width="15%" Visible="false" />
-        <div class="row">
-            <div class="form-group">
+        <div class="form-row">
+            <div class="form-group offset-1 col-md-5">
+                <label for="ape1TB">Primer apellido</label>
+                <asp:TextBox type="text" ID="ape1TB" class="form-control" runat="server"></asp:TextBox>
+            </div>
+            <div class="form-group col-md-5">
+                <label for="ape2TB">Segundo apellido</label>
+                <asp:TextBox type="text" ID="ape2TB" class="form-control" runat="server"></asp:TextBox>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group offset-1 col-md-3">
+                <label for="telTB">Teléfono Habitación*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Campo Requerido" ControlToValidate="telTB" ForeColor="Red" ValidationGroup="socioG"></asp:RequiredFieldValidator>
+                <asp:TextBox type="text" ID="telTB" class="form-control" runat="server"></asp:TextBox>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="tel2TB">Teléfono Personal*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="Campo Requerido" ControlToValidate="tel2TB" ForeColor="Red" ValidationGroup="socioG"></asp:RequiredFieldValidator>
+                <asp:TextBox type="text" ID="tel2TB" class="form-control" runat="server"></asp:TextBox>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="correoTB">Correo electrónico*</label><br />
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="Campo Requerido" ControlToValidate="correoTB" ForeColor="Red" ValidationGroup="socioG"></asp:RequiredFieldValidator>
+                <asp:TextBox type="email" ID="correoTB" class="form-control" runat="server"></asp:TextBox>
+            </div>
+        </div>
+
+        <br />
+        <div class="offset-1">
+            <h5>Dirección</h5>
+        </div>
+        <br />
+
+        <div class="form-row">
+            <div class="form-group offset-1 col-md-5">
+                <label for="provinciaTB">Provincia*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="Campo Requerido" ControlToValidate="provinciaTB" ForeColor="Red" ValidationGroup="socioG"></asp:RequiredFieldValidator>
+                <asp:TextBox type="text" ID="provinciaTB" class="form-control" runat="server"></asp:TextBox>
+            </div>
+            <div class="form-group col-md-5">
+                <label for="cantonTB">Cantón*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ErrorMessage="Campo Requerido" ControlToValidate="cantonTB" ForeColor="Red" ValidationGroup="socioG"></asp:RequiredFieldValidator>
+                <asp:TextBox type="text" ID="cantonTB" class="form-control" runat="server"></asp:TextBox>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group offset-1 col-md-5">
+                <label for="distritoTB">Distrito*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ErrorMessage="Campo Requerido" ControlToValidate="distritoTB" ForeColor="Red" ValidationGroup="socioG"></asp:RequiredFieldValidator>
+                <asp:TextBox type="text" ID="distritoTB" class="form-control" runat="server"></asp:TextBox>
+            </div>
+            <div class="form-group col-md-5">
+                <label for="sennas">Otras Señas*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ErrorMessage="Campo Requerido" ControlToValidate="sennas" ForeColor="Red" ValidationGroup="socioG"></asp:RequiredFieldValidator>
+                <asp:TextBox type="text" ID="sennas" class="form-control" runat="server"></asp:TextBox>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group offset-1 col-md-5">
                 <label for="rolRadios">Rol</label>
                 <br />
                 <asp:RadioButtonList ID="rolRadios" runat="server" RepeatDirection="Horizontal" CellPadding="5" CssClass="d-inline">
-                    <asp:ListItem>Proveedor</asp:ListItem>
+                    <asp:ListItem Selected="True">Proveedor</asp:ListItem>
                     <asp:ListItem>Cliente</asp:ListItem>
                 </asp:RadioButtonList>
             </div>
+
+            <div class="form-group col-md-5" id="estado" runat="server" visible="true">
+                <label for="estadoRb">Estado</label>
+                <asp:RadioButtonList ID="estadoRb" runat="server" RepeatDirection="Horizontal" CellPadding="5">
+                    <asp:ListItem Selected="True">Activado</asp:ListItem>
+                    <asp:ListItem>Desactivado</asp:ListItem>
+                </asp:RadioButtonList>
+            </div>
+
+            <%--<div class="form-group col-md-6">
+                <label for="activaCb">Activado</label>
+                <asp:CheckBox ID="activaCb" type="checkbox" runat="server" Visible="false" />
+            </div>--%>
         </div>
-        <br />
-        <br />
 
-        <%-- SECCION 1 --%>
-
-        <div class="row">
-            <div class="col-lg-4">
-                <div class="row">
-
-                    <h4>Datos personales</h4>
-                </div>
-                <br />
-                <br />
-
-
-                <div class="row">
-                    <div class="form-group">
-                        <label for="idTB">Identificación</label>
-                        <asp:TextBox type="text" ID="idTB" class="form-control" runat="server"></asp:TextBox>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group">
-                        <label for="nombreTB">Nombre</label>
-                        <asp:TextBox type="text" ID="nombreTB" class="form-control" runat="server"></asp:TextBox>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group">
-                        <label for="ape1TB">Primer apellido</label>
-                        <asp:TextBox type="text" ID="ape1TB" class="form-control" runat="server"></asp:TextBox>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group">
-                        <label for="ape2TB">Primer apellido</label>
-                        <asp:TextBox type="text" ID="ape2TB" class="form-control" runat="server"></asp:TextBox>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <label for="activaCb">Activado</label>
-                    <asp:CheckBox ID="activaCb" type="checkbox" runat="server" />
-                </div>
-            </div>
-
-            <%-- SECCION 2 --%>
-            <div class="col-lg-4">
-                <div class="row">
-                    <h4>Ubicación</h4>
-                </div>
-                <br />
-                <br />
-                <div class="row">
-                    <div class="form-group">
-                        <label for="provinciaTB">Provincia</label>
-                        <asp:TextBox type="text" ID="provinciaTB" class="form-control" runat="server"></asp:TextBox>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group">
-                        <label for="cantonTB">Cantón</label>
-                        <asp:TextBox type="text" ID="cantonTB" class="form-control" runat="server"></asp:TextBox>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group">
-                        <label for="distritoTB">Distrito</label>
-                        <asp:TextBox type="text" ID="distritoTB" class="form-control" runat="server"></asp:TextBox>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group">
-                        <label for="sennas">Otras Señas</label>
-                        <asp:TextBox type="text" ID="sennas" class="form-control" runat="server"></asp:TextBox>
-                    </div>
-                </div>
-            </div>
-
-            <%-- SECCION 3 (MAPA) --%>
-            <div class="col-lg-4">
-                <div class="row">
-                    <h4>Contactos</h4>
-                </div>
-                <br />
-                <br />
-                <div class="row">
-                    <div class="form-group">
-                        <label for="telTB">Teléfono Habitación</label>
-                        <asp:TextBox type="text" ID="telTB" class="form-control" runat="server"></asp:TextBox>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group">
-                        <label for="tel2TB">Teléfono Personal</label>
-                        <asp:TextBox type="text" ID="tel2TB" class="form-control" runat="server"></asp:TextBox>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group">
-                        <label for="correoTB">Correo electrónico</label>
-                        <asp:TextBox type="email" ID="correoTB" class="form-control" runat="server"></asp:TextBox>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <br />
-        <br />
         <%-- SUBMMIT BUTTON --%>
         <div class="row justify-content-center">
-            <asp:Button ID="btnRegistrar" type="submit" runat="server" Text="Guardar" class="btn btn-info" Width="15%" OnClick="btnRegistrar_Click" />
+            <asp:Button ID="btnRegistrar" type="submit" runat="server" Text="Guardar" class="btn btn-info" Width="15%" OnClick="btnRegistrar_Click" ValidationGroup="socioG" />
         </div>
         <asp:Label ID="info" runat="server"></asp:Label>
         <br />
