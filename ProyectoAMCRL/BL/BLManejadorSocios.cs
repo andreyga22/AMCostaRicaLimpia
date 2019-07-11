@@ -105,11 +105,11 @@ namespace BL
             {
                 return new BLSocioNegocio(socio.cedula, socio.nombre, socio.rol, socio.apellido1, socio.apellido2,
                 convert(socio.direccion), convert(socio.contactos), socio.estado_socio);
-            }
+        }
             catch (Exception ex){
                 throw;
             }
-        }
+}
 
         /// <summary>
         /// Método para crear un nuevo objeto BLDireccion a partir de un objeto de transferencia de dirección.
@@ -200,8 +200,31 @@ namespace BL
             try
             {
                 return convert((new DAOManejadorSocios().buscarSocioCedula(cedula)));
-            }
+        }
             catch (Exception ex){
+                throw;
+            }
+}
+
+        /// <summary>
+        /// Método para retornar los últimos socios de negocio, proveedores o clientes, agregados a la base de datos
+        /// </summary>
+        /// <param name="rolSocio">Tipo de rol del socio: Proveedor o Cliente</param>
+        /// <returns>Retorna la lista con el top 3 de los últimos socios de negocio agregados</returns>
+        public List<BLSocioNegocio> top3_UltimosSocios(String rolSocio)
+        {
+            try
+            {
+                DAOManejadorSocios dao = new DAOManejadorSocios();
+                List<BLSocioNegocio> listaBl = new List<BLSocioNegocio>();
+                List<TOSocioNegocio> listaTo = dao.top3_UltimosSocios(rolSocio);
+                foreach(TOSocioNegocio to in listaTo) 
+                {
+                    listaBl.Add(new BLSocioNegocio(to.cedula, to.nombre, to.rol, to.apellido1, to.apellido2, to.estado_socio));
+                }
+                return listaBl;
+            } catch(Exception)
+            {
                 throw;
             }
         }

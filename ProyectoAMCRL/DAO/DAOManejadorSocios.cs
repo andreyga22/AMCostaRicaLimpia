@@ -596,5 +596,52 @@ namespace DAO
                 }
             }
         }
+
+        /// <summary>
+        /// Método para retornar los últimos socios de negocio, proveedores o clientes, agregados a la base de datos
+        /// </summary>
+        /// <param name="rolSocio">Tipo de rol del socio: Proveedor o Cliente</param>
+        /// <returns>Retorna la lista con el top 3 de los últimos socios de negocio agregados</returns>
+        public List<TOSocioNegocio> top3_UltimosSocios(String rolSocio)
+        {
+            try
+            {
+                List<TOSocioNegocio> lista = new List<TOSocioNegocio>();
+                SqlCommand cmdSocio = new SqlCommand("SELECT TOP 3 CEDULA, NOMBRE + ' ' + APELLIDO1 + ' ' + APELLIDO2 AS 'NOMBRE COMPLETO' FROM SOCIO_NEGOCIO WHERE ROL_SOCIO = @rol ORDER BY FECHA_INGRESO DESC;", conexion);
+                cmdSocio.Parameters.AddWithValue("@rol", rolSocio);
+
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+
+                SqlDataReader reader = cmdSocio.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        TOSocioNegocio to = new TOSocioNegocio();
+                        to.cedula = reader.GetString(0);
+                        to.nombre = reader.GetString(1);
+                        lista.Add(to);
+                    }
+                }
+
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+                return lista;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conexion.Close();
+            }
+        }
     }
+    
 }
