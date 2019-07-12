@@ -47,8 +47,8 @@ namespace DAO
                 //TEXTOS CONSULTAS 
                 //FACTURA
                 // COD_FACTURA, CEDULA, ID_BODEGA, ID_MONEDA, MONTO_TOTAL, FECHA_FACTURA, TIPO
-                String sqlEncabezado = "INSERT INTO FACTURA (ID_BODEGA, CEDULA, ID_MONEDA, MONTO_TOTAL, FECHA_FACTURA, TIPO)" +
-                    "VALUES (@BODEGA,@CED,@MONEDA,@TOTAL,@FECHA,@TIPO)";
+                String sqlEncabezado = "INSERT INTO FACTURA (CEDULA, ID_BODEGA, ID_MONEDA, MONTO_TOTAL, FECHA_FACTURA, TIPO)" +
+                    "VALUES (@CED,@BODEGA, @MONEDA,@TOTAL,@FECHA,@TIPO)";
                 String swqlCodCompra = "select IDENT_CURRENT('FACTURA')";
                 //DETALLE
                 //COD_LINEA, COD_FACTURA, COD_MATERIAL, MONTO_LINEA, KILOS
@@ -60,9 +60,9 @@ namespace DAO
                 try
                 {
                     //REGISTRAR ENCABEZADO
-                    command.CommandText = sqlEncabezado;
-                    command.Parameters.AddWithValue("@BODEGA", idBodega); //validar formato en parametros(?)
+                    command.CommandText = sqlEncabezado; 
                     command.Parameters.AddWithValue("@CED", cedula);
+                    command.Parameters.AddWithValue("@BODEGA", idBodega);
                     command.Parameters.AddWithValue("@MONEDA", idMoneda);
                     command.Parameters.AddWithValue("@TOTAL", montoTotal);//el monto debe venir calculado desde BL
                     command.Parameters.AddWithValue("@FECHA", fecha);
@@ -77,7 +77,7 @@ namespace DAO
                     //REGISTRAR DETALLES   (?)bloquear materiales(?)
 
                     foreach (var detalle in detalles)
-                        sqlDetalles += "(" + codCompra + ", '" + detalle.cod_Stock + "'," + detalle.kilos_Linea + "," + detalle.monto_Linea + "),";
+                        sqlDetalles += "(" + codCompra + ", '" + detalle.nombreMaterial + "'," + detalle.kilos_Linea + "," + detalle.monto_Linea + "),";
 
                     sqlDetalles = sqlDetalles.Remove(sqlDetalles.Length - 1);
                     sqlDetalles += ";";
@@ -91,7 +91,7 @@ namespace DAO
 
                     foreach (var detalle in detalles)
                     {
-                        sqlUpdateParte1 += "WHEN COD_MATERIAL = '" + detalle.cod_Stock +
+                        sqlUpdateParte1 += "WHEN COD_MATERIAL = '" + detalle.nombreMaterial +
                         "' THEN (KILOS_STOCK " + operacion + " " + detalle.kilos_Linea + ") ";
 
                         sqlUpdateParte2 += detalle.cod_Stock + ",";
