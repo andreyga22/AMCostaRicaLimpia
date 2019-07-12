@@ -198,7 +198,7 @@ namespace ProyectoAMCRL
             //filaAgregarDetalles.Visible = false;
             buscarSocioBTN.Visible = false;
             materialDD.Visible = false;
-            precioKg2TB.Visible = false;
+            precioKgTB.Visible = false;
             cantidad2TB.Visible = false;
             unidadDD.Visible = false;
             agregarLineaBTN.Visible = false;
@@ -279,7 +279,7 @@ namespace ProyectoAMCRL
             {
                 cantidad2TB.Style.Add("border-color", "transparent");
                 String lineaAjusteInfo = "";
-                Double precioEspecificado = String.IsNullOrEmpty(precioKg2TB.Value) ? 0 : Double.Parse(precioKg2TB.Value);
+                Double precioEspecificado = String.IsNullOrEmpty(precioKgTB.Text) ? 0 : Double.Parse(precioKgTB.Text);
                 lineaAjusteInfo = materialDD.SelectedItem.Value + '#' + materialDD.SelectedItem.Text + "&" +
                 precioEspecificado + "&" + cantidad2TB.Value + "&" + unidadDD.SelectedItem.Value + '#' + unidadDD.SelectedItem.Text;
                 detalles.Add(lineaAjusteInfo);
@@ -405,7 +405,7 @@ namespace ProyectoAMCRL
         private void refrescarDatos()
         {
             materialDD.SelectedIndex = 0;
-            precioKg2TB.Value = "";
+            precioKgTB.Text = "";
             cantidad2TB.Value = "";
             unidadDD.SelectedIndex = 1;
         }
@@ -568,7 +568,7 @@ namespace ProyectoAMCRL
                 String precioString = Convert.ToString(materialInfoSet.Tables[0].Rows[0]["PRECIO_BASE"]);
                 double precioBase = Double.Parse(precioString);
 
-                precioKg2TB.Value = precioString;
+                precioKgTB.Text = precioString;
                 
                 //FUNCIONE PORFIS
                 int index = 0;
@@ -596,7 +596,7 @@ namespace ProyectoAMCRL
 
             }
             pegarLineasTabla();
-            precioKg2TB.DataBind();
+            precioKgTB.DataBind();
             String nombre = materialInfo[1];
         }
 

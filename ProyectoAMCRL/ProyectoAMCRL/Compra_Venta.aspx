@@ -168,7 +168,8 @@
 <%--            <input type="search" placeholder="Código/ Nombre material" runat="server" clientidmode="Static" name="name" value="" step=".01" min="0" id="idNameTB" onkeypress="Textbox1_KeyPress" onkeydown="" onkeyup="" class="btn btn-light btn-sm" style="width: 100%" />--%>
             <%-- Precio kilo --%>
             <div class="col-2" style="margin-left: 5px">
-                <input type="number" placeholder="Precio" runat="server" clientidmode="Static" name="name" value="" step=".01" min="0" id="precioKg2TB" class="btn btn-light btn-sm" style="width: 100%" />
+                <asp:TextBox runat="server" id="precioKgTB" placeholder="Precio" class="btn btn-light btn-sm"/>
+<%--                <input type="number" placeholder="Precio" runat="server" clientidmode="Static" name="name" value="" step=".01" min="0" id="precioKg2TB" class="btn btn-light btn-sm" style="width: 100%" />--%>
             </div>
             <%-- Cantidad --%>
             <div class="col-2">
