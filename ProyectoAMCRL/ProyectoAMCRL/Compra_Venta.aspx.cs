@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using BL;
 using System.IO;
 using System.Data;
+using System.Windows.Forms;
 
 namespace ProyectoAMCRL
 {
@@ -46,6 +47,7 @@ namespace ProyectoAMCRL
                     //Estilo de espera para cuando se realiza la compra
                     btnGuardar.Attributes.Add("onclick", "document.body.style.cursor = 'wait';");
                     buscarSocioBTN.Attributes.Add("onclick", "document.body.style.cursor = 'wait';");
+                    materialDD.Attributes.Add("onclick", "document.body.style.cursor = 'wait';");
 
                     // Se cargan las unidades, bodegas, monedas y materiales existentes 
                     // (La seleccion de bodega debe especificar los materiales disponibles)
@@ -186,7 +188,7 @@ namespace ProyectoAMCRL
             labelValorDatoConsecutivo.Text = Convert.ToString(blFactura.cod_Factura);
             totalLabel.Text = Convert.ToString(blFactura.monto_Total);
 
-            filaAgregarDetalles.Visible = false;
+            //filaAgregarDetalles.Visible = false;
             buscarSocioBTN.Visible = false;
 
         }
@@ -301,16 +303,22 @@ namespace ProyectoAMCRL
 
                 String[] lineaInfo = linea.Split('&');
                 TableCell productoCell = new TableCell();
+                productoCell.Style.Add("width", "30%");
                 TableCell precioKg = new TableCell();
+                precioKg.Style.Add("width", "20%");
                 TableCell cantidadCell = new TableCell();
+                cantidadCell.Style.Add("width", "20%");
 
                 TableCell unidadCell = new TableCell();
+                unidadCell.Style.Add("width", "20%");
 
                 TableCell quitarFilaCampo = new TableCell();
+                quitarFilaCampo.Style.Add("width", "10%");
                 TableRow filaNueva = new TableRow();
 
                 String[] materialInfo = lineaInfo[0].Split('#');
-                productoCell.Text = materialInfo[1];
+                String[] idANDstock = materialInfo[0].Split('-');
+                productoCell.Text = idANDstock[0]+"-"+materialInfo[1];
                 precioKg.Text = lineaInfo[1];
                 cantidadCell.Text = lineaInfo[2];
                 String[] unidadInfo = lineaInfo[3].Split('#');
@@ -422,20 +430,7 @@ namespace ProyectoAMCRL
 
         private void cargarUnidadesBodegasMonedas()
         {
-            DataSet unidades = manejadorU.listarUnidades();
-
-            foreach (DataRow dr in unidades.Tables[0].Rows)
-            {
-                // COD_UNIDAD, NOMBRE_UNIDAD 
-
-                String codigo = Convert.ToString(dr["COD_UNIDAD"]);
-                String nombre = Convert.ToString(dr["NOMBRE_UNIDAD"]);
-                String equiv = Convert.ToString(dr["EQUIVALENCIA_KG"]);
-                String infoUnidad = codigo + "*" + equiv;
-
-                ListItem item = new ListItem(nombre, infoUnidad);
-                unidadDD.Items.Add(item);
-            }
+            cargarUnidades();
 
             List<BLBodegaTabla> bodegas = manejadorB.listaBodegas();
             foreach (BLBodegaTabla b in bodegas)
@@ -478,6 +473,16 @@ namespace ProyectoAMCRL
         {
             String idBodega = bodegasDrop.SelectedItem.Value;
             cargarMateriales(idBodega);
+        }
+
+        private void Textbox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((int)e.KeyChar == (int)Keys.Enter)
+            {
+                labelDatosSocio.BackColor = System.Drawing.Color.Red;
+                //aqui codigo
+            }
+
         }
 
         protected void buscarSocioBTN_Click(object sender, EventArgs e)
@@ -523,5 +528,77 @@ namespace ProyectoAMCRL
                 lblError.Visible = true;
             }
         }
+
+        protected void materialDD_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            String[] materialInfo = materialDD.SelectedItem.Value.Split('-');
+            String codigo = materialInfo[0];
+
+            DataSet materialInfoSet = new DataSet();
+
+            if (manejadorM == null)
+                manejadorM = new BLManejadorMateriales();
+
+            if (labelBreadCrum1.Text.Equals("Compra"))
+                materialInfoSet = manejadorM.traerUnidadYprecioBase(codigo, 'c');
+            else
+                materialInfoSet = manejadorM.traerUnidadYprecioBase(codigo, 'v');
+
+            if (materialInfoSet != null) {
+                String unidadBase = Convert.ToString(materialInfoSet.Tables[0].Rows[0]["COD_UNIDAD"]);
+                String precioString = Convert.ToString(materialInfoSet.Tables[0].Rows[0]["PRECIO_BASE"]);
+                double precioBase = Double.Parse(precioString);
+
+                precioKg2TB.Value = precioString;
+                int index = 0;
+
+                unidadDD.Items.Clear();
+                cargarUnidades();
+
+                for (int ind = 0; ind < unidadDD.Items.Count; ind++) {
+                    ListItem item = unidadDD.Items[ind];
+                    unidadDD.Items[ind].Selected = false;
+                    String[] infoCod = item.Value.Split('*');
+                    String cod = infoCod[0];
+
+                    if (cod.Equals(unidadBase))
+                    {
+                        
+                        index = ind;
+                        break;
+                    }
+                }
+
+                unidadDD.Items[index].Selected = true;
+                unidadDD.DataBind();
+
+            }
+
+            String nombre = materialInfo[1];
+        }
+
+
+        private void cargarUnidades() {
+
+            if (manejadorU == null)
+                manejadorU = new BLManejadorUnidades();
+
+            DataSet unidades = manejadorU.listarUnidades();
+
+            foreach (DataRow dr in unidades.Tables[0].Rows)
+            {
+                // COD_UNIDAD, NOMBRE_UNIDAD 
+
+                String codigo = Convert.ToString(dr["COD_UNIDAD"]);
+                String nombre = Convert.ToString(dr["NOMBRE_UNIDAD"]);
+                String equiv = Convert.ToString(dr["EQUIVALENCIA_KG"]);
+                String infoUnidad = codigo + "*" + equiv;
+
+                ListItem item = new ListItem(nombre, infoUnidad);
+                unidadDD.Items.Add(item);
+            }
+
+        }
+
     }
 }
