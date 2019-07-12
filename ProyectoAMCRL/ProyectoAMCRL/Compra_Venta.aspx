@@ -48,11 +48,12 @@
         #divDetallesEncabezado {
             border-left: 1px solid #e8e8e8;
             border-right: 1px solid #e8e8e8;
-            border-top: 1px solid #e8e8e8;
+           
         }
 
 
         #divDetalles {
+             border-top: 1px solid #e8e8e8;
             border-left: 1px solid #e8e8e8;
             border-right: 1px solid #e8e8e8;
             border-bottom: 1px solid #e8e8e8;
@@ -157,44 +158,48 @@
 
         </div>
         <%-- DETALLES --%>
+        <div class="row" style="margin-left:0%; padding-left:0%">
+              <%-- Producto --%>
+                    <div class="col-2" style="margin-left:0%">
+                        <asp:DropDownList Width="100%" ID="materialDD" AutoPostBack="false" runat="server" CssClass="btn btn-light btn-sm dropdown-toggle dropup"></asp:DropDownList>
+                    </div>
+                    <%-- Precio kilo --%>
+                    <div class="col-2">
+                        <input type="number" placeholder="Precio" runat="server" clientidmode="Static" name="name" value="" step=".01" min="0" id="precioKg2TB" class="btn btn-light btn-sm" style="width: 100%" />
+                    </div>
+                    <%-- Cantidad --%>
+                    <div class="col-2">
+                        <input type="number" placeholder="Cantidad " runat="server" clientidmode="Static" name="name" value="" step=".01" min="0" id="cantidad2TB" class="btn btn-light btn-sm" style="width: 100%" />
+                        <%--                        <asp:TextBox Width="100%" ID="cantidadTB" runat="server" type="number" CssClass="btn btn-light btn-sm" />--%>
+                    </div>
+                    <%-- Unidad --%>
+                    <div class="col-3">
+                        <asp:DropDownList Width="100%" ID="unidadDD" runat="server" CssClass="btn dropup btn-light btn-sm dropu"></asp:DropDownList>
+                    </div>
+                    <%-- Acción --%>
+                    <div class="col-1">
+                        <asp:LinkButton Width="100%" ID="agregarLineaBTN" runat="server" CssClass="btn btn-secondary btn-sm" OnClick="agregarLineaClick">
+                           <i class="fa fa-plus"></i></asp:LinkButton>
+                    </div>
+        </div>
+
         <div class="row justify-content-end" style="width: 100%; margin-left: 0%; padding-right: 1%">
             <label class="font-weight-bolder" style="margin-right: 1%">Agregados</label>
             <asp:Label Text="0" runat="server" ID="labelAgregados" />
         </div>
 
-        <div id="divDetallesEncabezado">
-            <asp:Table ID="Table1" runat="server" class="table-sm " Style="width: 100%">
-                <asp:TableHeaderRow CssClass="btn-light font-weight-bolder position-relative">
+        <div id="">
+            <asp:Table ID="Table1" runat="server" class="table-sm " Style="width: 100%">             
+                <asp:TableRow ID="filaAgregarDetalles" BackColor="Gray">
+                  
+                </asp:TableRow>
+                 <asp:TableHeaderRow CssClass="btn-light font-weight-bolder position-relative">
                     <asp:TableCell Width="20%">Material</asp:TableCell>
                     <asp:TableCell Width="20%">Precio kilo/unidad</asp:TableCell>
                     <asp:TableCell Width="20%">Cantidad</asp:TableCell>
                     <asp:TableCell Width="30%">Unidad</asp:TableCell>
                     <asp:TableCell Width="10%">Acción</asp:TableCell>
                 </asp:TableHeaderRow>
-                <asp:TableRow ID="filaAgregarDetalles">
-                    <%-- Producto --%>
-                    <asp:TableCell>
-                        <asp:DropDownList Width="100%" ID="materialDD" AutoPostBack="false" runat="server" CssClass="btn btn-light btn-sm dropdown-toggle dropup"></asp:DropDownList>
-                    </asp:TableCell>
-                    <%-- Precio kilo --%>
-                    <asp:TableCell>
-                        <input type="number" runat="server" clientidmode="Static" name="name" value="" step=".01" min="0" id="precioKg2TB" class="btn btn-light btn-sm" style="width: 100%" />
-                    </asp:TableCell>
-                    <%-- Cantidad --%>
-                    <asp:TableCell>
-                        <input type="number" runat="server" clientidmode="Static" name="name" value="" step=".01" min="0" id="cantidad2TB" class="btn btn-light btn-sm" style="width: 100%" />
-                        <%--                        <asp:TextBox Width="100%" ID="cantidadTB" runat="server" type="number" CssClass="btn btn-light btn-sm" />--%>
-                    </asp:TableCell>
-                    <%-- Unidad --%>
-                    <asp:TableCell>
-                        <asp:DropDownList Width="100%" ID="unidadDD" runat="server" CssClass="btn dropup btn-light btn-sm dropu"></asp:DropDownList>
-                    </asp:TableCell>
-                    <%-- Acción --%>
-                    <asp:TableCell>
-                        <asp:LinkButton Width="100%" ID="agregarLineaBTN" runat="server" CssClass="btn btn-secondary btn-sm" OnClick="agregarLineaClick">
-                           <i class="fa fa-plus"></i></asp:LinkButton>
-                    </asp:TableCell>
-                </asp:TableRow>
             </asp:Table>
         </div>
         <%-- CUERPO DE TABLA --%>

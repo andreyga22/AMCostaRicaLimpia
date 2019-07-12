@@ -80,7 +80,7 @@ namespace ProyectoAMCRL {
             foreach (DataRow dr in listaM.Tables[0].Rows) {
                 String codigo = Convert.ToString(dr["COD_MATERIAL"]);
                 String nombre = Convert.ToString(dr["NOMBRE_MATERIAL"]);
-                String precio = Convert.ToString(dr["PRECIO_KILO"]);
+                //String precio = Convert.ToString(dr["PRECIO_KILO"]);
 
                 ListItem item = new ListItem(nombre, codigo);
                 materialesCB.Items.Add(item);
