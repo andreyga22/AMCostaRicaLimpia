@@ -594,6 +594,7 @@ namespace ProyectoAMCRL
                 unidadDD.DataBind();
 
             }
+            pegarLineasTabla();
 
             String nombre = materialInfo[1];
         }
