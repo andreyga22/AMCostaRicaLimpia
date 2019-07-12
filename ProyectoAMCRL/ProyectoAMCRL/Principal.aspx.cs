@@ -302,6 +302,7 @@ namespace ProyectoAMCRL
         {
             Session["idFactura"] = Session["idFactura1"];
             Response.Redirect("Compra_Venta.aspx");
+            
         }
 
         /// <summary>

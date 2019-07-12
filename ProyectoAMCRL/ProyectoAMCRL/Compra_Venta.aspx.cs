@@ -203,7 +203,6 @@ namespace ProyectoAMCRL
             unidadDD.Visible = false;
             agregarLineaBTN.Visible = false;
             infoLineaLabel.Visible = false;
-
         }
             catch (Exception)
             {
