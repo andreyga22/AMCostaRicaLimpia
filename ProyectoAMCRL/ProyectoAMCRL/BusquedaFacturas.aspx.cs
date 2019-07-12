@@ -25,21 +25,28 @@ namespace ProyectoAMCRL
         /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["cuentaLogin"] != null)
+            try
             {
-                if (!this.IsPostBack)
+                if (Session["cuentaLogin"] != null)
                 {
-                    if (ViewState["sorting"] == null)
+                    if (!this.IsPostBack)
                     {
-                        this.buscar(null);
-                        cargarMateriales();
-                        Session["idFactura"] = "";
+                        if (ViewState["sorting"] == null)
+                        {
+                            this.buscar(null);
+                            cargarMateriales();
+                            Session["idFactura"] = "";
+                        }
                     }
                 }
-            }
-            else
+                else
+                {
+                    Response.Redirect("Login.aspx");
+                }
+            } catch (Exception)
             {
-                Response.Redirect("Login.aspx");
+                lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>Error. </strong>No se pudo cargar la página.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                lblError.Visible = true;
             }
         }
 
@@ -59,105 +66,66 @@ namespace ProyectoAMCRL
         /// </summary>
         private void cargarMateriales()
         {
-            BLManejadorMateriales manej = new BLManejadorMateriales();
-            DataSet listaMateriales = manej.listarMaterialesBL();
-
-
-            foreach (DataRow dr in listaMateriales.Tables[0].Rows)
+            try
             {
-                ListItem item = new ListItem();
+                BLManejadorMateriales manej = new BLManejadorMateriales();
+                DataSet listaMateriales = manej.listarMaterialesBL();
 
-                String codigo = Convert.ToString(dr["COD_MATERIAL"]);
-                String nombre = Convert.ToString(dr["NOMBRE_MATERIAL"]);
-                item.Text = nombre;
-                item.Value = codigo;
-                materialesCB.Items.Add(item);
+
+                foreach (DataRow dr in listaMateriales.Tables[0].Rows)
+                {
+                    ListItem item = new ListItem();
+
+                    String codigo = Convert.ToString(dr["COD_MATERIAL"]);
+                    String nombre = Convert.ToString(dr["NOMBRE_MATERIAL"]);
+                    item.Text = nombre;
+                    item.Value = codigo;
+                    materialesCB.Items.Add(item);
+                }
+            } catch(Exception)
+            {
+                lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>Error. </strong>No se pudo cargar los materiales.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                lblError.Visible = true;
             }
         }
-
-        /// <summary>
-        /// Carga la tabla de facturas con los filtros realizados
-        /// </summary>
-        /// <param name="listFacturas">Lista de facturas con el filtro</param>
-        //private void buscar(List<BLFactura> listFacturas)
-        //{
-        //    if (listFacturas.Count != 0)
-        //    {
-        //        gridFacturas.DataSource = listFacturas;
-        //    }
-        //    else
-        //    {
-        //        BLManejadorFacturas man = new BLManejadorFacturas();
-        //        List<BLFactura> list = man.listaFact(txtPalabra.Text.Trim());
-
-        //        gridFacturas.DataSource = list;
-        //    }
-        //    gridFacturas.DataBind();
-        //    //cargarEncabezados();
-        //}
 
         /// <summary>
         ///  Carga la tabla y la muestra en la pantalla
         /// </summary>
         private DataTable buscar(DataTable facturas)
         {
-            DataTable tabla = new DataTable();
-            if (facturas == null)
+            try
             {
-                BLManejadorFacturas man = new BLManejadorFacturas();
-                String modo = (String)Session["modo"];
-                String modoCarac = "";
-                if (modo.Equals("compra"))
+                DataTable tabla = new DataTable();
+                if (facturas == null)
                 {
-                    modoCarac = "c";
+                    BLManejadorFacturas man = new BLManejadorFacturas();
+                    String modo = (String)Session["modo"];
+                    String modoCarac = "";
+                    if (modo.Equals("compra"))
+                    {
+                        modoCarac = "c";
+                    }
+                    else
+                    {
+                        modoCarac = "v";
+                    }
+                    tabla = man.buscar(txtPalabra.Text.Trim(), modoCarac);
                 }
                 else
                 {
-                    modoCarac = "v";
+                    tabla = facturas;
                 }
-                tabla = man.buscar(txtPalabra.Text.Trim(), modoCarac);
-            }
-            else
+                gridFacturas.DataSource = tabla;
+                gridFacturas.DataBind();
+                return tabla;
+            } catch(Exception)
             {
-                tabla = facturas;
+                lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>Error. </strong>No se pudo cargar la tabla.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                lblError.Visible = true;
+                return null;
             }
-            gridFacturas.DataSource = tabla;
-            gridFacturas.DataBind();
-            return tabla;
         }
-
-        /// <summary>
-        /// Carga los encabezados de la tabla
-        /// </summary>
-        //private void cargarEncabezados()
-        //{
-        //    gridFacturas.HeaderRow.Cells[0].Text = "Código Factura";
-        //    gridFacturas.HeaderRow.Cells[1].Text = "Bodega";
-        //    gridFacturas.HeaderRow.Cells[2].Text = "Moneda";
-        //    gridFacturas.HeaderRow.Cells[3].Text = "Cédula";
-        //    gridFacturas.HeaderRow.Cells[4].Text = "Monto";
-        //    gridFacturas.HeaderRow.Cells[5].Text = "Fecha";
-        //    gridFacturas.HeaderRow.Cells[6].Text = "Tipo Factura";
-        //    gridFacturas.HeaderRow.Cells[7].Text = "Socio";
-
-        //    gridFacturas.HeaderRow.Cells[1].Visible = false;
-        //    for (int i = 0; i < gridFacturas.Rows.Count; i++)
-        //    {
-        //        gridFacturas.Rows[i].Cells[1].Visible = false;
-        //    }
-
-        //    gridFacturas.HeaderRow.Cells[2].Visible = false;
-        //    for (int i = 0; i < gridFacturas.Rows.Count; i++)
-        //    {
-        //        gridFacturas.Rows[i].Cells[2].Visible = false;
-        //    }
-
-        //    gridFacturas.HeaderRow.Cells[6].Visible = false;
-        //    for (int i = 0; i < gridFacturas.Rows.Count; i++)
-        //    {
-        //        gridFacturas.Rows[i].Cells[6].Visible = false;
-        //    }
-        //}
 
         /// <summary>
         /// Evento que permite el cambio de páginas de la tabla de facturas. 
@@ -206,8 +174,8 @@ namespace ProyectoAMCRL
             }
             catch (Exception)
             {
-                //lblMensaje.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>Error. </strong>No se pudo seleccionar el empleado.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
-                //lblMensaje.Visible = true;
+                lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>Error. </strong>No se pudo seleccionar la factura.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                lblError.Visible = true;
             }
         }
 
@@ -233,49 +201,56 @@ namespace ProyectoAMCRL
         /// <param name="e"></param>
         protected void btnFiltrar_Click(object sender, EventArgs e)
         {
-            BLManejadorFacturas manej = new BLManejadorFacturas();
-
-            String fechaIni = "";
-            String fechFin = "";
-            String montoMaximoF = "";
-            String montoMinimoF = "";
-            List<String> materiales = new List<string>();
-
-            if (!String.IsNullOrEmpty(fechaInicio.Text))
-                fechaIni = fechaInicio.Text;
-            if (!String.IsNullOrEmpty(fechaFin.Text))
-                fechFin = fechaFin.Text;
-            if (!String.IsNullOrEmpty(montoMaximo.Text))
-                montoMaximoF = montoMaximo.Text;
-            if (!String.IsNullOrEmpty(montoMinimo.Text))
-                montoMinimoF = montoMinimo.Text;
-
-            foreach (ListItem material in materialesCB.Items)
+            try
             {
-                if (material.Selected)
-                    materiales.Add(material.Value);
-            }
-            String modo = (String)Session["modo"];
-            String modoCarac = "";
-            if (modo.Equals("compra"))
-            {
-                modoCarac = "c";
-            }
-            else
-            {
-                modoCarac = "v";
-            }
-            DataTable facturasFiltradas = manej.filtrarFacturas(fechaIni, fechFin, montoMaximoF, montoMinimoF, materiales, modoCarac);
-            fechaInicio.Text = "";
-            fechaFin.Text = "";
-            montoMaximo.Text = "";
-            montoMinimo.Text = "";
-            foreach (ListItem material in materialesCB.Items)
-            {
-                material.Selected = false;
-            }
+                BLManejadorFacturas manej = new BLManejadorFacturas();
 
-            buscar(facturasFiltradas);
+                String fechaIni = "";
+                String fechFin = "";
+                String montoMaximoF = "";
+                String montoMinimoF = "";
+                List<String> materiales = new List<string>();
+
+                if (!String.IsNullOrEmpty(fechaInicio.Text))
+                    fechaIni = fechaInicio.Text;
+                if (!String.IsNullOrEmpty(fechaFin.Text))
+                    fechFin = fechaFin.Text;
+                if (!String.IsNullOrEmpty(montoMaximo.Text))
+                    montoMaximoF = montoMaximo.Text;
+                if (!String.IsNullOrEmpty(montoMinimo.Text))
+                    montoMinimoF = montoMinimo.Text;
+
+                foreach (ListItem material in materialesCB.Items)
+                {
+                    if (material.Selected)
+                        materiales.Add(material.Value);
+                }
+                String modo = (String)Session["modo"];
+                String modoCarac = "";
+                if (modo.Equals("compra"))
+                {
+                    modoCarac = "c";
+                }
+                else
+                {
+                    modoCarac = "v";
+                }
+                DataTable facturasFiltradas = manej.filtrarFacturas(fechaIni, fechFin, montoMaximoF, montoMinimoF, materiales, modoCarac);
+                fechaInicio.Text = "";
+                fechaFin.Text = "";
+                montoMaximo.Text = "";
+                montoMinimo.Text = "";
+                foreach (ListItem material in materialesCB.Items)
+                {
+                    material.Selected = false;
+                }
+
+                buscar(facturasFiltradas);
+            } catch (Exception)
+            {
+                lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>Error. </strong>No se pudo cargar las facturas.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                lblError.Visible = true;
+            }
         }
 
 
@@ -299,156 +274,64 @@ namespace ProyectoAMCRL
         /// <param name="e"></param>
         protected void gridFact_Sorting(object sender, GridViewSortEventArgs e)
         {
-            DataTable datat = this.buscar(null);
-            DataView dv = new DataView(datat);
-            if (ViewState["sorting"] == null || ViewState["sorting"].ToString() == "DESC")
+            try
             {
-                dv.Sort = e.SortExpression + " ASC";
-                ViewState["sorting"] = "ASC";
+                DataTable datat = this.buscar(null);
+                DataView dv = new DataView(datat);
+                if (ViewState["sorting"] == null || ViewState["sorting"].ToString() == "DESC")
+                {
+                    dv.Sort = e.SortExpression + " ASC";
+                    ViewState["sorting"] = "ASC";
 
-            }
-            else
-            {
+                }
+                else
+                {
+                    if (ViewState["sorting"].ToString() == "ASC")
+                    {
+                        dv.Sort = e.SortExpression + " DESC";
+                        ViewState["sorting"] = "DESC";
+                    }
+                }
+                Session["sortedView"] = dv;
+                gridFacturas.DataSource = dv;
+                gridFacturas.DataBind();
+
+
                 if (ViewState["sorting"].ToString() == "ASC")
                 {
-                    dv.Sort = e.SortExpression + " DESC";
-                    ViewState["sorting"] = "DESC";
+                    int index = GetColumnIndex(datat, e.SortExpression);
+                    gridFacturas.HeaderRow.Cells[index].CssClass = "SortedAscendingHeaderStyle";
                 }
-            }
-            Session["sortedView"] = dv;
-            gridFacturas.DataSource = dv;
-            gridFacturas.DataBind();
-
-
-            if (ViewState["sorting"].ToString() == "ASC")
+                else
+                {
+                    int index = GetColumnIndex(datat, e.SortExpression);
+                    gridFacturas.HeaderRow.Cells[index].CssClass = "SortedDescendingHeaderStyle";
+                }
+            } catch(Exception)
             {
-                int index = GetColumnIndex(datat, e.SortExpression);
-                gridFacturas.HeaderRow.Cells[index].CssClass = "SortedAscendingHeaderStyle";
-            }
-            else
-            {
-                int index = GetColumnIndex(datat, e.SortExpression);
-                gridFacturas.HeaderRow.Cells[index].CssClass = "SortedDescendingHeaderStyle";
+                lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>Error. </strong>No se pudo ordenar la tabla.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                lblError.Visible = true;
             }
         }
 
-
+        /// <summary>
+        /// Devuelve el índice de una columna en un datatable enviado, utilizando el nombre como parámetro.
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <param name="name"></param>
+        /// <returns>Retorna el índice de la columna</returns>
         private int GetColumnIndex(DataTable dt, string name)
         {
-            return dt.Columns.IndexOf(name);
+            try
+            {
+                return dt.Columns.IndexOf(name);
+            } catch (Exception)
+            {
+                lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>Error. </strong>No se pudo retornar el índice de la columna.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                lblError.Visible = true;
+            }
+            return -1;
         }
-
-
-
-        //List<BLFactura> listaFiltrada = blFact.filtrarFacturas(fechaIni, fechFin, tipoF, montoMaximoF, montoMinimoF, materiales);
-        //DataSet datSet = blFact.filtrarFacturas(fechaIni, fechFin, tipoF, montoMaximoF, montoMinimoF, materiales);
-        //List<BLFactura> listaFiltrada = new List<BLFactura>();
-
-        //foreach (DataRow dr in datSet.Tables[0].Rows)
-        //{
-        //    BLFactura fac = new BLFactura(Convert.ToInt32(dr["COD_FACTURA"]), Convert.ToString(dr["CEDULA"]), Convert.ToString(dr["ID_BODEGA"]),
-        //         Convert.ToString(dr["ID_MONEDA"]), Convert.ToDouble(dr["MONTO_TOTAL"]), Convert.ToDateTime(dr["FECHA_FACTURA"]), Convert.ToString(dr["SOCIO"]));
-        //    listaFiltrada.Add(fac);
-
-        //}
-        //buscar(listaFiltrada);
-
-        //Filtro montos
-        //List<BLFactura> listaFiltrada = new List<BLFactura>();
-        //if ((!String.IsNullOrEmpty(montoMinimo.Text) || (!String.IsNullOrWhiteSpace(montoMinimo.Text))) &&
-        //    (!String.IsNullOrEmpty(montoMaximo.Text) || (!String.IsNullOrWhiteSpace(montoMaximo.Text))))
-        //{
-        //    listaFiltrada = filtrarMonto(Convert.ToDouble(montoMinimo.Text), Convert.ToDouble(montoMaximo.Text));
-        //    buscar(listaFiltrada);
-        //}
-        //Filtro Fecha
-        //if ((!String.IsNullOrEmpty(fechaInicio.Text.Trim()) || (!String.IsNullOrWhiteSpace(fechaInicio.Text.Trim()))) &&
-        //    (!String.IsNullOrEmpty(fechaFin.Text.Trim()) || (!String.IsNullOrWhiteSpace(fechaFin.Text.Trim()))))
-        //{
-
-        //    List<BLFactura> rangoFecha = manej.listaRangoFecha(Convert.ToDateTime(fechaInicio.Text.Trim()), Convert.ToDateTime(fechaFin.Text.Trim()));
-
-        //    if (listaFiltrada.Count == 0)
-        //    {
-        //        foreach (BLFactura blF in rangoFecha)
-        //        {
-        //            listaFiltrada.Add(blF);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        for (int j = 0; j < rangoFecha.Count; j++)
-        //        {
-        //            bool a = true;
-
-        //            for (int i = 0; i < listaFiltrada.Count; i++)
-        //            {
-        //                if (listaFiltrada[i].cod_Factura.Equals(rangoFecha[j].cod_Factura))
-        //                {
-        //                    a = false;
-        //                }
-        //            }
-        //            if (a == false)
-        //            {
-        //                listaFiltrada.Add(rangoFecha[j]);
-        //            }
-        //        }
-        //    }
-        //}
-
-        //Filtro tipo
-        //if (!tipoRadioL.SelectedValue.ToString().Equals("No especificar"))
-        //{
-        //    string tipo = "";
-        //if (tipoRadioL.SelectedValue.ToString().Equals("Venta"))
-        //{
-        //    tipo = "v";
-        //}
-        //else
-        //{
-        //    tipo = "c";
-        //}
-        //List<BLFactura> listaTipo = manej.facturasTipo(tipo);
-        //if (listaFiltrada.Count == 0)
-        //{
-        //    foreach (BLFactura blF in listaTipo)
-        //    {
-        //        listaFiltrada.Add(blF);
-        //    }
-        //}
-        //else
-        //{
-        //    for (int j = 0; j < listaTipo.Count; j++)
-        //    {
-        //        bool a = true;
-
-        //        for (int i = 0; i < listaFiltrada.Count; i++)
-        //        {
-        //            if (listaFiltrada[i].cod_Factura.Equals(listaTipo[j].cod_Factura))
-        //            {
-        //                a = false;
-        //            }
-        //        }
-        //        if (a == false)
-        //        {
-        //            listaFiltrada.Add(listaTipo[j]);
-        //        }
-        //    }
-        //}
-        //}
-        //}
-        //private List<BLFactura> filtrarMonto(double monto1, double monto2)
-        //{
-        //    return new BLManejadorFacturas().listaMontos(monto1, monto2);
-        //}
-
-        //protected void materialesDrop_SelectedIndexChanged(object sender, EventArgs e)
-        // {
-        //String idBodega = bodegasDrop.SelectedItem.Value;
-        //cargarMateriales(idBodega);
-        //}
-
-
 
 
     }

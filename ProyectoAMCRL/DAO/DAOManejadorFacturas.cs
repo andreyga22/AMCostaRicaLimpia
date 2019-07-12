@@ -417,7 +417,7 @@ namespace DAO
                 {
                     SqlCommand cmd = conexion.CreateCommand();
                     //cod, bod, moneda, cedula, monto, fecha, tipo, socio
-                    string sql = "Select s.NOMBRE + ' ' + s.APELLIDO1 + ' ' +  s.APELLIDO2 as SOCIO,  v.CEDULA as 'CÉDULA', v.COD_FACTURA as 'NÚMERO FACTURA', v.FECHA_FACTURA as 'FECHA FACTURA', v.MONTO_TOTAL as 'MONTO TOTAL' from FACTURA v, SOCIO_NEGOCIO s where v.CEDULA = s.CEDULA and v.TIPO = @tipo ";
+                    string sql = "Select s.NOMBRE + ' ' + s.APELLIDO1 + ' ' +  s.APELLIDO2 as Socio,  v.CEDULA as 'Cédula', v.COD_FACTURA as 'Número Factura', v.FECHA_FACTURA as 'Fecha Factura', v.MONTO_TOTAL as 'Monto Total' from FACTURA v, SOCIO_NEGOCIO s where v.CEDULA = s.CEDULA and v.TIPO = @tipo ";
 
                     cmd.Parameters.AddWithValue("@tipo", tipo);
 
