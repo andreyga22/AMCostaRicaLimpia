@@ -51,7 +51,6 @@ namespace ProyectoAMCRL
                         distritoTB.Text = socio.direccion.distrito;
                         sennas.Text = socio.direccion.otras_sennas;
 
-
                         telTB.Text = Convert.ToString(socio.contactos.telefono_hab);
                         tel2TB.Text = Convert.ToString(socio.contactos.telefono_pers);
                         correoTB.Text = socio.contactos.email;

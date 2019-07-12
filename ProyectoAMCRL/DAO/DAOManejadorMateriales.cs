@@ -15,13 +15,14 @@ namespace DAO
         private List<TOMaterial> materiales = new List<TOMaterial>();
         private SqlConnection conexion = new SqlConnection(Properties.Settings.Default.conexionHost);
 
-        public DataSet obtenerMateriales(){
+        public DataSet obtenerMateriales()
+        {
 
-                SqlCommand cmd = new SqlCommand("select * from MATERIAL order by NOMBRE_MATERIAL", conexion);
-                SqlDataAdapter sda = new SqlDataAdapter(cmd);
-                sda.SelectCommand = cmd;
-                DataSet ds = new DataSet("materiales");
-                sda.Fill(ds);
+            SqlCommand cmd = new SqlCommand("select * from MATERIAL order by NOMBRE_MATERIAL", conexion);
+            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            sda.SelectCommand = cmd;
+            DataSet ds = new DataSet("materiales");
+            sda.Fill(ds);
 
             return ds;
         }
@@ -29,7 +30,7 @@ namespace DAO
         public DataSet obtenerMaterialesEnBodegaActual(String id_bodega)
         {
 
-            String sql = "select s.ID_STOCK, m.COD_MATERIAL, m.NOMBRE_MATERIAL, m.PRECIO_KILO from MATERIAL m, STOCK s " +
+            String sql = "select s.ID_STOCK, m.COD_MATERIAL, m.NOMBRE_MATERIAL, m.PRECIO_VENTA_KILO, m.PRECIO_COMPRA_KILO from MATERIAL m, STOCK s " +
                 "where(m.COD_MATERIAL = s.COD_MATERIAL and s.ID_BODEGA = @ID_BOD);";
 
             SqlCommand cmd = new SqlCommand(sql, conexion);
@@ -42,7 +43,8 @@ namespace DAO
             return ds;
         }
 
-        public string registrarActualizarMaterialDAO(TOMaterial material, char tipo){
+        public string registrarActualizarMaterialDAO(TOMaterial material, char tipo)
+        {
 
             String msg = "";
             using (conexion)
@@ -69,7 +71,8 @@ namespace DAO
                 // "begin insert into MATERIAL(COD_MATERIAL, NOMBRE_MATERIAL, PRECIO_KILO, COD_UNIDAD) values (@COD, @NOMBRE, @PRECIO, @UNIDAD_BASE); " +
                 // "end commit tran";
 
-                try{
+                try
+                {
                     //REGISTRO MATERIAL
                     if (tipo.Equals('r'))
                     {
@@ -82,14 +85,15 @@ namespace DAO
                         respuesta = "actualizado";
                     }
 
-                    command.Parameters.AddWithValue("@COD", material.codigoM); 
+                    command.Parameters.AddWithValue("@COD", material.codigoM);
                     command.Parameters.AddWithValue("@NOMBRE", material.nombreMaterial);
-                    command.Parameters.AddWithValue("@PRECIO", material.precioKilo);
-                    command.Parameters.AddWithValue("@UNIDAD_BASE", material.unidadBase.codigo);
+                    //command.Parameters.AddWithValue("@PRECIO", material.precioKilo);
+                    //command.Parameters.AddWithValue("@UNIDAD_BASE", material.unidadBase.codigo);
 
                     command.ExecuteNonQuery();
 
-                    if (tipo.Equals('r')) {
+                    if (tipo.Equals('r'))
+                    {
                         String sqlRegistrarStock = "insert into stock (COD_MATERIAL, ID_BODEGA, KILOS_STOCK) " +
                             "values (@COD, 'B01', 0); ";
                         command.CommandText = sqlRegistrarStock;
@@ -101,7 +105,7 @@ namespace DAO
 
                     //COMMIT A LA TRANSACCION
                     transaction.Commit();
-                    return "Material "+ respuesta+" correctamente";
+                    return "Material " + respuesta + " correctamente";
 
                 }
                 catch (Exception ex)
@@ -109,7 +113,8 @@ namespace DAO
 
                     msg = "Ocurrió un error en la operación, contacte al administrador. Error: " + ex.Source;
 
-                    try{
+                    try
+                    {
                         // Se intenta hacer rollback de la transaccion
                         transaction.Rollback();
                     }
@@ -193,15 +198,16 @@ namespace DAO
             double res = 0;
 
             String sql = "SELECT SUM(KILOS_COMPRA) AS TOTAL FROM DETALLE_COMPRA WHERE COD_MATERIAL = " + v;
-            using (conexion) {
+            using (conexion)
+            {
                 try
                 {
                     conexion.Open();
 
                     SqlCommand cmd = new SqlCommand(sql, conexion);
                     SqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
+                    while (reader.Read())
+                    {
                         res = (Double)reader.GetDecimal(0);
                     }
                 }
@@ -211,8 +217,265 @@ namespace DAO
                     return 0;
                 }
             }
-              
+
             return res;
         }
+
+        /// <summary>
+        /// Método para retornar los 3 materiales con mayor cantidad en stock
+        /// </summary>
+        /// <returns>Retorna la lista de material</returns>
+        public List<TOMaterial> top3_Materiales()
+        {
+            try
+            {
+                List<TOMaterial> lista = new List<TOMaterial>();
+                String sql = "SELECT TOP 3 s.COD_MATERIAL, m.NOMBRE_MATERIAL FROM STOCK s, MATERIAL m WHERE s.COD_MATERIAL = m.COD_MATERIAL ORDER BY s.KILOS_STOCK DESC;";
+                SqlCommand cmd_Materiales = new SqlCommand(sql, conexion);
+
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+
+                SqlDataReader reader = cmd_Materiales.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        TOMaterial to = new TOMaterial();
+                        to.codigoM = reader.GetString(0);
+                        to.nombreMaterial = reader.GetString(1);
+
+                        lista.Add(to);
+                    }
+                }
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+                return lista;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conexion.Close();
+            }
+        }
+
+        /// <summary>
+        /// Buscar información del material para la tabla, con rol regular
+        /// </summary>
+        /// <param name="busqueda">Palabra para buscar en la base de datos</param>
+        /// <returns>Retorna el datatable con los datos del material</returns>
+        public DataTable buscarUsuarioRegular(string busqueda)
+        {
+            try
+            {
+                using (conexion)
+                {
+                    SqlCommand cmd = conexion.CreateCommand();
+                    string sql = "SELECT COD_MATERIAL AS 'Código Material', NOMBRE_MATERIAL as 'Nombre', PRECIO_COMPRA_KILO as 'Precio Compra', PRECIO_VENTA_KILO as 'Precio Venta', ESTADO_MATERIAL as 'Estado' FROM MATERIAL ";
+                    if (!string.IsNullOrEmpty(busqueda))
+                    {
+                        sql += " WHERE ((COD_MATERIAL LIKE '%' + @pal + '%')  or (NOMBRE_MATERIAL LIKE '%' + @pal + '%') or (PRECIO_COMPRA_KILO '%' + @pal + '%') or (PRECIO_VENTA_KILO '%' + @pal + '%')) and ESTADO_MATERIAL = 1";
+                        cmd.Parameters.AddWithValue("@pal", busqueda);
+                    }
+                    cmd.CommandText = sql;
+                    cmd.Connection = conexion;
+                    using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        sda.Fill(dt);
+                        return dt;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Buscar información del material para la tabla, con rol de Administrador
+        /// </summary>
+        /// <param name="busqueda">Palabra para buscar en la base de datos</param>
+        /// <returns>Retorna el datatable con los datos del material</returns>
+        public DataTable buscarUsuarioAdmin(string busqueda)
+        {
+            try
+            {
+                using (conexion)
+                {
+                    SqlCommand cmd = conexion.CreateCommand();
+                    string sql = "SELECT COD_MATERIAL AS 'Código Material', NOMBRE_MATERIAL as 'Nombre', PRECIO_COMPRA_KILO as 'Precio Compra', PRECIO_VENTA_KILO as 'Precio Venta' FROM MATERIAL ";
+                    if (!string.IsNullOrEmpty(busqueda))
+                    {
+                        sql += " WHERE (COD_MATERIAL LIKE '%' + @pal + '%')  or (NOMBRE_MATERIAL LIKE '%' + @pal + '%') or (PRECIO_COMPRA_KILO LIKE '%' + @pal + '%') or (PRECIO_VENTA_KILO LIKE '%' + @pal + '%');";
+                        cmd.Parameters.AddWithValue("@pal", busqueda);
+                    }
+                    cmd.CommandText = sql;
+                    cmd.Connection = conexion;
+                    using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        sda.Fill(dt);
+                        return dt;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public TOMaterial buscarMaterialAdmin(string idMaterial)
+        {
+            TOMaterial material = new TOMaterial();
+            SqlCommand buscar = new SqlCommand("SELECT * FROM MATERIAL WHERE COD_MATERIAL = @cod;", conexion);
+            buscar.Parameters.AddWithValue("@cod", idMaterial);
+
+            if (conexion.State != ConnectionState.Open)
+            {
+                conexion.Open();
+            }
+
+            SqlDataReader reader = buscar.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    material.codigoM = reader.GetString(0);
+                    material.nombreMaterial = reader.GetString(1);
+                    material.precioVentaK = Convert.ToDouble(reader.GetDecimal(2));
+                    material.cod_Unidad = reader.GetString(3);
+                    material.precioCompraK = Convert.ToDouble(reader.GetDecimal(4));
+                    material.estado_Material = reader.GetBoolean(5);
+                }
+            }
+           
+            if (conexion.State != ConnectionState.Closed)
+            {
+                conexion.Close();
+            }
+            return material;
+        }
+
+        public TOMaterial buscarMaterialRegular(string idMaterial)
+        {
+            TOMaterial material = new TOMaterial();
+            SqlCommand buscar = new SqlCommand("SELECT * FROM MATERIAL WHERE ESTADO_MATERIAL = 1 AND COD_MATERIAL = @cod;", conexion);
+            buscar.Parameters.AddWithValue("@cod", idMaterial);
+
+            if (conexion.State != ConnectionState.Open)
+            {
+                conexion.Open();
+            }
+
+            SqlDataReader reader = buscar.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    material.codigoM = reader.GetString(0);
+                    material.nombreMaterial = reader.GetString(1);
+                    material.precioVentaK = Convert.ToDouble(reader.GetDecimal(2));
+                    material.cod_Unidad = reader.GetString(3);
+                    material.precioCompraK = Convert.ToDouble(reader.GetDecimal(4));
+                    material.estado_Material = reader.GetBoolean(5);
+                }
+            }
+
+            if (conexion.State != ConnectionState.Closed)
+            {
+                conexion.Close();
+            }
+            return material;
+        }
+
+
+
+        public void guardarModificarBodegaAdmin(TOMaterial mat)
+        {
+
+
+            using (conexion)
+            {
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+
+                // Start a local transaction.
+                SqlTransaction sqlTran = conexion.BeginTransaction();
+
+                // Enlist a command in the current transaction.
+                SqlCommand sentencia = conexion.CreateCommand();
+                sentencia.Transaction = sqlTran;
+
+                try
+                {
+                    if (String.IsNullOrEmpty(mat.codigoM))
+                    {
+                       
+                        sentencia.CommandText ="insert into material(cod_material, nombre_material, precio_venta_kilo, cod_unidad, precio_compra_kilo, estado_material) " +
+                            "values (@cod, @nombre, @precV, @codUnid, @precC, @estadoMat);";
+                        sentencia.Parameters.AddWithValue("@cod", mat.codigoM);
+                        sentencia.Parameters.AddWithValue("@nombre", mat.nombreMaterial);
+                        sentencia.Parameters.AddWithValue("@precV", mat.precioVentaK);
+                        sentencia.Parameters.AddWithValue("@codUnid", mat.cod_Unidad);
+                        sentencia.Parameters.AddWithValue("@precC", mat.precioCompraK);
+                        sentencia.Parameters.AddWithValue("@estadoMat", mat.estado_Material);
+
+                        sentencia.ExecuteNonQuery();
+
+                        sqlTran.Commit();
+                        if (conexion.State != ConnectionState.Closed)
+                        {
+                            conexion.Close();
+                        }
+
+                    }
+                    else
+                    {
+                        sentencia.CommandText =
+                         "update material set nombre_material = @nombre, precio_venta_kilo = @precV, cod_unidad = @codUnid, precio_compra_kilo = @precC, estado_material = @estadoMat where cod_material = @cod;";
+                        sentencia.Parameters.AddWithValue("@cod", mat.codigoM);
+                        sentencia.Parameters.AddWithValue("@nombre", mat.nombreMaterial);
+                        sentencia.Parameters.AddWithValue("@precV", mat.precioVentaK);
+                        sentencia.Parameters.AddWithValue("@codUnid", mat.cod_Unidad);
+                        sentencia.Parameters.AddWithValue("@precC", mat.precioCompraK);
+                        sentencia.Parameters.AddWithValue("@estadoMat", mat.estado_Material);
+
+
+                        sentencia.ExecuteNonQuery();
+                        sqlTran.Commit();
+                        if (conexion.State != ConnectionState.Closed)
+                        {
+                            conexion.Close();
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    try
+                    {
+                        sqlTran.Rollback();
+                    }
+                    catch (Exception)
+                    {
+
+                        throw;
+                    }
+                }
+            }
+        }
+
     }
+
 }

@@ -47,12 +47,15 @@
             <div class="col-lg-4">
                 <div class="card bg-light" style="width: 18rem; height: 14rem;">
                     <div class="card-body">
-                        <h5 class="card-title text-secondary">Materiales más vendidos</h5>
-                        <p runat="server" id="subMater1" class="card-text"></p>
+                        <h5 class="card-title text-secondary">Materiales principales</h5>
                         <br />
-                        <p runat="server" id="subMater2" class="card-text"></p>
+                        <asp:LinkButton Style="color: dodgerblue" ID="subMat1" runat="server" OnClick="click_SeleccMat1"></asp:LinkButton>
                         <br />
-                        <p runat="server" id="subMater3" class="card-text"></p>
+                        <asp:LinkButton Style="color: dodgerblue" ID="subMat2" runat="server" OnClick="click_SeleccMat2"></asp:LinkButton>
+                        <br />
+                        <asp:LinkButton Style="color: dodgerblue" ID="subMat3" runat="server" OnClick="click_SeleccMat3"></asp:LinkButton>
+
+                        <asp:LinkButton Style="color: dodgerblue" ID="matNoHay" runat="server" OnClick="click_SeleccMatNo"></asp:LinkButton>
                     </div>
                 </div>
             </div>

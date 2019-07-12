@@ -10,25 +10,30 @@ namespace BL
     {
         public String codigoM { get; set; }
         public String nombreMaterial { get; set; }
-        public double precioKilo { get; set; }
-        public BLUnidad unidadBase { get; set; }
+        public double precioVentaK { get; set; }
+        public String cod_Unidad { get; set; }
+        public double precioCompraK { get; set; }
+        public Boolean estado_Material { get; set; }
 
-        public BLMaterial(String codigoM, String nombreMaterial, double precioKilo, BLUnidad unidadBase)
+        public BLMaterial(String codigoM, String nombreMaterial, double precioVentaK, String cod_Unidad, double precioCompraK, Boolean estado_Material)
         {
             this.codigoM = codigoM;
             this.nombreMaterial = nombreMaterial;
-            this.precioKilo = precioKilo;
-            this.unidadBase = unidadBase;
+            this.precioVentaK = precioVentaK;
+            this.cod_Unidad = cod_Unidad;
+            this.precioCompraK = precioCompraK;
+            this.estado_Material = estado_Material;
         }
 
         public BLMaterial()
         {
         }
-        public BLMaterial(string codigo, string nom, double precio)
-        {
-            this.codigoM = codigo;
-            this.nombreMaterial = nom;
-            this.precioKilo = precio;
-        }
+
+        //public BLMaterial(string codigo, string nom, double precio)
+        //{
+        //    this.codigoM = codigo;
+        //    this.nombreMaterial = nom;
+        //    this.precioKilo = precio;
+        //}
     }
 }

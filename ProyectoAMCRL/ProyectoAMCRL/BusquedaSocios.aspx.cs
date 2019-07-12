@@ -146,12 +146,6 @@ namespace ProyectoAMCRL
             }
         }
 
-        protected void btnActualizar_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
         protected void txtPalabra_TextChanged(object sender, EventArgs e)
         {
             this.buscar();
