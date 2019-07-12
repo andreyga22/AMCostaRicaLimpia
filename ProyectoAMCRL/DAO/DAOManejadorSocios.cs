@@ -24,7 +24,7 @@ namespace DAO
         /// <param name="soc">Socio a guardar o modificar</param>
         public void guardarModificarSocio(TOSocioNegocio soc)
         {
-       SqlConnection conexion2 = new SqlConnection(Properties.Settings.Default.conexionHost);
+            SqlConnection conexion2 = new SqlConnection(Properties.Settings.Default.conexionHost);
             using (conexion2)
             {
                 if (conexion.State != ConnectionState.Open)
@@ -54,7 +54,7 @@ namespace DAO
                         int resul = 0;
                         resul = Convert.ToInt32(sentencia.ExecuteScalar());
 
-                        
+
                         sentencia.CommandText =
                      "insert into Socio_Negocio (cedula, nombre, rol_socio, apellido1, apellido2, estado_socio, cod_direccion, fecha_ingreso) values (@cedula, @nombre, @rol, @apellido1, @apellido2, @estado, @cod_dir, @fecha);";
                         sentencia.Parameters.AddWithValue("@cedula", soc.cedula);
@@ -74,8 +74,8 @@ namespace DAO
                         sentencia.Parameters.AddWithValue("@telefono_hab", soc.contactos.telefono_hab);
                         sentencia.Parameters.AddWithValue("@telefono_pers", soc.contactos.telefono_pers);
                         sentencia.Parameters.AddWithValue("@email", soc.contactos.email);
-                        
-                        
+
+
                         sentencia.ExecuteNonQuery();
 
                         sqlTran.Commit();
@@ -120,7 +120,7 @@ namespace DAO
                         sqlTran.Commit();
                         //if (conexion.State != ConnectionState.Closed)
                         //{
-                            conexion2.Close();
+                        conexion2.Close();
                         //}
                     }
                 }
@@ -144,15 +144,15 @@ namespace DAO
             }
         }
 
-            /// <summary>
-            /// Método que crea una tabla con los socios que cumplan con un criterio especificado.
-            /// </summary>
-            /// <param name="busqueda">Criterio de filtrado</param>
-            /// <returns>Tabla con socios</returns>
-            public DataTable buscarTabla(string busqueda)
+        /// <summary>
+        /// Método que crea una tabla con los socios que cumplan con un criterio especificado.
+        /// </summary>
+        /// <param name="busqueda">Criterio de filtrado</param>
+        /// <returns>Tabla con socios</returns>
+        public DataTable buscarTabla(string busqueda)
         {
-            //try
-            //{
+            try
+            {
                 using (conexion)
                 {
                     SqlCommand cmd = conexion.CreateCommand();
@@ -174,15 +174,92 @@ namespace DAO
                         return dt;
                     }
                 }
-            //}
-            //catch (Exception)
-            //{
-            //    throw;
-            //}
-            //finally
-            //{
-            //    conexion.Close();
-            //}
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conexion.Close();
+            }
+        }
+
+        public DataTable buscarTablaIzquierda(string busqueda, string id)
+        {
+            try
+            {
+                using (conexion)
+                {
+                    SqlCommand cmd = conexion.CreateCommand();
+                    string sql = "Select CEDULA as Cédula, NOMBRE + ' ' +  APELLIDO1 + ' ' + APELLIDO2 as Nombre from SOCIO_NEGOCIO";
+
+                    if (string.IsNullOrEmpty(busqueda) == false)
+                    {
+                        sql += " where ((CEDULA LIKE '%' + @pal + '%') or (NOMBRE LIKE '%' + @pal + '%')  or (APELLIDO1 LIKE '%' + @pal + '%') or (APELLIDO2 LIKE '%' + @pal + '%')) AND ESTADO_SOCIO = 1;";
+
+                        cmd.Parameters.AddWithValue("@pal", busqueda);
+                    }
+                    cmd.CommandText = sql;
+                    cmd.Connection = conexion;
+                    using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        sda.Fill(dt);
+                        int filas = dt.Rows.Count;
+                        for (int i = 0; i < filas; i++)
+                        {
+                            string s = Convert.ToString(dt.Rows[i]["Cédula"]);
+                            if ((Convert.ToString(dt.Rows[i]["Cédula"])).Equals(id))
+                            {
+                                dt.Rows.Remove(dt.Rows[i]);
+                                break;
+                            }
+                        }
+                        return dt;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conexion.Close();
+            }
+        }
+
+        public DataTable buscarTablaDerecha(string socio)
+        {
+            try
+            {
+                using (conexion)
+                {
+                    SqlCommand cmd = conexion.CreateCommand();
+                    string sql = "select Cedula as Cédula, (nombre + ' ' + apellido1 + ' ' + apellido2 + ' ') as Nombre from SOCIO_NEGOCIO where cedula in (select asociado from Asociaciones where socio = @pal);";
+
+
+                    cmd.Parameters.AddWithValue("@pal", socio);
+
+                    cmd.CommandText = sql;
+                    cmd.Connection = conexion;
+                    using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        sda.Fill(dt);
+                        return dt;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conexion.Close();
+            }
         }
 
         /// <summary>
@@ -190,7 +267,8 @@ namespace DAO
         /// </summary>
         /// <param name="cedula">cédula del socio</param>
         /// <returns>código de dirección asociado</returns>
-        public int buscarCodDireccion(string cedula) {
+        public int buscarCodDireccion(string cedula)
+        {
             try
             {
                 int direccion = 0;
@@ -232,47 +310,14 @@ namespace DAO
         }
 
 
-        //public DataTable buscarSociosFiltro(String busqueda)
-        //{
-        //    try
-        //    {
-        //        using (conexion)
-        //        {
-        //            SqlCommand buscar = conexion.CreateCommand();
-        //            String sql = "Select cedula, nombre, apellido1, apellido2, rol from SOCIO_NEGOCIO";
-        //            if (!string.IsNullOrEmpty(busqueda))
-        //            {
-        //                sql += busqueda;
-        //                buscar.CommandText = sql;
-        //                buscar.Connection = conexion;
-        //                using (SqlDataAdapter adapter = new SqlDataAdapter(buscar))
-        //                {
-        //                    DataTable tabla = new DataTable();
-        //                    adapter.Fill(tabla);
-        //                    return tabla;
-        //                }
-
-
-        //            }
-        //        }
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw;
-        //    }
-        //    finally
-        //    {
-        //        conexion.Close();
-        //    }
-        //    return null;
-        //}
+        
 
         /// <summary>
         /// Método que busca a un socio en específico por medio de su número de cédula.
         /// </summary>
         /// <param name="cedula">Cédula de identidad del socio</param>
         /// <returns>Socio de Negocio</returns>
+
         public TOSocioNegocio buscarSocioCedula(String cedula)
         {
             int codigo = 0;
@@ -317,7 +362,7 @@ namespace DAO
                         }
                         return socio;
                     }
-                    
+
                 }
             }
             catch (Exception ex)
@@ -370,7 +415,8 @@ namespace DAO
                     conexion2.Close();
                 }
                 return null;
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw;
             }
@@ -419,7 +465,9 @@ namespace DAO
                     conexion2.Close();
                 }
                 return null;
-            }catch (Exception ex){
+            }
+            catch (Exception ex)
+            {
                 throw;
             }
             finally
@@ -434,7 +482,7 @@ namespace DAO
         /// <param name="cedulaAsociado">Cédula del socio de negocio que se encuentra asociado</param>
         /// <param name="cedulaSocio">Cédula de quien le es asociado otro socio de negocio</param>
         /// <returns></returns>
-        public Boolean asociarSocio(String cedulaAsociado, String cedulaSocio)
+        public void asociarSocio(String cedulaAsociado, String cedulaSocio)
         {
             try
             {
@@ -442,20 +490,18 @@ namespace DAO
                 if (conexion.State == ConnectionState.Closed)
                 {
                     conexion.Open();
-
-                    asociar.Parameters.AddWithValue("@SOCIO", cedulaSocio);
-                    asociar.Parameters.AddWithValue("@ASOCIADO", cedulaAsociado);
-
-                    asociar.ExecuteNonQuery();
-                    if (conexion.State == ConnectionState.Open)
-                    {
-                        conexion.Close();
-                    }
-                    return true;
                 }
-                return false;
+                asociar.Parameters.AddWithValue("@SOCIO", cedulaSocio);
+                asociar.Parameters.AddWithValue("@ASOCIADO", cedulaAsociado);
+
+                asociar.ExecuteNonQuery();
+                if (conexion.State == ConnectionState.Open)
+                {
+                    conexion.Close();
+                }
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 throw;
             }
             finally
@@ -464,6 +510,33 @@ namespace DAO
             }
         }
 
+        public void desasociarSocio(String cedulaAsociado, String cedulaSocio)
+        {
+            try
+            {
+                SqlCommand asociar = new SqlCommand("Delete from Asociaciones where Socio = @socio AND Asociado = @ASOCIADO", conexion);
+                if (conexion.State == ConnectionState.Closed)
+                {
+                    conexion.Open();
+                }
+                asociar.Parameters.AddWithValue("@SOCIO", cedulaSocio);
+                asociar.Parameters.AddWithValue("@ASOCIADO", cedulaAsociado);
+
+                asociar.ExecuteNonQuery();
+                if (conexion.State == ConnectionState.Open)
+                {
+                    conexion.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                conexion.Close();
+            }
+        }
 
 
         public TOSocioNegocio buscarSocio(string id, String tipoSocio)
@@ -536,7 +609,9 @@ namespace DAO
                         return null;
                     }
                 }
-            }catch{
+            }
+            catch
+            {
                 throw;
             }
             finally
@@ -643,5 +718,5 @@ namespace DAO
             }
         }
     }
-    
+
 }

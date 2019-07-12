@@ -64,7 +64,8 @@
                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle font-weight-bolder">
                         <i class="fas fa-users"></i>Socios</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
-                        <li><a href="RegistroSociosUI.aspx">Agregar socio</a></li>
+                        <li><asp:LinkButton ID="RegistroLB" runat="server" OnClick="RegistroLB_Click">Agregar Socio</asp:LinkButton></li>
+                        
                         <li><a href="BusquedaSocios.aspx">Búsqueda socios</a></li>
                     </ul>
                 </li>
@@ -130,7 +131,7 @@
                         <i class="fas fa-wrench"></i>Otros</a>
                     <ul class="collapse list-unstyled" id="otrosSubmenu">
                         <li><a href="AdministrarMonedas.aspx">Administrar Monedas</a></li>
-                        <li> <a href="UnidadMedida.aspx">Unidades medida</a></li>
+                        <li> <a href="AdministrarUnidadesMedida.aspx">Administrar Unidades medida</a></li>
                     </ul>
                 </li>
  <div id="cuentasSubmenu2" runat="server">
@@ -138,7 +139,7 @@
                     <a href="#cuentasSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle font-weight-bolder">
                         <i class="fa fa-cog"></i>Cuentas</a>
                     <ul class="collapse list-unstyled" id="cuentasSubmenu">
-                        <li><asp:LinkButton ID="cuentasLb" CausesValidation="False" runat="server" OnClick="cuentasLb_Click">Administrar cuentas</asp:LinkButton></li>
+                        <li><asp:LinkButton ID="cuentasLb" runat="server" OnClick="cuentasLb_Click">Administrar cuentas</asp:LinkButton></li>
                     </ul>
                 </li>
                 </div>

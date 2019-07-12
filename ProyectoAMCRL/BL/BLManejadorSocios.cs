@@ -94,6 +94,30 @@ namespace BL
             }
         }
 
+        public DataTable buscarIzquierdaSocios(string busqueda, string id)
+        {
+            try
+            {
+                return new DAOManejadorSocios().buscarTablaIzquierda(busqueda, id);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public DataTable buscarDerechaSocios(string busqueda)
+        {
+            try
+            {
+                return new DAOManejadorSocios().buscarTablaDerecha(busqueda);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         /// <summary>
         /// Método para crear un nuevo objeto BLSocio a partir de un objeto de transferencia de socio.
         /// </summary>
@@ -155,7 +179,6 @@ namespace BL
         //    }
         //}
 
-
         public BLSocioNegocio buscarSocio(String id, String tipoSocio) {
             DAOManejadorSocios manejadorDAO = new DAOManejadorSocios();
             TOSocioNegocio socioTO = manejadorDAO.buscarSocio(id, tipoSocio);
@@ -187,6 +210,15 @@ namespace BL
                 socioBL.direccion = new BLDireccion(tODireccion.provincia, tODireccion.canton, tODireccion.distrito, tODireccion.otras_sennas, tODireccion.cod_direccion);
   
             return socioBL;
+        }
+
+        public void asociarSocio(string asociado, string socio) {
+            manejadorDAO.asociarSocio(asociado, socio);
+        }
+
+        public void desasociarSocio(string asociado, string socio)
+        {
+            manejadorDAO.desasociarSocio(asociado, socio);
         }
 
 

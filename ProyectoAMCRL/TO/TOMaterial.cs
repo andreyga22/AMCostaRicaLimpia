@@ -8,33 +8,25 @@ namespace TO
 {
     public class TOMaterial
     {
-        private string codigo;
-        private string nom;
-        private double precio;
-
         public String codigoM { get; set; }
         public String nombreMaterial { get; set; }
-        public double precioKilo { get; set; }
-        public TOUnidad unidadBase { get; set; }
+        public double precioVentaK { get; set; }
+        public String cod_Unidad { get; set; }
+        public double precioCompraK { get; set; }
+        public Boolean estado_Material { get; set; }
 
-        public TOMaterial(String codigoM, String nombreMaterial, double precioKilo, TOUnidad unidadBase)
+        public TOMaterial(String codigoM, String nombreMaterial, double precioVentaK, String cod_Unidad, double precioCompraK, Boolean estado_Material)
         {
-
             this.codigoM = codigoM;
             this.nombreMaterial = nombreMaterial;
-            this.precioKilo = precioKilo;
-            this.unidadBase = unidadBase;
+            this.precioVentaK = precioVentaK;
+            this.cod_Unidad = cod_Unidad;
+            this.precioCompraK = precioCompraK;
+            this.estado_Material = estado_Material;
         }
 
         public TOMaterial()
         {
-        }
-
-        public TOMaterial(string codigo, string nom, double precio)
-        {
-            this.codigo = codigo;
-            this.nom = nom;
-            this.precio = precio;
         }
     }
 }
