@@ -23,6 +23,7 @@ namespace ProyectoAMCRL
                 {
                     if (ViewState["sorting"] == null)
                     {
+                        Session["idSocio"] = null;
                         this.buscar();
                     }
                 }

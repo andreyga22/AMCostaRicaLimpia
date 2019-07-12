@@ -36,11 +36,12 @@
         <div class="form-row">
             <div class="form-group offset-1 col-md-5">
                 <label for="idTB">Identificación*</label>
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Campo Requerido" ControlToValidate="idTB" ForeColor="Red" ValidationGroup="socioG"></asp:RequiredFieldValidator>
+                <br />
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Campo Requerido" display="Dynamic" ControlToValidate="idTB" ForeColor="Red" ValidationGroup="socioG"></asp:RequiredFieldValidator>
                 <asp:TextBox type="text" ID="idTB" class="form-control" runat="server"></asp:TextBox>
             </div>
             <div class="form-group col-md-5">
-                <label for="nombreTB">Nombre*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Campo Requerido" ControlToValidate="nombreTB" ForeColor="Red" ValidationGroup="socioG"></asp:RequiredFieldValidator>
+                <label for="nombreTB">Nombre*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator2" display="Dynamic" runat="server" ErrorMessage="Campo Requerido" ControlToValidate="nombreTB" ForeColor="Red" ValidationGroup="socioG"></asp:RequiredFieldValidator>
                 <asp:TextBox type="text" ID="nombreTB" class="form-control" runat="server"></asp:TextBox>
             </div>
         </div>
@@ -58,16 +59,20 @@
 
         <div class="form-row">
             <div class="form-group offset-1 col-md-3">
-                <label for="telTB">Teléfono Habitación*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Campo Requerido" ControlToValidate="telTB" ForeColor="Red" ValidationGroup="socioG"></asp:RequiredFieldValidator>
+                <label for="telTB">Teléfono Habitación*&nbsp;&nbsp;&nbsp; </label><asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Campo Requerido" display="Dynamic" ControlToValidate="telTB" ForeColor="Red" ValidationGroup="socioG"></asp:RequiredFieldValidator>
+                &nbsp;
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator1" display="Dynamic" runat="server" ErrorMessage="Solo números permitidos" ControlToValidate="telTB" ForeColor="Red" ValidationExpression="^\d{8}$" ValidationGroup="socioG"></asp:RegularExpressionValidator>
                 <asp:TextBox type="text" ID="telTB" class="form-control" runat="server"></asp:TextBox>
             </div>
             <div class="form-group col-md-3">
-                <label for="tel2TB">Teléfono Personal*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="Campo Requerido" ControlToValidate="tel2TB" ForeColor="Red" ValidationGroup="socioG"></asp:RequiredFieldValidator>
+                <label for="tel2TB">Teléfono Personal*&nbsp;&nbsp;&nbsp; </label><asp:RequiredFieldValidator ID="RequiredFieldValidator4" display="Dynamic" runat="server" ErrorMessage="Campo Requerido" ControlToValidate="tel2TB" ForeColor="Red" ValidationGroup="socioG"></asp:RequiredFieldValidator>
+                &nbsp;
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator2" display="Dynamic" runat="server" ErrorMessage="Solo números permitidos" ControlToValidate="tel2TB" ForeColor="Red" ValidationExpression="^\d{8}$" ValidationGroup="socioG"></asp:RegularExpressionValidator>
                 <asp:TextBox type="text" ID="tel2TB" class="form-control" runat="server"></asp:TextBox>
             </div>
             <div class="form-group col-md-4">
                 <label for="correoTB">Correo electrónico*</label><br />
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="Campo Requerido" ControlToValidate="correoTB" ForeColor="Red" ValidationGroup="socioG"></asp:RequiredFieldValidator>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator5" display="Dynamic" runat="server" ErrorMessage="Campo Requerido" ControlToValidate="correoTB" ForeColor="Red" ValidationGroup="socioG"></asp:RequiredFieldValidator>
                 <asp:TextBox type="email" ID="correoTB" class="form-control" runat="server"></asp:TextBox>
             </div>
         </div>
@@ -80,22 +85,22 @@
 
         <div class="form-row">
             <div class="form-group offset-1 col-md-5">
-                <label for="provinciaTB">Provincia*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="Campo Requerido" ControlToValidate="provinciaTB" ForeColor="Red" ValidationGroup="socioG"></asp:RequiredFieldValidator>
+                <label for="provinciaTB">Provincia*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator6" display="Dynamic" runat="server" ErrorMessage="Campo Requerido" ControlToValidate="provinciaTB" ForeColor="Red" ValidationGroup="socioG"></asp:RequiredFieldValidator>
                 <asp:TextBox type="text" ID="provinciaTB" class="form-control" runat="server"></asp:TextBox>
             </div>
             <div class="form-group col-md-5">
-                <label for="cantonTB">Cantón*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ErrorMessage="Campo Requerido" ControlToValidate="cantonTB" ForeColor="Red" ValidationGroup="socioG"></asp:RequiredFieldValidator>
+                <label for="cantonTB">Cantón*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator7" display="Dynamic" runat="server" ErrorMessage="Campo Requerido" ControlToValidate="cantonTB" ForeColor="Red" ValidationGroup="socioG"></asp:RequiredFieldValidator>
                 <asp:TextBox type="text" ID="cantonTB" class="form-control" runat="server"></asp:TextBox>
             </div>
         </div>
 
         <div class="form-row">
             <div class="form-group offset-1 col-md-5">
-                <label for="distritoTB">Distrito*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ErrorMessage="Campo Requerido" ControlToValidate="distritoTB" ForeColor="Red" ValidationGroup="socioG"></asp:RequiredFieldValidator>
+                <label for="distritoTB">Distrito*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator8" display="Dynamic" runat="server" ErrorMessage="Campo Requerido" ControlToValidate="distritoTB" ForeColor="Red" ValidationGroup="socioG"></asp:RequiredFieldValidator>
                 <asp:TextBox type="text" ID="distritoTB" class="form-control" runat="server"></asp:TextBox>
             </div>
             <div class="form-group col-md-5">
-                <label for="sennas">Otras Señas*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ErrorMessage="Campo Requerido" ControlToValidate="sennas" ForeColor="Red" ValidationGroup="socioG"></asp:RequiredFieldValidator>
+                <label for="sennas">Otras Señas*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator9" display="Dynamic" runat="server" ErrorMessage="Campo Requerido" ControlToValidate="sennas" ForeColor="Red" ValidationGroup="socioG"></asp:RequiredFieldValidator>
                 <asp:TextBox type="text" ID="sennas" class="form-control" runat="server"></asp:TextBox>
             </div>
         </div>

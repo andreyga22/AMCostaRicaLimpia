@@ -69,5 +69,11 @@ namespace ProyectoAMCRL
             Session.Add("modo", "compra");
             Response.Redirect("BusquedaFacturas.aspx");
         }
+
+        protected void RegistroLB_Click(object sender, EventArgs e)
+        {
+            Session["idSocio"] = null;
+            Response.Redirect("RegistroSociosUI.aspx");
+        }
     }
 }
