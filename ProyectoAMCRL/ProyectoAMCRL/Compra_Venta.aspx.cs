@@ -198,7 +198,7 @@ namespace ProyectoAMCRL
                 buscarSocioBTN.Visible = false;
                 materialDD.Visible = false;
                 precioKgTB.Visible = false;
-                cantidad2TB.Visible = false;
+                cantidadTB.Visible = false;
                 unidadDD.Visible = false;
                 agregarLineaBTN.Visible = false;
                 infoLineaLabel.Visible = false;
@@ -275,13 +275,13 @@ namespace ProyectoAMCRL
 
         protected void agregarLineaClick(object sender, EventArgs e)
         {
-            if (!(String.IsNullOrEmpty(cantidad2TB.Value)))
+            if (!(String.IsNullOrEmpty(cantidadTB.Text)))
             {
-                cantidad2TB.Style.Add("border-color", "transparent");
+                cantidadTB.Style.Add("border-color", "transparent");
                 String lineaAjusteInfo = "";
                 Double precioEspecificado = String.IsNullOrEmpty(precioKgTB.Text) ? 0 : Double.Parse(precioKgTB.Text);
                 lineaAjusteInfo = materialDD.SelectedItem.Value + '#' + materialDD.SelectedItem.Text + "&" +
-                precioEspecificado + "&" + cantidad2TB.Value + "&" + unidadDD.SelectedItem.Value + '#' + unidadDD.SelectedItem.Text;
+                precioEspecificado + "&" + cantidadTB.Text + "&" + unidadDD.SelectedItem.Value + '#' + unidadDD.SelectedItem.Text;
                 detalles.Add(lineaAjusteInfo);
                 Session.Add("listaDetallesC", detalles);
                 pegarLineasTabla();
@@ -290,7 +290,7 @@ namespace ProyectoAMCRL
             }
             else
             {
-                cantidad2TB.Style.Add("border-color", "red");
+                cantidadTB.Style.Add("border-color", "red");
                 pegarLineasTabla();
                 lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>Cantidad especificada incorrecta, intente de nuevo</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\" onclick=\"cerrarError()\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                 lblError.Visible = true;
@@ -412,7 +412,7 @@ namespace ProyectoAMCRL
         {
             materialDD.SelectedIndex = 0;
             precioKgTB.Text = "";
-            cantidad2TB.Value = "";
+            cantidadTB.Text = "";
             unidadDD.SelectedIndex = 1;
         }
 

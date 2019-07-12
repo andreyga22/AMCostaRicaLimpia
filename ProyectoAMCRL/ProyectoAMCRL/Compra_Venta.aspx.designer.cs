@@ -166,13 +166,13 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.TextBox precioKgTB;
         
         /// <summary>
-        /// Control cantidad2TB.
+        /// cantidadTB control.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl cantidad2TB;
+        protected global::System.Web.UI.WebControls.TextBox cantidadTB;
         
         /// <summary>
         /// Control unidadDD.
@@ -193,7 +193,25 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.LinkButton agregarLineaBTN;
         
         /// <summary>
-        /// Control labelAgregados.
+        /// RegularExpressionValidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator1;
+        
+        /// <summary>
+        /// RegularExpressionValidator2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator2;
+        
+        /// <summary>
+        /// labelAgregados control.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
