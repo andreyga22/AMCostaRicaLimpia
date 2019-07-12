@@ -198,7 +198,7 @@ namespace ProyectoAMCRL
                 buscarSocioBTN.Visible = false;
                 materialDD.Visible = false;
                 precioKgTB.Visible = false;
-                cantidad2TB.Visible = false;
+                cantidadTB.Visible = false;
                 unidadDD.Visible = false;
                 agregarLineaBTN.Visible = false;
                 infoLineaLabel.Visible = false;

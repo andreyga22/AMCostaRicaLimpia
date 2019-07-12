@@ -163,19 +163,19 @@
         <div class="row" style="margin-left: 0%; padding-left: 0%;" id="filaAgregarDetalles">
             <asp:Label ID="infoLineaLabel" Text="Datos línea:" runat="server" class="font-weight-bolder" Style="margin-top: 4px; margin-right: 10px" />
             <%-- Producto --%>
-            <asp:DropDownList ID="materialDD" OnSelectedIndexChanged="materialDD_SelectedIndexChanged" class="btn btn-sm btn-light dropdown-toggle" type="dropdown" ata-toggle="dropdown" aria-haspopup="true" aria-expanded="false" runat="server" AutoPostBack="true"></asp:DropDownList>   
+            <asp:DropDownList ID="materialDD" OnSelectedIndexChanged="materialDD_SelectedIndexChanged" class="form-control form-control-sm dropdown-toggle" type="dropdown" ata-toggle="dropdown" aria-haspopup="true" aria-expanded="false" runat="server" AutoPostBack="true" Width="150px"></asp:DropDownList>   
             <%-- Precio kilo --%>
             <div class="col-2" style="margin-left: 5px">
-                <asp:TextBox runat="server" ID="precioKgTB" placeholder="Precio" type="text"  class="form-control"/>
+                <asp:TextBox runat="server" ID="precioKgTB" placeholder="Precio" type="text"  class="form-control form-control-sm"/>
             </div>
             <%-- Cantidad --%>
             <div class="col-2">
-                <asp:TextBox placeholder="Cantidad" runat="server" name="name" value="" step=".01" min="0" id="cantidadTB" class="btn btn-light btn-sm" style="width: 100%" ValidationGroup="facturaG"/>
+                <asp:TextBox placeholder="Cantidad" runat="server" name="name" value="" step=".01" min="0" id="cantidadTB" class="form-control form-control-sm" style="width: 100%" ValidationGroup="facturaG"/>
                 <%--                        <asp:TextBox Width="100%" ID="cantidadTB" runat="server" type="number" CssClass="btn btn-light btn-sm" />--%>
             </div>
             <%-- Unidad --%>
             <div class="col-3">
-                <asp:DropDownList Width="100%" ID="unidadDD" runat="server" CssClass="btn dropup btn-light btn-sm dropu"></asp:DropDownList>
+                <asp:DropDownList Width="100%" ID="unidadDD" runat="server" CssClass="form-control form-control-sm"></asp:DropDownList>
             </div>
             <%-- Acción --%>
             <div class="col-1">
