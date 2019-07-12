@@ -206,8 +206,8 @@ namespace DAO
                     {
                         DataTable dt = new DataTable();
                         sda.Fill(dt);
-                        int numberofrows = dt.Rows.Count;
-                        for (int i = 0; i < numberofrows; i++)
+                        int filas = dt.Rows.Count;
+                        for (int i = 0; i < filas; i++)
                         {
                             string s = Convert.ToString(dt.Rows[i]["Cédula"]);
                             if ((Convert.ToString(dt.Rows[i]["Cédula"])).Equals(id))
@@ -237,7 +237,7 @@ namespace DAO
                 using (conexion)
                 {
                     SqlCommand cmd = conexion.CreateCommand();
-                    string sql = "select Cedula, (nombre + ' ' + apellido1 + ' ' + apellido2 + ' ') as Nombre from SOCIO_NEGOCIO where cedula in (select asociado from Asociaciones where socio = @pal);";
+                    string sql = "select Cedula as Cédula, (nombre + ' ' + apellido1 + ' ' + apellido2 + ' ') as Nombre from SOCIO_NEGOCIO where cedula in (select asociado from Asociaciones where socio = @pal);";
 
 
                     cmd.Parameters.AddWithValue("@pal", socio);

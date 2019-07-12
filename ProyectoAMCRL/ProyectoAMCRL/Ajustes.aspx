@@ -167,7 +167,7 @@
     <div class="container">
 
         <a href="DetalleAjuste.aspx" class="btn btn-info btn-sm" style="float: right">
-            <span class="fa fa-plus"></span>
+            <span class="font-weight-bolder">Nuevo</span>
         </a>
         <table class="table table-bordered table-sm" id="tablaAjustes">
             <thead class="tabla_encabezado">

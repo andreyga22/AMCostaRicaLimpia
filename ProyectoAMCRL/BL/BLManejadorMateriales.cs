@@ -161,6 +161,10 @@ namespace BL
             return new BLMaterial(to.codigoM, to.nombreMaterial, to.precioVentaK, to.cod_Unidad, to.precioCompraK, to.estado_Material);
         }
 
+        public DataSet traerUnidadYprecioBase(string codigo, char tipoPrecio)
+        {
+            return manejador.traerUnidadYprecioBaseDAO(codigo, tipoPrecio);
+        }
         //public BLMaterial buscarMaterial(string clave) {
 
         //    TOMaterial materialTO = manejador.buscarMaterialDAO(clave);

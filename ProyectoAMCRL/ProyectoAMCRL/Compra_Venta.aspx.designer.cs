@@ -139,7 +139,16 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.TextBox datepickerT;
         
         /// <summary>
-        /// Control materialDD.
+        /// infoLineaLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label infoLineaLabel;
+        
+        /// <summary>
+        /// materialDD control.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
