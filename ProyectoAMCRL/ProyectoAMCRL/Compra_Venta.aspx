@@ -162,18 +162,15 @@
         <%-- FILA PARA AGREGAR --%>
         <div class="row" style="margin-left: 0%; padding-left: 0%;" id="filaAgregarDetalles">
             <asp:Label ID="infoLineaLabel" Text="Datos línea:" runat="server" class="font-weight-bolder" Style="margin-top: 4px; margin-right: 10px" />
-
             <%-- Producto --%>
             <asp:DropDownList ID="materialDD" OnSelectedIndexChanged="materialDD_SelectedIndexChanged" class="btn btn-sm btn-light dropdown-toggle" type="dropdown" ata-toggle="dropdown" aria-haspopup="true" aria-expanded="false" runat="server" AutoPostBack="true"></asp:DropDownList>   
-<%--            <input type="search" placeholder="Código/ Nombre material" runat="server" clientidmode="Static" name="name" value="" step=".01" min="0" id="idNameTB" onkeypress="Textbox1_KeyPress" onkeydown="" onkeyup="" class="btn btn-light btn-sm" style="width: 100%" />--%>
             <%-- Precio kilo --%>
             <div class="col-2" style="margin-left: 5px">
-                <asp:TextBox runat="server" id="precioKgTB" placeholder="Precio" class="btn btn-light btn-sm"/>
-<%--                <input type="number" placeholder="Precio" runat="server" clientidmode="Static" name="name" value="" step=".01" min="0" id="precioKg2TB" class="btn btn-light btn-sm" style="width: 100%" />--%>
+                <asp:TextBox runat="server" ID="precioKgTB" placeholder="Precio" type="text"  class="form-control"/>
             </div>
             <%-- Cantidad --%>
             <div class="col-2">
-                <input type="number" placeholder="Cantidad " runat="server" clientidmode="Static" name="name" value="" step=".01" min="0" id="cantidad2TB" class="btn btn-light btn-sm" style="width: 100%" />
+                <asp:TextBox placeholder="Cantidad" runat="server" name="name" value="" step=".01" min="0" id="cantidadTB" class="btn btn-light btn-sm" style="width: 100%" ValidationGroup="facturaG"/>
                 <%--                        <asp:TextBox Width="100%" ID="cantidadTB" runat="server" type="number" CssClass="btn btn-light btn-sm" />--%>
             </div>
             <%-- Unidad --%>
@@ -182,9 +179,21 @@
             </div>
             <%-- Acción --%>
             <div class="col-1">
-                <asp:LinkButton Width="100%" ID="agregarLineaBTN" runat="server" CssClass="btn btn-secondary btn-sm" OnClick="agregarLineaClick">
+                <asp:LinkButton Width="100%" ID="agregarLineaBTN" runat="server" CssClass="btn btn-secondary btn-sm" OnClick="agregarLineaClick" ValidationGroup="facturaG">
                            <i class="fa fa-plus"></i></asp:LinkButton>
             </div>
+        </div>
+        <div class="row">
+             <div class="col-2" style="margin-right: 4.5%"></div>
+             <div class="col-2">
+              <asp:RegularExpressionValidator ID="RegularExpressionValidator1" display="Dynamic" runat="server" ErrorMessage="Solo números permitidos" ControlToValidate="precioKgTB" ForeColor="Red" ValidationExpression="^\d{1,10}$" ValidationGroup="facturaG"></asp:RegularExpressionValidator>
+             </div>
+             <div class="col-2" style="margin-left:0%;" >
+               <asp:RegularExpressionValidator ID="RegularExpressionValidator2" display="Dynamic" runat="server" ErrorMessage="Solo números permitidos" ControlToValidate="cantidadTB" ForeColor="Red" ValidationExpression="^\d{1,10}$" ValidationGroup="facturaG"></asp:RegularExpressionValidator>
+             </div>
+             <div class="col-3"></div>
+             <div class="col-1"></div>
+
         </div>
 
         <div class="row justify-content-end" style="width: 100%; margin-left: 0%; padding-right: 1%">
