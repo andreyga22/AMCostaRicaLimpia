@@ -52,7 +52,8 @@ namespace ProyectoAMCRL
         private DataTable buscarIzquierda()
         {
             BLManejadorSocios manejador = new BLManejadorSocios();
-            DataTable tabla = manejador.buscarIzquierdaSocios(txtPalabra.Text.Trim(), Convert.ToString(Session["idSocio"]));
+            DataTable tabla = filtrarIzquierda(manejador.buscarIzquierdaSocios(txtPalabra.Text.Trim(), Convert.ToString(Session["idSocio"])), this.buscarDerecha(Convert.ToString(Session["idSocio"])));
+            //comparar
             gridSocios.DataSource = tabla;
             gridSocios.DataBind();
             foreach (GridViewRow row in gridSocios.Rows)
@@ -62,6 +63,27 @@ namespace ProyectoAMCRL
                 lb.Text = "Asociar";
             }
             return tabla;
+        }
+
+        private DataTable filtrarIzquierda(DataTable socios, DataTable asociados)
+        {
+            if (asociados != null && socios != null)
+            {
+                int filasSocios = socios.Rows.Count;
+                int filasAsociados = asociados.Rows.Count;
+                for (int i = 0; i < filasSocios; i++)
+                {
+                    for (int f = 0; f < filasAsociados; f++)
+                    {
+                        if ((socios.Rows[i]["Cédula"]).Equals(asociados.Rows[f]["Cédula"]))
+                        {
+                            socios.Rows.Remove(socios.Rows[i]);
+                            filasSocios--;
+                        }
+                    }
+                }
+            }
+            return socios;
         }
 
         private DataTable buscarDerecha(string cedula)
