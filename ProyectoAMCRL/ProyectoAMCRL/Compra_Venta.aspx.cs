@@ -129,86 +129,88 @@ namespace ProyectoAMCRL
             try
             {
                 BLManejadorFacturas manejFact = new BLManejadorFacturas();
-                BLManejadorMoneda manejMond = new BLManejadorMoneda();
-                BLManejadorSocios manejSocios = new BLManejadorSocios();
-                BLManejadorBodega manejBod = new BLManejadorBodega();
+            BLManejadorMoneda manejMond = new BLManejadorMoneda();
+            BLManejadorSocios manejSocios = new BLManejadorSocios();
+            BLManejadorBodega manejBod = new BLManejadorBodega();
 
-                String tipoFact = "";
-                String tipoSocio = "";
-                BLFactura blFactura = manejFact.buscarVentaID(Convert.ToInt32(id));
-                String texto = "Vista de venta";
-                if (blFactura.tipo.Equals("v"))
-                {
-                    tipoFact = "venta";
-                    tipoSocio = "Cliente";
-                }
-                else
-                {
-                    texto = "Vista de compra";
-                    tipoFact = "compra";
-                    tipoSocio = "Proveedor";
-                }
-                cargarPantalla(tipoFact);
-                labelBreadCrum2.Text = texto;
-
-                BLSocioNegocio socio = manejSocios.buscarSocio(blFactura.cedula, tipoSocio);
-                List<BLDetalleFactura> detallesFactura = manejFact.listaDetalle(blFactura.cod_Factura);
-                BLContactos contac = manejSocios.buscarContactos(blFactura.cedula);
-                if (contac.telefono_pers != 0)
-                {
-                    labelTel.Text = contac.telefono_pers + "";
-                }
-                else
-                {
-                    if (contac.telefono_hab != 0)
-                    {
-                        labelTel.Text = contac.telefono_hab + "";
-                    }
-                    else
-                    {
-                        labelTel.Text = "No posee teléfono";
-                    }
-                }
-
-                foreach (BLDetalleFactura bl in detallesFactura)
-                {
-                    String lineaDetalle = "";
-                    lineaDetalle = bl.nombreMaterial + "&" +
-                    bl.monto_Linea + "&" + bl.kilos_Linea + "&" + " KILOS";
-
-                    detalles.Add(lineaDetalle);
-                    pegarLineasTablaFacturaCargada();
-                    labelAgregados.Text = detalles.Count().ToString();
-                }
-
-                identificacionTB.Text = blFactura.cedula;
-                nombreLabel.Text = blFactura.nombreCompleto;
-                labelDireccion.Text = socio.direccion.distrito + ", " + socio.direccion.canton;
-                monedasDD.Items.Add(manejMond.buscarMonedaId(blFactura.id_Moneda).detalleMoneda);
-                monedasDD.CssClass = "btn btn-light dropdown-toggle";
-
-                bodegasDrop.Items.Add(manejBod.consultarBodegaAdmin(blFactura.id_Bodega).nombre);
-                bodegasDrop.CssClass = "btn btn-light dropdown-toggle";
-
-                datepickerT.Text = blFactura.fecha.Day + "/" + blFactura.fecha.Month + "/" + blFactura.fecha.Year;
-                datepickerT.CssClass = "form-control font-weight-bolder";
-                labelValorDatoConsecutivo.Text = Convert.ToString(blFactura.cod_Factura);
-                totalLabel.Text = Convert.ToString(blFactura.monto_Total);
-
-                //filaAgregarDetalles.Visible = false;
-                buscarSocioBTN.Visible = false;
-                materialDD.Visible = false;
-                precioKg2TB.Visible = false;
-                cantidad2TB.Visible = false;
-                unidadDD.Visible = false;
-                agregarLineaBTN.Visible = false;
+            String tipoFact = "";
+            String tipoSocio = "";
+            BLFactura blFactura = manejFact.buscarVentaID(Convert.ToInt32(id));
+            String texto = "Vista de venta";
+            if (blFactura.tipo.Equals("v"))
+            {
+                tipoFact = "venta";
+                tipoSocio = "Cliente";
             }
+            else
+            {
+                texto = "Vista de compra";
+                tipoFact = "compra";
+                tipoSocio = "Proveedor";
+            }
+            cargarPantalla(tipoFact);
+            labelBreadCrum2.Text = texto;
+
+            BLSocioNegocio socio = manejSocios.buscarSocio(blFactura.cedula, tipoSocio);
+            List<BLDetalleFactura> detallesFactura = manejFact.listaDetalle(blFactura.cod_Factura);
+            BLContactos contac = manejSocios.buscarContactos(blFactura.cedula);
+            if (contac.telefono_pers != 0)
+            {
+                labelTel.Text = contac.telefono_pers + "";
+            }
+            else
+            {
+                if (contac.telefono_hab != 0)
+                {
+                    labelTel.Text = contac.telefono_hab + "";
+                }
+                else
+                {
+                    labelTel.Text = "No posee teléfono";
+                }
+            }
+
+            foreach (BLDetalleFactura bl in detallesFactura)
+            {
+                String lineaDetalle = "";
+                lineaDetalle = bl.nombreMaterial + "&" +
+                bl.monto_Linea + "&" + bl.kilos_Linea + "&" + " KILOS";
+
+                detalles.Add(lineaDetalle);
+                pegarLineasTablaFacturaCargada();
+                labelAgregados.Text = detalles.Count().ToString();
+            }
+
+            identificacionTB.Text = blFactura.cedula;
+            nombreLabel.Text = blFactura.nombreCompleto;
+            labelDireccion.Text = socio.direccion.distrito + ", " + socio.direccion.canton;
+            monedasDD.Items.Add(manejMond.buscarMonedaId(blFactura.id_Moneda).detalleMoneda);
+            monedasDD.CssClass = "btn btn-light dropdown-toggle";
+
+            bodegasDrop.Items.Add(manejBod.consultarBodegaAdmin(blFactura.id_Bodega).nombre);
+            bodegasDrop.CssClass = "btn btn-light dropdown-toggle";
+
+            datepickerT.Text = blFactura.fecha.Day + "/" + blFactura.fecha.Month + "/" + blFactura.fecha.Year;
+            datepickerT.CssClass = "form-control font-weight-bolder";
+            labelValorDatoConsecutivo.Text = Convert.ToString(blFactura.cod_Factura);
+            totalLabel.Text = Convert.ToString(blFactura.monto_Total);
+
+            //filaAgregarDetalles.Visible = false;
+            buscarSocioBTN.Visible = false;
+            materialDD.Visible = false;
+            precioKg2TB.Visible = false;
+            cantidad2TB.Visible = false;
+            unidadDD.Visible = false;
+            agregarLineaBTN.Visible = false;
+            infoLineaLabel.Visible = false;
+
+        }
             catch (Exception)
             {
                 lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>No se ha podido cargar la información de la factura.</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\" onclick=\"cerrarError()\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                 lblError.Visible = true;
             }
-        }
+}
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
@@ -335,7 +337,7 @@ namespace ProyectoAMCRL
 
                 String[] materialInfo = lineaInfo[0].Split('#');
                 String[] idANDstock = materialInfo[0].Split('-');
-                productoCell.Text = idANDstock[0]+"-"+materialInfo[1];
+                productoCell.Text = idANDstock[0] + "-" + materialInfo[1];
                 precioKg.Text = lineaInfo[1];
                 cantidadCell.Text = lineaInfo[2];
                 String[] unidadInfo = lineaInfo[3].Split('#');
@@ -561,7 +563,8 @@ namespace ProyectoAMCRL
             else
                 materialInfoSet = manejadorM.traerUnidadYprecioBase(codigo, 'v');
 
-            if (materialInfoSet != null) {
+            if (materialInfoSet != null)
+            {
                 String unidadBase = Convert.ToString(materialInfoSet.Tables[0].Rows[0]["COD_UNIDAD"]);
                 String precioString = Convert.ToString(materialInfoSet.Tables[0].Rows[0]["PRECIO_BASE"]);
                 double precioBase = Double.Parse(precioString);
@@ -572,7 +575,8 @@ namespace ProyectoAMCRL
                 unidadDD.Items.Clear();
                 cargarUnidades();
 
-                for (int ind = 0; ind < unidadDD.Items.Count; ind++) {
+                for (int ind = 0; ind < unidadDD.Items.Count; ind++)
+                {
                     ListItem item = unidadDD.Items[ind];
                     unidadDD.Items[ind].Selected = false;
                     String[] infoCod = item.Value.Split('*');
@@ -580,7 +584,7 @@ namespace ProyectoAMCRL
 
                     if (cod.Equals(unidadBase))
                     {
-                        
+
                         index = ind;
                         break;
                     }
@@ -596,7 +600,8 @@ namespace ProyectoAMCRL
         }
 
 
-        private void cargarUnidades() {
+        private void cargarUnidades()
+        {
 
             if (manejadorU == null)
                 manejadorU = new BLManejadorUnidades();
