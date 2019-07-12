@@ -72,7 +72,6 @@
                         </div>
                         <br />
                         <br />
-                        <br />
                         <div class="offset-6">
                             <asp:LinkButton ID="olvidoLb" runat="server" data-toggle="modal" style="color: dodgerblue" data-target="#exampleModalCenter" OnClick="olvidoLb_Click">¿Olvidó su contraseña?</asp:LinkButton>
                         </div>
