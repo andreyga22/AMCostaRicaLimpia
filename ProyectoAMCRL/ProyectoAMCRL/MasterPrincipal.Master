@@ -172,10 +172,29 @@
                     <div class="col" style="width:100%">
                      <div style="float:right;">
 
-                         <button runat="server" id="bntCambiarContraseña" class="btn btn-secondary btn-sm" CausesValidation="False" onserverclick="cambiarContra">
+                         <script>
+                             function handleKeypress(e) {
+
+                                 e = e || window.event;
+                                 if (e == null) {
+                                     return false;
+                                 }
+
+                                 if (e.keycode == 13) {
+                                     CompleteEvent(e);
+                                 }
+                             }
+
+                             function CompleteEvent(e) {
+                                 e.cancelBubble = true;
+                                 e.returnValue = false;
+                             }
+                         </script>
+
+                         <button runat="server" id="bntCambiarContraseña" class="btn btn-secondary btn-sm" onserverclick="cambiarContra">
                                     <i class="fas fa-user" style="margin-right: 4%"></i>
                                     Configuración</button>
-                          <button runat="server" id="btnSalir" class="btn btn-secondary btn-sm" CausesValidation="False" onserverclick="cerrarSesion">
+                          <button runat="server" id="btnSalir" class="btn btn-secondary btn-sm" onserverclick="cerrarSesion">
                                     <i class="fas fa-sign-out-alt" style="margin-right: 4%"></i>
                                     Salir</button>
 
