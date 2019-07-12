@@ -101,11 +101,12 @@
             <div class="col-lg-4">
                 <div class="row" style="margin-left: 0%">
                     <div>
-                        <asp:TextBox onkeypress="Textbox1_KeyPress" AutoPostBack="false" Width="98%" CssClass="form-control " runat="server" ID="identificacionTB"></asp:TextBox>
+                        <asp:TextBox onkeypress="" AutoPostBack="false" Width="98%" CssClass="form-control " runat="server" ID="identificacionTB"></asp:TextBox>
                     </div>
                     <asp:LinkButton CssClass="btn btn-light" ID="buscarSocioBTN" runat="server" Text="Buscar" OnClick="buscarSocioBTN_Click"><i class="fa fa-search" style="margin-right:3px"></i></asp:LinkButton>
                 </div>
             </div>
+
             <%-- direccion --%>
             <div class="col-lg-5" style="padding-top: 5px">
                 <label class=" campoIzq" for="labelDireccion">Dirección: </label>

@@ -195,7 +195,7 @@ namespace ProyectoAMCRL
                 labelValorDatoConsecutivo.Text = Convert.ToString(blFactura.cod_Factura);
                 totalLabel.Text = Convert.ToString(blFactura.monto_Total);
 
-                filaAgregarDetalles.Visible = false;
+                //filaAgregarDetalles.Visible = false;
                 buscarSocioBTN.Visible = false;
                 materialDD.Visible = false;
                 precioKg2TB.Visible = false;
