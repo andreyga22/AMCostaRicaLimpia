@@ -48,16 +48,16 @@
         #divDetallesEncabezado {
             border-left: 1px solid #e8e8e8;
             border-right: 1px solid #e8e8e8;
-           
         }
 
 
         #divDetalles {
-             border-top: 1px solid #e8e8e8;
+            border-top: 1px solid #e8e8e8;
             border-left: 1px solid #e8e8e8;
             border-right: 1px solid #e8e8e8;
             border-bottom: 1px solid #e8e8e8;
         }
+
         .auto-style1 {
             position: relative;
             width: 100%;
@@ -90,8 +90,8 @@
     <%-- DATOS DEL CLIENTE  CARGADOS--%>
     <div id="datosSocio">
         <asp:Label ID="labelDatosSocio" Text="" runat="server" class="font-weight-bold" />
-        <br/>
-        <br/>
+        <br />
+        <br />
 
         <div class="row" style="margin-left: 0%; width: 100%">
             <%-- identificacion --%>
@@ -101,7 +101,7 @@
             <div class="col-lg-4">
                 <div class="row" style="margin-left: 0%">
                     <div>
-                        <asp:TextBox OnTextChanged="buscarSocioBTN_Click" OnKeyDown="buscarSocioBTN_Click" Width="98%" CssClass="form-control " runat="server" ID="identificacionTB" placeholder="24876612"></asp:TextBox>
+                        <asp:TextBox onkeypress="Textbox1_KeyPress" AutoPostBack="false" Width="98%" CssClass="form-control " runat="server" ID="identificacionTB"></asp:TextBox>
                     </div>
                     <asp:LinkButton CssClass="btn btn-light" ID="buscarSocioBTN" runat="server" Text="Buscar" OnClick="buscarSocioBTN_Click"><i class="fa fa-search" style="margin-right:3px"></i></asp:LinkButton>
                 </div>
@@ -155,63 +155,63 @@
             <div class="col-lg" style="">
                 <asp:TextBox class="form-control font-weight-bolder" ID="datepickerT" runat="server" ClientIDMode="Static" />
             </div>
-
         </div>
-        <%-- DETALLES --%>
-        <div class="row" style="margin-left:0%; padding-left:0%">
-              <%-- Producto --%>
-                    <div class="col-2" style="margin-left:0%">
-                        <asp:DropDownList Width="100%" ID="materialDD" AutoPostBack="false" runat="server" CssClass="btn btn-light btn-sm dropdown-toggle dropup"></asp:DropDownList>
-                    </div>
-                    <%-- Precio kilo --%>
-                    <div class="col-2">
-                        <input type="number" placeholder="Precio" runat="server" clientidmode="Static" name="name" value="" step=".01" min="0" id="precioKg2TB" class="btn btn-light btn-sm" style="width: 100%" />
-                    </div>
-                    <%-- Cantidad --%>
-                    <div class="col-2">
-                        <input type="number" placeholder="Cantidad " runat="server" clientidmode="Static" name="name" value="" step=".01" min="0" id="cantidad2TB" class="btn btn-light btn-sm" style="width: 100%" />
-                        <%--                        <asp:TextBox Width="100%" ID="cantidadTB" runat="server" type="number" CssClass="btn btn-light btn-sm" />--%>
-                    </div>
-                    <%-- Unidad --%>
-                    <div class="col-3">
-                        <asp:DropDownList Width="100%" ID="unidadDD" runat="server" CssClass="btn dropup btn-light btn-sm dropu"></asp:DropDownList>
-                    </div>
-                    <%-- Acción --%>
-                    <div class="col-1">
-                        <asp:LinkButton Width="100%" ID="agregarLineaBTN" runat="server" CssClass="btn btn-secondary btn-sm" OnClick="agregarLineaClick">
+        <br />
+
+        <%-- FILA PARA AGREGAR --%>
+        <div class="row" style="margin-left: 0%; padding-left: 0%;" id="filaAgregarDetalles">
+            <asp:Label ID="infoLineaLabel" Text="Datos línea:" runat="server" class="font-weight-bolder" Style="margin-top: 4px; margin-right: 10px" />
+
+            <%-- Producto --%>
+            <asp:DropDownList ID="materialDD" OnSelectedIndexChanged="materialDD_SelectedIndexChanged" class="btn btn-sm btn-light dropdown-toggle" type="dropdown" ata-toggle="dropdown" aria-haspopup="true" aria-expanded="false" runat="server" AutoPostBack="true"></asp:DropDownList>   
+<%--            <input type="search" placeholder="Código/ Nombre material" runat="server" clientidmode="Static" name="name" value="" step=".01" min="0" id="idNameTB" onkeypress="Textbox1_KeyPress" onkeydown="" onkeyup="" class="btn btn-light btn-sm" style="width: 100%" />--%>
+            <%-- Precio kilo --%>
+            <div class="col-2" style="margin-left: 5px">
+                <input type="number" placeholder="Precio" runat="server" clientidmode="Static" name="name" value="" step=".01" min="0" id="precioKg2TB" class="btn btn-light btn-sm" style="width: 100%" />
+            </div>
+            <%-- Cantidad --%>
+            <div class="col-2">
+                <input type="number" placeholder="Cantidad " runat="server" clientidmode="Static" name="name" value="" step=".01" min="0" id="cantidad2TB" class="btn btn-light btn-sm" style="width: 100%" />
+                <%--                        <asp:TextBox Width="100%" ID="cantidadTB" runat="server" type="number" CssClass="btn btn-light btn-sm" />--%>
+            </div>
+            <%-- Unidad --%>
+            <div class="col-3">
+                <asp:DropDownList Width="100%" ID="unidadDD" runat="server" CssClass="btn dropup btn-light btn-sm dropu"></asp:DropDownList>
+            </div>
+            <%-- Acción --%>
+            <div class="col-1">
+                <asp:LinkButton Width="100%" ID="agregarLineaBTN" runat="server" CssClass="btn btn-secondary btn-sm" OnClick="agregarLineaClick">
                            <i class="fa fa-plus"></i></asp:LinkButton>
-                    </div>
+            </div>
         </div>
 
         <div class="row justify-content-end" style="width: 100%; margin-left: 0%; padding-right: 1%">
-            <label class="font-weight-bolder" style="margin-right: 1%">Agregados</label>
+            <label class="" style="margin-right: 1%">Agregados</label>
             <asp:Label Text="0" runat="server" ID="labelAgregados" />
         </div>
 
-        <div id="">
-            <asp:Table ID="Table1" runat="server" class="table-sm " Style="width: 100%">             
-                <asp:TableRow ID="filaAgregarDetalles" BackColor="Gray">
-                  
-                </asp:TableRow>
-                 <asp:TableHeaderRow CssClass="btn-light font-weight-bolder position-relative">
-                    <asp:TableCell Width="20%">Material</asp:TableCell>
-                    <asp:TableCell Width="20%">Precio kilo/unidad</asp:TableCell>
-                    <asp:TableCell Width="20%">Cantidad</asp:TableCell>
-                    <asp:TableCell Width="30%">Unidad</asp:TableCell>
-                    <asp:TableCell Width="10%">Acción</asp:TableCell>
-                </asp:TableHeaderRow>
-            </asp:Table>
+        <%-- DETALLES --%>
+        <div class="row" style="margin-left: 0%; margin-right: 0%; background-color: rgba(226, 230, 227, 0.76); height: 32px" id="">
+            <div style="width: 30%; text-align: left; padding-left: 2px;" class="font-weight-bolder">
+                <asp:Label Text="Material" runat="server" />
+            </div>
+            <div style="width: 20%; text-align: left; padding-left: 2px;" class="font-weight-bolder">
+                <asp:Label Text="Precio base" runat="server" />
+            </div>
+            <div style="width: 20%; text-align: left; padding-left: 2px;" class="font-weight-bolder">
+                <asp:Label Text="Cantidad" runat="server" />
+            </div>
+            <div style="width: 20%; text-align: left; padding-left: 2px;" class="font-weight-bolder">
+                <asp:Label Text="Unidad" runat="server" />
+            </div>
+            <div style="width: 10%; text-align: left; padding-left: 0px;" class="font-weight-bolder">
+                <asp:Label Text="Acción" runat="server" />
+            </div>
+
         </div>
         <%-- CUERPO DE TABLA --%>
         <div class="overflow-auto" style="height: 250px;" id="divDetalles">
-            <asp:Table ID="tablaDetalles" runat="server" class="table-sm  table-hover" Style="width: 100%">
-                <asp:TableRow Height="0%">
-                    <asp:TableCell Width="20%"></asp:TableCell>
-                    <asp:TableCell Width="20%"></asp:TableCell>
-                    <asp:TableCell Width="20%"></asp:TableCell>
-                    <asp:TableCell Width="30%"></asp:TableCell>
-                    <asp:TableCell Width="10%"></asp:TableCell>
-                </asp:TableRow>
+            <asp:Table ID="tablaDetalles" runat="server" class="table-sm table-bordered table-hover" Style="width: 100%">
             </asp:Table>
         </div>
         <div style="float: right">

@@ -73,6 +73,11 @@ namespace BL
                 throw;
             }
         }
+
+        public DataSet traerUnidadYprecioBase(string codigo, char tipoPrecio)
+        {
+            return manejador.traerUnidadYprecioBaseDAO(codigo, tipoPrecio);
+        }
         //public BLMaterial buscarMaterial(string clave) {
 
         //    TOMaterial materialTO = manejador.buscarMaterialDAO(clave);

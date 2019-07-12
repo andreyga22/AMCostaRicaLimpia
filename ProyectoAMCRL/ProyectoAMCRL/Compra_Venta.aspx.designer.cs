@@ -139,6 +139,15 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.TextBox datepickerT;
         
         /// <summary>
+        /// infoLineaLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label infoLineaLabel;
+        
+        /// <summary>
         /// materialDD control.
         /// </summary>
         /// <remarks>
@@ -191,24 +200,6 @@ namespace ProyectoAMCRL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label labelAgregados;
-        
-        /// <summary>
-        /// Table1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Table Table1;
-        
-        /// <summary>
-        /// filaAgregarDetalles control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TableRow filaAgregarDetalles;
         
         /// <summary>
         /// tablaDetalles control.

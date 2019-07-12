@@ -127,6 +127,29 @@ namespace DAO
 
         }
 
+        public DataSet traerUnidadYprecioBaseDAO(string codigo, char tipoPrecio)
+        {
+            DataSet ds = new DataSet("datos");
+
+            String sqlPrecio = tipoPrecio.Equals('v') ? "m.PRECIO_VENTA_KILO" : "m.PRECIO_COMPRA_KILO";
+
+            String sql = "SELECT m.COD_UNIDAD, " + sqlPrecio + " as PRECIO_BASE from MATERIAL m where (m.COD_MATERIAL = @COD)";
+
+                try
+                {
+                    SqlCommand cmd = new SqlCommand(sql, conexion);
+                    cmd.Parameters.AddWithValue("@COD", codigo);
+                    SqlDataAdapter sda = new SqlDataAdapter(cmd);
+                    sda.SelectCommand = cmd;
+                    sda.Fill(ds);
+                }
+                catch (Exception e)
+                {
+                    return null;
+                }
+            return ds;
+        }
+
         //public TOMaterial buscarMaterialDAO(string clave)
         //{
         //    TOMaterial MTO = new TOMaterial();
