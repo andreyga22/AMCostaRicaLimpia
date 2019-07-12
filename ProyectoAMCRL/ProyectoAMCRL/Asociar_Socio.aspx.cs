@@ -23,6 +23,7 @@ namespace ProyectoAMCRL
                     {
                         this.buscarIzquierda();
                         this.cargarLabels();
+                        
                     }
                 }
             }
@@ -40,7 +41,7 @@ namespace ProyectoAMCRL
             idLbl.Text = socio.cedula;
             nombreLbl.Text = socio.nombre + " " + socio.apellido1 + " " + socio.apellido2;
             rolLbl.Text = socio.rol;
-            this.buscarDerecha(idSocio);
+            this.buscarDerecha(Convert.ToString(Session["idSocio"]));
         }
 
         protected void txtPalabra_TextChanged(object sender, EventArgs e)
