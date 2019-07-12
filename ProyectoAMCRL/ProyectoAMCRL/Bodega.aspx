@@ -52,7 +52,7 @@
             </div>
             <div class="form-group" id="estado" runat="server">
                 <label for="estadoRb">Estado</label>
-                <asp:RadioButtonList ID="estadoRb" runat="server" class="form-control" RepeatDirection="Horizontal">
+                <asp:RadioButtonList ID="estadoRb" runat="server" RepeatDirection="Horizontal">
                     <asp:ListItem Selected="True">Activado</asp:ListItem>
                     <asp:ListItem>Desactivado</asp:ListItem>
                 </asp:RadioButtonList>
