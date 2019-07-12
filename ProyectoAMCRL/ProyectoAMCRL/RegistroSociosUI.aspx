@@ -38,9 +38,12 @@
                 <label for="idTB">Identificación*</label>
                 <br />
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Campo Requerido" display="Dynamic" ControlToValidate="idTB" ForeColor="Red" ValidationGroup="socioG"></asp:RequiredFieldValidator>
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" Display="Dynamic" ErrorMessage="Máxima cantidad de letras permitida es: 12" ForeColor="Red" ValidationGroup="socioG" ValidationExpression="^[a-zA-Z0-9]{1,12}$" ControlToValidate="idTb"></asp:RegularExpressionValidator>
                 <asp:TextBox type="text" ID="idTB" class="form-control" runat="server"></asp:TextBox>
             </div>
             <div class="form-group col-md-5">
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator4" runat="server" Display="Dynamic" ErrorMessage="Máxima cantidad de letras permitida es: 50" ForeColor="Red" ValidationGroup="socioG" ValidationExpression="^[a-zA-Z]{1,50}$" ControlToValidate="nombreTb"></asp:RegularExpressionValidator>
+             
                 <label for="nombreTB">Nombre*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator2" display="Dynamic" runat="server" ErrorMessage="Campo Requerido" ControlToValidate="nombreTB" ForeColor="Red" ValidationGroup="socioG"></asp:RequiredFieldValidator>
                 <asp:TextBox type="text" ID="nombreTB" class="form-control" runat="server"></asp:TextBox>
             </div>
@@ -49,11 +52,15 @@
         <div class="form-row">
             <div class="form-group offset-1 col-md-5">
                 <label for="ape1TB">Primer apellido</label>
+                 <asp:RegularExpressionValidator ID="RegularExpressionValidator5" runat="server" Display="Dynamic" ErrorMessage="Máxima cantidad de letras permitida es: 25" ForeColor="Red" ValidationGroup="socioG" ValidationExpression="^[a-zA-Z]{1,25}$" ControlToValidate="ape1Tb"></asp:RegularExpressionValidator>
                 <asp:TextBox type="text" ID="ape1TB" class="form-control" runat="server"></asp:TextBox>
+                
             </div>
             <div class="form-group col-md-5">
                 <label for="ape2TB">Segundo apellido</label>
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator6" runat="server" Display="Dynamic" ErrorMessage="Máxima cantidad de letras permitida es: 25" ForeColor="Red" ValidationGroup="socioG" ValidationExpression="^[a-zA]{1,25}$" ControlToValidate="ape2Tb"></asp:RegularExpressionValidator>
                 <asp:TextBox type="text" ID="ape2TB" class="form-control" runat="server"></asp:TextBox>
+
             </div>
         </div>
 
@@ -61,17 +68,20 @@
             <div class="form-group offset-1 col-md-3">
                 <label for="telTB">Teléfono Habitación*&nbsp;&nbsp;&nbsp; </label><asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Campo Requerido" display="Dynamic" ControlToValidate="telTB" ForeColor="Red" ValidationGroup="socioG"></asp:RequiredFieldValidator>
                 &nbsp;
-                <asp:RegularExpressionValidator ID="RegularExpressionValidator1" display="Dynamic" runat="server" ErrorMessage="Solo números permitidos" ControlToValidate="telTB" ForeColor="Red" ValidationExpression="^\d{8}$" ValidationGroup="socioG"></asp:RegularExpressionValidator>
-                <asp:TextBox type="text" ID="telTB" class="form-control" runat="server"></asp:TextBox>
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator7" runat="server" Display="Dynamic" ErrorMessage="Máxima cantidad de letras permitida es: 8" ForeColor="Red" ValidationGroup="socioG" ValidationExpression="^[Z0-9]{1,8}$" ControlToValidate="telTb"></asp:RegularExpressionValidator>
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator1" display="Dynamic" runat="server" ErrorMessage="Formato de número invalido" ControlToValidate="telTB" ForeColor="Red" ValidationExpression="^\d{8}$" ValidationGroup="socioG"></asp:RegularExpressionValidator>
+                <asp:TextBox type="text" ID="telTB" class="form-control" runat="server"></asp:TextBox>  
             </div>
             <div class="form-group col-md-3">
                 <label for="tel2TB">Teléfono Personal*&nbsp;&nbsp;&nbsp; </label><asp:RequiredFieldValidator ID="RequiredFieldValidator4" display="Dynamic" runat="server" ErrorMessage="Campo Requerido" ControlToValidate="tel2TB" ForeColor="Red" ValidationGroup="socioG"></asp:RequiredFieldValidator>
                 &nbsp;
-                <asp:RegularExpressionValidator ID="RegularExpressionValidator2" display="Dynamic" runat="server" ErrorMessage="Solo números permitidos" ControlToValidate="tel2TB" ForeColor="Red" ValidationExpression="^\d{8}$" ValidationGroup="socioG"></asp:RegularExpressionValidator>
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator8" runat="server" Display="Dynamic" ErrorMessage="Máxima cantidad de letras permitida es: 8" ForeColor="Red" ValidationGroup="socioG" ValidationExpression="^[Z0-9]{1,8}$" ControlToValidate="tel2Tb"></asp:RegularExpressionValidator>
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator2" display="Dynamic" runat="server" ErrorMessage="Formato de número invalido" ControlToValidate="tel2TB" ForeColor="Red" ValidationExpression="^\d{8}$" ValidationGroup="socioG"></asp:RegularExpressionValidator>
                 <asp:TextBox type="text" ID="tel2TB" class="form-control" runat="server"></asp:TextBox>
             </div>
             <div class="form-group col-md-4">
                 <label for="correoTB">Correo electrónico*</label><br />
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator9" runat="server" Display="Dynamic" ErrorMessage="Máxima cantidad de letras permitida es: 25" ForeColor="Red" ValidationGroup="socioG" ValidationExpression="^[Z0-9]{1,25}$" ControlToValidate="correoTb"></asp:RegularExpressionValidator>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator5" display="Dynamic" runat="server" ErrorMessage="Campo Requerido" ControlToValidate="correoTB" ForeColor="Red" ValidationGroup="socioG"></asp:RequiredFieldValidator>
                 <asp:TextBox type="email" ID="correoTB" class="form-control" runat="server"></asp:TextBox>
             </div>
@@ -85,11 +95,14 @@
 
         <div class="form-row">
             <div class="form-group offset-1 col-md-5">
-                <label for="provinciaTB">Provincia*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator6" display="Dynamic" runat="server" ErrorMessage="Campo Requerido" ControlToValidate="provinciaTB" ForeColor="Red" ValidationGroup="socioG"></asp:RequiredFieldValidator>
+                <label for="provinciaTB">Provincia*</label>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator6" display="Dynamic" runat="server" ErrorMessage="Campo Requerido" ControlToValidate="provinciaTB" ForeColor="Red" ValidationGroup="socioG"></asp:RequiredFieldValidator>
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator11" runat="server" Display="Dynamic" ErrorMessage="Máxima cantidad de letras permitida es: 15" ForeColor="Red" ValidationGroup="socioG" ValidationExpression="^[a-zA-Z]{1,15}$" ControlToValidate="provinciaTb"></asp:RegularExpressionValidator>
                 <asp:TextBox type="text" ID="provinciaTB" class="form-control" runat="server"></asp:TextBox>
             </div>
             <div class="form-group col-md-5">
                 <label for="cantonTB">Cantón*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator7" display="Dynamic" runat="server" ErrorMessage="Campo Requerido" ControlToValidate="cantonTB" ForeColor="Red" ValidationGroup="socioG"></asp:RequiredFieldValidator>
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator10" runat="server" Display="Dynamic" ErrorMessage="Máxima cantidad de letras permitida es: 15" ForeColor="Red" ValidationGroup="socioG" ValidationExpression="^[a-zA-Z]{1,15}$" ControlToValidate="cantonTb"></asp:RegularExpressionValidator>
                 <asp:TextBox type="text" ID="cantonTB" class="form-control" runat="server"></asp:TextBox>
             </div>
         </div>
@@ -97,10 +110,12 @@
         <div class="form-row">
             <div class="form-group offset-1 col-md-5">
                 <label for="distritoTB">Distrito*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator8" display="Dynamic" runat="server" ErrorMessage="Campo Requerido" ControlToValidate="distritoTB" ForeColor="Red" ValidationGroup="socioG"></asp:RequiredFieldValidator>
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator12" runat="server" Display="Dynamic" ErrorMessage="Máxima cantidad de letras permitida es: 15" ForeColor="Red" ValidationGroup="socioG" ValidationExpression="^[a-zA-Z]{1,15}$" ControlToValidate="distritoTb"></asp:RegularExpressionValidator>
                 <asp:TextBox type="text" ID="distritoTB" class="form-control" runat="server"></asp:TextBox>
             </div>
             <div class="form-group col-md-5">
                 <label for="sennas">Otras Señas*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator9" display="Dynamic" runat="server" ErrorMessage="Campo Requerido" ControlToValidate="sennas" ForeColor="Red" ValidationGroup="socioG"></asp:RequiredFieldValidator>
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator13" runat="server" Display="Dynamic" ErrorMessage="Máxima cantidad de letras permitida es: 50" ForeColor="Red" ValidationGroup="socioG" ValidationExpression="^[a-zA-Z]{1,50}$" ControlToValidate="sennas"></asp:RegularExpressionValidator>
                 <asp:TextBox type="text" ID="sennas" class="form-control" runat="server"></asp:TextBox>
             </div>
         </div>
