@@ -23,17 +23,17 @@
         <div class="justify-content-center offset-1 col-10">
             <div class="form-row">
                 <div class="form-group col-md-6" id="identi" runat="server" visible="false">
-                    <label for="idTb">Identificador</label><asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="idTB" ErrorMessage="Campo requerido" ForeColor="Red"></asp:RequiredFieldValidator>
+                    <label for="idTb">Identificador</label><asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="idTB" ErrorMessage="Campo requerido" ForeColor="Red" ValidationGroup="cuentaG"></asp:RequiredFieldValidator>
                     &nbsp;<asp:TextBox type="email" ID="idTB" class="form-control" placeholder="jessica28@ejemplo.com" runat="server"></asp:TextBox>
                 </div>
                 <div class="form-group col-md-6" id="contra" runat="server" visible="false">
-                    <label for="contraTb" style="text-decoration: underline" runat="server">Contraseña Temporal</label><asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="contraTb" ErrorMessage="Campo requerido" ForeColor="Red"></asp:RequiredFieldValidator>
+                    <label for="contraTb" style="text-decoration: underline" runat="server">Contraseña Temporal</label><asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="contraTb" ErrorMessage="Campo requerido" ForeColor="Red" ValidationGroup="cuentaG"></asp:RequiredFieldValidator>
                     &nbsp;<asp:TextBox type="password" ID="contraTb" class="form-control" runat="server"></asp:TextBox>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6" id="nombre" runat="server" visible="false">
-                    <label for="nombreTb">Nombre completo</label><asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="nombreTB" ErrorMessage="Campo requerido" ForeColor="Red"></asp:RequiredFieldValidator>
+                    <label for="nombreTb">Nombre completo</label><asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="nombreTB" ErrorMessage="Campo requerido" ForeColor="Red" ValidationGroup="cuentaG"></asp:RequiredFieldValidator>
                     &nbsp;<asp:TextBox type="text" ID="nombreTB" class="form-control" runat="server"></asp:TextBox>
                 </div>
                 <div class="form-group col-md-6" id="estado" runat="server" visible="false">
@@ -56,14 +56,14 @@
             </div>
             <div class="form-row">
                 <div class="form-group offset-1 col-md-10" id="nueva" runat="server" visible="false">
-                    <label for="nuevaTb">Nueva contraseña</label><asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="nuevaTb" ErrorMessage="Campo requerido" ForeColor="Red"></asp:RequiredFieldValidator>
+                    <label for="nuevaTb">Nueva contraseña</label><asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="nuevaTb" ErrorMessage="Campo requerido" ForeColor="Red" ValidationGroup="cuentaG"></asp:RequiredFieldValidator>
                     &nbsp;<asp:TextBox type="password" ID="nuevaTb" class="form-control" runat="server"></asp:TextBox>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group offset-1 col-md-10" id="repetir" runat="server" visible="false">
-                    <label for="repetirTb">Repetir contraseña</label><asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="repetirTb" ErrorMessage="Campo requerido" ForeColor="Red"></asp:RequiredFieldValidator>
-                    &nbsp;<asp:CompareValidator ID="CompareValidator1" runat="server" ControlToCompare="nuevaTb" ControlToValidate="repetirTb" ErrorMessage="Las contraseñas no coinciden" ForeColor="Red"></asp:CompareValidator>
+                    <label for="repetirTb">Repetir contraseña</label><asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="repetirTb" ErrorMessage="Campo requerido" ForeColor="Red" ValidationGroup="cuentaG"></asp:RequiredFieldValidator>
+                    &nbsp;<asp:CompareValidator ID="CompareValidator1" runat="server" ControlToCompare="nuevaTb" ControlToValidate="repetirTb" ErrorMessage="Las contraseñas no coinciden" ForeColor="Red" ValidationGroup="cuentaG"></asp:CompareValidator>
                     <asp:TextBox type="password" ID="repetirTb" class="form-control" runat="server"></asp:TextBox>
                 </div>
             </div>
@@ -71,7 +71,7 @@
         <%-- SUBMMIT BUTTON --%>
         <div class="row justify-content-center">
             <div class="form-group">
-                <asp:Button ID="btnGuardar" type="submit" runat="server" Text="Guardar" class="btn btn-info" OnClick="btnGuardar_Click" />
+                <asp:Button ID="btnGuardar" type="submit" runat="server" Text="Guardar" class="btn btn-info" OnClick="btnGuardar_Click" ValidationGroup="cuentaG" />
             </div>
         </div>
     </div>
