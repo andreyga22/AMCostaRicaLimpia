@@ -261,5 +261,23 @@ namespace BL
             }
         }
 
+        /// <summary>
+        /// Buscar los contactos de un socio
+        /// </summary>
+        /// <param name="cedula">Cédula del socio</param>
+        /// <returns>Retorna los contactos del socio</returns>
+        public BLContactos buscarContactos(String cedula)
+        {
+            try
+            {
+                DAOManejadorSocios dao = new DAOManejadorSocios();
+                TOContactos contac = dao.buscarContacto(cedula);
+                return new BLContactos(contac.telefono_hab, contac.telefono_pers, contac.email);
+            } catch(Exception)
+            {
+                throw;
+            }
+        }
+
     }
 }
