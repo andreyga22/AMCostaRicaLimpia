@@ -21,20 +21,23 @@
         <br />
         <div class="form-row justify-content-center">
             <div class="form-group col-sm-6">
-                <label for="codigoTb">Código Unidad*</label><asp:RequiredFieldValidator ID="valCodigo" runat="server" ErrorMessage="Campo requerido" ControlToValidate="codigoTb" ForeColor="Red"></asp:RequiredFieldValidator>
+                <label for="codigoTb">Código Unidad*</label><asp:RequiredFieldValidator ID="valCodigo" runat="server" ErrorMessage="Campo requerido" ControlToValidate="codigoTb" ForeColor="Red" ValidationGroup="unidadG" Display="Dynamic"></asp:RequiredFieldValidator>
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" Display="Dynamic" ErrorMessage="Máxima cantidad de letras permitida es: 50" ForeColor="Red" ValidationGroup="unidadG" ValidationExpression="^[a-zA-Z0-9]{1,50}$" ControlToValidate="codigoTb"></asp:RegularExpressionValidator>
                 <asp:TextBox type="text" ID="codigoTb" class="form-control" placeholder="KG" runat="server"></asp:TextBox>
             </div>
         </div>
         <div class="form-row justify-content-center">
             <div class="form-group col-sm-6">
-                <label for="nombreTb">Nombre Unidad de Medida*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="nombreTB" ErrorMessage="Campo Requerido" ForeColor="Red"></asp:RequiredFieldValidator>
-                &nbsp;<asp:TextBox type="text" ID="nombreTB" class="form-control" placeholder="Kilogramos" runat="server"></asp:TextBox>
+                <label for="nombreTb">Nombre Unidad de Medida*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="nombreTB" ErrorMessage="Campo Requerido" ForeColor="Red" ValidationGroup="unidadG" Display="Dynamic"></asp:RequiredFieldValidator>
+                &nbsp;<asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" Display="Dynamic" ErrorMessage="Máxima cantidad de letras permitida es: 50" ForeColor="Red" ValidationGroup="unidadG" ValidationExpression="^[a-zA-Z0-9]{1,50}$" ControlToValidate="estadoRb"></asp:RegularExpressionValidator>
+                <asp:TextBox type="text" ID="nombreTB" class="form-control" placeholder="Kilogramos" runat="server"></asp:TextBox>
             </div>
         </div>
         <div class="form-row justify-content-center">
             <div class="form-group col-md-6">
-                <label for="equivalenciaTb">Equivalencia*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="equivalenciaTb" ErrorMessage="Campo Requerido" ForeColor="Red"></asp:RequiredFieldValidator>
-                &nbsp;<asp:TextBox type="text" ID="equivalenciaTb" class="form-control" runat="server" placeholder="10000"></asp:TextBox>
+                <label for="equivalenciaTb">Equivalencia*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="equivalenciaTb" ErrorMessage="Campo Requerido" ForeColor="Red" ValidationGroup="unidadG" Display="Dynamic"></asp:RequiredFieldValidator>
+                &nbsp;<asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" Display="Dynamic" ErrorMessage="Máxima cantidad de letras permitida es: 12" ForeColor="Red" ValidationGroup="unidadG" ValidationExpression="^[a-zA-Z0-9]{1,12}$" ControlToValidate="equivalenciaTb"></asp:RegularExpressionValidator>
+                <asp:TextBox type="text" ID="equivalenciaTb" class="form-control" runat="server" placeholder="10000"></asp:TextBox>
             </div>
 
         </div>
@@ -49,7 +52,7 @@
         <%-- SUBMMIT BUTTON --%>
         <div class="row justify-content-center">
             <div class="form-group">
-                <asp:Button ID="btnGuardar" type="submit" runat="server" Text="Guardar" class="btn btn-info" OnClick="btnGuardar_Click" />
+                <asp:Button ID="btnGuardar" type="submit" runat="server" Text="Guardar" class="btn btn-info" OnClick="btnGuardar_Click" ValidationGroup="unidadG" />
             </div>
         </div>
 </asp:Content>

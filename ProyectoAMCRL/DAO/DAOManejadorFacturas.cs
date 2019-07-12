@@ -207,7 +207,7 @@ namespace DAO
             try
             {
                 TOFactura to = new TOFactura();
-                String qry = "select v.COD_FACTURA, v.CEDULA,  v.ID_MONEDA, v.MONTO_TOTAL, v.FECHA_FACTURA, v.TIPO, s.NOMBRE, s.APELLIDO1, s.APELLIDO2 from FACTURA v, SOCIO_NEGOCIO s where v.CEDULA = s.CEDULA and v.COD_FACTURA = @num;";
+                String qry = "select v.COD_FACTURA, v.CEDULA,  v.ID_MONEDA, v.MONTO_TOTAL, v.FECHA_FACTURA, v.TIPO, s.NOMBRE, s.APELLIDO1, s.APELLIDO2, v.ID_BODEGA from FACTURA v, SOCIO_NEGOCIO s where v.CEDULA = s.CEDULA and v.COD_FACTURA = @num;";
                 SqlCommand comm = new SqlCommand(qry, conexion);
                 comm.Parameters.AddWithValue("@num", id);
                 if (conexion.State != ConnectionState.Open)
@@ -227,6 +227,7 @@ namespace DAO
                         to.tipo = reader.GetString(5);
 
                         to.nombreCompleto = reader.GetString(6) + " " + reader.GetString(7) + " " + reader.GetString(8);
+                        to.id_Bodega = reader.GetString(9);
                     }
                 }
                 if (conexion.State != ConnectionState.Closed)
@@ -358,10 +359,10 @@ namespace DAO
         /// <returns></returns>
         public List<TODetalleFactura> listaDetalle(int idFactura)
         {
-            try
-            {
-                SqlCommand cmdDet = new SqlCommand("  Select d.COD_LINEA, d.COD_FACTURA, m.NOMBRE_MATERIAL, d.MONTO_LINEA, d.KILOS, d.ID_STOCK from DETALLE_FACTURA d, FACTURA v, MATERIAL m, STOCK s where d.COD_FACTURA = @codFact and d.COD_FACTURA = v.COD_FACTURA and s.ID_STOCK = d.ID_STOCK and s.COD_MATERIAL = m.COD_MATERIAL;", conexion);
-                cmdDet.Parameters.AddWithValue("@codFact", idFactura);
+            //try
+            //{
+                SqlCommand cmdDet = new SqlCommand("  Select d.COD_LINEA, d.COD_FACTURA, m.NOMBRE_MATERIAL, d.MONTO_LINEA, d.KILOS, d.COD_MATERIAL from DETALLE_FACTURA d, FACTURA v, MATERIAL m where d.COD_FACTURA = @cod and d.COD_FACTURA = v.COD_FACTURA and d.COD_MATERIAL = m.COD_MATERIAL;", conexion);
+                cmdDet.Parameters.AddWithValue("@cod", idFactura);
 
                 if (conexion.State != ConnectionState.Open)
                 {
@@ -383,7 +384,7 @@ namespace DAO
                     detVenta.nombreMaterial = Convert.ToString(table.Rows[x]["NOMBRE_MATERIAL"]);
                     detVenta.monto_Linea = Convert.ToDouble(table.Rows[x]["MONTO_LINEA"]);
                     detVenta.kilos_Linea = Convert.ToDouble(table.Rows[x]["KILOS"]);
-                    detVenta.cod_Stock = Convert.ToInt16(table.Rows[x]["ID_STOCK"]);
+                    detVenta.cod_Stock = Convert.ToInt16(table.Rows[x]["COD_MATERIAL"]);
 
                     lista.Add(detVenta);
                 }
@@ -392,15 +393,15 @@ namespace DAO
                     conexion.Close();
                 }
                 return lista;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                conexion.Close();
-            }
+            //}
+            //catch (Exception)
+            //{
+            //    throw;
+            //}
+            //finally
+            //{
+            //    conexion.Close();
+            //}
         }
 
         /// <summary>
