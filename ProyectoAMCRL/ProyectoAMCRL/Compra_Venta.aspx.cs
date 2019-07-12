@@ -569,6 +569,7 @@ namespace ProyectoAMCRL
                 double precioBase = Double.Parse(precioString);
 
                 precioKg2TB.Value = precioString;
+                
                 //FUNCIONE PORFIS
                 int index = 0;
 
@@ -595,7 +596,7 @@ namespace ProyectoAMCRL
 
             }
             pegarLineasTabla();
-
+            precioKg2TB.DataBind();
             String nombre = materialInfo[1];
         }
 
