@@ -242,26 +242,26 @@ namespace ProyectoAMCRL
 
         protected void click_SeleccMat1(object sender, EventArgs e)
         {
-            string id = Convert.ToString(Session["idMat1"]);
+            Session["idMaterial"] = Convert.ToString(Session["idMat1"]);
             Response.Redirect("RegistroMateriales.aspx");
         }
 
         protected void click_SeleccMat2(object sender, EventArgs e)
         {
-            string id = Convert.ToString(Session["idMat2"]);
+            Session["idMaterial"] = Convert.ToString(Session["idMat2"]);
             Response.Redirect("RegistroMateriales.aspx");
         }
 
         protected void click_SeleccMat3(object sender, EventArgs e)
         {
-            string id = Convert.ToString(Session["idMat3"]);
+            Session["idMaterial"] = Convert.ToString(Session["idMat3"]);
             //Response.Redirect("RegistroMateriales.aspx");
-            Response.Redirect("RegistroMateriales.aspx?idM=" + id);
+            Response.Redirect("RegistroMateriales.aspx");
         }
 
         protected void click_SeleccMatNo(object sender, EventArgs e)
         {
-            string id = "";
+            Session["idMaterial"] = "";
             Response.Redirect("RegistroMateriales.aspx");
         }
 
@@ -302,6 +302,7 @@ namespace ProyectoAMCRL
         {
             Session["idFactura"] = Session["idFactura1"];
             Response.Redirect("Compra_Venta.aspx");
+            
         }
 
         /// <summary>

@@ -111,6 +111,29 @@
                 <asp:TextBox class="form-control font-weight-bolder" type="text" ID="datepickerTB" runat="server" ClientIDMode="Static" />
             </div>
         </div>
+        <br />
+        <%-- FILA PARA AGREGAR --%>
+        <div class="row" style="margin-left: 0%; padding-left: 0%;">
+            <asp:Label runat="server" id="labelInfoLinea" class="font-weight-bolder" style="margin-top: 4px; margin-right: 10px">Datos línea: </asp:Label>
+
+            <%-- Producto --%>
+            <asp:DropDownList ID="materialDD" AutoPostBack="false" runat="server" CssClass=" col-2 btn btn-light btn-sm dropdown-toggle dropup"></asp:DropDownList>
+            <div class="col-2" style="margin-left: 5px">
+                <%-- Cantidad --%>
+
+                <asp:TextBox Width="100%" min="0" placeholder="Cantidad" ID="cantidadTB" runat="server" type="number" CssClass="btn btn-light btn-sm" />
+            </div>
+            <%-- Unidad --%>
+            <div class="col-3">
+                <asp:DropDownList Width="100%" ID="unidadDD" runat="server" CssClass="btn dropup btn-light btn-sm dropu"></asp:DropDownList>
+            </div>
+            <%-- Acción --%>
+            <div class="col-1">
+                <asp:LinkButton Width="100%" ID="agregarLineaBTN" runat="server" CssClass="btn btn-secondary btn-sm" OnClick="agregarLineaClick">
+                           <i class="fa fa-plus"></i></asp:LinkButton>
+            </div>
+        </div>
+        
 
         <%-- DETALLES --%>
         <div class="row justify-content-end" style="width: 100%; margin-left: 0%; padding-right: 1%">
@@ -126,25 +149,6 @@
                     <asp:TableCell Width="30%">Unidad</asp:TableCell>
                     <asp:TableCell Width="10%">Acción</asp:TableCell>
                 </asp:TableHeaderRow>
-                <asp:TableRow ID="filaEncabezado">
-                    <%-- Producto --%>
-                    <asp:TableCell>
-                        <asp:DropDownList Width="100%" ID="materialDD" AutoPostBack="false" runat="server" CssClass="btn btn-light btn-sm dropdown-toggle dropup"></asp:DropDownList>
-                    </asp:TableCell>
-                    <%-- Cantidad --%>
-                    <asp:TableCell>
-                        <asp:TextBox Width="100%" min="0" ID="cantidadTB" runat="server" type="number" CssClass="btn btn-light btn-sm" />
-                    </asp:TableCell>
-                    <%-- Unidad --%>
-                    <asp:TableCell>
-                        <asp:DropDownList Width="100%" ID="unidadDD" runat="server" CssClass="btn dropup btn-light btn-sm dropu"></asp:DropDownList>
-                    </asp:TableCell>
-                    <%-- Acción --%>
-                    <asp:TableCell>
-                        <asp:LinkButton Width="100%" ID="agregarLineaBTN" runat="server" CssClass="btn btn-secondary btn-sm" OnClick="agregarLineaClick">
-                           <i class="fa fa-plus"></i></asp:LinkButton>
-                    </asp:TableCell>
-                </asp:TableRow>
             </asp:Table>
         </div>
         <%-- CUERPO DE TABLA --%>

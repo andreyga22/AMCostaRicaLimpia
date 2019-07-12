@@ -23,21 +23,24 @@
         <div class="justify-content-center offset-1 col-10">
             <div class="form-row">
                 <div class="form-group col-md-6" id="identi" runat="server" visible="false">
-                    <label for="idTb">Identificador</label><asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="idTB" ErrorMessage="Campo requerido" ForeColor="Red" ValidationGroup="cuentaG"></asp:RequiredFieldValidator>
-                    &nbsp;<asp:TextBox type="email" ID="idTB" class="form-control" placeholder="jessica28@ejemplo.com" runat="server"></asp:TextBox>
+                    <label for="idTb">Identificador*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="idTB" ErrorMessage="Campo requerido" ForeColor="Red" ValidationGroup="cuentaG" Display="Dynamic"></asp:RequiredFieldValidator>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="idTB" Display="Dynamic" ErrorMessage="Máxima cantidad de letras permitida es: 75" ForeColor="Red" ValidationExpression="^.{1,75}$" ValidationGroup="bodegaG"></asp:RegularExpressionValidator>
+                    <asp:TextBox type="email" ID="idTB" class="form-control" placeholder="jessica28@ejemplo.com" runat="server"></asp:TextBox>
                 </div>
                 <div class="form-group col-md-6" id="contra" runat="server" visible="false">
-                    <label for="contraTb" style="text-decoration: underline" runat="server">Contraseña Temporal</label><asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="contraTb" ErrorMessage="Campo requerido" ForeColor="Red" ValidationGroup="cuentaG"></asp:RequiredFieldValidator>
-                    &nbsp;<asp:TextBox type="password" ID="contraTb" class="form-control" runat="server"></asp:TextBox>
+                    <label for="contraTb" style="text-decoration: underline" runat="server">Contraseña Temporal*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="contraTb" ErrorMessage="Campo requerido" ForeColor="Red" ValidationGroup="cuentaG" Display="Dynamic"></asp:RequiredFieldValidator>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ControlToValidate="contraTb" Display="Dynamic" ErrorMessage="Máxima cantidad de letras permitida es: 200" ForeColor="Red" ValidationExpression="^[a-zA-Z0-9]{1,200}$" ValidationGroup="bodegaG"></asp:RegularExpressionValidator>
+                    <asp:TextBox type="password" ID="contraTb" class="form-control" runat="server"></asp:TextBox>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6" id="nombre" runat="server" visible="false">
-                    <label for="nombreTb">Nombre completo</label><asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="nombreTB" ErrorMessage="Campo requerido" ForeColor="Red" ValidationGroup="cuentaG"></asp:RequiredFieldValidator>
-                    &nbsp;<asp:TextBox type="text" ID="nombreTB" class="form-control" runat="server"></asp:TextBox>
+                    <label for="nombreTb">Nombre completo*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="nombreTB" ErrorMessage="Campo requerido" ForeColor="Red" ValidationGroup="cuentaG" Display="Dynamic"></asp:RequiredFieldValidator>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" ControlToValidate="nombreTB" Display="Dynamic" ErrorMessage="Máxima cantidad de letras permitida es: 100" ForeColor="Red" ValidationExpression="^[a-zA-Z0-9]{1,100}$" ValidationGroup="bodegaG"></asp:RegularExpressionValidator>
+                    <asp:TextBox type="text" ID="nombreTB" class="form-control" runat="server"></asp:TextBox>
                 </div>
                 <div class="form-group col-md-6" id="estado" runat="server" visible="false">
-                    <label for="estadoRb">Estado</label>
+                    <label for="estadoRb">Estado*</label>
                     <asp:RadioButtonList ID="estadoRb" runat="server" RepeatDirection="Horizontal">
                         <asp:ListItem Selected="True">Activado</asp:ListItem>
                         <asp:ListItem>Desactivado</asp:ListItem>
@@ -56,14 +59,16 @@
             </div>
             <div class="form-row">
                 <div class="form-group offset-1 col-md-10" id="nueva" runat="server" visible="false">
-                    <label for="nuevaTb">Nueva contraseña</label><asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="nuevaTb" ErrorMessage="Campo requerido" ForeColor="Red" ValidationGroup="cuentaG"></asp:RequiredFieldValidator>
-                    &nbsp;<asp:TextBox type="password" ID="nuevaTb" class="form-control" runat="server"></asp:TextBox>
+                    <label for="nuevaTb">Nueva contraseña*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="nuevaTb" ErrorMessage="Campo requerido" ForeColor="Red" ValidationGroup="cuentaG" Display="Dynamic"></asp:RequiredFieldValidator>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator4" runat="server" ControlToValidate="nuevaTb" Display="Dynamic" ErrorMessage="Máxima cantidad de letras permitida es: 200" ForeColor="Red" ValidationExpression="^[a-zA-Z0-9]{1,200}$" ValidationGroup="bodegaG"></asp:RegularExpressionValidator>
+                    <asp:TextBox type="password" ID="nuevaTb" class="form-control" runat="server"></asp:TextBox>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group offset-1 col-md-10" id="repetir" runat="server" visible="false">
-                    <label for="repetirTb">Repetir contraseña</label><asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="repetirTb" ErrorMessage="Campo requerido" ForeColor="Red" ValidationGroup="cuentaG"></asp:RequiredFieldValidator>
-                    &nbsp;<asp:CompareValidator ID="CompareValidator1" runat="server" ControlToCompare="nuevaTb" ControlToValidate="repetirTb" ErrorMessage="Las contraseñas no coinciden" ForeColor="Red" ValidationGroup="cuentaG"></asp:CompareValidator>
+                    <label for="repetirTb">Repetir contraseña*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="repetirTb" ErrorMessage="Campo requerido" ForeColor="Red" ValidationGroup="cuentaG" Display="Dynamic"></asp:RequiredFieldValidator>
+                    &nbsp;<asp:CompareValidator ID="CompareValidator1" runat="server" ControlToCompare="nuevaTb" ControlToValidate="repetirTb" ErrorMessage="Las contraseñas no coinciden" ForeColor="Red" ValidationGroup="cuentaG" Display="Dynamic"></asp:CompareValidator>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator5" runat="server" ControlToValidate="repetirTb" Display="Dynamic" ErrorMessage="Máxima cantidad de letras permitida es: 200" ForeColor="Red" ValidationExpression="^[a-zA-Z0-9]{1,200}$" ValidationGroup="bodegaG"></asp:RegularExpressionValidator>
                     <asp:TextBox type="password" ID="repetirTb" class="form-control" runat="server"></asp:TextBox>
                 </div>
             </div>

@@ -93,6 +93,7 @@ namespace ProyectoAMCRL
         {
 
             cargarUnidadesBodegas();
+            labelInfoLinea.Visible = false;
             materialDD.Visible = false;
             cantidadTB.Visible = false;
             unidadDD.Visible = false;

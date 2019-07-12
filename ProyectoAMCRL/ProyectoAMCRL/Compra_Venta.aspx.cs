@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using BL;
 using System.IO;
 using System.Data;
+using System.Windows.Forms;
 
 namespace ProyectoAMCRL
 {
@@ -46,6 +47,7 @@ namespace ProyectoAMCRL
                     //Estilo de espera para cuando se realiza la compra
                     btnGuardar.Attributes.Add("onclick", "document.body.style.cursor = 'wait';");
                     buscarSocioBTN.Attributes.Add("onclick", "document.body.style.cursor = 'wait';");
+                    materialDD.Attributes.Add("onclick", "document.body.style.cursor = 'wait';");
 
                     // Se cargan las unidades, bodegas, monedas y materiales existentes 
                     // (La seleccion de bodega debe especificar los materiales disponibles)
@@ -124,46 +126,55 @@ namespace ProyectoAMCRL
         /// <param name="id">Identificador de la factura que se va a mostrar en la pantalla</param>
         private void cargarFactura(string id)
         {
-            BLManejadorFacturas manejFact = new BLManejadorFacturas();
+            try
+            {
+                BLManejadorFacturas manejFact = new BLManejadorFacturas();
             BLManejadorMoneda manejMond = new BLManejadorMoneda();
             BLManejadorSocios manejSocios = new BLManejadorSocios();
             BLManejadorBodega manejBod = new BLManejadorBodega();
 
             String tipoFact = "";
+            String tipoSocio = "";
             BLFactura blFactura = manejFact.buscarVentaID(Convert.ToInt32(id));
             String texto = "Vista de venta";
-            if (blFactura.tipo.Equals("V"))
-            { 
+            if (blFactura.tipo.Equals("v"))
+            {
                 tipoFact = "venta";
-            }
-            else
-            {
-                texto  = "Vista de compra";
-                tipoFact = "compra";
-            }
-            cargarPantalla(tipoFact);
-            labelBreadCrum2.Text = texto;
-
-
-            String tipoSocio = "";
-            if (tipoFact.Equals("venta"))
-            {
-                
                 tipoSocio = "Cliente";
             }
             else
             {
-               
+                texto = "Vista de compra";
+                tipoFact = "compra";
                 tipoSocio = "Proveedor";
             }
+            cargarPantalla(tipoFact);
+            labelBreadCrum2.Text = texto;
 
             BLSocioNegocio socio = manejSocios.buscarSocio(blFactura.cedula, tipoSocio);
             List<BLDetalleFactura> detallesFactura = manejFact.listaDetalle(blFactura.cod_Factura);
+            BLContactos contac = manejSocios.buscarContactos(blFactura.cedula);
+            if (contac.telefono_pers != 0)
+            {
+                labelTel.Text = contac.telefono_pers + "";
+            }
+            else
+            {
+                if (contac.telefono_hab != 0)
+                {
+                    labelTel.Text = contac.telefono_hab + "";
+                }
+                else
+                {
+                    labelTel.Text = "No posee teléfono";
+                }
+            }
+
             foreach (BLDetalleFactura bl in detallesFactura)
             {
                 String lineaDetalle = "";
                 lineaDetalle = bl.nombreMaterial + "&" +
-                bl.monto_Linea + "&" + bl.kilos_Linea + "&" + "KILOS";
+                bl.monto_Linea + "&" + bl.kilos_Linea + "&" + " KILOS";
 
                 detalles.Add(lineaDetalle);
                 pegarLineasTablaFacturaCargada();
@@ -173,23 +184,32 @@ namespace ProyectoAMCRL
             identificacionTB.Text = blFactura.cedula;
             nombreLabel.Text = blFactura.nombreCompleto;
             labelDireccion.Text = socio.direccion.distrito + ", " + socio.direccion.canton;
-            //telefono cliente ?
             monedasDD.Items.Add(manejMond.buscarMonedaId(blFactura.id_Moneda).detalleMoneda);
             monedasDD.CssClass = "btn btn-light dropdown-toggle";
-            
-            ///arreglar que salga bodegas***************************
-            //bodegasDrop.Items.Add(manejBod.consultarBodegaAdmin(blFactura.id_Bodega).nombre);
-            //bodegasDrop.CssClass = "btn btn-light dropdown-toggle";
+
+            bodegasDrop.Items.Add(manejBod.consultarBodegaAdmin(blFactura.id_Bodega).nombre);
+            bodegasDrop.CssClass = "btn btn-light dropdown-toggle";
 
             datepickerT.Text = blFactura.fecha.Day + "/" + blFactura.fecha.Month + "/" + blFactura.fecha.Year;
             datepickerT.CssClass = "form-control font-weight-bolder";
             labelValorDatoConsecutivo.Text = Convert.ToString(blFactura.cod_Factura);
             totalLabel.Text = Convert.ToString(blFactura.monto_Total);
 
-            filaAgregarDetalles.Visible = false;
+            //filaAgregarDetalles.Visible = false;
             buscarSocioBTN.Visible = false;
-
+            materialDD.Visible = false;
+            precioKgTB.Visible = false;
+            cantidad2TB.Visible = false;
+            unidadDD.Visible = false;
+            agregarLineaBTN.Visible = false;
+            infoLineaLabel.Visible = false;
         }
+            catch (Exception)
+            {
+                lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>No se ha podido cargar la información de la factura.</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\" onclick=\"cerrarError()\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                lblError.Visible = true;
+            }
+}
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
@@ -259,7 +279,7 @@ namespace ProyectoAMCRL
             {
                 cantidad2TB.Style.Add("border-color", "transparent");
                 String lineaAjusteInfo = "";
-                Double precioEspecificado = String.IsNullOrEmpty(precioKg2TB.Value) ? 0 : Double.Parse(precioKg2TB.Value);
+                Double precioEspecificado = String.IsNullOrEmpty(precioKgTB.Text) ? 0 : Double.Parse(precioKgTB.Text);
                 lineaAjusteInfo = materialDD.SelectedItem.Value + '#' + materialDD.SelectedItem.Text + "&" +
                 precioEspecificado + "&" + cantidad2TB.Value + "&" + unidadDD.SelectedItem.Value + '#' + unidadDD.SelectedItem.Text;
                 detalles.Add(lineaAjusteInfo);
@@ -301,16 +321,22 @@ namespace ProyectoAMCRL
 
                 String[] lineaInfo = linea.Split('&');
                 TableCell productoCell = new TableCell();
+                productoCell.Style.Add("width", "30%");
                 TableCell precioKg = new TableCell();
+                precioKg.Style.Add("width", "20%");
                 TableCell cantidadCell = new TableCell();
+                cantidadCell.Style.Add("width", "20%");
 
                 TableCell unidadCell = new TableCell();
+                unidadCell.Style.Add("width", "20%");
 
                 TableCell quitarFilaCampo = new TableCell();
+                quitarFilaCampo.Style.Add("width", "10%");
                 TableRow filaNueva = new TableRow();
 
                 String[] materialInfo = lineaInfo[0].Split('#');
-                productoCell.Text = materialInfo[1];
+                String[] idANDstock = materialInfo[0].Split('-');
+                productoCell.Text = idANDstock[0] + "-" + materialInfo[1];
                 precioKg.Text = lineaInfo[1];
                 cantidadCell.Text = lineaInfo[2];
                 String[] unidadInfo = lineaInfo[3].Split('#');
@@ -379,7 +405,7 @@ namespace ProyectoAMCRL
         private void refrescarDatos()
         {
             materialDD.SelectedIndex = 0;
-            precioKg2TB.Value = "";
+            precioKgTB.Text = "";
             cantidad2TB.Value = "";
             unidadDD.SelectedIndex = 1;
         }
@@ -422,20 +448,7 @@ namespace ProyectoAMCRL
 
         private void cargarUnidadesBodegasMonedas()
         {
-            DataSet unidades = manejadorU.listarUnidades();
-
-            foreach (DataRow dr in unidades.Tables[0].Rows)
-            {
-                // COD_UNIDAD, NOMBRE_UNIDAD 
-
-                String codigo = Convert.ToString(dr["COD_UNIDAD"]);
-                String nombre = Convert.ToString(dr["NOMBRE_UNIDAD"]);
-                String equiv = Convert.ToString(dr["EQUIVALENCIA_KG"]);
-                String infoUnidad = codigo + "*" + equiv;
-
-                ListItem item = new ListItem(nombre, infoUnidad);
-                unidadDD.Items.Add(item);
-            }
+            cargarUnidades();
 
             List<BLBodegaTabla> bodegas = manejadorB.listaBodegas();
             foreach (BLBodegaTabla b in bodegas)
@@ -478,6 +491,16 @@ namespace ProyectoAMCRL
         {
             String idBodega = bodegasDrop.SelectedItem.Value;
             cargarMateriales(idBodega);
+        }
+
+        private void Textbox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((int)e.KeyChar == (int)Keys.Enter)
+            {
+                labelDatosSocio.BackColor = System.Drawing.Color.Red;
+                //aqui codigo
+            }
+
         }
 
         protected void buscarSocioBTN_Click(object sender, EventArgs e)
@@ -523,5 +546,83 @@ namespace ProyectoAMCRL
                 lblError.Visible = true;
             }
         }
+
+        protected void materialDD_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            String[] materialInfo = materialDD.SelectedItem.Value.Split('-');
+            String codigo = materialInfo[0];
+
+            DataSet materialInfoSet = new DataSet();
+
+            if (manejadorM == null)
+                manejadorM = new BLManejadorMateriales();
+
+            if (labelBreadCrum1.Text.Equals("Compra"))
+                materialInfoSet = manejadorM.traerUnidadYprecioBase(codigo, 'c');
+            else
+                materialInfoSet = manejadorM.traerUnidadYprecioBase(codigo, 'v');
+
+            if (materialInfoSet != null)
+            {
+                String unidadBase = Convert.ToString(materialInfoSet.Tables[0].Rows[0]["COD_UNIDAD"]);
+                String precioString = Convert.ToString(materialInfoSet.Tables[0].Rows[0]["PRECIO_BASE"]);
+                double precioBase = Double.Parse(precioString);
+
+                precioKgTB.Text = precioString;
+                
+                //FUNCIONE PORFIS
+                int index = 0;
+
+                unidadDD.Items.Clear();
+                cargarUnidades();
+
+                for (int ind = 0; ind < unidadDD.Items.Count; ind++)
+                {
+                    ListItem item = unidadDD.Items[ind];
+                    unidadDD.Items[ind].Selected = false;
+                    String[] infoCod = item.Value.Split('*');
+                    String cod = infoCod[0];
+
+                    if (cod.Equals(unidadBase))
+                    {
+
+                        index = ind;
+                        break;
+                    }
+                }
+
+                unidadDD.Items[index].Selected = true;
+                unidadDD.DataBind();
+
+            }
+            pegarLineasTabla();
+            precioKgTB.DataBind();
+            String nombre = materialInfo[1];
+        }
+
+
+        private void cargarUnidades()
+        {
+
+            if (manejadorU == null)
+                manejadorU = new BLManejadorUnidades();
+
+            DataSet unidades = manejadorU.listarUnidades();
+
+            foreach (DataRow dr in unidades.Tables[0].Rows)
+            {
+                // COD_UNIDAD, NOMBRE_UNIDAD 
+
+                String codigo = Convert.ToString(dr["COD_UNIDAD"]);
+                String nombre = Convert.ToString(dr["NOMBRE_UNIDAD"]);
+                String equiv = Convert.ToString(dr["EQUIVALENCIA_KG"]);
+                String infoUnidad = codigo + "*" + equiv;
+
+                ListItem item = new ListItem(nombre, infoUnidad);
+                unidadDD.Items.Add(item);
+            }
+
+        }
+
     }
 }

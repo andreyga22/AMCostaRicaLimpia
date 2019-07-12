@@ -72,8 +72,8 @@ namespace BL
         /// <returns>Retorna la lista de detalle de una factura</returns>
         public List<BLDetalleFactura> listaDetalle(int id)
         {
-            try
-            {
+            //try
+            //{
                 DAOManejadorFacturas dao = new DAOManejadorFacturas();
                 List<TODetalleFactura> lista = dao.listaDetalle(id);
                 List<BLDetalleFactura> listaBL = new List<BLDetalleFactura>();
@@ -82,11 +82,11 @@ namespace BL
                     listaBL.Add(convertDetalle(detalleFactura));
                 }
                 return listaBL;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            //}
+            //catch (Exception)
+            //{
+            //    throw;
+            //}
         }
 
         public int numeroRangoFecha(string tipo)
@@ -329,7 +329,7 @@ namespace BL
                 //[0]material; [2]precioKilo; [3]cantidad; [4]unidad; 
                 String[] materialInfo = infoLinea[0].Split('#');
                 String[] idANDstock = materialInfo[0].Split('-');
-                detalleTO.cod_Stock = Convert.ToInt16(idANDstock[0]); //eso esta mal..
+                detalleTO.cod_Stock = Convert.ToInt16(idANDstock[0]);
                 detalleTO.nombreMaterial = idANDstock[0];
 
                 String[] infoUnidad = infoLinea[3].Split('#');
