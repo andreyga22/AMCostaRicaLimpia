@@ -30,7 +30,7 @@ namespace DAO
         public DataSet obtenerMaterialesEnBodegaActual(String id_bodega)
         {
 
-            String sql = "select s.ID_STOCK, m.COD_MATERIAL, m.NOMBRE_MATERIAL, m.PRECIO_KILO from MATERIAL m, STOCK s " +
+            String sql = "select s.ID_STOCK, m.COD_MATERIAL, m.NOMBRE_MATERIAL, m.PRECIO_VENTA_KILO, m.PRECIO_COMPRA_KILO from MATERIAL m, STOCK s " +
                 "where(m.COD_MATERIAL = s.COD_MATERIAL and s.ID_BODEGA = @ID_BOD);";
 
             SqlCommand cmd = new SqlCommand(sql, conexion);
