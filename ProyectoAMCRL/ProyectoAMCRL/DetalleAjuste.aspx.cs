@@ -321,6 +321,9 @@ namespace ProyectoAMCRL
                 }
             }
             materialDD.DataBind();
+            String[] materialInfo = materialDD.SelectedItem.Value.Split('*');
+            String codigM = materialInfo[0];
+            cargarUnidadBase(codigM);
             pegarLineasTabla();
         }
 
@@ -386,7 +389,11 @@ namespace ProyectoAMCRL
         {
             String[] materialInfo = materialDD.SelectedItem.Value.Split('*');
             String codigo = materialInfo[0];
+            cargarUnidadBase(codigo);
+        }
 
+
+        private void cargarUnidadBase(String codigo) {
             DataSet materialInfoSet = new DataSet();
 
             if (manejadorM == null)
@@ -423,7 +430,7 @@ namespace ProyectoAMCRL
 
             }
             pegarLineasTabla();
-            String nombre = materialInfo[1];
+            //String nombre = materialInfo[1];
         }
     }
 }
