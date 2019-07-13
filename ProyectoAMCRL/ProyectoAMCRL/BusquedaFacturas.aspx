@@ -119,72 +119,10 @@
 
         <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
 
-
-
-
-        <!-- Modal -->
-        <%--      <div class="modal fade" id="filtros" role="dialog">
-            <div class="modal-dialog modal-lg">--%>
-
-
-        <!-- Modal content-->
-        <%--       <div class="modal-content " style="height: 500px;">
-
-                    <div class="modal-header" style="background-color: rgba(230, 230, 230, 0.48)">
-                        <h6 class="modal-title font-weight-bolder" style="float: left">Selección de filtros</h6>
-                        <button type="button" class="close" data-dismiss="modal" style="float: right">&times;</button>
-                    </div>--%>
-
-        <%--                    <div class="modal-body">
-                        <div class="row" id="barraFiltros">
-                            <div class="col-lg-4">--%>
-        <%-- <label>Fecha inicio:</label>
-                                <asp:TextBox CssClass="form-control" type="text" ID="fechaInicio" runat="server" ClientIDMode="Static" />
-                                <label>Fecha fin:</label>
-                                <asp:TextBox CssClass="form-control" type="text" ID="fechaFin" runat="server" ClientIDMode="Static" />--%>
-        <%--<br>--%>
-        <%-- FILTRO TIPO --%>
-        <%--         <label style="margin-left: 10px">Tipo</label>
-                                <asp:RadioButtonList runat="server" ID="tipoRadioL">
-                                    <asp:ListItem Text="No especificar" />
-                                    <asp:ListItem Text="Venta" />
-                                    <asp:ListItem Text="Compra" />
-                                </asp:RadioButtonList>
-                            </div>
-
-                            <div class="col-lg-3">--%>
-        <%-- <label>Montos</label>
-                                <asp:TextBox ID="montoMinimo" runat="server" type="number" CssClass="btn btn-light" Width="100%" placeholder="Monto mínima" />
-                                <br />
-                                <br />
-                                <asp:TextBox ID="montoMaximo" runat="server" type="number" CssClass="btn btn-light" Width="100%" placeholder="Monto máxima" />--%>
-        <%--        <br>
-                                <br>
-                            </div>
-
-                            <div class="col-lg-5">
-                                <label>Materiales</label>--%>
-        <%--    <div class="overflow-auto" style="height: 300px; width: 100%; border: 1px solid rgba(221, 221, 221, 0.42)" aria-labelledby="dropdownMenuButton" aria-multiselectable="true">
-                                    <asp:CheckBoxList runat="server" ID="materialesCB">
-                                    </asp:CheckBoxList>
-                                </div>--%>
-        <%--  </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <asp:Button ID="btnFiltrarModal" type="submit" runat="server" Text="Filtrar" class="btn btn-primary" />
-                    </div>
-                </div>
-            </div>
-        </div>--%>
-
-
-
         <div class="row justify-content-center">
             <div class="col-2">
                 <button class="btn btn-outline-secondary" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false"
-                    aria-controls="filtroFechas filtroMontos filtroMateriales">
+                    aria-controls="filtroFechas filtroMontos filtroMateriales" id="btn" runat="server">
                     Búsqueda avanzada</button>
             </div>
             <div class="offset-7 col-3">
@@ -211,9 +149,11 @@
                 <div class="collapse multi-collapse" id="filtroMontos">
                     <div class="card card-body">
                         <label>Montos</label>
+                        <asp:RegularExpressionValidator ID="RegularExpressionValidator1" display="Dynamic" runat="server" ErrorMessage="Solo números permitidos" ControlToValidate="montoMinimo" ForeColor="Red" ValidationExpression="^[0-9]+(\.([0-9]{1,2})?)?$" ValidationGroup="filtro"></asp:RegularExpressionValidator>
                         <asp:TextBox ID="montoMinimo" runat="server" type="number" CssClass="btn btn-light" Width="100%" placeholder="Monto mínima" />
                         <br />
                         <br />
+                         <asp:RegularExpressionValidator ID="RegularExpressionValidator2" display="Dynamic" runat="server" ErrorMessage="Solo números permitidos" ControlToValidate="montoMaximo" ForeColor="Red" ValidationExpression="^[0-9]+(\.([0-9]{1,2})?)?$" ValidationGroup="filtro"></asp:RegularExpressionValidator>
                         <asp:TextBox ID="montoMaximo" runat="server" type="number" CssClass="btn btn-light" Width="100%" placeholder="Monto máxima" />
                     </div>
                 </div>
@@ -236,7 +176,7 @@
             <div class="col"></div>
             <div class="col">
                 <div class="collapse multi-collapse" id="botonBusquedaAvanzada">
-                    <asp:Button ID="btnBusquedaAvanzada" type="submit" runat="server" Text="Buscar" class="btn btn-primary" OnClick="btnFiltrar_Click" />
+                    <asp:Button ValidationGroup="filtro" ID="btnBusquedaAvanzada" type="submit" runat="server" Text="Buscar" class="btn btn-primary" OnClick="btnFiltrar_Click" />
                 </div>
             </div>
             <div class="col"></div>

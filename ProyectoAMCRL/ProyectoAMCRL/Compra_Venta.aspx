@@ -207,7 +207,7 @@
                 <asp:Label Text="Material" runat="server" />
             </div>
             <div style="width: 20%; text-align: left; padding-left: 2px;" class="font-weight-bolder">
-                <asp:Label Text="Precio base" runat="server" />
+                <asp:Label ID="PrecioLineaBase" Text="Precio base" runat="server" />
             </div>
             <div style="width: 20%; text-align: left; padding-left: 2px;" class="font-weight-bolder">
                 <asp:Label Text="Cantidad" runat="server" />
@@ -230,6 +230,6 @@
             <asp:Label ID="totalLabel" Text="0" runat="server" />
         </div>
         <br>
-        <asp:Button ID="btnGuardar" type="button" runat="server" Text="Guardar" class="btn btn-info" Width="15%" OnClick="btnGuardar_Click" />
+        <asp:Button ID="btnGuardar" type="button" runat="server" Text="Guardar" class="btn btn-info" Width="15%" OnClick="btnGuardar_Click" ValidationGroup="facturaG" />
     </div>
 </asp:Content>

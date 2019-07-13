@@ -202,6 +202,7 @@ namespace ProyectoAMCRL
                 unidadDD.Visible = false;
                 agregarLineaBTN.Visible = false;
                 infoLineaLabel.Visible = false;
+                PrecioLineaBase.Text = "Precio Línea";
             }
             catch (Exception)
             {
@@ -376,22 +377,28 @@ namespace ProyectoAMCRL
 
                 String[] lineaInfo = linea.Split('&');
                 TableCell productoCell = new TableCell();
+                productoCell.Style.Add("width", "30%");
                 TableCell precioKg = new TableCell();
+                precioKg.Style.Add("width", "20%");
                 TableCell cantidadCell = new TableCell();
-
+                cantidadCell.Style.Add("width", "20%");
                 TableCell unidadCell = new TableCell();
+                unidadCell.Style.Add("width", "20%");
                 TableRow filaNueva = new TableRow();
-
+                TableCell nadaCell = new TableCell();
+                nadaCell.Style.Add("width", "10%");
 
                 productoCell.Text = lineaInfo[0];
                 precioKg.Text = lineaInfo[1];
                 cantidadCell.Text = lineaInfo[2];
                 unidadCell.Text = lineaInfo[3];
+                nadaCell.Text = "";
 
                 filaNueva.Cells.Add(productoCell);
                 filaNueva.Cells.Add(precioKg);
                 filaNueva.Cells.Add(cantidadCell);
                 filaNueva.Cells.Add(unidadCell);
+                filaNueva.Cells.Add(nadaCell);
                 tablaDetalles.Rows.Add(filaNueva);
             }
             labelAgregados.Text = detalles.Count.ToString();
