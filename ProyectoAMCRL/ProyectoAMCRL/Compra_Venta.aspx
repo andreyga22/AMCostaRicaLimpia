@@ -101,7 +101,7 @@
             <div class="col-lg-4">
                 <div class="row" style="margin-left: 0%">
                     <div>
-                        <asp:TextBox onkeypress="" AutoPostBack="false" Width="98%" CssClass="form-control " runat="server" ID="identificacionTB"></asp:TextBox>
+                        <asp:TextBox onkeydown="return (event.keyCode!=13);" AutoPostBack="false" Width="98%" CssClass="form-control " runat="server" ID="identificacionTB"></asp:TextBox>
                     </div>
                     <asp:LinkButton CssClass="btn btn-light" ID="buscarSocioBTN" runat="server" Text="Buscar" OnClick="buscarSocioBTN_Click"><i class="fa fa-search" style="margin-right:3px"></i></asp:LinkButton>
                 </div>
@@ -186,7 +186,7 @@
         <div class="row">
              <div class="col-2" style="margin-right: 4.5%"></div>
              <div class="col-2">
-              <asp:RegularExpressionValidator ID="RegularExpressionValidator1" display="Dynamic" runat="server" ErrorMessage="Solo números permitidos" ControlToValidate="precioKgTB" ForeColor="Red" ValidationExpression="^\d{1,10}$" ValidationGroup="facturaG"></asp:RegularExpressionValidator>
+              <asp:RegularExpressionValidator ID="RegularExpressionValidator1" display="Dynamic" runat="server" ErrorMessage="Solo números permitidos" ControlToValidate="precioKgTB" ForeColor="Red" ValidationExpression="^[0-9]+(\.([0-9]{1,10})?)?$" ValidationGroup="facturaG"></asp:RegularExpressionValidator>
              </div>
              <div class="col-2" style="margin-left:0%;" >
                <asp:RegularExpressionValidator ID="RegularExpressionValidator2" display="Dynamic" runat="server" ErrorMessage="Solo números permitidos" ControlToValidate="cantidadTB" ForeColor="Red" ValidationExpression="^\d{1,10}$" ValidationGroup="facturaG"></asp:RegularExpressionValidator>
@@ -207,7 +207,7 @@
                 <asp:Label Text="Material" runat="server" />
             </div>
             <div style="width: 20%; text-align: left; padding-left: 2px;" class="font-weight-bolder">
-                <asp:Label Text="Precio base" runat="server" />
+                <asp:Label ID="PrecioLineaBase" Text="Precio base" runat="server" />
             </div>
             <div style="width: 20%; text-align: left; padding-left: 2px;" class="font-weight-bolder">
                 <asp:Label Text="Cantidad" runat="server" />
@@ -230,6 +230,6 @@
             <asp:Label ID="totalLabel" Text="0" runat="server" />
         </div>
         <br>
-        <asp:Button ID="btnGuardar" type="button" runat="server" Text="Guardar" class="btn btn-info" Width="15%" OnClick="btnGuardar_Click" />
+        <asp:Button ID="btnGuardar" type="button" runat="server" Text="Guardar" class="btn btn-info" Width="15%" OnClick="btnGuardar_Click" ValidationGroup="facturaG" />
     </div>
 </asp:Content>

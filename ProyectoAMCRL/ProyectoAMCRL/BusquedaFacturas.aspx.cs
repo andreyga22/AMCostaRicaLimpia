@@ -29,6 +29,7 @@ namespace ProyectoAMCRL
             {
                 if (Session["cuentaLogin"] != null)
                 {
+                    btn.Visible = false;
                     if (!this.IsPostBack)
                     {
                         if (ViewState["sorting"] == null)
@@ -201,8 +202,8 @@ namespace ProyectoAMCRL
         /// <param name="e"></param>
         protected void btnFiltrar_Click(object sender, EventArgs e)
         {
-            try
-            {
+            //try
+            //{
                 BLManejadorFacturas manej = new BLManejadorFacturas();
 
                 String fechaIni = "";
@@ -244,13 +245,12 @@ namespace ProyectoAMCRL
                 {
                     material.Selected = false;
                 }
-
                 buscar(facturasFiltradas);
-            } catch (Exception)
-            {
-                lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>Error. </strong>No se pudo cargar las facturas.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
-                lblError.Visible = true;
-            }
+            //} catch (Exception)
+            //{
+            //    lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>Error. </strong>No se pudo cargar las facturas.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+            //    lblError.Visible = true;
+            //}
         }
 
 

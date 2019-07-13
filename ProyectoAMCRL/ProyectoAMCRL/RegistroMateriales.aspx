@@ -19,7 +19,7 @@
             <label class="h6">Bodega:</label>
             <asp:Label runat="server" CssClass="h6" Text=" B01"></asp:Label>
         </div>
-        <asp:Label runat="server" ID="labelAccion" CssClass="h5">Material</asp:Label>
+        <asp:Label runat="server" ID="labelAccion" CssClass="h5">Registro de material</asp:Label>
         <br>
         <br>
         <div class="row">
