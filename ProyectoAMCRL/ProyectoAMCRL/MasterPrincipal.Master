@@ -60,7 +60,7 @@
             </div>
             <ul class="list-unstyled components">
 
-                <li class="active"; style="margin-bottom:5px">
+                <li class="active"; style="margin-bottom:10px">
                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle font-weight-bolder">
                         <i class="fas fa-users"></i>Socios</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
@@ -70,7 +70,7 @@
                     </ul>
                 </li>
 
-                <li class="active" style="margin-bottom:5px">
+                <li class="active" style="margin-bottom:10px">
                     <a href="#compraVentaSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle font-weight-bolder">
                         <i class="fa fa-coins"></i>Compras</a>
                     <ul class="collapse list-unstyled" id="compraVentaSubmenu">
@@ -79,7 +79,6 @@
                         </li>
                              <li>
                                   <asp:LinkButton Text="Búsqueda facturas" runat="server" ID="btnBusqFactComp" OnClick="btnBusqFactComp_Click"/>
-                            <%--<a href="BusquedaFacturas.aspx">Búsqueda facturas</a>--%>
                         </li>
                     </ul>
                 </li>
@@ -93,7 +92,7 @@
                         </li>
                           </ul>
                      </li>--%>
-                <li class="active" style="margin-bottom:5px">
+                <li class="active" style="margin-bottom:10px">
                     <a href="#ventasSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle font-weight-bolder">
                         <i class="fa fa-coins"></i>Ventas</a>
                     <ul class="collapse list-unstyled" id="ventasSubmenu">
@@ -103,11 +102,10 @@
                         <li>
                              <asp:LinkButton Text="Búsqueda facturas" runat="server" ID="btnBusqFactVent" OnClick="btnBusqFactVent_Click"/>
                         </li>
-                        <li><%--<a href="BusquedaFacturas.aspx?mod=v">Búsqueda facturas</a>--%></li>
                     </ul>
                 </li>
 
-                <li class="active"style="margin-bottom:5px">
+                <li class="active"style="margin-bottom:10px">
                     <a href="#stockSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle font-weight-bolder">
                         <i class="fas fa-boxes"></i>Inventario</a>
                     <ul class="collapse list-unstyled" id="stockSubmenu">
@@ -117,7 +115,7 @@
                     </ul>
                 </li>
 
-                <li class="active" style="margin-bottom:5px">
+                <li class="active" style="margin-bottom:10px">
                     <a href="#reportesSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle font-weight-bolder">
                         <i class="fas fa-chart-line"></i>Reportes</a>
                     <ul class="collapse list-unstyled" id="reportesSubmenu">
@@ -126,7 +124,7 @@
                     </ul>
                 </li>
 
-                <li class="active" style=" margin-bottom:80px">
+                <li class="active" style=" margin-bottom:10px">
                     <a href="#otrosSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle font-weight-bolder">
                         <i class="fas fa-wrench"></i>Otros</a>
                     <ul class="collapse list-unstyled" id="otrosSubmenu">
@@ -134,15 +132,15 @@
                         <li> <a href="AdministrarUnidadesMedida.aspx">Administrar Unidades medida</a></li>
                     </ul>
                 </li>
- <div id="cuentasSubmenu2" runat="server">
-                <li class="active"style="margin-bottom:5px">
+<%-- <div id="cuentasSubmenu2" runat="server">--%>
+                <li class="active"style="margin-bottom:10px">
                     <a href="#cuentasSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle font-weight-bolder">
                         <i class="fa fa-cog"></i>Cuentas</a>
                     <ul class="collapse list-unstyled" id="cuentasSubmenu">
                         <li><asp:LinkButton ID="cuentasLb" runat="server" OnClick="cuentasLb_Click">Administrar cuentas</asp:LinkButton></li>
                     </ul>
                 </li>
-                </div>
+                <%--</div>--%>
                 <%--<li class="active">
                     <a href="#configSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <i class="fa fa-cog"></i>Configuración</a>
