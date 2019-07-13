@@ -114,7 +114,7 @@ namespace ProyectoAMCRL
                 textoDatoConsecutivo = "Venta #";
             }
 
-            //********labelBreadCrum1.Text = textoBreadCrum1;
+            labelBreadCrum1.InnerText = textoBreadCrum1;
             labelBreadCrum2.Text = textoBreadCrum2;
             labelDatosSocio.Text = textoDatoSocio;
             labelDatoConsecutivo.Text = textoDatoConsecutivo;
@@ -206,7 +206,7 @@ namespace ProyectoAMCRL
                 agregarLineaBTN.Visible = false;
                 infoLineaLabel.Visible = false;
                 PrecioLineaBase.Text = "Precio Línea";
-                
+                labelBreadCrum1.InnerText = "Búsqueda Facturas";
   
             }
             catch (Exception)
