@@ -122,7 +122,7 @@
         <div class="row justify-content-center">
             <div class="col-2">
                 <button class="btn btn-outline-secondary" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false"
-                    aria-controls="filtroFechas filtroMontos filtroMateriales">
+                    aria-controls="filtroFechas filtroMontos filtroMateriales" id="btn" runat="server">
                     Búsqueda avanzada</button>
             </div>
             <div class="offset-7 col-3">
@@ -149,9 +149,11 @@
                 <div class="collapse multi-collapse" id="filtroMontos">
                     <div class="card card-body">
                         <label>Montos</label>
+                        <asp:RegularExpressionValidator ID="RegularExpressionValidator1" display="Dynamic" runat="server" ErrorMessage="Solo números permitidos" ControlToValidate="montoMinimo" ForeColor="Red" ValidationExpression="^[0-9]+(\.([0-9]{1,2})?)?$" ValidationGroup="filtro"></asp:RegularExpressionValidator>
                         <asp:TextBox ID="montoMinimo" runat="server" type="number" CssClass="btn btn-light" Width="100%" placeholder="Monto mínima" />
                         <br />
                         <br />
+                         <asp:RegularExpressionValidator ID="RegularExpressionValidator2" display="Dynamic" runat="server" ErrorMessage="Solo números permitidos" ControlToValidate="montoMaximo" ForeColor="Red" ValidationExpression="^[0-9]+(\.([0-9]{1,2})?)?$" ValidationGroup="filtro"></asp:RegularExpressionValidator>
                         <asp:TextBox ID="montoMaximo" runat="server" type="number" CssClass="btn btn-light" Width="100%" placeholder="Monto máxima" />
                     </div>
                 </div>
@@ -174,7 +176,7 @@
             <div class="col"></div>
             <div class="col">
                 <div class="collapse multi-collapse" id="botonBusquedaAvanzada">
-                    <asp:Button ID="btnBusquedaAvanzada" type="submit" runat="server" Text="Buscar" class="btn btn-primary" OnClick="btnFiltrar_Click" />
+                    <asp:Button ValidationGroup="filtro" ID="btnBusquedaAvanzada" type="submit" runat="server" Text="Buscar" class="btn btn-primary" OnClick="btnFiltrar_Click" />
                 </div>
             </div>
             <div class="col"></div>

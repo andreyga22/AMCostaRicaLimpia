@@ -230,6 +230,6 @@
             <asp:Label ID="totalLabel" Text="0" runat="server" />
         </div>
         <br>
-        <asp:Button ID="btnGuardar" type="button" runat="server" Text="Guardar" class="btn btn-info" Width="15%" OnClick="btnGuardar_Click" />
+        <asp:Button ID="btnGuardar" type="button" runat="server" Text="Guardar" class="btn btn-info" Width="15%" OnClick="btnGuardar_Click" ValidationGroup="facturaG" />
     </div>
 </asp:Content>
