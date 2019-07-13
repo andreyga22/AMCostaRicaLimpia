@@ -16,7 +16,6 @@
         <asp:Literal ID="lblError" runat="server" Visible="false"></asp:Literal>
     </div>
     <div class="container">
-        <br />
         <div class="form-row">
             <div class="offset-1">
                 <h4>Socio</h4>
@@ -24,13 +23,6 @@
             <div class="col-3 offset-7">
                 <asp:LinkButton ID="LinkAsoc" runat="server" Visible="false" Style="color: dodgerblue" OnClick="LinkAsoc_Click">¿Desea asociarlo a otro socio existente?</asp:LinkButton>
             </div>
-        </div>
-        <br />
-
-        <%--<asp:Button ID="btnFactur" type="submmit" runat="server" Text="Facturas" class="btn btn-outline-secondary" Width="15%" Visible="false" />
-        <asp:Button ID="btnAsociar" type="submmit" runat="server" Text="Asociar" class="btn btn-outline-secondary" Width="15%" Visible="false" />--%>
-        <div class="offset-1">
-            <h5>Datos Personales</h5>
         </div>
         <br />
         <div class="form-row">
@@ -83,7 +75,6 @@
             </div>
         </div>
 
-        <br />
         <div class="offset-1">
             <h5>Dirección</h5>
         </div>

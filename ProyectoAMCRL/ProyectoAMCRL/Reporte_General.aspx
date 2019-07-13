@@ -10,23 +10,27 @@
 
 <asp:Content ID="Content4" ContentPlaceHolderID="body" runat="server">
     <div class="row justify-content-center">
-        <asp:Literal ID="lblError" runat="server" Visible="false"></asp:Literal>
+        <asp:Literal ID="lblError" runat="server" Visible="false">
+
+        </asp:Literal>
     </div>
     <div class="container">
         <div class="row">
-            <h4 class="font-weight-bold">Reporte</h4>
+            <h4 class="">Reporte general</h4>
         </div>
         <%-- FILTROS --%>
-        <br>
+        <%--<h3 style="color:darkred">Esta funcionalidad aún no se encuentra completa para esta versión. </h3>
+        <br />--%>
         <div class="row float-right">
-            <asp:DropDownList class="btn btn-light dropdown-toggle" type="dropdown" ata-toggle="dropdown" aria-haspopup="true" aria-expanded="false" AutoPostBack="True" ID="DropDownList1" runat="server">
+            <asp:DropDownList class="btn btn-light dropdown-toggle" Enabled="false" type="dropdown" ata-toggle="dropdown" aria-haspopup="true" aria-expanded="false" AutoPostBack="True" ID="DropDownList1" runat="server">
                 <asp:ListItem>Reporte ventas y compras</asp:ListItem>
                 <asp:ListItem>Reporte ventas</asp:ListItem>
                 <asp:ListItem>Reporte compras</asp:ListItem>
             </asp:DropDownList>
         </div>
         <br>
-        <h5>Seleccione las secciones que desea agregar al reporte:</h5>
+        <br />
+<%--        <h5>Seleccione las secciones que desea agregar al reporte:</h5>
         <br />
         <br />
         <div class="row">
@@ -50,7 +54,7 @@
             </div>
         </div>
         <br>
-        <%-- FILTRO FECHAS --%>
+
         <div class="row" style="margin-left: 0.2%">
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="checkbox" id="rangoFech" value="fechas">
@@ -102,7 +106,8 @@
         <br />
         <div class="row float-right" style="border: 1px solid #ccc4c4; margin-right: 0.1%">
             <asp:Label runat="server" ID="fechaActDatLabel">Fecha actual: 19/5/2019</asp:Label>
-        </div>
+        </div>--%>
+
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -115,14 +120,14 @@
                 <tr>
                     <th scope="row">General</th>
                     <td>
-                        <p><strong>Entradas totales:</strong> 500000₡</p>
-                        <p><strong>Ventas totales:</strong> 500000₡</p>
-                        <p><strong>Entradas por ajustes:</strong> 00₡</p>
+                        <p><strong>Entradas totales:</strong> 0₡</p>
+                        <p><strong>Ventas totales:</strong> 0₡</p>
+                        <p><strong>Entradas por ajustes:</strong> 0₡</p>
                     </td>
                     <td>
-                        <p><strong>Salidas totales:</strong> 500000₡</p>
-                        <p><strong>Compras totales:</strong> 500000₡</p>
-                        <p><strong>Salidas por ajustes:</strong> 00₡</p>
+                        <p><strong>Salidas totales:</strong> 0₡</p>
+                        <p><strong>Compras totales:</strong> 0₡</p>
+                        <p><strong>Salidas por ajustes:</strong> 0₡</p>
                     </td>
                 </tr>
                 <tr>
@@ -131,10 +136,7 @@
                         <p><strong>Bodegas con mayor ventas:</strong></p>
                         <ul>
                             <li>
-                                <p><strong>BODEGA-1: San Ramon:</strong> 200000₡</p>
-                            </li>
-                            <li>
-                                <p><strong>BODEGA-2: Naranjo:</strong> 300000₡</p>
+                                <p><strong>BODEGA-1: San Ramon:</strong> ₡</p>
                             </li>
                         </ul>
                     </td>
@@ -142,7 +144,7 @@
                         <p><strong>Bodegas con más compras:</strong></p>
                         <ul>
                             <li>
-                                <p><strong>BODEGA-1: San Ramon:</strong> 400000₡</p>
+                                <p><strong>BODEGA-1: San Ramon:</strong> ₡</p>
                             </li>
                         </ul>
                     </td>
@@ -152,15 +154,15 @@
                     <td>
                         <p><strong>Materiales más vendidos:</strong></p>
                         <ul>
-                            <li>Total vendido Aluminio: 50000₡</li>
-                            <li>Total vendido Cobre: 70000₡</li>
+                            <li>Total vendido Aluminio: ₡</li>
+                            <li>Total vendido Cobre: ₡</li>
                         </ul>
                     </td>
                     <td>
                         <p><strong>Materiales más comprados:</strong></p>
                         <ul>
-                            <li>Total comprado Aluminio: 57000₡</li>
-                            <li>Total comprado Hierro: 85000₡</li>
+                            <li>Total comprado Aluminio: ₡</li>
+                            <li>Total comprado Hierro: ₡</li>
                         </ul>
                     </td>
                 </tr>
@@ -168,11 +170,11 @@
                     <th scope="row">Socios</th>
                     <td>Socios:
                             Cliente con mayor frecuencia en ventas 
-                            12355 Pedro Gomez pedro@gmail.com
+                            504060873 Andrey Gonzales Artavia andreyga22@gmail.com
                     </td>
                     <td>Socios:
                             Proveedor con mas compras registradas
-                            12344 Juan Perez juan@gmail.com
+                            207630879 Carlos Steven Aguilar Rodriguez timosnes@gmail.com
                             
                     </td>
                 </tr>
@@ -180,7 +182,7 @@
         </table>
         <%-- SUBMMIT BUTTON --%>
         <div class="row justify-content-center">
-            <asp:Button ID="btnDescargar" type="submit" runat="server" Text="Descargar" class="btn btn-info" Width="15%" />
+            <asp:Button ID="btnDescargar" type="submit" Enabled=" false" runat="server" Text="Descargar" class="btn btn-info" Width="15%" />
         </div>
     </div>
 </asp:Content>

@@ -11,7 +11,8 @@ namespace ProyectoAMCRL
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> Esta funcionalidad aún no se encuentra completa para esta versión, lamentamos el inconveniente. <button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+            lblError.Visible = true;
         }
     }
 }
