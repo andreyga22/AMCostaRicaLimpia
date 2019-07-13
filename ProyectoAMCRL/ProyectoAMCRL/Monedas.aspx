@@ -24,21 +24,21 @@
         <div class="form-row justify-content-center">
             <div class="form-group col-sm-6">
                 <label for="codigoTb">Código Moneda*</label><asp:RequiredFieldValidator ID="valCodigo" runat="server" ErrorMessage="Campo requerido" ControlToValidate="codigoTb" ForeColor="Red" Display="Dynamic" ValidationGroup="monedaG"></asp:RequiredFieldValidator>
-                <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" Display="Dynamic" ErrorMessage="Máxima cantidad de letras permitida es: 4" ForeColor="Red" ValidationGroup="monedaG" ValidationExpression="^[a-zA-Z0-9]{1,4}$" ControlToValidate="codigoTb"></asp:RegularExpressionValidator>
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" Display="Dynamic" ErrorMessage="Formato incorrecto, no se permiten caracteres especiales ni espacio. (Tamaño max: 4)" ForeColor="Red" ValidationGroup="monedaG" ValidationExpression="^[a-zA-Z0-9]{1,4}$" ControlToValidate="codigoTb"></asp:RegularExpressionValidator>
                 <asp:TextBox type="text" ID="codigoTb" class="form-control" placeholder="USD" runat="server"></asp:TextBox>
             </div>
         </div>
         <div class="form-row justify-content-center">
             <div class="form-group col-sm-6">
                 <label for="detalleTb">Detalle Moneda*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="detalleTb" ErrorMessage="Campo Requerido" ForeColor="Red" Display="Dynamic" ValidationGroup="monedaG"></asp:RequiredFieldValidator>
-                &nbsp;<asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" Display="Dynamic" ErrorMessage="Máxima cantidad de letras permitida es: 50" ForeColor="Red" ValidationGroup="monedaG" ValidationExpression="^[a-zA-Z0-9]{1,50}$" ControlToValidate="detalleTb"></asp:RegularExpressionValidator>
+                &nbsp;<asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" Display="Dynamic" ErrorMessage="Formato incorrecto, no se permiten caracteres especiales. (Tamaño max: 50)" ForeColor="Red" ValidationGroup="monedaG" ValidationExpression="[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s\.\-]{1,50}$" ControlToValidate="detalleTb"></asp:RegularExpressionValidator>
                 <asp:TextBox type="text" ID="detalleTb" class="form-control" placeholder="Dólares" runat="server"></asp:TextBox>
             </div>
         </div>
         <div class="form-row justify-content-center">
             <div class="form-group col-md-6">
                 <label for="equivalenciaTb">Equivalencia en colones*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="equivalenciaTb" ErrorMessage="Campo Requerido" ForeColor="Red" Display="Dynamic" ValidationGroup="monedaG"></asp:RequiredFieldValidator>
-                &nbsp;<asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" Display="Dynamic" ErrorMessage="Máxima cantidad de letras permitida es: 7" ForeColor="Red" ValidationGroup="bodegaG" ValidationExpression="^(?=[0-9,]{1,7}$)[0-9]+(,[0-9]+)*$" ControlToValidate="equivalenciaTb"></asp:RegularExpressionValidator>
+                &nbsp;<asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" Display="Dynamic" ErrorMessage="Formato incorrecto, sólo se permiten números y coma. (Tamaño max: 7)" ForeColor="Red" ValidationGroup="bodegaG" ValidationExpression="^(?=[0-9,]{1,7}$)[0-9]+(,[0-9]+)*$" ControlToValidate="equivalenciaTb"></asp:RegularExpressionValidator>
                 <asp:TextBox type="text" ID="equivalenciaTb" class="form-control" runat="server" placeholder="595"></asp:TextBox>
             </div>
         </div>
