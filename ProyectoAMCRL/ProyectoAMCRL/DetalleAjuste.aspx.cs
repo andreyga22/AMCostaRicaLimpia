@@ -303,6 +303,7 @@ namespace ProyectoAMCRL
                 bodegasDrop.BorderColor = System.Drawing.Color.Red;
                 lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>" + "No existen materiales registrados para la bodega " + nombreBodegaSeleccionada + "</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\" onclick=\"cerrarError()\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                 lblError.Visible = true;
+                pegarLineasTabla();
             }
             else
             {
@@ -320,6 +321,7 @@ namespace ProyectoAMCRL
                 }
             }
             materialDD.DataBind();
+            pegarLineasTabla();
         }
 
         private void cargarUnidadesBodegas()
