@@ -69,11 +69,17 @@
                 <h5 style="padding-left: 8px" class="font-weight-bold">Asociados</h5>
             </div>
         </div>
-        <br />
-
+        <div class="row">
+        <div class="col-4">
+            <asp:Label ID="lblSinSocios" autopostback="true" ForeColor="Red" runat="server" Text="No existen socios disponibles"></asp:Label>
+        </div>
+        <div class="col-4 offset-6">
+            <asp:Label ID="lblSinAsociados" autopostback="true" ForeColor="Red" runat="server" Text="Aún no existen asociaciones"></asp:Label>
+        </div>
+        </div>
         <div class="row">
             <div class="col-5">
-                <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                <asp:UpdatePanel ID="UpdatePanel1" autopostback="true" runat="server">
                     <ContentTemplate>
                         <div id="popup" style="max-height: 500px; overflow-y: scroll;">
                             <asp:GridView class="table table-hover table-bordered table-striped" ID="gridSocios" runat="server" AllowSorting="True" OnSorting="gridSocios_Sorting" OnKeyDown="" OnRowDataBound="gridSocios_RowDataBound" AutoGenerateSelectButton="True" OnSelectedIndexChanged="gridSocios_SelectedIndexChanged">
@@ -87,7 +93,7 @@
             </div>
 
             <div class="col-5 offset-1">
-                <asp:UpdatePanel ID="UpdatePanel3" runat="server">
+                <asp:UpdatePanel ID="UpdatePanel3" autopostback="true" runat="server">
                     <ContentTemplate>
                         <div id="popup2" style="max-height: 500px; overflow-y: scroll;">
                             <asp:GridView class="table table-hover table-bordered table-striped" ID="gridAsociados" runat="server" AllowSorting="True" OnSorting="gridAsociados_Sorting" OnKeyDown="" OnRowDataBound="gridAsociados_RowDataBound" OnSelectedIndexChanged="gridAsociados_SelectedIndexChanged" AutoGenerateSelectButton="True">
