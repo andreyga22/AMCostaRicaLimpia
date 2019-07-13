@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using BL;
 using System.Windows.Forms;
 using System.Net.Mail;
+using System.Net;
 
 namespace ProyectoAMCRL {
     public partial class Login : System.Web.UI.Page {
@@ -68,9 +69,9 @@ namespace ProyectoAMCRL {
             if(cuenta != null) {
                 try {
                     MailMessage mail = new MailMessage();
-                    SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+                    SmtpClient smtpClient = new SmtpClient("mail.amcostaricaverde.site",25);
 
-                    mail.From = new MailAddress("amcrlcuentas@gmail.com");
+                    mail.From = new MailAddress("amcrlcuentas@amcostaricaverde.site");
                     mail.To.Add(cuenta.id_usuario);
                     mail.Subject = "Cambio de contraseña";
 
@@ -88,14 +89,28 @@ namespace ProyectoAMCRL {
                     new BLManejadorCuentas().restaurarContra(cuenta.id_usuario, securepass);
 
                     mail.Body = "Se ha registrado una petición de cambio de contraseña a la cuenta " + cuenta.id_usuario + "\n" +
-                                    "Su nueva contraseña temporal es: " + finalString + "\n" + 
+                                    "Su nueva contraseña temporal es: " + finalString + "\n" +
                                     "\n\nSi usted no solicitó este cambio contacte con su administrador del sistema.";
 
-                    SmtpServer.Port = 587;
-                    SmtpServer.Credentials = new System.Net.NetworkCredential("amcrlcuentas@gmail.com", "AMCRL.03");
-                    SmtpServer.EnableSsl = true;
+                    //SmtpServer.Port = 587;
+                    smtpClient.Credentials = new NetworkCredential("amcrlcuentas@amcostaricaverde.site", "aMCRL.03");
+                    //smtpClient.EnableSsl = true;
 
-                    SmtpServer.Send(mail);
+                    smtpClient.Send(mail);
+
+
+                    //MailMessage msg = new MailMessage();
+                    //msg.From = new MailAddress("amcrlcuentas@amcostaricaverde.site");
+                    //msg.To.Add(new MailAddress(cuenta.id_usuario));
+                    //msg.Subject = "Meeting";
+                    //msg.Body = "Body message";
+
+                    //SmtpClient smtp = new SmtpClient("mail.amcostaricaverde.site", 25);
+                    //smtp.Credentials = new NetworkCredential("amcrlcuentas@amcostaricaverde.site", "aMCRL.03");
+                    //smtp.Send(msg);
+
+
+
                     lblError2.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong>Se ha restaurado la contraseña. Revise su correo electronico<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                     lblError2.Visible = true;
                 } catch(Exception ex) {

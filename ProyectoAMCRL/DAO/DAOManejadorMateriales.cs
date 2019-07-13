@@ -58,18 +58,14 @@ namespace DAO
                 //Se asigna un comando a la transaccion
                 SqlCommand command = conexion.CreateCommand();
                 command.Transaction = transaction;
+                //precio_venta_kilo precio_compra_kilo
+                String sqlInsertar = "insert into MATERIAL(COD_MATERIAL, NOMBRE_MATERIAL, precio_venta_kilo, precio_compra_kilo, COD_UNIDAD, ESTADO_MATERIAL) values (@COD, @NOMBRE, @PRECIO_V, @PRECIO_C, @UNIDAD_BASE,  @ESTADO);";
+                String sqlActualizar = "update MATERIAL set NOMBRE_MATERIAL = @NOMBRE, precio_venta_kilo = @PRECIO_V, precio_compra_kilo = @PRECIO_C, COD_UNIDAD = @UNIDAD_BASE, ESTADO_MATERIAL = @ESTADO where COD_MATERIAL = @COD;";
 
-                String sqlInsertar = "insert into MATERIAL(COD_MATERIAL, NOMBRE_MATERIAL, PRECIO_KILO, COD_UNIDAD) values (@COD, @NOMBRE, @PRECIO, @UNIDAD_BASE);";
-                String sqlActualizar = "update MATERIAL set NOMBRE_MATERIAL = @NOMBRE, PRECIO_KILO = @PRECIO, COD_UNIDAD = @UNIDAD_BASE where COD_MATERIAL = @COD;";
+                String sqlCodigosBodegas = "select ID_BODEGA from bodega;"; 
 
-                //TEXTO SQL 
-                //String sqlActualizarRegistrar =
-                // "begin tran " +
-                // "if exists(select * from MATERIAL with (updlock, serializable) where COD_MATERIAL = @COD) " +
-                // "begin update MATERIAL set NOMBRE_MATERIAL = @NOMBRE, PRECIO_KILO = @PRECIO, COD_UNIDAD = @UNIDAD_BASE where COD_MATERIAL = @COD; end " +
-                // "else " +
-                // "begin insert into MATERIAL(COD_MATERIAL, NOMBRE_MATERIAL, PRECIO_KILO, COD_UNIDAD) values (@COD, @NOMBRE, @PRECIO, @UNIDAD_BASE); " +
-                // "end commit tran";
+                int estado = (material.estado_Material == true) ? 1 : 0;
+
 
                 try
                 {
@@ -87,6 +83,12 @@ namespace DAO
 
                     command.Parameters.AddWithValue("@COD", material.codigoM);
                     command.Parameters.AddWithValue("@NOMBRE", material.nombreMaterial);
+                    command.Parameters.AddWithValue("@PRECIO_V", material.precioVentaK);
+                    command.Parameters.AddWithValue("@PRECIO_C", material.precioCompraK);
+                    command.Parameters.AddWithValue("@UNIDAD_BASE", material.cod_Unidad);
+                    command.Parameters.AddWithValue("@ESTADO", estado);
+
+
                     //command.Parameters.AddWithValue("@PRECIO", material.precioKilo);
                     //command.Parameters.AddWithValue("@UNIDAD_BASE", material.unidadBase.codigo);
 
@@ -94,9 +96,23 @@ namespace DAO
 
                     if (tipo.Equals('r'))
                     {
-                        String sqlRegistrarStock = "insert into stock (COD_MATERIAL, ID_BODEGA, KILOS_STOCK) " +
-                            "values (@COD, 'B01', 0); ";
-                        command.CommandText = sqlRegistrarStock;
+                        command.CommandText = sqlCodigosBodegas;
+                        SqlDataAdapter sda = new SqlDataAdapter(command);
+                        sda.SelectCommand = command;
+
+                        DataSet ds = new DataSet("bodegas");
+                        sda.Fill(ds);
+
+                        String sqlRegistrarStock = "insert into stock (COD_MATERIAL, ID_BODEGA, KILOS_STOCK) values ";
+                        String sqlParte2 = "";
+                        foreach (DataRow dr in ds.Tables[0].Rows){
+                            String codBod = Convert.ToString(dr["ID_BODEGA"]);
+                            sqlParte2 += "('" + material.codigoM.Trim() +"' , '"+  codBod.Trim() + "', 0 ) ,";
+                        }
+                        sqlParte2 = sqlParte2.Remove(sqlParte2.Length - 1);
+                        sqlParte2 += ";";
+                        String sql = sqlRegistrarStock + sqlParte2;
+                        command.CommandText = sql;
                         command.ExecuteNonQuery();
 
 

@@ -12,7 +12,7 @@ namespace ProyectoAMCRL
 {
     public partial class RegistroMateriales : System.Web.UI.Page
     {
-
+        BLManejadorMateriales manejador = new BLManejadorMateriales();
 
         /// <summary>
         /// Este método permite al usuario guardar o actualizar el contenido de la página Material en el sistema.
@@ -31,6 +31,7 @@ namespace ProyectoAMCRL
                     string id = (String)Session["idMaterial"];
                     if (!string.IsNullOrEmpty(id))
                     {
+                        labelAccion.Text = "Actualización de material";
                         BLCuenta cuenta = (BLCuenta)Session["cuentaLogin"];
 
                         BLMaterial miMat = consultarMaterialAdmin(id);
@@ -128,72 +129,29 @@ namespace ProyectoAMCRL
 
         protected void btnGuardarActualizar_Click(object sender, EventArgs e)
         {
-            try
+            String cod = codigoMTB.Text;
+            String nom = nombreTB.Text;
+            String precioC = precioKgC.Text;
+            String precioV = precioKgV.Text;
+            String codUnidad = unidadDD.SelectedItem.Value;
+
+            String m = "";
+            char tipo = labelAccion.Text.Equals("Actualización de material") ? 'a' : 'r';
+            Boolean estado = (estadoRb.Items[0].Selected == true) ? true:false;
+
+            m = manejador.registrarActualizarMaterialBL(cod, nom, precioC, precioV, codUnidad, tipo, estado);
+
+            if (m.Contains("correctamente"))
             {
-                string id = (String)Session["idMaterial"];
-                if (!string.IsNullOrEmpty(id))
-                {
-                    //try
-                    //{
-                    BLCuenta cuenta = (BLCuenta)Session["cuentaLogin"];
-                    BLMaterial miMat = consultarMaterialAdmin(id);
-                    String estado = estadoRb.SelectedValue;
-                    Boolean estadoB = true;
-                    if (estado.Equals("Activado"))
-                    {
-                        estadoB = true;
-                    }
-                    else
-                    {
-                        estadoB = false;
-                    }
-                    BLMaterial material = new BLMaterial(codigoMTB.Text.Trim(), nombreTB.Text.Trim(), Convert.ToDouble(precioKgV.Text.Trim()), unidadDD.Text.Trim(), Convert.ToDouble(precioKgC.Text.Trim()), estadoB);
-                    BLManejadorMateriales man = new BLManejadorMateriales();
-                    man.guardarModificarBodegaAdmin(material);
 
-                    lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong>Se modificó el material correctamente.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
-                    lblError.Visible = true;
-
-                    //}
-                    //catch (Exception exx)
-                    //{
-                    //    lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> " + exx.Message + "<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
-                    //    lblError.Visible = true;
-                    //}
-                }
-                else
-                {
-                    try
-                    {
-                        BLCuenta cuenta = (BLCuenta)Session["cuentaLogin"];
-
-                        String estado = estadoRb.SelectedValue;
-                        Boolean estadoB = true;
-                        if (estado.Equals("Activado"))
-                        {
-                            estadoB = true;
-                        }
-                        else
-                        {
-                            estadoB = false;
-                        }
-                        BLMaterial material = new BLMaterial(codigoMTB.Text.Trim(), nombreTB.Text.Trim(), Convert.ToDouble(precioKgV.Text.Trim()), unidadDD.Text.Trim(), Convert.ToDouble(precioKgC.Text.Trim()), estadoB);
-                        BLManejadorMateriales man = new BLManejadorMateriales();
-                        man.guardarModificarBodegaAdmin(material);
-                        lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong>Se guardó el material correctamente.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
-                        lblError.Visible = true;
-                    }
-                    catch (Exception exx)
-                    {
-                        lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> " + exx.Message + "<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
-                        lblError.Visible = true;
-                    }
-                }
-            }
-            catch (Exception exx)
-            {
-                lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> " + exx.Message + "<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                lblError.Text = "<br /><br /><div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>" + m + "</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                 lblError.Visible = true;
+            }
+            else
+            {
+                lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>" + m + "</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                lblError.Visible = true;
+
             }
         }
 

@@ -361,7 +361,7 @@ namespace DAO
         {
             //try
             //{
-                SqlCommand cmdDet = new SqlCommand("  Select d.COD_LINEA, d.COD_FACTURA, m.NOMBRE_MATERIAL, d.MONTO_LINEA, d.KILOS, d.COD_MATERIAL from DETALLE_FACTURA d, FACTURA v, MATERIAL m where d.COD_FACTURA = @cod and d.COD_FACTURA = v.COD_FACTURA and d.COD_MATERIAL = m.COD_MATERIAL;", conexion);
+                SqlCommand cmdDet = new SqlCommand("Select d.COD_LINEA, d.COD_FACTURA, m.NOMBRE_MATERIAL, d.MONTO_LINEA, d.KILOS, d.COD_MATERIAL from DETALLE_FACTURA d, FACTURA v, MATERIAL m where d.COD_FACTURA = @cod and d.COD_FACTURA = v.COD_FACTURA and d.COD_MATERIAL = m.COD_MATERIAL;", conexion);
                 cmdDet.Parameters.AddWithValue("@cod", idFactura);
 
                 if (conexion.State != ConnectionState.Open)
@@ -493,8 +493,8 @@ namespace DAO
         /// <returns>Retorna una tabla con las facturas que cumplen con los filtros</returns>
         public DataTable filtrarFacturas(DateTime fechaInicio, DateTime fechaFin, int montoMaximo, int montoMinimo, List<string> materiales, string tipo)
         {
-            try
-            {
+            //try
+            //{
                 using (conexion)
                 {
                     SqlCommand cmd = conexion.CreateCommand();
@@ -536,11 +536,11 @@ namespace DAO
                         return dt;
                     }
                 }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            //}
+            //catch (Exception)
+            //{
+            //    throw;
+            //}
         }
 
         public DataTable buscarTodo(string busqueda, string tipo)

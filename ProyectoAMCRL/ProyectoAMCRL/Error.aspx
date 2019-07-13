@@ -8,8 +8,10 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <div>
-            <asp:Label ID="Label1" runat="server" Text="Se ha encontado un error en la conexion con el servidor\nRevise su conexión a internet."></asp:Label>
+        <div class="container">
+            <div>
+                <asp:Label ID="Label1" runat="server" Text="Se ha encontrado un error en la conexión con el servidor. Revise su conexión a internet."></asp:Label>
+            </div>
         </div>
     </form>
 </body>

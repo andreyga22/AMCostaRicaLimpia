@@ -107,8 +107,8 @@ namespace BL
         /// <returns>Retorna una tabla con las facturas que cumplen con los filtros</returns>
         public DataTable filtrarFacturas(string fechaInicio, string fechaFin, string montoMaximo, string montoMinimo, List<string> materiales, string tipo)
         {
-            try
-            {
+            //try
+            //{
                 DAOManejadorFacturas manej = new DAOManejadorFacturas();
                 DateTime fechaInicioNuevo = new DateTime();
                 DateTime fechaFinNuevo = new DateTime();
@@ -170,14 +170,25 @@ namespace BL
                         montoMinimoNuevo = Int32.Parse(montoMinimo);
                         montoMaximoNuevo = 999999999;
                     }
+                } else
+                {
+                if (string.IsNullOrEmpty(montoMinimo) == false && string.IsNullOrEmpty(montoMaximo) == false)
+                {
+                    montoMinimoNuevo = Int32.Parse(montoMinimo);
+                    montoMaximoNuevo = Int32.Parse(montoMaximo);
+                } else
+                {
+                    montoMinimoNuevo = 0;
+                    montoMaximoNuevo = 0;
+                }
                 }
 
                 return manej.filtrarFacturas(fechaInicioNuevo, fechaFinNuevo, montoMaximoNuevo, montoMinimoNuevo, materiales, tipo);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            //}
+            //catch (Exception)
+            //{
+            //    throw;
+            //}
         }
         //return manej.filtrarFacturasDAO(fechaInicio, fechaFin, tipo, montoMaximo, montoMinimo, materiales);
         //List<BLFactura> listaBL = new List<BLFactura>();

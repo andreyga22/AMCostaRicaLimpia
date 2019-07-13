@@ -81,7 +81,6 @@
                         <br />
                         <br />
                         <br />
-                        <br />
                         <div class="row justify-content-center">
                             <asp:Image ID="Image1" runat="server" ImageUrl="~/images/logomel2_1.png" Width="35%" Height="35%" />
                         </div>
@@ -103,7 +102,6 @@
                         <div class="row justify-content-center">
                             <asp:Button ID="btnEntrar" runat="server" Text="Entrar" class="btn-lg btn-info" type="button" OnClick="btnEntrar_Click" />
                         </div>
-                        <br />
                         <br />
                         <div class="offset-6">
                             <asp:LinkButton ID="olvidoLb" runat="server" data-toggle="modal" Style="color: dodgerblue" data-target="#exampleModalCenter" OnClick="olvidoLb_Click">¿Olvidó su contraseña?</asp:LinkButton>
