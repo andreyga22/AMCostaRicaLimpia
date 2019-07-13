@@ -455,6 +455,9 @@ namespace ProyectoAMCRL
                 }
             }
             materialDD.DataBind();
+            String[] materialInfo = materialDD.Items[0].Value.Split('-');
+            String codigoM = materialInfo[0];
+            cargarUnidadYPrecioBase(codigoM);
         }
 
         private void cargarUnidadesBodegasMonedas()
@@ -562,16 +565,20 @@ namespace ProyectoAMCRL
         {
             String[] materialInfo = materialDD.SelectedItem.Value.Split('-');
             String codigo = materialInfo[0];
+            cargarUnidadYPrecioBase(codigo);
+        }
 
+
+        private void cargarUnidadYPrecioBase(String codigoM) {
             DataSet materialInfoSet = new DataSet();
 
             if (manejadorM == null)
                 manejadorM = new BLManejadorMateriales();
 
             if (labelBreadCrum1.InnerText.Equals("Compra"))
-                materialInfoSet = manejadorM.traerUnidadYprecioBase(codigo, 'c');
+                materialInfoSet = manejadorM.traerUnidadYprecioBase(codigoM, 'c');
             else
-                materialInfoSet = manejadorM.traerUnidadYprecioBase(codigo, 'v');
+                materialInfoSet = manejadorM.traerUnidadYprecioBase(codigoM, 'v');
 
             if (materialInfoSet != null)
             {
@@ -608,9 +615,8 @@ namespace ProyectoAMCRL
             }
             pegarLineasTabla();
             precioKgTB.DataBind();
-            String nombre = materialInfo[1];
+            //String nombre = materialInfo[1];
         }
-
 
         private void cargarUnidades()
         {

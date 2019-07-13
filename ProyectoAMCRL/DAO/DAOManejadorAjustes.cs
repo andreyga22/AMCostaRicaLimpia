@@ -19,7 +19,7 @@ namespace DAO
             //id_bod, peso, material, unidad, accion, razon
             //---------------------------CORREGIR FECHAS------------------------------
             String sql = "SELECT pk.Fecha_Ajuste, aj.ID_AJUSTE, COUNT(ID_AJUSTE_STOCK) AS MATERIALES, pk.MOVIMIENTO_A, s.ID_BODEGA FROM AJUSTE_STOCK aj inner join " +
-            " (select a.ID_AJUSTE, Fecha_Ajuste, a.MOVIMIENTO_A from AJUSTE a) pk "+
+            " (select a.ID_AJUSTE, (convert(varchar, a.[Fecha_Ajuste], 103)) as Fecha_Ajuste, a.MOVIMIENTO_A from AJUSTE a) pk " +
             " on(pk.ID_AJUSTE = aj.ID_AJUSTE) inner join(select* from STOCK) s ON(aj.ID_STOCK = s.ID_STOCK) "+
             " GROUP BY aj.ID_AJUSTE , pk.MOVIMIENTO_A, s.ID_BODEGA, Fecha_Ajuste"; 
             SqlCommand cmd = new SqlCommand(sql, conexion);
