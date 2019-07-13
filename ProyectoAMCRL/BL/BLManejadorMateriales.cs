@@ -55,33 +55,40 @@ namespace BL
             return resultado;
         }
 
-        public string registrarActualizarMaterialBL(string codigo, string nom, string precioT, string unidadBaseCodigo, char tipo)
+        public string registrarActualizarMaterialBL(string codigo, string nom, string precioC, String precioV, string unidadBaseCodigo, char tipo, Boolean estado)
         {
             if (String.IsNullOrEmpty(codigo) || String.IsNullOrWhiteSpace(codigo) ||
                 String.IsNullOrEmpty(nom) || String.IsNullOrWhiteSpace(nom) ||
-                String.IsNullOrEmpty(precioT) || String.IsNullOrWhiteSpace(precioT))
+                String.IsNullOrEmpty(precioC) || String.IsNullOrWhiteSpace(precioC) ||
+                (String.IsNullOrEmpty(precioV) || String.IsNullOrWhiteSpace(precioV)))
                 return "Datos incompletos. Por favor, verifique e intente de nuevo";
 
-            double precioBase = 0;
+            double precioBaseC = 0;
+            double precioBaseV = 0;
             try
             {
-                precioBase = Double.Parse(precioT);
+                precioBaseC = Double.Parse(precioC);
+                precioBaseV = Double.Parse(precioV);
             }
             catch (Exception e)
             {
                 return "El formato de precio solo admite números, por favor intente de nuevo.";
             }
-            if (precioBase < 0)
+            if (precioBaseC < 0 || precioBaseV < 0)
                 return "El precio debe ser un valor positivo, por favor intente de nuevo.";
-
-            double precio = Double.Parse(precioT);
 
             TOUnidad unidad = new TOUnidad();
             unidad.codigo = unidadBaseCodigo;
-            //TOMaterial m = new TOMaterial(codigo, nom, precio, unidad);
+            TOMaterial m = new TOMaterial();
+            m.codigoM = codigo;
+            m.nombreMaterial = nom;
+            m.estado_Material = estado;
+            m.precioCompraK = precioBaseC;
+            m.precioVentaK = precioBaseV;
+            m.cod_Unidad = unidadBaseCodigo;
 
-            //return manejador.registrarActualizarMaterialDAO(m, tipo);
-            return null;
+            return manejador.registrarActualizarMaterialDAO(m, tipo);
+            
         }
 
         /// <summary>
