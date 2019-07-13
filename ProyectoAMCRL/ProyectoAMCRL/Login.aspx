@@ -40,6 +40,7 @@
     <%--<div style="width: 50%; text-align: left; min-height: 100%; bottom: 0; background-color:white" >--%>
     <%--<div class="col-5" style="background-color:white; min-height: 100%; bottom: 0;">--%>
     <form id="form1" runat="server">
+
         <div class="modal" id="exampleModalCenter" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -51,9 +52,9 @@
                     </div>
                     <div class="modal-body">
 
-                        <div class="row justify-content-center">
+                        <%--<div class="row justify-content-center">
                             <asp:Literal ID="lblError2" runat="server" Visible="false"></asp:Literal>
-                        </div>
+                        </div>--%>
 
                         <div class="form-group">
                             <label for="recuperarUsuarioTb">Ingrese el correo electronico al que le desea restaurar la contraseña</label><asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Campo Requerido" ControlToValidate="recuperarUsuarioTb" ForeColor="Red" ValidationGroup="modal"></asp:RequiredFieldValidator>
@@ -72,13 +73,13 @@
                 </div>
             </div>
         </div>
+       
         <div class="mx-auto mt-auto fixed-top" style="background-color: #E6E6E6">
             <div class="row">
                 <div class="col-lg-3">
                     <br />
                     <div class="container">
 
-                        <br />
                         <br />
                         <br />
                         <br />
@@ -92,18 +93,17 @@
                         </div>
                         <br />
                         <div class="form-group">
-                            <label for="usuarioTb" style="font-size: larger">Nombre de usuario</label>
-                            <asp:TextBox ID="usuarioTb" type="email" runat="server" class="form-control form-control-lg"></asp:TextBox>
+                            <label for="usuarioTb" style="font-size: larger">Nombre de usuario</label><asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Campo Requerido" ControlToValidate="usuarioTb" Display="Dynamic" ForeColor="Red" ValidationGroup="loginG"></asp:RequiredFieldValidator>
+                            <asp:TextBox ID="usuarioTb" type="email" runat="server" class="form-control form-control-lg" OnKeyDown="txt_Item_Number_KeyDown2" TabIndex="1"></asp:TextBox>
                         </div>
                         <div class="form-group">
-                            <label for="contraTb" style="font-size: larger">Contraseña</label>
-                            <asp:TextBox ID="contraTb" type="password" class="form-control form-control-lg" runat="server"></asp:TextBox>
+                            <label for="contraTb" style="font-size: larger">Contraseña<asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Campo Requerido" ControlToValidate="contraTb" Display="Dynamic" ForeColor="Red" ValidationGroup="loginG"></asp:RequiredFieldValidator>
+                            </label>&nbsp;<asp:TextBox ID="contraTb" type="password" class="form-control form-control-lg" OnKeyDown="txt_Item_Number_KeyDown2" runat="server" TabIndex="2"></asp:TextBox>
                         </div>
                         <br />
                         <div class="row justify-content-center">
-                            <asp:Button ID="btnEntrar" runat="server" Text="Entrar" class="btn-lg btn-info" type="button" OnClick="btnEntrar_Click" />
+                            <asp:Button ID="btnEntrar" runat="server" Text="Entrar" class="btn-lg btn-info" type="button" OnKeyDown="txt_Item_Number_KeyDown2" OnClick="btnEntrar_Click" ValidationGroup="loginG" TabIndex="3" />
                         </div>
-                        <br />
                         <br />
                         <div class="offset-6">
                             <asp:LinkButton ID="olvidoLb" runat="server" data-toggle="modal" Style="color: dodgerblue" data-target="#exampleModalCenter" OnClick="olvidoLb_Click">¿Olvidó su contraseña?</asp:LinkButton>

@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using BL;
 using System.Windows.Forms;
 using System.Net.Mail;
+using System.Net;
 
 namespace ProyectoAMCRL {
     public partial class Login : System.Web.UI.Page {
@@ -68,9 +69,9 @@ namespace ProyectoAMCRL {
             if(cuenta != null) {
                 try {
                     MailMessage mail = new MailMessage();
-                    SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+                    SmtpClient smtpClient = new SmtpClient("mail.amcostaricaverde.site",25);
 
-                    mail.From = new MailAddress("amcrlcuentas@gmail.com");
+                    mail.From = new MailAddress("amcrlcuentas@amcostaricaverde.site");
                     mail.To.Add(cuenta.id_usuario);
                     mail.Subject = "Cambio de contraseña";
 
@@ -88,27 +89,66 @@ namespace ProyectoAMCRL {
                     new BLManejadorCuentas().restaurarContra(cuenta.id_usuario, securepass);
 
                     mail.Body = "Se ha registrado una petición de cambio de contraseña a la cuenta " + cuenta.id_usuario + "\n" +
-                                    "Su nueva contraseña temporal es: " + finalString + "\n" + 
+                                    "Su nueva contraseña temporal es: " + finalString + "\n" +
                                     "\n\nSi usted no solicitó este cambio contacte con su administrador del sistema.";
 
-                    SmtpServer.Port = 587;
-                    SmtpServer.Credentials = new System.Net.NetworkCredential("amcrlcuentas@gmail.com", "AMCRL.03");
-                    SmtpServer.EnableSsl = true;
+                    //SmtpServer.Port = 587;
+                    smtpClient.Credentials = new NetworkCredential("amcrlcuentas@amcostaricaverde.site", "aMCRL.03");
+                    //smtpClient.EnableSsl = true;
 
-                    SmtpServer.Send(mail);
-                    lblError2.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong>Se ha restaurado la contraseña. Revise su correo electronico<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
-                    lblError2.Visible = true;
+                    smtpClient.Send(mail);
+
+
+                    //MailMessage msg = new MailMessage();
+                    //msg.From = new MailAddress("amcrlcuentas@amcostaricaverde.site");
+                    //msg.To.Add(new MailAddress(cuenta.id_usuario));
+                    //msg.Subject = "Meeting";
+                    //msg.Body = "Body message";
+
+                    //SmtpClient smtp = new SmtpClient("mail.amcostaricaverde.site", 25);
+                    //smtp.Credentials = new NetworkCredential("amcrlcuentas@amcostaricaverde.site", "aMCRL.03");
+                    //smtp.Send(msg);
+
+
+
+                    lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong>Se ha restaurado la contraseña. Revise su correo electronico<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                    lblError.Visible = true;
                 } catch(Exception ex) {
-                    lblError2.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> " + ex.ToString() +"<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
-                    lblError2.Visible = true;
+                    lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> Error al enviar el correo electrónico. Contacte con su administrador.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                    lblError.Visible = true;
                 }
             }
 
         }
 
-        private void txt_Item_Number_KeyDown(object sender, KeyEventArgs e) {
-            if(e.KeyCode == Keys.Enter) {
+        //private void txt_Item_Number_KeyDown(object sender, KeyEventArgs e) {
+        //    if(e.KeyCode == Keys.Enter) {
                 
+        //    }
+        //}
+
+        private void txt_Item_Number_KeyDown2(object sender, KeyEventArgs e) {
+            try {
+                if(e.KeyCode == Keys.Enter) {
+                    BLManejadorCuentas man = new BLManejadorCuentas();
+                    string securepass = FormsAuthentication.HashPasswordForStoringInConfigFile(contraTb.Text.Trim(), "MD5");
+                    BLCuenta cuenta = man.login(usuarioTb.Text.Trim(), securepass);
+                    if(cuenta != null) {
+                        if(cuenta.estado) {
+                            Session["cuentaLogin"] = cuenta;
+                            Response.Redirect("Principal.aspx");
+                        } else {
+                            lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> Su cuenta se encuentra deshabilitada. Contacte con un administrador del sistema.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                            lblError.Visible = true;
+                        }
+
+                    } else {
+                        lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> Credenciales incorrectos.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                        lblError.Visible = true;
+                    }
+                }
+            } catch(Exception) {
+
             }
         }
     }
