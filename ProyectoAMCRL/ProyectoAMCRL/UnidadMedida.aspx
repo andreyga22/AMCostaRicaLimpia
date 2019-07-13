@@ -36,7 +36,7 @@
         <div class="form-row justify-content-center">
             <div class="form-group col-md-6">
                 <label for="equivalenciaTb">Equivalencia*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="equivalenciaTb" ErrorMessage="Campo Requerido" ForeColor="Red" ValidationGroup="unidadG" Display="Dynamic"></asp:RequiredFieldValidator>
-                &nbsp;<asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" Display="Dynamic" ErrorMessage="Máxima cantidad de letras permitida es: 12" ForeColor="Red" ValidationGroup="unidadG" ValidationExpression="^[0-9]+(\,([0-9]{1,12})?)?$" ControlToValidate="equivalenciaTb"></asp:RegularExpressionValidator>
+                &nbsp;<asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" Display="Dynamic" ErrorMessage="Máxima cantidad de letras permitida es: 12" ForeColor="Red" ValidationGroup="unidadG" ValidationExpression="^(?=[0-9,]{1,12}$)[0-9]+(,[0-9]+)*$" ControlToValidate="equivalenciaTb"></asp:RegularExpressionValidator>
                 <asp:TextBox type="text" ID="equivalenciaTb" class="form-control" runat="server" placeholder="10000"></asp:TextBox>
             </div>
 
