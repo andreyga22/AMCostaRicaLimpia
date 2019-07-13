@@ -139,6 +139,8 @@ namespace ProyectoAMCRL
             char tipo = labelAccion.Text.Equals("Actualización de material") ? 'a' : 'r';
             Boolean estado = (estadoRb.Items[0].Selected == true) ? true:false;
 
+
+
             m = manejador.registrarActualizarMaterialBL(cod, nom, precioC, precioV, codUnidad, tipo, estado);
 
             if (m.Contains("correctamente"))
