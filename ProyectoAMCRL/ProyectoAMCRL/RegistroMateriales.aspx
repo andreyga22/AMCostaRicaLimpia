@@ -27,23 +27,25 @@
             <div class="col-lg-5" style="margin-left: 0%;">
                 <asp:HiddenField runat="server" ID="escondidillo" Value="" />
                 <div class="row">
+                     <label for="nombreTB">Código*</label>
                     <asp:TextBox type="text" ID="codigoMTB" class="form-control" runat="server" TextMode="SingleLine" placeholder="Código">
                     </asp:TextBox>
                 </div>
                 <br />
                 <div class="row">
+                    <label for="nombreTB">Nombre*</label>
                     <asp:TextBox type="text" ID="nombreTB" class="form-control" runat="server" TextMode="SingleLine" placeholder="Nombre">
                     </asp:TextBox>
                 </div>
                 <br>
                 <div class="row">
-                    <label for="lblPV">Precio Venta</label>
+                    <label for="lblPV">Precio Venta*</label>
                     <asp:TextBox type="number" ID="precioKgV" class="form-control" runat="server" TextMode="SingleLine" placeholder="Precio Venta(Kg)">
                     </asp:TextBox>
                 </div>
                 <br />
                 <div class="row">
-                    <label for="lblPC">Precio Compra</label>
+                    <label for="lblPC">Precio Compra*</label>
                     <asp:TextBox type="number" ID="precioKgC" class="form-control" runat="server" TextMode="SingleLine" placeholder="Precio Compra(Kg)">
                     </asp:TextBox>
                 </div>
