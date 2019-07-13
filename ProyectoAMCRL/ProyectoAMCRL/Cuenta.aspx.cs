@@ -67,7 +67,7 @@ namespace ProyectoAMCRL {
                                 nueva.Visible = true;
                                 repetir.Visible = true;
                                 contra.Attributes["class"] = "form-group offset-1 col-md-10";
-                                contraTb.Text = "Contraseña actual";
+                                contraLb.InnerText = "Contraseña actual";
                                 breadObj.InnerText = "Cambio de contraseña";
                                 tituloCuenta.InnerText = "Cambio de contraseña";
                             }
