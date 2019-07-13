@@ -31,13 +31,13 @@ namespace ProyectoAMCRL
                     detalles = new List<string>();
                     desactivarCampos();
                     cargarFactura(id);
-                    Session.Remove("idFactura");
+                    Session.Remove("idFactura");                   
                 }
                 else
                 {
+                    labelBreadCrum1.Visible = false;
                     String modo = (String)Session["modo"];
-                    cargarPantalla(modo);
-
+                    cargarPantalla(modo);                    
                     //Se remueve la lista de detalles de la sesion en caso de que ya estuviera instanciada.
                     Session.Remove("listaDetallesC");
                     detalles = new List<string>();
@@ -113,7 +113,8 @@ namespace ProyectoAMCRL
                 textoDatoSocio = "Datos del cliente";
                 textoDatoConsecutivo = "Venta #";
             }
-            labelBreadCrum1.Text = textoBreadCrum1;
+
+            //********labelBreadCrum1.Text = textoBreadCrum1;
             labelBreadCrum2.Text = textoBreadCrum2;
             labelDatosSocio.Text = textoDatoSocio;
             labelDatoConsecutivo.Text = textoDatoConsecutivo;
@@ -137,10 +138,12 @@ namespace ProyectoAMCRL
                 String tipoSocio = "";
                 BLFactura blFactura = manejFact.buscarVentaID(Convert.ToInt32(id));
                 String texto = "Vista de venta";
+      
                 if (blFactura.tipo.Equals("v"))
                 {
                     tipoFact = "venta";
                     tipoSocio = "Cliente";
+                    
                 }
                 else
                 {
@@ -203,6 +206,8 @@ namespace ProyectoAMCRL
                 agregarLineaBTN.Visible = false;
                 infoLineaLabel.Visible = false;
                 PrecioLineaBase.Text = "Precio Línea";
+                
+  
             }
             catch (Exception)
             {
@@ -221,7 +226,7 @@ namespace ProyectoAMCRL
             }
             else if (String.IsNullOrEmpty(nombreLabel.Text))
             {
-                String tipoSocio = labelBreadCrum1.Text.Equals("Compra") ? "Proveedor" : "Cliente";
+                String tipoSocio = labelBreadCrum1.InnerText.Equals("Compra") ? "Proveedor" : "Cliente";
                 pegarLineasTabla();
                 lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong> " + tipoSocio + " no especificado, por favor intente de nuevo.</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\" onclick=\"cerrarError()\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                 lblError.Visible = true;
@@ -515,7 +520,7 @@ namespace ProyectoAMCRL
             nombreLabel.Text = "";
             labelDireccion.Text = "";
             labelTel.Text = "";
-            String tipoSocio = labelBreadCrum1.Text.Equals("Compra") ? "Proveedor" : "Cliente";
+            String tipoSocio = labelBreadCrum1.InnerText.Equals("Compra") ? "Proveedor" : "Cliente";
 
             if (!String.IsNullOrEmpty(id))
             {
@@ -563,7 +568,7 @@ namespace ProyectoAMCRL
             if (manejadorM == null)
                 manejadorM = new BLManejadorMateriales();
 
-            if (labelBreadCrum1.Text.Equals("Compra"))
+            if (labelBreadCrum1.InnerText.Equals("Compra"))
                 materialInfoSet = manejadorM.traerUnidadYprecioBase(codigo, 'c');
             else
                 materialInfoSet = manejadorM.traerUnidadYprecioBase(codigo, 'v');

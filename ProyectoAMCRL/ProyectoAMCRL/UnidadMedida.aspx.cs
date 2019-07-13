@@ -14,22 +14,26 @@ namespace ProyectoAMCRL {
                 if(!this.IsPostBack) {
                     string id = (String)Session["idUnidad"];
                     if(!string.IsNullOrEmpty(id)) {
-
-                        BLManejadorUnidad man = new BLManejadorUnidad();
-                        BLUnidad und = man.consultar(id);
-                        codigoTb.Text = und.codigo;
-                        codigoTb.Enabled = false;
-                        nombreTB.Text = und.nombre;
-                        equivalenciaTb.Text = Convert.ToString( und.equivalencia);
-                        Boolean num = und.estado;
-                        if(num) {
-                            estadoRb.SelectedIndex = 0;
-                        } else {
-                            estadoRb.SelectedIndex = 1;
-                        }
-                        BLCuenta sesi = (BLCuenta)Session["cuentaLogin"];
-                        if(sesi.rol.Equals('r')) {
-                            estadoRb.Visible = false;
+                        try {
+                            BLManejadorUnidad man = new BLManejadorUnidad();
+                            BLUnidad und = man.consultar(id);
+                            codigoTb.Text = und.codigo;
+                            codigoTb.Enabled = false;
+                            nombreTB.Text = und.nombre;
+                            equivalenciaTb.Text = Convert.ToString(und.equivalencia);
+                            Boolean num = und.estado;
+                            if(num) {
+                                estadoRb.SelectedIndex = 0;
+                            } else {
+                                estadoRb.SelectedIndex = 1;
+                            }
+                            BLCuenta sesi = (BLCuenta)Session["cuentaLogin"];
+                            if(sesi.rol.Equals('r')) {
+                                estadoRb.Visible = false;
+                            }
+                        } catch(Exception) {
+                            lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> No se pudo cargar los datos de la unidad de medida. Revise su conexión a internet.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                            lblError.Visible = true;
                         }
                     }
                 }
@@ -60,7 +64,7 @@ namespace ProyectoAMCRL {
                     lblError.Visible = true;
                 }
             } catch(Exception exx) {
-                lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> " + exx.Message + "<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> No se pudo guardar la unidad de medida. Revise los datos y su conexión a internet.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                 lblError.Visible = true;
             }
         }

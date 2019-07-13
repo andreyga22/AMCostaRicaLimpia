@@ -38,7 +38,7 @@
         <div class="form-row justify-content-center">
             <div class="form-group col-md-6">
                 <label for="equivalenciaTb">Equivalencia en colones*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="equivalenciaTb" ErrorMessage="Campo Requerido" ForeColor="Red" Display="Dynamic" ValidationGroup="monedaG"></asp:RequiredFieldValidator>
-                &nbsp;<asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" Display="Dynamic" ErrorMessage="Máxima cantidad de letras permitida es: 7" ForeColor="Red" ValidationGroup="bodegaG" ValidationExpression="^[a-zA-Z0-9]{1,7}$" ControlToValidate="equivalenciaTb"></asp:RegularExpressionValidator>
+                &nbsp;<asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" Display="Dynamic" ErrorMessage="Máxima cantidad de letras permitida es: 7" ForeColor="Red" ValidationGroup="bodegaG" ValidationExpression="^(?=[0-9,]{1,7}$)[0-9]+(,[0-9]+)*$" ControlToValidate="equivalenciaTb"></asp:RegularExpressionValidator>
                 <asp:TextBox type="text" ID="equivalenciaTb" class="form-control" runat="server" placeholder="595"></asp:TextBox>
             </div>
         </div>
