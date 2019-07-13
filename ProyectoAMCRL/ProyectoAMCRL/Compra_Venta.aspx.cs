@@ -114,7 +114,7 @@ namespace ProyectoAMCRL
                 textoDatoConsecutivo = "Venta #";
             }
 
-            //********labelBreadCrum1.Text = textoBreadCrum1;
+            labelBreadCrum1.InnerText = textoBreadCrum1;
             labelBreadCrum2.Text = textoBreadCrum2;
             labelDatosSocio.Text = textoDatoSocio;
             labelDatoConsecutivo.Text = textoDatoConsecutivo;
@@ -127,8 +127,8 @@ namespace ProyectoAMCRL
         /// <param name="id">Identificador de la factura que se va a mostrar en la pantalla</param>
         private void cargarFactura(string id)
         {
-            try
-            {
+            //try
+            //{
                 BLManejadorFacturas manejFact = new BLManejadorFacturas();
                 BLManejadorMoneda manejMond = new BLManejadorMoneda();
                 BLManejadorSocios manejSocios = new BLManejadorSocios();
@@ -206,14 +206,14 @@ namespace ProyectoAMCRL
                 agregarLineaBTN.Visible = false;
                 infoLineaLabel.Visible = false;
                 PrecioLineaBase.Text = "Precio Línea";
-                
+                labelBreadCrum1.InnerText = "Búsqueda Facturas";
   
-            }
-            catch (Exception)
-            {
-                lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>No se ha podido cargar la información de la factura.</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\" onclick=\"cerrarError()\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
-                lblError.Visible = true;
-            }
+            //}
+            //catch (Exception e)
+            //{
+            //    lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>No se ha podido cargar la información de la factura.</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\" onclick=\"cerrarError()\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+            //    lblError.Visible = true;
+            //}
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)
@@ -418,7 +418,7 @@ namespace ProyectoAMCRL
             materialDD.SelectedIndex = 0;
             precioKgTB.Text = "";
             cantidadTB.Text = "";
-            unidadDD.SelectedIndex = 1;
+            unidadDD.SelectedIndex = 0;
         }
 
         private void cargarMateriales(String idBodega)

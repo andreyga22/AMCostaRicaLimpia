@@ -16,14 +16,14 @@ namespace BL
         public string nombreMaterial { get; set; }
         public double monto_Linea { get; set; }
         public double kilos_Linea { get; set; }
-        public int cod_Stock { get; set; }
+        public String cod_Stock { get; set; }
 
         public BLDetalleFactura()
         {
 
         }
 
-        public BLDetalleFactura(int cod_Linea, int cod_Factura, double monto_Linea, double kilos_Linea, int cod_Stock)
+        public BLDetalleFactura(int cod_Linea, int cod_Factura, double monto_Linea, double kilos_Linea, String cod_Stock)
         {
             this.cod_Linea = cod_Linea;
             this.cod_Factura = cod_Factura;
@@ -32,7 +32,7 @@ namespace BL
             this.cod_Stock = cod_Stock;
         }
 
-        public BLDetalleFactura(int cod_Linea, int cod_Factura, string nombreMaterial, double monto_Linea, double kilos_Linea, int cod_Stock)
+        public BLDetalleFactura(int cod_Linea, int cod_Factura, string nombreMaterial, double monto_Linea, double kilos_Linea, String cod_Stock)
         {
             this.cod_Linea = cod_Linea;
             this.cod_Factura = cod_Factura;
