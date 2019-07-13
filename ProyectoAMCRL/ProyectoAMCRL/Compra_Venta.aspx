@@ -74,10 +74,12 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="breadcrumbBodyHolder" runat="server">
-    <li class="breadcrumb-item active">
+<%--   <li class="breadcrumb-item active">
         <asp:Label ID="labelBreadCrum1" Text="" runat="server" />
-
-    </li>
+    </li>--%>
+     <li id="labelBreadCrum1" class="breadcrumb-item" runat="server" style="color: dodgerblue">
+         <a href="BusquedaFacturas.aspx">Búsqueda Facturas</a>
+     </li>
     <li class="breadcrumb-item active">
         <asp:Label ID="labelBreadCrum2" Text="" runat="server" />
     </li>
