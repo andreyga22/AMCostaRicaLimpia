@@ -384,7 +384,7 @@ namespace DAO
                     detVenta.nombreMaterial = Convert.ToString(table.Rows[x]["NOMBRE_MATERIAL"]);
                     detVenta.monto_Linea = Convert.ToDouble(table.Rows[x]["MONTO_LINEA"]);
                     detVenta.kilos_Linea = Convert.ToDouble(table.Rows[x]["KILOS"]);
-                    detVenta.cod_Stock = Convert.ToInt16(table.Rows[x]["COD_MATERIAL"]);
+                    detVenta.cod_Stock = Convert.ToString(table.Rows[x]["COD_MATERIAL"]);
 
                     lista.Add(detVenta);
                 }

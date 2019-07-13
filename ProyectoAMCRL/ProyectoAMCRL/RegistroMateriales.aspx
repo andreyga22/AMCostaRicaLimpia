@@ -15,10 +15,6 @@
         <asp:Literal ID="lblError" runat="server" Visible="false"></asp:Literal>
     </div>
     <div class="container">
-        <div class="row" style="float: right; margin-right: 0.5%; margin-top: 0%">
-            <label class="h6">Bodega:</label>
-            <asp:Label runat="server" CssClass="h6" Text=" B01"></asp:Label>
-        </div>
         <asp:Label runat="server" ID="labelAccion" CssClass="h5">Registro de material</asp:Label>
         <br>
         <br>
@@ -48,7 +44,7 @@
                 <br />
                 <div class="row">
                     <label for="lblPC">Precio Compra*</label>
-                    <asp:TextBox type="number" ID="precioKgC" class="form-control" runat="server" TextMode="SingleLine" placeholder="Precio Compra(Kg)">
+                    <asp:TextBox type="text" ID="precioKgC" class="form-control" runat="server" TextMode="SingleLine" placeholder="Precio Compra(Kg)">
                     </asp:TextBox>
                      <asp:RegularExpressionValidator ID="RegularExpressionValidator2" display="Dynamic" runat="server" ErrorMessage="Monto inválido." ControlToValidate="precioKgC" ForeColor="Red" ValidationExpression="^(?=[0-9.]{1,8}$)[0-9]+(.[0-9]+)*$" ValidationGroup="registroMG"></asp:RegularExpressionValidator>
                 </div>
@@ -68,7 +64,7 @@
                     <asp:Button runat="server" CssClass="btn btn-info" ID="btnGuardarActualizar" Text="Guardar" OnClick="btnGuardarActualizar_Click" ValidationGroup="registroMG"/>
                 </div>
                 <br>
-                <a href="DetalleAjuste.aspx" class="btn btn-link" style="float: right">Registrar Stock</a>
+               
             </div>
 
         </div>

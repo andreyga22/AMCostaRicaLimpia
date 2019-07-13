@@ -340,7 +340,7 @@ namespace BL
                 //[0]material; [2]precioKilo; [3]cantidad; [4]unidad; 
                 String[] materialInfo = infoLinea[0].Split('#');
                 String[] idANDstock = materialInfo[0].Split('-');
-                detalleTO.cod_Stock = Convert.ToInt16(idANDstock[1]);
+                detalleTO.cod_Stock = idANDstock[1];
                 detalleTO.nombreMaterial = idANDstock[0];
                 
 
