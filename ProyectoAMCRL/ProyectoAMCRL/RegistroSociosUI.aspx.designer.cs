@@ -58,15 +58,6 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.TextBox idTB;
         
         /// <summary>
-        /// RegularExpressionValidator4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator4;
-        
-        /// <summary>
         /// RequiredFieldValidator2 control.
         /// </summary>
         /// <remarks>
@@ -74,6 +65,15 @@ namespace ProyectoAMCRL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
+        
+        /// <summary>
+        /// RegularExpressionValidator4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator4;
         
         /// <summary>
         /// nombreTB control.
@@ -139,15 +139,6 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator7;
         
         /// <summary>
-        /// RegularExpressionValidator1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator1;
-        
-        /// <summary>
         /// telTB control.
         /// </summary>
         /// <remarks>
@@ -175,15 +166,6 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator8;
         
         /// <summary>
-        /// RegularExpressionValidator2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator2;
-        
-        /// <summary>
         /// tel2TB control.
         /// </summary>
         /// <remarks>
@@ -191,15 +173,6 @@ namespace ProyectoAMCRL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tel2TB;
-        
-        /// <summary>
-        /// RegularExpressionValidator9 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator9;
         
         /// <summary>
         /// RequiredFieldValidator5 control.
