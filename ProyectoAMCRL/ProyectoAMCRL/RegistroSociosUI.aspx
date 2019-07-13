@@ -43,7 +43,7 @@
             </div>
             <div class="form-group col-md-5">
                <label for="nombreTB">Nombre*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator2" display="Dynamic" runat="server" ErrorMessage="Campo Requerido" ControlToValidate="nombreTB" ForeColor="Red" ValidationGroup="socioG"></asp:RequiredFieldValidator>
-                <asp:RegularExpressionValidator ID="RegularExpressionValidator4" runat="server" Display="Dynamic" ErrorMessage="Formato inválido (máx. caract: 50)" ForeColor="Red" ValidationGroup="socioG" ValidationExpression="^[a-zA-Z\s]{1,50}$" ControlToValidate="nombreTb"></asp:RegularExpressionValidator>
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator4" runat="server" Display="Dynamic" ErrorMessage="Formato inválido (máx. caract: 50)" ForeColor="Red" ValidationGroup="socioG" ValidationExpression="[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s\.]{1,50}$" ControlToValidate="nombreTb"></asp:RegularExpressionValidator>
                 <asp:TextBox type="text" ID="nombreTB" class="form-control" runat="server"></asp:TextBox>
             </div>
         </div>
@@ -51,13 +51,13 @@
         <div class="form-row">
             <div class="form-group offset-1 col-md-5">
                 <label for="ape1TB">Primer apellido</label>
-                 <asp:RegularExpressionValidator ID="RegularExpressionValidator5" runat="server" Display="Dynamic" ErrorMessage="Formato inválido (máx. caract: 25)" ForeColor="Red" ValidationGroup="socioG" ValidationExpression="^[a-zA-Z]{1,25}$" ControlToValidate="ape1Tb"></asp:RegularExpressionValidator>
+                 <asp:RegularExpressionValidator ID="RegularExpressionValidator5" runat="server" Display="Dynamic" ErrorMessage="Formato inválido (máx. caract: 25)" ForeColor="Red" ValidationGroup="socioG" ValidationExpression="[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\.]{1,25}$" ControlToValidate="ape1Tb"></asp:RegularExpressionValidator>
                 <asp:TextBox type="text" ID="ape1TB" class="form-control" runat="server"></asp:TextBox>
                 
             </div>
             <div class="form-group col-md-5">
                 <label for="ape2TB">Segundo apellido</label>
-                <asp:RegularExpressionValidator ID="RegularExpressionValidator6" runat="server" Display="Dynamic" ErrorMessage="Formato inválido (máx. caract: 25)" ForeColor="Red" ValidationGroup="socioG" ValidationExpression="^[a-zA-Z]{1,25}$" ControlToValidate="ape2Tb"></asp:RegularExpressionValidator>
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator6" runat="server" Display="Dynamic" ErrorMessage="Formato inválido (máx. caract: 25)" ForeColor="Red" ValidationGroup="socioG" ValidationExpression="[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\.]{1,25}$" ControlToValidate="ape2Tb"></asp:RegularExpressionValidator>
                 <asp:TextBox type="text" ID="ape2TB" class="form-control" runat="server"></asp:TextBox>
 
             </div>
@@ -93,12 +93,12 @@
             <div class="form-group offset-1 col-md-5">
                 <label for="provinciaTB">Provincia*</label>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator6" display="Dynamic" runat="server" ErrorMessage="Campo Requerido" ControlToValidate="provinciaTB" ForeColor="Red" ValidationGroup="socioG"></asp:RequiredFieldValidator>
-                <asp:RegularExpressionValidator ID="RegularExpressionValidator11" runat="server" Display="Dynamic" ErrorMessage="Formato inválido (máx. caract: 15)" ForeColor="Red" ValidationGroup="socioG" ValidationExpression="^[a-zA-Z\s]{1,15}$" ControlToValidate="provinciaTb"></asp:RegularExpressionValidator>
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator11" runat="server" Display="Dynamic" ErrorMessage="Formato inválido (máx. caract: 15)" ForeColor="Red" ValidationGroup="socioG" ValidationExpression="[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s\.]{1,15}$" ControlToValidate="provinciaTb"></asp:RegularExpressionValidator>
                 <asp:TextBox type="text" ID="provinciaTB" class="form-control" runat="server"></asp:TextBox>
             </div>
             <div class="form-group col-md-5">
                 <label for="cantonTB">Cantón*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator7" display="Dynamic" runat="server" ErrorMessage="Campo Requerido" ControlToValidate="cantonTB" ForeColor="Red" ValidationGroup="socioG"></asp:RequiredFieldValidator>
-                <asp:RegularExpressionValidator ID="RegularExpressionValidator10" runat="server" Display="Dynamic" ErrorMessage="Formato inválido (máx. caract: 15)" ForeColor="Red" ValidationGroup="socioG" ValidationExpression="^[a-zA-Z0-9\s]{1,15}$" ControlToValidate="cantonTb"></asp:RegularExpressionValidator>
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator10" runat="server" Display="Dynamic" ErrorMessage="Formato inválido (máx. caract: 15)" ForeColor="Red" ValidationGroup="socioG" ValidationExpression="[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s\.]{1,15}$" ControlToValidate="cantonTb"></asp:RegularExpressionValidator>
                 <asp:TextBox type="text" ID="cantonTB" class="form-control" runat="server"></asp:TextBox>
             </div>
         </div>
@@ -106,12 +106,12 @@
         <div class="form-row">
             <div class="form-group offset-1 col-md-5">
                 <label for="distritoTB">Distrito*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator8" display="Dynamic" runat="server" ErrorMessage="Campo Requerido" ControlToValidate="distritoTB" ForeColor="Red" ValidationGroup="socioG"></asp:RequiredFieldValidator>
-                <asp:RegularExpressionValidator ID="RegularExpressionValidator12" runat="server" Display="Dynamic" ErrorMessage="Formato inválido (máx. caract: 15)" ForeColor="Red" ValidationGroup="socioG" ValidationExpression="^[a-zA-Z0-9\s]{4,15}$" ControlToValidate="distritoTb"></asp:RegularExpressionValidator>
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator12" runat="server" Display="Dynamic" ErrorMessage="Formato inválido (máx. caract: 15)" ForeColor="Red" ValidationGroup="socioG" ValidationExpression="[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s\.]{1,15}$" ControlToValidate="distritoTb"></asp:RegularExpressionValidator>
                 <asp:TextBox type="text" ID="distritoTB" class="form-control" runat="server"></asp:TextBox>
             </div>
             <div class="form-group col-md-5">
                 <label for="sennas">Otras Señas*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator9" display="Dynamic" runat="server" ErrorMessage="Campo Requerido" ControlToValidate="sennas" ForeColor="Red" ValidationGroup="socioG"></asp:RequiredFieldValidator>
-                <asp:RegularExpressionValidator ID="RegularExpressionValidator13" runat="server" Display="Dynamic" ErrorMessage="Formato inválido (máx. caract: 150)" ForeColor="Red" ValidationGroup="socioG" ValidationExpression="^[a-zA-Z0-9\.\s]{5,150}$" ControlToValidate="sennas"></asp:RegularExpressionValidator>
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator13" runat="server" Display="Dynamic" ErrorMessage="Formato inválido (máx. caract: 150)" ForeColor="Red" ValidationGroup="socioG" ValidationExpression="[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s\.]{1,150}$" ControlToValidate="sennas"></asp:RegularExpressionValidator>
                 <asp:TextBox type="text" ID="sennas" class="form-control" runat="server"></asp:TextBox>
             </div>
         </div>
