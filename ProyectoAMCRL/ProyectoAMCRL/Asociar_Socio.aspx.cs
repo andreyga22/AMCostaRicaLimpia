@@ -53,7 +53,6 @@ namespace ProyectoAMCRL
         {
             BLManejadorSocios manejador = new BLManejadorSocios();
             DataTable tabla = filtrarIzquierda(manejador.buscarIzquierdaSocios(txtPalabra.Text.Trim(), Convert.ToString(Session["idSocio"])), this.buscarDerecha(Convert.ToString(Session["idSocio"])));
-            //comparar
             gridSocios.DataSource = tabla;
             gridSocios.DataBind();
             foreach (GridViewRow row in gridSocios.Rows)
@@ -61,6 +60,14 @@ namespace ProyectoAMCRL
                 LinkButton lb = (LinkButton)row.Cells[0].Controls[0];
                 lb.ForeColor = System.Drawing.Color.Blue;
                 lb.Text = "Asociar";
+            }
+            if (tabla.Rows.Count == 0)
+            {
+                lblSinSocios.Visible = true;
+            }
+            else
+            {
+                lblSinSocios.Visible = false;
             }
             return tabla;
         }
@@ -98,6 +105,15 @@ namespace ProyectoAMCRL
                 lb.ForeColor = System.Drawing.Color.Red;
                 lb.Text = "Desasociar";
             }
+            if(tabla.Rows.Count == 0)
+            {
+                lblSinAsociados.Visible = true;
+            }
+            else
+            {
+                lblSinAsociados.Visible = false;
+            }
+            
             return tabla;
         }
 
@@ -249,6 +265,7 @@ namespace ProyectoAMCRL
             BLManejadorSocios manejador = new BLManejadorSocios();
             manejador.asociarSocio(id, Convert.ToString(Session["idSocio"]));
             this.buscarDerecha(Convert.ToString(Session["idSocio"]));
+            this.Response.Redirect("Asociar_Socio.aspx");
         }
 
         protected void gridAsociados_SelectedIndexChanged(object sender, EventArgs e)
@@ -272,6 +289,7 @@ namespace ProyectoAMCRL
             manejador.desasociarSocio(id, Convert.ToString(Session["idSocio"]));
             this.buscarIzquierda();
             this.buscarDerecha(Convert.ToString(Session["idSocio"]));
+            this.Response.Redirect("Asociar_Socio.aspx");
         }
     }
 }

@@ -48,7 +48,7 @@
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="body" runat="server">
-    <div class="row justify-content-center" style="background-color: red">
+    <div class="row justify-content-center">
         <asp:Literal ID="lblError" runat="server" Visible="false"></asp:Literal>
     </div>
     <div class="container">
@@ -59,47 +59,6 @@
         <br />
 
         <br>
-       <%--<%-- <%-- SECCION 1 FILTROS--%>
-
-        <!-- Modal -->
-        <div class="container">
-           <%-- <div class="modal fade" id="filtros" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Filtros</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="container">
-                            <div class="row" id="barraFiltros">--%>
-
-
-                                <%--FILTRO ROL--%>
-                                <%--<div class="col-lg-6 filtroCell">
-                                    <strong>
-                                        <input class="form-check-input" type="checkbox" id="rolCb" font-weight: bold value="">Tipo</strong>
-                                    <div style="width: 100%" class="rolDiv">
-                                        <asp:RadioButton ID="radioRol" GroupName="MeasurementSystem" runat="server" Text="Cliente" />
-                                    </div>
-                                    <div style="width: 100%" class="rolDiv">
-                                        <asp:RadioButton ID="radioRol2" GroupName="MeasurementSystem" runat="server" Text="Proveedor" />
-                                    </div>
-                                </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>--%>
-                            <%--<button type="button" class="btn btn-primary">Filtrar</button>--%>
-                           <%-- <asp:Button ID="btnFiltrarModal" type="submit" runat="server" Text="Filtrar" class="btn btn-primary" OnClick="btnFiltrar_Click" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>--%>
 
 
        <div class="row justify-content-center">
