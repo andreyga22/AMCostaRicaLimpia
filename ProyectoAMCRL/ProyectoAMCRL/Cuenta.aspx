@@ -28,7 +28,7 @@
                     <asp:TextBox type="email" ID="idTB" class="form-control" placeholder="jessica28@ejemplo.com" runat="server"></asp:TextBox>
                 </div>
                 <div class="form-group col-md-6" id="contra" runat="server" visible="false">
-                    <label for="contraTb" style="text-decoration: underline" runat="server">Contraseña Temporal*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="contraTb" ErrorMessage="Campo requerido" ForeColor="Red" ValidationGroup="cuentaG" Display="Dynamic"></asp:RequiredFieldValidator>
+                    <label for="contraTb" style="text-decoration: underline" id="contraLb" runat="server">Contraseña Temporal*</label><asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="contraTb" ErrorMessage="Campo requerido" ForeColor="Red" ValidationGroup="cuentaG" Display="Dynamic"></asp:RequiredFieldValidator>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ControlToValidate="contraTb" Display="Dynamic" ErrorMessage="Máxima cantidad de letras permitida es: 200" ForeColor="Red" ValidationExpression="^.{1,200}$" ValidationGroup="bodegaG"></asp:RegularExpressionValidator>
                     <asp:TextBox type="password" ID="contraTb" class="form-control" runat="server"></asp:TextBox>
                 </div>
