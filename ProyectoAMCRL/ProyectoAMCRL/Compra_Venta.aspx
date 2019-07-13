@@ -187,10 +187,10 @@
         <div class="row">
              <div class="col-2" style="margin-right: 4.5%"></div>
              <div class="col-2">
-              <asp:RegularExpressionValidator ID="RegularExpressionValidator1" display="Dynamic" runat="server" ErrorMessage="Monto inválido." ControlToValidate="precioKgTB" ForeColor="Red" ValidationExpression="^(?=[0-9,]{1,8}$)[0-9]+(,[0-9]+)*$" ValidationGroup="facturaG"></asp:RegularExpressionValidator>
+              <asp:RegularExpressionValidator ID="RegularExpressionValidator1" display="Dynamic" runat="server" ErrorMessage="Monto inválido." ControlToValidate="precioKgTB" ForeColor="Red" ValidationExpression="^(?=[0-9.]{1,8}$)[0-9]+(.[0-9]+)*$" ValidationGroup="facturaG"></asp:RegularExpressionValidator>
              </div>
              <div class="col-2" style="margin-left:0%;" >
-               <asp:RegularExpressionValidator ID="RegularExpressionValidator2" display="Dynamic" runat="server" ErrorMessage="Cantidad inválida." ControlToValidate="cantidadTB" ForeColor="Red" ValidationExpression="^(?=[0-9,]{1,8}$)[0-9]+(,[0-9]+)*$" ValidationGroup="facturaG"></asp:RegularExpressionValidator>
+               <asp:RegularExpressionValidator ID="RegularExpressionValidator2" display="Dynamic" runat="server" ErrorMessage="Cantidad inválida." ControlToValidate="cantidadTB" ForeColor="Red" ValidationExpression="^(?=[0-9.]{1,8}$)[0-9]+(.[0-9]+)*$" ValidationGroup="facturaG"></asp:RegularExpressionValidator>
              </div>
              <div class="col-3"></div>
              <div class="col-1"></div>

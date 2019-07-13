@@ -94,7 +94,7 @@ namespace DAO
                         sqlUpdateParte1 += "WHEN COD_MATERIAL = '" + detalle.nombreMaterial +
                         "' THEN (KILOS_STOCK " + operacion + " " + detalle.kilos_Linea + ") ";
 
-                        sqlUpdateParte2 += detalle.cod_Stock + ",";
+                        sqlUpdateParte2 += "'"+detalle.nombreMaterial + "',";
                     }
 
                     sqlUpdateParte2 = sqlUpdateParte2.Remove(sqlUpdateParte2.Length - 1);

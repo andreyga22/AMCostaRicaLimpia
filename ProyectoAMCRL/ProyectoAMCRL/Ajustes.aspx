@@ -81,7 +81,7 @@
     <div class="container">
 
         <!-- Trigger the modal with a button -->
-        <button type="button" class="btn btn-outline-secondary " data-toggle="modal" data-target="#myModal">Filtrar</button>
+<%--        <button type="button"  class="btn btn-outline-secondary " data-toggle="modal" data-target="#myModal">Filtrar</button>--%>
 
         <!-- Modal -->
         <div class="modal fade" id="myModal" role="dialog">
@@ -148,7 +148,7 @@
                     </div>
                     <div class="modal-footer">
                         <asp:Button OnClick="btnFiltros_Click" CssClass="btn btn-primary" Text="Aplicar filtros" runat="server" id="btnFiltros" AutoPostBack="false"/>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button"  class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                     </div>
                 </div>
 
