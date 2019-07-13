@@ -424,9 +424,12 @@ namespace DAO
 
                     if (string.IsNullOrEmpty(busqueda) == false)
                     {
-                        sql += " and ((v.COD_FACTURA LIKE '%' + @pal + '%')  or (V.CEDULA LIKE '%' + @pal + '%') or (v.MONTO_TOTAL LIKE '%' + @pal + '%') or (v.FECHA_FACTURA LIKE '%' + @pal + '%') or (s.NOMBRE LIKE '%' + @pal + '%') or (s.APELLIDO1 LIKE '%' + @pal + '%') or (s.APELLIDO2 LIKE '%' + @pal + '%'));";
+                        sql += " and ((v.COD_FACTURA LIKE '%' + @pal + '%')  or (V.CEDULA LIKE '%' + @pal + '%') or (v.MONTO_TOTAL LIKE '%' + @pal + '%') or (v.FECHA_FACTURA LIKE '%' + @pal + '%') or (s.NOMBRE LIKE '%' + @pal + '%') or (s.APELLIDO1 LIKE '%' + @pal + '%') or (s.APELLIDO2 LIKE '%' + @pal + '%')) ORDER BY COD_FACTURA DESC;";
 
                         cmd.Parameters.AddWithValue("@pal", busqueda);
+                    } else
+                    {
+                        sql += " ORDER BY COD_FACTURA DESC;";
                     }
                     cmd.CommandText = sql;
                     cmd.Connection = conexion;

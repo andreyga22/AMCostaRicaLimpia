@@ -143,6 +143,10 @@ namespace ProyectoAMCRL {
             DataTable datat = man.buscar(palabraTb.Text.Trim());
             gridCuentas.DataSource = datat;
             gridCuentas.DataBind();
+            if(datat.Rows.Count == 0) {
+                lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong></strong> No hay cuentas registradas en este momento.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                lblError.Visible = true;
+            }
             //gridCuentas.HeaderRow.Cells[0].Text = "Identificador";
             //gridCuentas.HeaderRow.Cells[1].Text = "Nombre Usuario";
             //gridCuentas.HeaderRow.Cells[2].Text = "Rol";

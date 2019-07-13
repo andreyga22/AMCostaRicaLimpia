@@ -44,7 +44,8 @@ namespace ProyectoAMCRL
                 {
                     Response.Redirect("Login.aspx");
                 }
-            } catch (Exception)
+            }
+            catch (Exception)
             {
                 lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>Error. </strong>No se pudo cargar la página.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                 lblError.Visible = true;
@@ -83,7 +84,8 @@ namespace ProyectoAMCRL
                     item.Value = codigo;
                     materialesCB.Items.Add(item);
                 }
-            } catch(Exception)
+            }
+            catch (Exception)
             {
                 lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>Error. </strong>No se pudo cargar los materiales.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                 lblError.Visible = true;
@@ -119,8 +121,13 @@ namespace ProyectoAMCRL
                 }
                 gridFacturas.DataSource = tabla;
                 gridFacturas.DataBind();
+                if (tabla.Rows.Count == 0) {
+                    lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong></strong> No hay facturas registradas en este momento.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                    lblError.Visible = true;
+                }
                 return tabla;
-            } catch(Exception)
+            }
+            catch (Exception)
             {
                 lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>Error. </strong>No se pudo cargar la tabla.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                 lblError.Visible = true;
@@ -204,48 +211,48 @@ namespace ProyectoAMCRL
         {
             //try
             //{
-                BLManejadorFacturas manej = new BLManejadorFacturas();
+            BLManejadorFacturas manej = new BLManejadorFacturas();
 
-                String fechaIni = "";
-                String fechFin = "";
-                String montoMaximoF = "";
-                String montoMinimoF = "";
-                List<String> materiales = new List<string>();
+            String fechaIni = "";
+            String fechFin = "";
+            String montoMaximoF = "";
+            String montoMinimoF = "";
+            List<String> materiales = new List<string>();
 
-                if (!String.IsNullOrEmpty(fechaInicio.Text))
-                    fechaIni = fechaInicio.Text;
-                if (!String.IsNullOrEmpty(fechaFin.Text))
-                    fechFin = fechaFin.Text;
-                if (!String.IsNullOrEmpty(montoMaximo.Text))
-                    montoMaximoF = montoMaximo.Text;
-                if (!String.IsNullOrEmpty(montoMinimo.Text))
-                    montoMinimoF = montoMinimo.Text;
+            if (!String.IsNullOrEmpty(fechaInicio.Text))
+                fechaIni = fechaInicio.Text;
+            if (!String.IsNullOrEmpty(fechaFin.Text))
+                fechFin = fechaFin.Text;
+            if (!String.IsNullOrEmpty(montoMaximo.Text))
+                montoMaximoF = montoMaximo.Text;
+            if (!String.IsNullOrEmpty(montoMinimo.Text))
+                montoMinimoF = montoMinimo.Text;
 
-                foreach (ListItem material in materialesCB.Items)
-                {
-                    if (material.Selected)
-                        materiales.Add(material.Value);
-                }
-                String modo = (String)Session["modo"];
-                String modoCarac = "";
-                if (modo.Equals("compra"))
-                {
-                    modoCarac = "c";
-                }
-                else
-                {
-                    modoCarac = "v";
-                }
-                DataTable facturasFiltradas = manej.filtrarFacturas(fechaIni, fechFin, montoMaximoF, montoMinimoF, materiales, modoCarac);
-                fechaInicio.Text = "";
-                fechaFin.Text = "";
-                montoMaximo.Text = "";
-                montoMinimo.Text = "";
-                foreach (ListItem material in materialesCB.Items)
-                {
-                    material.Selected = false;
-                }
-                buscar(facturasFiltradas);
+            foreach (ListItem material in materialesCB.Items)
+            {
+                if (material.Selected)
+                    materiales.Add(material.Value);
+            }
+            String modo = (String)Session["modo"];
+            String modoCarac = "";
+            if (modo.Equals("compra"))
+            {
+                modoCarac = "c";
+            }
+            else
+            {
+                modoCarac = "v";
+            }
+            DataTable facturasFiltradas = manej.filtrarFacturas(fechaIni, fechFin, montoMaximoF, montoMinimoF, materiales, modoCarac);
+            fechaInicio.Text = "";
+            fechaFin.Text = "";
+            montoMaximo.Text = "";
+            montoMinimo.Text = "";
+            foreach (ListItem material in materialesCB.Items)
+            {
+                material.Selected = false;
+            }
+            buscar(facturasFiltradas);
             //} catch (Exception)
             //{
             //    lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>Error. </strong>No se pudo cargar las facturas.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
@@ -307,7 +314,8 @@ namespace ProyectoAMCRL
                     int index = GetColumnIndex(datat, e.SortExpression);
                     gridFacturas.HeaderRow.Cells[index].CssClass = "SortedDescendingHeaderStyle";
                 }
-            } catch(Exception)
+            }
+            catch (Exception)
             {
                 lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>Error. </strong>No se pudo ordenar la tabla.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                 lblError.Visible = true;
@@ -325,7 +333,8 @@ namespace ProyectoAMCRL
             try
             {
                 return dt.Columns.IndexOf(name);
-            } catch (Exception)
+            }
+            catch (Exception)
             {
                 lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>Error. </strong>No se pudo retornar el índice de la columna.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                 lblError.Visible = true;
