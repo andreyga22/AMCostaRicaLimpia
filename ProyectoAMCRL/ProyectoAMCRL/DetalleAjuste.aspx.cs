@@ -203,7 +203,7 @@ namespace ProyectoAMCRL
 
         protected void agregarLineaClick(object sender, EventArgs e)
         {
-            if (!cantidadTB.Text.Contains("-") && !(String.IsNullOrEmpty(cantidadTB.Text)) )
+            if (!cantidadTB.Text.Contains("-") && !(String.IsNullOrEmpty(cantidadTB.Text)) && (cantidadTB.Text.Length <= 10))
             {
                 cantidadTB.BorderColor = System.Drawing.Color.Transparent;
 
@@ -256,7 +256,7 @@ namespace ProyectoAMCRL
                 String nombreMaterial = materialInfo[1];
 
                 String[] unidadInfo = linea.unidadMedida.Split('*');
-                String nombreUnidad = unidadInfo[1];
+                String nombreUnidad = unidadInfo[2];
 
                 productoCell.Text = nombreMaterial;
                 cantidadCell.Text = linea.kilos_Linea.ToString();
@@ -324,19 +324,7 @@ namespace ProyectoAMCRL
 
         private void cargarUnidadesBodegas()
         {
-            DataSet unidades = manejadorU.listarUnidades();
-
-            foreach (DataRow dr in unidades.Tables[0].Rows)
-            {
-                // COD_UNIDAD, NOMBRE_UNIDAD 
-                String codigo = Convert.ToString(dr["COD_UNIDAD"]);
-                String nombre = Convert.ToString(dr["NOMBRE_UNIDAD"]);
-                String equiv = Convert.ToString(dr["EQUIVALENCIA_KG"]);
-                String infoUnidad = codigo + "*" + nombre + "*" + equiv;
-
-                ListItem item = new ListItem(nombre, infoUnidad);
-                unidadDD.Items.Add(item);
-            }
+            cargarUnidades();
 
             List<BLBodegaTabla> bodegas = manejadorB.listaBodegas();
             foreach (BLBodegaTabla b in bodegas)
@@ -367,6 +355,73 @@ namespace ProyectoAMCRL
         {
             String idBodega = bodegasDrop.SelectedItem.Value;
             cargarMateriales(idBodega);
+        }
+
+        private void cargarUnidades()
+        {
+
+            if (manejadorU == null)
+                manejadorU = new BLManejadorUnidades();
+
+            DataSet unidades = manejadorU.listarUnidades();
+
+            foreach (DataRow dr in unidades.Tables[0].Rows)
+            {
+                // COD_UNIDAD, NOMBRE_UNIDAD 
+
+                String codigo = Convert.ToString(dr["COD_UNIDAD"]);
+                String nombre = Convert.ToString(dr["NOMBRE_UNIDAD"]);
+                String equiv = Convert.ToString(dr["EQUIVALENCIA_KG"]);
+                String infoUnidad = codigo + "*" + equiv + '*' + nombre;
+
+                ListItem item = new ListItem(nombre, infoUnidad);
+                unidadDD.Items.Add(item);
+            }
+
+        }
+
+        protected void materialDD_SelectedIndexChanged1(object sender, EventArgs e)
+        {
+            String[] materialInfo = materialDD.SelectedItem.Value.Split('*');
+            String codigo = materialInfo[0];
+
+            DataSet materialInfoSet = new DataSet();
+
+            if (manejadorM == null)
+                manejadorM = new BLManejadorMateriales();
+
+            materialInfoSet = manejadorM.traerUnidadYprecioBase(codigo, 'c');
+
+            if (materialInfoSet != null)
+            {
+                String unidadBase = Convert.ToString(materialInfoSet.Tables[0].Rows[0]["COD_UNIDAD"]);
+
+                int index = 0;
+
+                unidadDD.Items.Clear();
+                cargarUnidades();
+
+                for (int ind = 0; ind < unidadDD.Items.Count; ind++)
+                {
+                    ListItem item = unidadDD.Items[ind];
+                    unidadDD.Items[ind].Selected = false;
+                    String[] infoCod = item.Value.Split('*');
+                    String cod = infoCod[0];
+
+                    if (cod.Equals(unidadBase))
+                    {
+
+                        index = ind;
+                        break;
+                    }
+                }
+
+                unidadDD.Items[index].Selected = true;
+                unidadDD.DataBind();
+
+            }
+            pegarLineasTabla();
+            String nombre = materialInfo[1];
         }
     }
 }

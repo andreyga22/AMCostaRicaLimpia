@@ -95,12 +95,12 @@
         <br />
         <br />
 
-        <div class="row" style="margin-left: 0%; width: 100%">
+        <div class="row" style="margin-left: 0%; width: 100%; margin-right: 0%; ">
             <%-- identificacion --%>
-            <div class="auto-style1" style="margin-right: 30px; padding-top: 5px">
+            <div class="auto-style1" style="margin-right: 10px; padding-top: 5px; ">
                 <asp:Label runat="server" CssClass="d-inline-block" for="identificacionTB" Text="Identificación:"></asp:Label>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-3" style="margin-right: 3.5%">
                 <div class="row" style="margin-left: 0%">
                     <div>
                         <asp:TextBox onkeydown="return (event.keyCode!=13);" AutoPostBack="false" Width="98%" CssClass="form-control " runat="server" ID="identificacionTB"></asp:TextBox>
@@ -110,7 +110,7 @@
             </div>
 
             <%-- direccion --%>
-            <div class="col-lg-5" style="padding-top: 5px">
+            <div class="col-lg-5" style="padding-top: 5px;">
                 <label class=" campoIzq" for="labelDireccion">Dirección: </label>
                 <asp:Label class="campo" runat="server" ID="labelDireccion"></asp:Label>
             </div>
@@ -172,8 +172,7 @@
             </div>
             <%-- Cantidad --%>
             <div class="col-2">
-                <asp:TextBox placeholder="Cantidad" runat="server" name="name" value="" step=".01" min="0" id="cantidadTB" class="form-control form-control-sm" style="width: 100%" ValidationGroup="facturaG"/>
-                <%--                        <asp:TextBox Width="100%" ID="cantidadTB" runat="server" type="number" CssClass="btn btn-light btn-sm" />--%>
+                <asp:TextBox placeholder="Cantidad" runat="server" type="text" name="name" value="" step=".01" min="0" id="cantidadTB" class="form-control form-control-sm" style="width: 100%"/>
             </div>
             <%-- Unidad --%>
             <div class="col-3">
@@ -188,10 +187,10 @@
         <div class="row">
              <div class="col-2" style="margin-right: 4.5%"></div>
              <div class="col-2">
-              <asp:RegularExpressionValidator ID="RegularExpressionValidator1" display="Dynamic" runat="server" ErrorMessage="Solo números permitidos" ControlToValidate="precioKgTB" ForeColor="Red" ValidationExpression="^[0-9]+(\.([0-9]{1,10})?)?$" ValidationGroup="facturaG"></asp:RegularExpressionValidator>
+              <asp:RegularExpressionValidator ID="RegularExpressionValidator1" display="Dynamic" runat="server" ErrorMessage="Monto inválido." ControlToValidate="precioKgTB" ForeColor="Red" ValidationExpression="^(?=[0-9,]{1,8}$)[0-9]+(,[0-9]+)*$" ValidationGroup="facturaG"></asp:RegularExpressionValidator>
              </div>
              <div class="col-2" style="margin-left:0%;" >
-               <asp:RegularExpressionValidator ID="RegularExpressionValidator2" display="Dynamic" runat="server" ErrorMessage="Solo números permitidos" ControlToValidate="cantidadTB" ForeColor="Red" ValidationExpression="^\d{1,10}$" ValidationGroup="facturaG"></asp:RegularExpressionValidator>
+               <asp:RegularExpressionValidator ID="RegularExpressionValidator2" display="Dynamic" runat="server" ErrorMessage="Cantidad inválida." ControlToValidate="cantidadTB" ForeColor="Red" ValidationExpression="^(?=[0-9,]{1,8}$)[0-9]+(,[0-9]+)*$" ValidationGroup="facturaG"></asp:RegularExpressionValidator>
              </div>
              <div class="col-3"></div>
              <div class="col-1"></div>

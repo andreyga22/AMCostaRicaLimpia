@@ -117,21 +117,30 @@
             <asp:Label runat="server" id="labelInfoLinea" class="font-weight-bolder" style="margin-top: 4px; margin-right: 10px">Datos línea: </asp:Label>
 
             <%-- Producto --%>
-            <asp:DropDownList ID="materialDD" AutoPostBack="false" runat="server" CssClass=" col-2 btn btn-light btn-sm dropdown-toggle dropup"></asp:DropDownList>
+            <asp:DropDownList ID="materialDD" OnSelectedIndexChanged="materialDD_SelectedIndexChanged1" AutoPostBack="true" runat="server" CssClass=" col-2 form-control form-control-sm dropdown-toggle"></asp:DropDownList>
             <div class="col-2" style="margin-left: 5px">
                 <%-- Cantidad --%>
-
-                <asp:TextBox Width="100%" min="0" placeholder="Cantidad" ID="cantidadTB" runat="server" type="number" CssClass="btn btn-light btn-sm" />
+                <asp:TextBox Width="100%" min="0" placeholder="Cantidad" ID="cantidadTB" runat="server" type="text" class="form-control form-control-sm"/>
             </div>
             <%-- Unidad --%>
             <div class="col-3">
-                <asp:DropDownList Width="100%" ID="unidadDD" runat="server" CssClass="btn dropup btn-light btn-sm dropu"></asp:DropDownList>
+                <asp:DropDownList Width="100%" ID="unidadDD" runat="server" CssClass="form-control form-control-sm"></asp:DropDownList>
             </div>
             <%-- Acción --%>
             <div class="col-1">
-                <asp:LinkButton Width="100%" ID="agregarLineaBTN" runat="server" CssClass="btn btn-secondary btn-sm" OnClick="agregarLineaClick">
-                           <i class="fa fa-plus"></i></asp:LinkButton>
+                <asp:LinkButton Width="100%" ID="agregarLineaBTN" runat="server" CssClass="btn btn-secondary btn-sm" OnClick="agregarLineaClick" >
+                  <i class="fa fa-plus"></i></asp:LinkButton>
             </div>
+        </div>
+         <div class="row">
+             <div class="col-3" style="margin-right: 0%"></div>
+             <div class="col-2">
+              <asp:RegularExpressionValidator ID="RegularExpressionValidator1" display="Dynamic" runat="server" ErrorMessage="Cantidad inválida." ControlToValidate="cantidadTB" ForeColor="Red" ValidationExpression="^[0-9]+(\.([0-9]{1,8})?)?$" ValidationGroup="ajusteG"></asp:RegularExpressionValidator>
+             </div>                                                                                                                                                                                                         
+             <div class="col-2" style="margin-left:0%;">
+             </div>
+             <div class="col-3"></div>
+
         </div>
         
 

@@ -280,7 +280,7 @@ namespace ProyectoAMCRL
 
         protected void agregarLineaClick(object sender, EventArgs e)
         {
-            if (!(String.IsNullOrEmpty(cantidadTB.Text)))
+            if (!(String.IsNullOrEmpty(cantidadTB.Text)) && (cantidadTB.Text.Length <= 10))
             {
                 cantidadTB.Style.Add("border-color", "transparent");
                 String lineaAjusteInfo = "";

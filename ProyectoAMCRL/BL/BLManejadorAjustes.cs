@@ -32,7 +32,7 @@ namespace BL
                 nuevo.id_Stock = linea.id_Stock;
 
               String[] unidadInfo = linea.unidadMedida.Split('*');
-                Double equiv = Double.Parse(unidadInfo[2]);
+                Double equiv = Double.Parse(unidadInfo[1]);
                 pesoTotalLinea = linea.kilos_Linea * equiv;
                 nuevo.kilos_Linea = pesoTotalLinea;
                 nuevo.unidadMedida = unidadInfo[1];
