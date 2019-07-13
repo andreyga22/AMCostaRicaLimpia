@@ -30,6 +30,7 @@
                      <label for="nombreTB">Código*</label>
                     <asp:TextBox type="text" ID="codigoMTB" class="form-control" runat="server" TextMode="SingleLine" placeholder="Código">
                     </asp:TextBox>
+
                 </div>
                 <br />
                 <div class="row">
@@ -40,14 +41,16 @@
                 <br>
                 <div class="row">
                     <label for="lblPV">Precio Venta*</label>
-                    <asp:TextBox type="number" ID="precioKgV" class="form-control" runat="server" TextMode="SingleLine" placeholder="Precio Venta(Kg)">
+                    <asp:TextBox type="text" ID="precioKgV" class="form-control" runat="server" TextMode="SingleLine" placeholder="Precio Venta(Kg)">
                     </asp:TextBox>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" display="Dynamic" runat="server" ErrorMessage="Monto inválido." ControlToValidate="precioKgV" ForeColor="Red" ValidationExpression="^(?=[0-9.]{1,8}$)[0-9]+(.[0-9]+)*$" ValidationGroup="registroMG"></asp:RegularExpressionValidator>
                 </div>
                 <br />
                 <div class="row">
                     <label for="lblPC">Precio Compra*</label>
                     <asp:TextBox type="number" ID="precioKgC" class="form-control" runat="server" TextMode="SingleLine" placeholder="Precio Compra(Kg)">
                     </asp:TextBox>
+                     <asp:RegularExpressionValidator ID="RegularExpressionValidator2" display="Dynamic" runat="server" ErrorMessage="Monto inválido." ControlToValidate="precioKgC" ForeColor="Red" ValidationExpression="^(?=[0-9.]{1,8}$)[0-9]+(.[0-9]+)*$" ValidationGroup="registroMG"></asp:RegularExpressionValidator>
                 </div>
                 <br>
                 <div class="row">
@@ -62,7 +65,7 @@
                     </asp:RadioButtonList>
                 </div>
                 <div class="row justify-content-start" style="">
-                    <asp:Button runat="server" CssClass="btn btn-info" ID="btnGuardarActualizar" Text="Guardar" OnClick="btnGuardarActualizar_Click" />
+                    <asp:Button runat="server" CssClass="btn btn-info" ID="btnGuardarActualizar" Text="Guardar" OnClick="btnGuardarActualizar_Click" ValidationGroup="registroMG"/>
                 </div>
                 <br>
                 <a href="DetalleAjuste.aspx" class="btn btn-link" style="float: right">Registrar Stock</a>

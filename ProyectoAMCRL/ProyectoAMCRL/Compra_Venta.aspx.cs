@@ -418,7 +418,7 @@ namespace ProyectoAMCRL
             materialDD.SelectedIndex = 0;
             precioKgTB.Text = "";
             cantidadTB.Text = "";
-            unidadDD.SelectedIndex = 1;
+            unidadDD.SelectedIndex = 0;
         }
 
         private void cargarMateriales(String idBodega)
