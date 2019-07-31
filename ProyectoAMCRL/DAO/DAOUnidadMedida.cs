@@ -11,11 +11,11 @@ namespace DAO {
     public class DAOUnidadMedida {
         private SqlConnection conexion = new SqlConnection(Properties.Settings.Default.conexionHost);
 
-        public DataTable buscar(string palabra) {
+        public DataTable buscarAdmin(string palabra) {
             try {
                 using(conexion) {
                     SqlCommand cmd = conexion.CreateCommand();
-                    string sql = "select cod_unidad as Código, nombre_unidad as 'Nombre Unidad', equivalencia_kg as Equivalencia from Unidad_Medida";
+                    string sql = "select cod_unidad as Código, nombre_unidad as 'Nombre Unidad', equivalencia_kg as Equivalencia, estado as Estado from Unidad_Medida";
                     if(!string.IsNullOrEmpty(palabra)) {
                         sql += " WHERE (cod_unidad LIKE '%' + @pal + '%')  or (nombre_unidad LIKE '%' + @pal + '%') or (equivalencia_kg LIKE '%' + @pal + '%');";
                         cmd.Parameters.AddWithValue("@pal", palabra);
@@ -36,6 +36,32 @@ namespace DAO {
             }
         }
 
+        public DataTable buscarRegular(string palabra) {
+            try {
+                using(conexion) {
+                    SqlCommand cmd = conexion.CreateCommand();
+                    string sql = "select cod_unidad as Código, nombre_unidad as 'Nombre Unidad', equivalencia_kg as Equivalencia from Unidad_Medida where estado = 1";
+                    if(!string.IsNullOrEmpty(palabra)) {
+                        sql += " and ((cod_unidad LIKE '%' + @pal + '%')  or (nombre_unidad LIKE '%' + @pal + '%') or (equivalencia_kg LIKE '%' + @pal + '%'));";
+                        cmd.Parameters.AddWithValue("@pal", palabra);
+                    }
+                    cmd.CommandText = sql;
+                    cmd.Connection = conexion;
+                    using(SqlDataAdapter sda = new SqlDataAdapter(cmd)) {
+                        DataTable dt = new DataTable();
+                        sda.Fill(dt);
+
+                        return dt;
+                    }
+                }
+            } catch(Exception) {
+                throw;
+            } finally {
+                conexion.Close();
+            }
+        }
+
+
         public void guardarActualizarRegular(TOUnidad unidad) {
 
             using(conexion) {
@@ -52,7 +78,7 @@ namespace DAO {
 
                 try {
                         sentencia.CommandText =
-                "begin tran if exists(select * from Unidad_Medida with (updlock, serializable) where cod_unidad = @cod_unidad) begin update unidad_medida set nombre_unidad = @nombre_unidad, equivalencia_kg = @equivalencia_kg where cod_unidad = @cod_unidad; end else begin insert into unidad_medida(cod_unidad, nombre_unidad, equivalencia_kg) values(@cod_unidad, @nombre_unidad, @equivalencia_kg); end commit tran";
+                "begin tran if exists(select * from Unidad_Medida with (updlock, serializable) where cod_unidad = @cod_unidad) begin update unidad_medida set nombre_unidad = @nombre_unidad, equivalencia_kg = @equivalencia_kg where cod_unidad = @cod_unidad; end else begin insert into unidad_medida(cod_unidad, nombre_unidad, equivalencia_kg, estado) values(@cod_unidad, @nombre_unidad, @equivalencia_kg, true); end commit tran";
                         //sentencia.Parameters.AddWithValue("@cod", bod.direccion.cod_direccion);
                         sentencia.Parameters.AddWithValue("@cod_unidad", unidad.codigo);
                         sentencia.Parameters.AddWithValue("@nombre_unidad", unidad.nombre);

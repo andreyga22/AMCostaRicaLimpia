@@ -67,7 +67,7 @@ namespace DAO
             return ds;
         }
 
-        public TOMoneda consultar(String id) {
+        public TOMoneda consultarAdmin(String id) {
             try {
                 TOMoneda mon = new TOMoneda();
                 SqlCommand buscar = new SqlCommand("SELECT id_moneda, detalle_moneda, equivalencia_colon, estado FROM Moneda WHERE id_moneda = @id;", conexion);
@@ -103,16 +103,81 @@ namespace DAO
             } finally {
                 conexion.Close();
             }
-        
-    }
 
-        public DataTable buscar(string palabra) {
+        }
+
+
+        public TOMoneda consultarRegular(String id) {
+            try {
+                TOMoneda mon = new TOMoneda();
+                SqlCommand buscar = new SqlCommand("SELECT id_moneda, detalle_moneda, equivalencia_colon FROM Moneda WHERE id_moneda = @id;", conexion);
+                buscar.Parameters.AddWithValue("@id", id);
+
+                if(conexion.State != ConnectionState.Open) {
+                    conexion.Open();
+                }
+
+                DataTable table = new DataTable();
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                adapter.SelectCommand = buscar;
+                adapter.Fill(table);
+                TOMoneda und = new TOMoneda();
+
+                for(int x = 0; x < table.Rows.Count; x++) {
+
+                    und.idMoneda = Convert.ToString(table.Rows[x]["ID_MONEDA"]);
+                    und.detalleMoneda = Convert.ToString(table.Rows[x]["DETALLE_MONEDA"]);
+                    und.equivalencia_Colon = Convert.ToDouble(table.Rows[x]["EQUIVALENCIA_COLON"]);
+
+                }
+
+                if(conexion.State != ConnectionState.Closed) {
+                    conexion.Close();
+                }
+
+                return und;
+
+            } catch(Exception) {
+                throw;
+            } finally {
+                conexion.Close();
+            }
+
+        }
+
+
+        public DataTable buscarAdmin(string palabra) {
             try {
                 using(conexion) {
                     SqlCommand cmd = conexion.CreateCommand();
-                    string sql = "select id_moneda as Código, detalle_moneda as 'Detalle', equivalencia_colon as 'Equivalencia Colón' from Moneda";
+                    string sql = "select id_moneda as Código, detalle_moneda as 'Detalle', equivalencia_colon as 'Equivalencia Colón', Estado as 'Estado' from Moneda";
                     if(!string.IsNullOrEmpty(palabra)) {
                         sql += " WHERE (id_moneda LIKE '%' + @pal + '%')  or (detalle_moneda LIKE '%' + @pal + '%') or (equivalencia_colon LIKE '%' + @pal + '%');";
+                        cmd.Parameters.AddWithValue("@pal", palabra);
+                    }
+                    cmd.CommandText = sql;
+                    cmd.Connection = conexion;
+                    using(SqlDataAdapter sda = new SqlDataAdapter(cmd)) {
+                        DataTable dt = new DataTable();
+                        sda.Fill(dt);
+
+                        return dt;
+                    }
+                }
+            } catch(Exception) {
+                throw;
+            } finally {
+                conexion.Close();
+            }
+        }
+
+        public DataTable buscarRegular(string palabra) {
+            try {
+                using(conexion) {
+                    SqlCommand cmd = conexion.CreateCommand();
+                    string sql = "select id_moneda as Código, detalle_moneda as 'Detalle', equivalencia_colon as 'Equivalencia Colón' from Moneda where estado = 1";
+                    if(!string.IsNullOrEmpty(palabra)) {
+                        sql += " and ((id_moneda LIKE '%' + @pal + '%')  or (detalle_moneda LIKE '%' + @pal + '%') or (equivalencia_colon LIKE '%' + @pal + '%'));";
                         cmd.Parameters.AddWithValue("@pal", palabra);
                     }
                     cmd.CommandText = sql;
@@ -147,7 +212,7 @@ namespace DAO
 
                 try {
                     sentencia.CommandText =
-            "begin tran if exists(select * from moneda with (updlock, serializable) where id_Moneda = @id_moneda) begin update unidad_medida set detalle_moneda = @detalle_moneda, equivalencia_colon = @equivalencia_colon where id_moneda = @id_moneda; end else begin insert into moneda(id_moneda, detalle_moneda, equivalencia_colon) values(@id_moneda, @detalle_moneda, @equivalencia_colon); end commit tran";
+            "begin tran if exists(select * from moneda with (updlock, serializable) where id_Moneda = @id_moneda) begin update unidad_medida set detalle_moneda = @detalle_moneda, equivalencia_colon = @equivalencia_colon where id_moneda = @id_moneda; end else begin insert into moneda(id_moneda, detalle_moneda, equivalencia_colon, estado) values(@id_moneda, @detalle_moneda, @equivalencia_colon, true); end commit tran";
                     //sentencia.Parameters.AddWithValue("@cod", bod.direccion.cod_direccion);
                     sentencia.Parameters.AddWithValue("@id_moneda", mon.idMoneda);
                     sentencia.Parameters.AddWithValue("@detalle_moneda", mon.detalleMoneda);

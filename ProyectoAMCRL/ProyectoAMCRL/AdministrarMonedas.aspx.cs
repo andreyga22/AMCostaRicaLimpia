@@ -150,12 +150,22 @@ namespace ProyectoAMCRL {
         /// </summary>
         /// <returns>Datatable con elr esultado de la busqueda</returns>
         private DataTable buscar() {
-            BLManejadorMoneda man = new BLManejadorMoneda();
-            DataTable datat = man.buscar(palabraTb.Text.Trim());
-            gridMonedas.DataSource = datat;
-            gridMonedas.DataBind();
-      
-            return datat;
+            BLCuenta usuarioLogin = (BLCuenta)Session["cuentaLogin"];
+            if(usuarioLogin.rol.Equals("r")) {
+                BLManejadorMoneda man = new BLManejadorMoneda();
+                DataTable datat = man.buscarRegular(palabraTb.Text.Trim());
+                gridMonedas.DataSource = datat;
+                gridMonedas.DataBind();
+
+                return datat;
+            } else {
+                BLManejadorMoneda man = new BLManejadorMoneda();
+                DataTable datat = man.buscarAdmin(palabraTb.Text.Trim());
+                gridMonedas.DataSource = datat;
+                gridMonedas.DataBind();
+
+                return datat;
+            }
         }
 
         /// <summary>

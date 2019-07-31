@@ -9,9 +9,17 @@ using DAO;
 
 namespace BL {
     public class BLManejadorUnidad {
-        public DataTable buscar(String palabra) {
+        public DataTable buscarAdmin(String palabra) {
             try {
-                return new DAOUnidadMedida().buscar(palabra);
+                return new DAOUnidadMedida().buscarAdmin(palabra);
+            } catch(Exception) {
+                throw;
+            }
+        }
+
+        public DataTable buscarRegular(String palabra) {
+            try {
+                return new DAOUnidadMedida().buscarRegular(palabra);
             } catch(Exception) {
                 throw;
             }

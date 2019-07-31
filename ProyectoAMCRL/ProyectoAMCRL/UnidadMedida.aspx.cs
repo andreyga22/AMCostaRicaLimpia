@@ -15,25 +15,44 @@ namespace ProyectoAMCRL {
                     string id = (String)Session["idUnidad"];
                     if(!string.IsNullOrEmpty(id)) {
                         try {
-                            BLManejadorUnidad man = new BLManejadorUnidad();
-                            BLUnidad und = man.consultar(id);
-                            codigoTb.Text = und.codigo;
-                            codigoTb.Enabled = false;
-                            nombreTB.Text = und.nombre;
-                            equivalenciaTb.Text = Convert.ToString(und.equivalencia);
-                            Boolean num = und.estado;
-                            if(num) {
-                                estadoRb.SelectedIndex = 0;
-                            } else {
-                                estadoRb.SelectedIndex = 1;
-                            }
-                            BLCuenta sesi = (BLCuenta)Session["cuentaLogin"];
-                            if(sesi.rol.Equals('r')) {
+                            BLCuenta usuarioLogin = (BLCuenta)Session["cuentaLogin"];
+                            if(usuarioLogin.rol.Equals("r")) {
+                                BLManejadorUnidad man = new BLManejadorUnidad();
+                                BLUnidad und = man.consultar(id);
+                                codigoTb.Text = und.codigo;
+                                codigoTb.Enabled = false;
+                                nombreTB.Text = und.nombre;
+                                equivalenciaTb.Text = Convert.ToString(und.equivalencia);
+                                Boolean num = und.estado;
+                                if(num) {
+                                    estadoRb.SelectedIndex = 0;
+                                } else {
+                                    estadoRb.SelectedIndex = 1;
+                                }
+
                                 estadoRb.Visible = false;
+                            } else {
+                                BLManejadorUnidad man = new BLManejadorUnidad();
+                                BLUnidad und = man.consultar(id);
+                                codigoTb.Text = und.codigo;
+                                codigoTb.Enabled = false;
+                                nombreTB.Text = und.nombre;
+                                equivalenciaTb.Text = Convert.ToString(und.equivalencia);
+                                Boolean num = und.estado;
+                                if(num) {
+                                    estadoRb.SelectedIndex = 0;
+                                } else {
+                                    estadoRb.SelectedIndex = 1;
+                                }
                             }
                         } catch(Exception) {
                             lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> No se pudo cargar los datos de la unidad de medida. Revise su conexión a internet.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                             lblError.Visible = true;
+                        }
+                    } else {
+                        BLCuenta sesi = (BLCuenta)Session["cuentaLogin"];
+                        if(sesi.rol.Equals("r")) {
+                            estadoRb.Visible = false;
                         }
                     }
                 }
@@ -47,7 +66,7 @@ namespace ProyectoAMCRL {
                 BLCuenta sesi = (BLCuenta)Session["cuentaLogin"];
                 if(sesi.rol.Equals('r')) {
                     BLManejadorUnidad man = new BLManejadorUnidad();
-                    man.guardarActualizarRegular(new BLUnidad(codigoTb.Text.Trim(), nombreTB.Text.Trim(), Convert.ToDouble(equivalenciaTb.Text.Trim()), false));
+                    man.guardarActualizarRegular(new BLUnidad(codigoTb.Text.Trim(), nombreTB.Text.Trim(), Convert.ToDouble(equivalenciaTb.Text.Trim()), true));
                     lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong>Se guardó correctamente la unidad de medida.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                     lblError.Visible = true;
                 } else {

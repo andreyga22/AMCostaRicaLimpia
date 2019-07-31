@@ -316,9 +316,9 @@ namespace DAO {
             try {
                 using(conexion) {
                     SqlCommand cmd = conexion.CreateCommand();
-                    string sql = "select b.ID_BODEGA as 'Código Bodega', b.NOMBRE_BOD as 'Nombre Bodega', d.DISTRITO as Ubicación from bodega b join direccion d on b.COD_DIRECCION = d.COD_DIRECCION";
+                    string sql = "select b.ID_BODEGA as 'Código Bodega', b.NOMBRE_BOD as 'Nombre Bodega', d.DISTRITO as Ubicación from bodega b join direccion d on b.COD_DIRECCION = d.COD_DIRECCION where b.ESTADO_BODEGA = 1";
                     if(!string.IsNullOrEmpty(busqueda)) {
-                        sql += " WHERE ((b.ID_BODEGA LIKE '%' + @pal + '%')  or (b.NOMBRE_BOD LIKE '%' + @pal + '%') or (d.DISTRITO LIKE '%' + @pal + '%')) and b.ESTADO_BODEGA = 1;";
+                        sql += " and ((b.ID_BODEGA LIKE '%' + @pal + '%')  or (b.NOMBRE_BOD LIKE '%' + @pal + '%') or (d.DISTRITO LIKE '%' + @pal + '%'));";
                         cmd.Parameters.AddWithValue("@pal", busqueda);
                     }
                     cmd.CommandText = sql;

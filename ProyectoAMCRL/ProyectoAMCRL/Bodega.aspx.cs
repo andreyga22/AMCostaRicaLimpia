@@ -55,12 +55,18 @@ namespace ProyectoAMCRL {
                                 distritoTb.Text = miBod.direccion.distrito;
                                 otrasTb.Text = miBod.direccion.otras_sennas;
                             }
+                        } else {
+                            BLCuenta sesi = (BLCuenta)Session["cuentaLogin"];
+                            if(sesi.rol.Equals("r")) {
+                                estadoRb.Visible = false;
+                                estadoLb.Visible = false;
+                            }
                         }
                     } catch(Exception exx) {
                         lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> No se pudo cargar los datos de bodega. Revise su conexión a internet.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                         lblError.Visible = true;
                     }
-                }
+                } 
             } else {
                 Response.Redirect("Login.aspx");
             }

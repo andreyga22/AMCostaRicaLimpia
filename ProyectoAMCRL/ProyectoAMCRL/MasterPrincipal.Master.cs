@@ -12,15 +12,12 @@ namespace ProyectoAMCRL
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //BLCuenta usuarioLogin = (BLCuenta)Session["cuentaLogin"];
-            //if (usuarioLogin.rol.Equals("r"))
-            //{
-            //    cuentasSubmenu2.Visible = false;
-            //}
-            //else
-            //{
-            //    cuentasSubmenu2.Visible = true;
-            //}
+            BLCuenta usuarioLogin = (BLCuenta)Session["cuentaLogin"];
+            if(usuarioLogin.rol.Equals("r")) {
+                cuentasSub.Visible = false;
+            } else {
+                cuentasSub.Visible = true;
+            }
         }
 
         protected void contrasenaLb_Click(object sender, EventArgs e)

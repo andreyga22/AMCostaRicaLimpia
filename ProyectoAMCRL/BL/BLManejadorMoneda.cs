@@ -17,12 +17,20 @@ namespace BL
             return convert(dao.buscarMonedaId(id_Moneda));
         }
 
-        public BLMoneda consultar(string id) {
-            return convertt(new DAOManejadorMoneda().consultar(id));
+        public BLMoneda consultarAdmin(string id) {
+            return convertt(new DAOManejadorMoneda().consultarAdmin(id));
         }
 
-        public DataTable buscar(String pal) {
-            return new DAOManejadorMoneda().buscar(pal);
+        public BLMoneda consultarRegular(string id) {
+            return convertt(new DAOManejadorMoneda().consultarRegular(id));
+        }
+
+        public DataTable buscarAdmin(String pal) {
+            return new DAOManejadorMoneda().buscarAdmin(pal);
+        }
+
+        public DataTable buscarRegular(String pal) {
+            return new DAOManejadorMoneda().buscarRegular(pal);
         }
 
         public void guardarActualizarRegular(BLMoneda mon) {
