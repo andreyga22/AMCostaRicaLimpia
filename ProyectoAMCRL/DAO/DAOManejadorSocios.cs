@@ -145,11 +145,11 @@ namespace DAO
         }
 
         /// <summary>
-        /// Método que crea una tabla con los socios que cumplan con un criterio especificado.
+        /// Método que crea una tabla con los socios que cumplan con un criterio especificado si estan activos y sin su estado.
         /// </summary>
         /// <param name="busqueda">Criterio de filtrado</param>
         /// <returns>Tabla con socios</returns>
-        public DataTable buscarTabla(string busqueda)
+        public DataTable buscarTablaRegular(string busqueda)
         {
             try
             {
@@ -157,11 +157,52 @@ namespace DAO
                 {
                     SqlCommand cmd = conexion.CreateCommand();
                     string sql = "Select CEDULA as Cédula, NOMBRE as Nombre, APELLIDO1 as 'Primer apellido'," +
-                    " APELLIDO2 as 'Segundo apellido', ROL_SOCIO as Rol from SOCIO_NEGOCIO";
+                    " APELLIDO2 as 'Segundo apellido', ROL_SOCIO as Rol from SOCIO_NEGOCIO where ESTADO_SOCIO = 1";
 
                     if (string.IsNullOrEmpty(busqueda) == false)
                     {
-                        sql += " where ((CEDULA LIKE '%' + @pal + '%') or (NOMBRE LIKE '%' + @pal + '%')  or (APELLIDO1 LIKE '%' + @pal + '%') or (APELLIDO2 LIKE '%' + @pal + '%')) AND ESTADO_SOCIO = 1;";
+                        sql += " AND ((CEDULA LIKE '%' + @pal + '%') or (NOMBRE LIKE '%' + @pal + '%')  or (APELLIDO1 LIKE '%' + @pal + '%') or (APELLIDO2 LIKE '%' + @pal + '%'));";
+
+                        cmd.Parameters.AddWithValue("@pal", busqueda);
+                    }
+                    cmd.CommandText = sql;
+                    cmd.Connection = conexion;
+                    using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        sda.Fill(dt);
+                        return dt;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conexion.Close();
+            }
+        }
+
+        /// <summary>
+        /// Método que crea una tabla con los socios que cumplan con un criterio especificado con su estado.
+        /// </summary>
+        /// <param name="busqueda">Criterio de filtrado</param>
+        /// <returns>Tabla con socios</returns>
+        public DataTable buscarTablaAdmin(string busqueda)
+        {
+            try
+            {
+                using (conexion)
+                {
+                    SqlCommand cmd = conexion.CreateCommand();
+                    string sql = "Select CEDULA as Cédula, NOMBRE as Nombre, APELLIDO1 as 'Primer apellido'," +
+                    " APELLIDO2 as 'Segundo apellido', ROL_SOCIO as Rol, ESTADO_SOCIO as Estado from SOCIO_NEGOCIO";
+
+                    if (string.IsNullOrEmpty(busqueda) == false)
+                    {
+                        sql += " where ((CEDULA LIKE '%' + @pal + '%') or (NOMBRE LIKE '%' + @pal + '%')  or (APELLIDO1 LIKE '%' + @pal + '%') or (APELLIDO2 LIKE '%' + @pal + '%'));";
 
                         cmd.Parameters.AddWithValue("@pal", busqueda);
                     }
@@ -192,11 +233,11 @@ namespace DAO
                 using (conexion)
                 {
                     SqlCommand cmd = conexion.CreateCommand();
-                    string sql = "Select CEDULA as Cédula, NOMBRE + ' ' +  APELLIDO1 + ' ' + APELLIDO2 as Nombre from SOCIO_NEGOCIO";
+                    string sql = "Select CEDULA as Cédula, NOMBRE + ' ' +  APELLIDO1 + ' ' + APELLIDO2 as Nombre from SOCIO_NEGOCIO where ESTADO_SOCIO = 1";
 
                     if (string.IsNullOrEmpty(busqueda) == false)
                     {
-                        sql += " where ((CEDULA LIKE '%' + @pal + '%') or (NOMBRE LIKE '%' + @pal + '%')  or (APELLIDO1 LIKE '%' + @pal + '%') or (APELLIDO2 LIKE '%' + @pal + '%')) AND ESTADO_SOCIO = 1;";
+                        sql += " AND ((CEDULA LIKE '%' + @pal + '%') or (NOMBRE LIKE '%' + @pal + '%')  or (APELLIDO1 LIKE '%' + @pal + '%') or (APELLIDO2 LIKE '%' + @pal + '%'));";
 
                         cmd.Parameters.AddWithValue("@pal", busqueda);
                     }

@@ -319,6 +319,15 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl estado;
         
         /// <summary>
+        /// estadolb control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl estadolb;
+        
+        /// <summary>
         /// estadoRb control.
         /// </summary>
         /// <remarks>

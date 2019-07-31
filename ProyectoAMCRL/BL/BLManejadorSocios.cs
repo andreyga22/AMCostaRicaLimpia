@@ -82,11 +82,23 @@ namespace BL
         /// </summary>
         /// <param name="busqueda">criterio bajo el cual se filtran los socios</param>
         /// <returns>Una tabla con socios</returns>
-        public DataTable buscarDatos(string busqueda)
+        public DataTable buscarDatosRegular(string busqueda)
         {
             try
             {
-                return new DAOManejadorSocios().buscarTabla(busqueda);
+                return new DAOManejadorSocios().buscarTablaRegular(busqueda);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public DataTable buscarDatosAdmin(string busqueda)
+        {
+            try
+            {
+                return new DAOManejadorSocios().buscarTablaAdmin(busqueda);
             }
             catch (Exception)
             {

@@ -34,26 +34,35 @@ namespace ProyectoAMCRL
             }
         }
 
-        private void buscar(List<BLSocioNegocio> listSocios)
-        {
-            if (listSocios.Count != 0)
-            {
-                gridSocios.DataSource = listSocios;
-            }
-            else
-            {
-                BLManejadorSocios manejador = new BLManejadorSocios();
-                List<BLSocioNegocio> list = manejador.listaSoc(txtPalabra.Text.Trim()); 
+        //private void buscar(List<BLSocioNegocio> listSocios)
+        //{
+        //    if (listSocios.Count != 0)
+        //    {
+        //        gridSocios.DataSource = listSocios;
+        //    }
+        //    else
+        //    {
+        //        BLManejadorSocios manejador = new BLManejadorSocios();
+        //        List<BLSocioNegocio> list = manejador.listaSoc(txtPalabra.Text.Trim()); 
 
-                gridSocios.DataSource = list;
-            }
-            gridSocios.DataBind();
-        }
+        //        gridSocios.DataSource = list;
+        //    }
+        //    gridSocios.DataBind();
+        //}
 
         private DataTable buscar()
         {
             BLManejadorSocios manejador = new BLManejadorSocios();
-            DataTable tabla = manejador.buscarDatos(txtPalabra.Text.Trim());
+            DataTable tabla = new DataTable();
+            BLCuenta usuarioLogin = (BLCuenta)Session["cuentaLogin"];
+            if (usuarioLogin.rol.Equals("r"))
+            {
+              tabla = manejador.buscarDatosRegular(txtPalabra.Text.Trim());
+            }
+            else
+            {
+                tabla = manejador.buscarDatosAdmin(txtPalabra.Text.Trim());
+            }
             gridSocios.DataSource = tabla;
             gridSocios.DataBind();
             return tabla;
