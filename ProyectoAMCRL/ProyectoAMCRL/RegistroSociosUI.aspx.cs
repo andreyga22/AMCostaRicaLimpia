@@ -14,48 +14,108 @@ namespace ProyectoAMCRL
         {
             if (Session["cuentaLogin"] != null)
             {
-                LinkAsoc.Visible = false;
                 if (!this.IsPostBack)
                 {
- 
+                    BLCuenta usuarioLogin = (BLCuenta)Session["cuentaLogin"];
                     String cedula = (String)Session["idSocio"];
-                    if (!String.IsNullOrEmpty(cedula))
+                    if (usuarioLogin.rol.Equals("r"))
                     {
-                        LinkAsoc.Visible = true;
-                        BLManejadorSocios manejador = new BLManejadorSocios();
-                        BLSocioNegocio socio = manejador.buscarCedula(cedula);
-                        idTB.Enabled = false;
-                        idTB.Text = socio.cedula;
-                        nombreTB.Text = socio.nombre;
-                        ape1TB.Text = socio.apellido1;
-                        ape2TB.Text = socio.apellido2;
+                        if (!String.IsNullOrEmpty(cedula))
+                        {
+                            LinkAsoc.Visible = true;
+                            BLManejadorSocios manejador = new BLManejadorSocios();
+                            BLSocioNegocio socio = manejador.buscarCedula(cedula);
+                            idTB.Enabled = false;
+                            idTB.Text = socio.cedula;
+                            nombreTB.Text = socio.nombre;
+                            ape1TB.Text = socio.apellido1;
+                            ape2TB.Text = socio.apellido2;
 
-                        Boolean ess = socio.estado_socio;
-                        int est = 0;
-                        if(ess) {
-                            est = 0;
-                        } else {
-                            est = 1;
+                            Boolean ess = socio.estado_socio;
+                            int est = 0;
+                            if (ess)
+                            {
+                                est = 0;
+                            }
+                            else
+                            {
+                                est = 1;
+                            }
+                            estadoRb.SelectedIndex = est;
+
+                            //activaCb.Checked = true;
+                            if (socio.rol.Equals("Proveedor"))
+                            {
+                                rolRadios.SelectedIndex = 0;
+                            }
+                            else
+                            {
+                                rolRadios.SelectedIndex = 1;
+                            }
+
+                            provinciaTB.Text = socio.direccion.provincia;
+                            cantonTB.Text = socio.direccion.canton;
+                            distritoTB.Text = socio.direccion.distrito;
+                            sennas.Text = socio.direccion.otras_sennas;
+
+                            telTB.Text = Convert.ToString(socio.contactos.telefono_hab);
+                            tel2TB.Text = Convert.ToString(socio.contactos.telefono_pers);
+                            correoTB.Text = socio.contactos.email;
+                            estadolb.Visible = false;
+                            estadoRb.Visible = false;
+                            LinkAsoc.Visible = true;
                         }
-                        estadoRb.SelectedIndex = est;
-
-                        //activaCb.Checked = true;
-                        if(socio.rol.Equals("Proveedor")) {
-                            rolRadios.SelectedIndex = 0;
-                        } else {
-                            rolRadios.SelectedIndex = 1;
+                        else {
+                            estadolb.Visible = false;
+                            estadoRb.Visible = false;
                         }
+                    }
+                    else
+                    {
+                        if (!String.IsNullOrEmpty(cedula))
+                        {
+                            LinkAsoc.Visible = true;
+                            BLManejadorSocios manejador = new BLManejadorSocios();
+                            BLSocioNegocio socio = manejador.buscarCedula(cedula);
+                            idTB.Enabled = false;
+                            idTB.Text = socio.cedula;
+                            nombreTB.Text = socio.nombre;
+                            ape1TB.Text = socio.apellido1;
+                            ape2TB.Text = socio.apellido2;
 
-                        provinciaTB.Text = socio.direccion.provincia;
-                        cantonTB.Text = socio.direccion.canton;
-                        distritoTB.Text = socio.direccion.distrito;
-                        sennas.Text = socio.direccion.otras_sennas;
+                            Boolean ess = socio.estado_socio;
+                            int est = 0;
+                            if (ess)
+                            {
+                                est = 0;
+                            }
+                            else
+                            {
+                                est = 1;
+                            }
+                            estadoRb.SelectedIndex = est;
 
-                        telTB.Text = Convert.ToString(socio.contactos.telefono_hab);
-                        tel2TB.Text = Convert.ToString(socio.contactos.telefono_pers);
-                        correoTB.Text = socio.contactos.email;
+                            //activaCb.Checked = true;
+                            if (socio.rol.Equals("Proveedor"))
+                            {
+                                rolRadios.SelectedIndex = 0;
+                            }
+                            else
+                            {
+                                rolRadios.SelectedIndex = 1;
+                            }
 
-                        LinkAsoc.Visible = true;
+                            provinciaTB.Text = socio.direccion.provincia;
+                            cantonTB.Text = socio.direccion.canton;
+                            distritoTB.Text = socio.direccion.distrito;
+                            sennas.Text = socio.direccion.otras_sennas;
+
+                            telTB.Text = Convert.ToString(socio.contactos.telefono_hab);
+                            tel2TB.Text = Convert.ToString(socio.contactos.telefono_pers);
+                            correoTB.Text = socio.contactos.email;
+
+                            LinkAsoc.Visible = true;
+                        }
                     }
                 }
             }
@@ -87,15 +147,6 @@ namespace ProyectoAMCRL
                     socio.contactos = new BLContactos(int.Parse(telTB.Text.ToString()),
                     int.Parse(tel2TB.Text.ToString()), correoTB.Text.ToString());
                     socio.direccion.cod_direccion = manejador.buscarDir(idTB.Text.ToString());
-                    //if (activaCb.Checked)
-                    //{
-                    //    socio.estado_socio = true;
-                    //}
-                    //else
-                    //{
-                    //    socio.estado_socio = false;
-                    //}
-
                     String estado = estadoRb.SelectedValue;
                     Boolean estadoB = true;
                     if(estado.Equals("Activado")) {

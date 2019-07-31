@@ -118,7 +118,7 @@
             </div>
 
             <div class="form-group col-md-5" id="estado" runat="server" visible="true">
-                <label for="estadoRb">Estado</label>
+                <label for="estadoRb" runat="server" id="estadolb">Estado</label>
                 <asp:RadioButtonList ID="estadoRb" runat="server" RepeatDirection="Horizontal" CellPadding="5">
                     <asp:ListItem Selected="True">Activado</asp:ListItem>
                     <asp:ListItem>Desactivado</asp:ListItem>
