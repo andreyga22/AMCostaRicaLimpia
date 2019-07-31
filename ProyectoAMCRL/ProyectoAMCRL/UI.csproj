@@ -93,6 +93,7 @@
     <Content Include="DetalleAjuste.aspx" />
     <Content Include="Error.aspx" />
     <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="GestionDeInventario.aspx" />
     <Content Include="images\compra.png" />
     <Content Include="images\downarrow.png" />
     <Content Include="images\facturas.png" />
@@ -252,6 +253,13 @@
     </Compile>
     <Compile Include="Error.aspx.designer.cs">
       <DependentUpon>Error.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GestionDeInventario.aspx.cs">
+      <DependentUpon>GestionDeInventario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GestionDeInventario.aspx.designer.cs">
+      <DependentUpon>GestionDeInventario.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>

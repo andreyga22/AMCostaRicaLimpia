@@ -109,20 +109,20 @@
                     <a href="#stockSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle font-weight-bolder">
                         <i class="fas fa-boxes"></i>Inventario</a>
                     <ul class="collapse list-unstyled" id="stockSubmenu">
+                        <li><a href="GestionDeInventario.aspx">Gestion de Inventario</a></li>
                         <li><a href="AdministrarBodegas.aspx">Administrar bodegas</a></li>
                         <li><a href="AdministrarMateriales.aspx">Materiales</a></li>
                         <li><a href="Ajustes.aspx">Ajustes</a></li>
                     </ul>
                 </li>
 
-                <li class="active" style="margin-bottom:10px">
+                <%--<li class="active" style="margin-bottom:10px">
                     <a href="#reportesSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle font-weight-bolder">
                         <i class="fas fa-chart-line"></i>Reportes</a>
                     <ul class="collapse list-unstyled" id="reportesSubmenu">
                         <li><a href="Reporte_General.aspx">Reporte General</a></li>
-                       <%-- <li> <a href="ReporteGrafico.aspx">Reporte Gráfico</a></li>--%>
                     </ul>
-                </li>
+                </li>--%>
 
                 <li class="active" style=" margin-bottom:10px">
                     <a href="#otrosSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle font-weight-bolder">
