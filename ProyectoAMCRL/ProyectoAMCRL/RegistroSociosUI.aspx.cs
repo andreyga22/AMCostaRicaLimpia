@@ -42,8 +42,7 @@ namespace ProyectoAMCRL
                                 est = 1;
                             }
                             estadoRb.SelectedIndex = est;
-
-                            //activaCb.Checked = true;
+                            
                             if (socio.rol.Equals("Proveedor"))
                             {
                                 rolRadios.SelectedIndex = 0;

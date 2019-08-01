@@ -20,12 +20,11 @@
         <div class="row justify-content-center">
             <div class="col-2">
                 <%--<asp:Button ID="btnAgregar" runat="server" Text="Nuevo" class="btn btn-info" OnKeyDown="" OnClick="btnAgregar_Click" />--%>
+                <asp:DropDownList ID="bodDD" runat="server" OnSelectedIndexChanged="bodDD_SelectedIndexChanged" Width="236px">
+                </asp:DropDownList>
             </div>
             <div class="offset-7 col-3">
                 <asp:UpdatePanel ID="UpdatePanel2" runat="server">
-                    <ContentTemplate>
-                        <asp:TextBox type="text" ID="palabraTb" class="form-control" runat="server" TextMode="SingleLine" placeholder="Buscar" OnTextChanged="palabraTb_TextChanged" AutoPostBack="true" OnKeyDown="txt_Item_Number_KeyDown"></asp:TextBox>
-                    </ContentTemplate>
                 </asp:UpdatePanel>
             </div>
         </div>
