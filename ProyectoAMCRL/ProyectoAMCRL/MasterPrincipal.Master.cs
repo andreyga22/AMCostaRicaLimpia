@@ -49,12 +49,6 @@ namespace ProyectoAMCRL
             Response.Redirect("Login.aspx");
         }
 
-        protected void cambiarContra(object sender, EventArgs e)
-        {
-            Session["accionCuenta"] = 2;
-            Response.Redirect("Cuenta.aspx");
-        }
-
         protected void btnBusqFactVent_Click(object sender, EventArgs e)
         {
             Session.Add("modo", "venta");
@@ -71,6 +65,47 @@ namespace ProyectoAMCRL
         {
             Session["idSocio"] = null;
             Response.Redirect("RegistroSociosUI.aspx");
+        }
+
+        protected void cambiarContra_Click(object sender, EventArgs e) {
+            Session["accionCuenta"] = 2;
+            Response.Redirect("Cuenta.aspx");
+        }
+
+        protected void LinkButton8_Click(object sender, EventArgs e) {
+            Response.Redirect("BusquedaSocios.aspx");
+        }
+
+        protected void LinkButton5_Click(object sender, EventArgs e) {
+            Response.Redirect("GestionDeInventario.aspx");
+        }
+
+        protected void LinkButton11_Click(object sender, EventArgs e) {
+            Response.Redirect("Ajustes.aspx");
+        }
+
+        protected void LinkButton6_Click(object sender, EventArgs e) {
+            Response.Redirect("AdministrarBodegas.aspx");
+        }
+
+        protected void LinkButton12_Click(object sender, EventArgs e) {
+            Response.Redirect("AdministrarMateriales.aspx");
+        }
+
+        protected void LinkButton9_Click(object sender, EventArgs e) {
+            Response.Redirect("AdministrarMonedas.aspx");
+        }
+
+        protected void LinkButton10_Click(object sender, EventArgs e) {
+            Response.Redirect("AdministrarUnidadesMedida.aspx");
+        }
+
+        protected void LinkButton13_Click(object sender, EventArgs e) {
+            Response.Redirect("AdministrarCuentas.aspx");
+        }
+
+        protected void logo_Click(object sender, ImageClickEventArgs e) {
+            Response.Redirect("Principal.aspx");
         }
     }
 }

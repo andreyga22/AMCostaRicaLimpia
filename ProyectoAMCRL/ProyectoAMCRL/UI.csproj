@@ -74,6 +74,7 @@
   <ItemGroup>
     <Content Include="AdministrarMonedas.aspx" />
     <Content Include="Ajustes.aspx" />
+    <Content Include="app.js" />
     <Content Include="Asociar_Socio.aspx" />
     <Content Include="Bodega.aspx" />
     <Content Include="AdministrarBodegas.aspx" />
@@ -111,6 +112,7 @@
     <Content Include="images\uparrow.png" />
     <Content Include="Login.aspx" />
     <Content Include="login.css" />
+    <Content Include="masterstylecss.css" />
     <Content Include="Monedas.aspx" />
     <Content Include="ownStyles.css" />
     <Content Include="Principal.aspx" />
