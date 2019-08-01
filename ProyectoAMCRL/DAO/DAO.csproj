@@ -56,6 +56,7 @@
     <Compile Include="BODEGA.cs">
       <DependentUpon>ModeloAMCRL.tt</DependentUpon>
     </Compile>
+    <Compile Include="DAOInventario.cs" />
     <Compile Include="COMPRA.cs">
       <DependentUpon>ModeloAMCRL.tt</DependentUpon>
     </Compile>

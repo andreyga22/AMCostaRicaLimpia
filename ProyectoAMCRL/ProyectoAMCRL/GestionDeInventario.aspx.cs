@@ -15,7 +15,7 @@ namespace ProyectoAMCRL {
             if(Session["cuentaLogin"] != null) {
                 if(!this.IsPostBack) {
                     if(ViewState["sorting"] == null) {
-                        this.buscar();
+                        this.cargarBodegas();
                     }
                 }
             } else {
@@ -48,6 +48,16 @@ namespace ProyectoAMCRL {
             Response.Redirect("Monedas.aspx");
         }
 
+        protected void cargarBodegas()
+        {
+            BLManejadorInventario manejador = new BLManejadorInventario();
+            List<String> lista = manejador.buscarBodegas();
+            bodDD.Items.Insert(0, new ListItem("--SELECCIONE UNA BODEGA--"));
+            foreach (Object bodega in lista){
+                bodDD.Items.Add(new ListItem(bodega.ToString()));
+            }
+        }
+
         protected void gridInventario_Sorting(object sender, GridViewSortEventArgs e) {
             DataTable datat = this.buscar();
             DataView dv = new DataView(datat);
@@ -66,13 +76,13 @@ namespace ProyectoAMCRL {
             gridInventario.DataBind();
 
 
-            if(ViewState["sorting"].ToString() == "ASC") {
-                int index = GetColumnIndex(datat, e.SortExpression);
-                gridInventario.HeaderRow.Cells[index].CssClass = "SortedAscendingHeaderStyle";
-            } else {
-                int index = GetColumnIndex(datat, e.SortExpression);
-                gridInventario.HeaderRow.Cells[index].CssClass = "SortedDescendingHeaderStyle";
-            }
+            //if(ViewState["sorting"].ToString() == "ASC") {
+            //    int index = GetColumnIndex(datat, e.SortExpression);
+            //    gridInventario.HeaderRow.Cells[index].CssClass = "SortedAscendingHeaderStyle";
+            //} else {
+            //    int index = GetColumnIndex(datat, e.SortExpression);
+            //    gridInventario.HeaderRow.Cells[index].CssClass = "SortedDescendingHeaderStyle";
+            //}
         }
 
         protected void gridInventario_RowDataBound(object sender, GridViewRowEventArgs e) {
@@ -82,19 +92,6 @@ namespace ProyectoAMCRL {
             }
         }
 
-        protected void palabraTb_TextChanged(object sender, EventArgs e) {
-            this.buscar();
-        }
-
-        /// <summary>
-        /// Devuelve el indice de una columna en un datatable enviado, utilizando el nombre como parametro.
-        /// </summary>
-        /// <param name="dt"></param>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        private int GetColumnIndex(DataTable dt, string name) {
-            return dt.Columns.IndexOf(name);
-        }
 
         /// <summary>
         /// Método que permite la función de busqueda para la tabla. Consulta la base de datos en caso de 
@@ -105,10 +102,9 @@ namespace ProyectoAMCRL {
         private DataTable buscar() {
 
                 BLManejadorInventario man = new BLManejadorInventario();
-                DataTable datat = man.buscar(palabraTb.Text.Trim());
+                DataTable datat = man.buscarStock(bodDD.Text.Trim());
                 gridInventario.DataSource = datat;
                 gridInventario.DataBind();
-
                 return datat;
         }
 
@@ -121,6 +117,11 @@ namespace ProyectoAMCRL {
             if(e.KeyCode == Keys.Enter) {
                 this.buscar();
             }
+        }
+
+        protected void bodDD_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
         }
     }
 }
