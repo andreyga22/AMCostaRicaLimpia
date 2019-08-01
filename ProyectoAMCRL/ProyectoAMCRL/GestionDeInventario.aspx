@@ -20,7 +20,7 @@
         <div class="row justify-content-center">
             <div class="col-2">
                 <%--<asp:Button ID="btnAgregar" runat="server" Text="Nuevo" class="btn btn-info" OnKeyDown="" OnClick="btnAgregar_Click" />--%>
-                <asp:DropDownList ID="bodDD" runat="server" OnSelectedIndexChanged="bodDD_SelectedIndexChanged" Width="236px">
+                <asp:DropDownList ID="bodDD" runat="server" OnSelectedIndexChanged="bodDD_SelectedIndexChanged" Width="236px" AutoPostBack="True" ViewStateMode="Enabled">
                 </asp:DropDownList>
             </div>
             <div class="offset-7 col-3">

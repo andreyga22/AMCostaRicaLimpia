@@ -11,9 +11,9 @@ namespace BL {
 
         DAOInventario manejador = new DAOInventario();
 
-        public DataTable buscarStock(string bodega)
+        public DataTable buscarStock(String bodega)
         {
-            return null;
+            return manejador.buscarStock(bodega);
         }
 
         public List<String> buscarBodegas()

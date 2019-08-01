@@ -34,21 +34,6 @@ namespace ProyectoAMCRL
             }
         }
 
-        //private void buscar(List<BLSocioNegocio> listSocios)
-        //{
-        //    if (listSocios.Count != 0)
-        //    {
-        //        gridSocios.DataSource = listSocios;
-        //    }
-        //    else
-        //    {
-        //        BLManejadorSocios manejador = new BLManejadorSocios();
-        //        List<BLSocioNegocio> list = manejador.listaSoc(txtPalabra.Text.Trim()); 
-
-        //        gridSocios.DataSource = list;
-        //    }
-        //    gridSocios.DataBind();
-        //}
 
         private DataTable buscar()
         {

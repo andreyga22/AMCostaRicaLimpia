@@ -20,7 +20,7 @@ namespace DAO
                 using (conexion)
                 {
                     SqlCommand cmd = conexion.CreateCommand();
-                    string sql = "Select a.COD_MATERIAL as Código, (Select NOMBRE_MATERIAL from MATERIAL c where a.COD_MATERIAL = c.COD_MATERIAL) as Material, a.KILOS_STOCK as Cantidad from STOCK a join BODEGA b on a.ID_BODEGA = (Select ID_BODEGA from Bodega where NOMBRE_BOD = @Bod);";
+                    string sql = "Select a.COD_MATERIAL as Código, (Select NOMBRE_MATERIAL from MATERIAL c where a.COD_MATERIAL = c.COD_MATERIAL) as Material, a.KILOS_STOCK as Cantidad from STOCK a join BODEGA b on a.ID_BODEGA = b.ID_BODEGA AND (b.ID_BODEGA = (Select ID_BODEGA from Bodega where NOMBRE_BOD = @Bod));";
 
                     cmd.Parameters.AddWithValue("@Bod", bodega);
                     cmd.CommandText = sql;

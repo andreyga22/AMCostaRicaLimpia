@@ -121,7 +121,11 @@ namespace ProyectoAMCRL {
 
         protected void bodDD_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            if (bodDD.SelectedIndex != 0) {
+                BLManejadorInventario manejador = new BLManejadorInventario();
+                gridInventario.DataSource = manejador.buscarStock(bodDD.SelectedItem.Text);
+                gridInventario.DataBind();
+            }
         }
     }
 }
