@@ -44,6 +44,44 @@ namespace DAO
         }
 
 
+        public DataTable buscarFiltrado(String bodega, String busqueda) {
+            try
+            {
+                if (busqueda != null && !busqueda.Equals(""))
+                {
+                    using (conexion)
+                    {
+                        SqlCommand cmd = conexion.CreateCommand();
+                        string sql = "(Select a.COD_MATERIAL as Código, c.NOMBRE_MATERIAL as Material, a.KILOS_STOCK as Cantidad " +
+                            "from STOCK a join BODEGA b on a.ID_BODEGA = b.ID_BODEGA AND (b.ID_BODEGA = (Select ID_BODEGA from Bodega where NOMBRE_BOD = @bod))" +
+                            " join Material c on a.COD_MATERIAL = c.COD_MATERIAL where (a.COD_MATERIAL LIKE '%' + @pal + '%') " +
+                            "or (c.NOMBRE_MATERIAL  LIKE '%' + @pal + '%'));";
+
+                        cmd.Parameters.AddWithValue("@Bod", bodega);
+                        cmd.Parameters.AddWithValue("@pal", busqueda);
+                        cmd.CommandText = sql;
+                        cmd.Connection = conexion;
+                        using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                        {
+                            DataTable dt = new DataTable();
+                            sda.Fill(dt);
+                            return dt;
+                        }
+                    }
+                }
+                return null;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conexion.Close();
+            }
+
+        }
+
         public List<String> buscarBodegas()
         {
             try

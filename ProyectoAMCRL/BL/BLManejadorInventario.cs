@@ -16,6 +16,11 @@ namespace BL {
             return manejador.buscarStock(bodega);
         }
 
+        public DataTable buscarFiltrado(String bodega, String busqueda)
+        {
+            return manejador.buscarFiltrado(bodega, busqueda);
+        }
+
         public List<String> buscarBodegas()
         {
             return manejador.buscarBodegas();

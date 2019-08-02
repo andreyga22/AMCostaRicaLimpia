@@ -25,6 +25,10 @@
             </div>
             <div class="offset-7 col-3">
                 <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                    <ContentTemplate>
+                        <asp:TextBox type="text" ID="txtPalabra" class="form-control" runat="server" TextMode="SingleLine" placeholder="Buscar" AutoPostBack="true" OnKeyDown="txt_Item_Number_KeyDown" OnTextChanged="txtPalabra_TextChanged"></asp:TextBox>
+                    </ContentTemplate>
+                    
                 </asp:UpdatePanel>
             </div>
         </div>
