@@ -18,10 +18,9 @@
         <asp:Label runat="server" ID="labelAccion" CssClass="h5">Registro de material</asp:Label>
         <br>
         <br>
-        <div class="row">
-            <div class="col-lg-4"></div>
-            <div class="col-lg-5" style="margin-left: 0%;">
-                <asp:HiddenField runat="server" ID="escondidillo" Value="" />
+        <div class="row justify-content-center">
+            <div class="col-sm-6">
+                <%--<asp:HiddenField runat="server" ID="escondidillo" Value="" />--%>
                 <div class="row">
                      <label for="nombreTB">Código*</label>
                     <asp:TextBox type="text" ID="codigoMTB" class="form-control" runat="server" TextMode="SingleLine" placeholder="Código">
@@ -60,13 +59,14 @@
                         <asp:ListItem>Desactivado</asp:ListItem>
                     </asp:RadioButtonList>
                 </div>
-                <div class="row justify-content-start" style="">
-                    <asp:Button runat="server" CssClass="btn btn-info" ID="btnGuardarActualizar" Text="Guardar" OnClick="btnGuardarActualizar_Click" ValidationGroup="registroMG"/>
-                </div>
+                
                 <br>
                
             </div>
-
+            
         </div>
+        <div class="row justify-content-center">
+                    <asp:Button runat="server" class="btn btn-info" ID="btnGuardarActualizar" Text="Guardar" OnClick="btnGuardarActualizar_Click" ValidationGroup="registroMG"/>
+            </div>
     </div>
 </asp:Content>
