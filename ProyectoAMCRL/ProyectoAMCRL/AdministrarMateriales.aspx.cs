@@ -257,15 +257,9 @@ namespace ProyectoAMCRL
                     gridMateriales.DataSource = datat;
                     gridMateriales.DataBind();
 
-                    if (datat.Rows.Count == 0)
-                    {
-                        lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong></strong> No hay materiales registrados en este momento.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
-                        lblError.Visible = true;
-                    }
-
                     return datat;
                 }
-            }
+        }
             catch (Exception)
             {
                 lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>Error. </strong>No se pudo cargar la tabla de materiales.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
