@@ -171,67 +171,7 @@ namespace DAO
             return ds;
         }
 
-        //public TOMaterial buscarMaterialDAO(string clave)
-        //{
-        //    TOMaterial MTO = new TOMaterial();
-        //    String sql = "select m.COD_MATERIAL, m.NOMBRE_MATERIAL, m.PRECIO_KILO, um.COD_UNIDAD, um.NOMBRE_UNIDAD, um.EQUIVALENCIA_KG from MATERIAL m "+
-        //    " inner join UNIDAD_MEDIDA um on(m.COD_UNIDAD = um.COD_UNIDAD and m.COD_MATERIAL = @COD); ";
-        //    String codigo = "";
-        //    String nombre = "";
-        //    Double precioKilo = 0;
-
-        //    String codUnidad = "";
-        //    String nomUnidad = "";
-        //    Double equivalenciaUnidad = 0;
-
-
-        //    using (conexion) {
-        //        SqlCommand cmd = new SqlCommand(sql,conexion);
-        //        cmd.Parameters.AddWithValue("@COD", clave);
-
-        //        try
-        //        {
-
-        //            conexion.Open();
-        //            SqlDataReader reader = cmd.ExecuteReader();
-
-        //            if (reader.HasRows) {
-
-        //                while (reader.Read())
-        //                {
-        //                    codigo = (String)reader.GetString(0);
-        //                    nombre = (String)reader.GetString(1);
-        //                    precioKilo = reader.GetSqlDecimal(2).ToDouble();
-
-        //                    codUnidad = (String)reader.GetString(3);
-        //                    nomUnidad = (String)reader.GetString(4);
-        //                    equivalenciaUnidad = reader.GetSqlDecimal(5).ToDouble();
-
-
-        //                }
-
-        //                MTO.codigoM = clave;
-        //                MTO.nombreMaterial = nombre;
-        //                MTO.precioKilo = precioKilo;
-        //                //UNIDAD
-        //                //TOUnidad unidad = new TOUnidad(codUnidad, nomUnidad, equivalenciaUnidad);
-        //                MTO.unidadBase = unidad;
-
-        //                conexion.Close();
-        //                return MTO;
-
-        //            }
-        //            else {
-        //                return null;
-        //            }
-        //        }
-        //        catch (Exception e)
-        //        {
-        //            return null;
-        //        }
-        //    }
-        //}
-
+     
         public double traerCantidadVendidaDAO(int v)
         {
             double res = 0;
@@ -310,17 +250,17 @@ namespace DAO
         /// </summary>
         /// <param name="busqueda">Palabra para buscar en la base de datos</param>
         /// <returns>Retorna el datatable con los datos del material</returns>
-        public DataTable buscarUsuarioRegular(string busqueda)
+        public DataTable buscarUsuarioAdmin(string busqueda)
         {
             try
             {
                 using (conexion)
                 {
                     SqlCommand cmd = conexion.CreateCommand();
-                    string sql = "SELECT COD_MATERIAL AS 'Código Material', NOMBRE_MATERIAL as 'Nombre', PRECIO_COMPRA_KILO as 'Precio Compra', PRECIO_VENTA_KILO as 'Precio Venta', ESTADO_MATERIAL as 'Estado' FROM MATERIAL ";
+                    string sql = "SELECT COD_MATERIAL AS 'Código Material', NOMBRE_MATERIAL as 'Nombre', PRECIO_COMPRA_KILO as 'Precio Compra', PRECIO_VENTA_KILO as 'Precio Venta', ESTADO_MATERIAL as 'Estado' FROM MATERIAL";
                     if (!string.IsNullOrEmpty(busqueda))
                     {
-                        sql += " WHERE ((COD_MATERIAL LIKE '%' + @pal + '%')  or (NOMBRE_MATERIAL LIKE '%' + @pal + '%') or (PRECIO_COMPRA_KILO '%' + @pal + '%') or (PRECIO_VENTA_KILO '%' + @pal + '%')) and ESTADO_MATERIAL = 1";
+                        sql += " WHERE ((COD_MATERIAL LIKE '%' + @pal + '%')  or (NOMBRE_MATERIAL LIKE '%' + @pal + '%') or (PRECIO_COMPRA_KILO LIKE '%' + @pal + '%') or (PRECIO_VENTA_KILO LIKE '%' + @pal + '%'));";
                         cmd.Parameters.AddWithValue("@pal", busqueda);
                     }
                     cmd.CommandText = sql;
@@ -344,17 +284,17 @@ namespace DAO
         /// </summary>
         /// <param name="busqueda">Palabra para buscar en la base de datos</param>
         /// <returns>Retorna el datatable con los datos del material</returns>
-        public DataTable buscarUsuarioAdmin(string busqueda)
+        public DataTable buscarUsuarioRegular(string busqueda)
         {
             try
             {
                 using (conexion)
                 {
                     SqlCommand cmd = conexion.CreateCommand();
-                    string sql = "SELECT COD_MATERIAL AS 'Código Material', NOMBRE_MATERIAL as 'Nombre', PRECIO_COMPRA_KILO as 'Precio Compra', PRECIO_VENTA_KILO as 'Precio Venta' FROM MATERIAL ";
+                    string sql = "SELECT COD_MATERIAL AS 'Código Material', NOMBRE_MATERIAL as 'Nombre', PRECIO_COMPRA_KILO as 'Precio Compra', PRECIO_VENTA_KILO as 'Precio Venta' FROM MATERIAL WHERE ESTADO_MATERIAL = 1";
                     if (!string.IsNullOrEmpty(busqueda))
                     {
-                        sql += " WHERE (COD_MATERIAL LIKE '%' + @pal + '%')  or (NOMBRE_MATERIAL LIKE '%' + @pal + '%') or (PRECIO_COMPRA_KILO LIKE '%' + @pal + '%') or (PRECIO_VENTA_KILO LIKE '%' + @pal + '%');";
+                        sql += " and (COD_MATERIAL LIKE '%' + @pal + '%')  or (NOMBRE_MATERIAL LIKE '%' + @pal + '%') or (PRECIO_COMPRA_KILO LIKE '%' + @pal + '%') or (PRECIO_VENTA_KILO LIKE '%' + @pal + '%');";
                         cmd.Parameters.AddWithValue("@pal", busqueda);
                     }
                     cmd.CommandText = sql;
@@ -373,6 +313,11 @@ namespace DAO
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="idMaterial"></param>
+        /// <returns></returns>
         public TOMaterial buscarMaterialAdmin(string idMaterial)
         {
             TOMaterial material = new TOMaterial();
@@ -397,7 +342,7 @@ namespace DAO
                     material.estado_Material = reader.GetBoolean(5);
                 }
             }
-           
+
             if (conexion.State != ConnectionState.Closed)
             {
                 conexion.Close();
@@ -405,6 +350,11 @@ namespace DAO
             return material;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="idMaterial"></param>
+        /// <returns></returns>
         public TOMaterial buscarMaterialRegular(string idMaterial)
         {
             TOMaterial material = new TOMaterial();
@@ -426,7 +376,6 @@ namespace DAO
                     material.precioVentaK = Convert.ToDouble(reader.GetDecimal(2));
                     material.cod_Unidad = reader.GetString(3);
                     material.precioCompraK = Convert.ToDouble(reader.GetDecimal(4));
-                    material.estado_Material = reader.GetBoolean(5);
                 }
             }
 

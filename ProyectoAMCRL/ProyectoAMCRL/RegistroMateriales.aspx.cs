@@ -26,44 +26,67 @@ namespace ProyectoAMCRL
             {
                 if (!IsPostBack)
                 {
-                    //try
-                    //{
-                    string id = (String)Session["idMaterial"];
-                    if (!string.IsNullOrEmpty(id))
+                    try
                     {
-                        labelAccion.Text = "Actualización de material";
-                        BLCuenta cuenta = (BLCuenta)Session["cuentaLogin"];
-
-                        BLMaterial miMat = consultarMaterialAdmin(id);
-                        codigoMTB.Text = miMat.codigoM;
-                        codigoMTB.Enabled = false;
-                        nombreTB.Text = miMat.nombreMaterial;
-                        Boolean ess = miMat.estado_Material;
-                        int est = 0;
-                        if (ess)
+                        string id = (String)Session["idMaterial"];
+                        if (!string.IsNullOrEmpty(id))
                         {
-                            est = 0;
+                            labelAccion.Text = "Actualización de material";
+                            BLCuenta cuenta = (BLCuenta)Session["cuentaLogin"];
+
+                            if (cuenta.rol.Equals("a"))
+                            {
+                                BLMaterial miMat = consultarMaterialAdmin(id);
+                                codigoMTB.Text = miMat.codigoM;
+                                codigoMTB.Enabled = false;
+                                nombreTB.Text = miMat.nombreMaterial;
+                                Boolean ess = miMat.estado_Material;
+                                int est = 0;
+                                if (ess)
+                                {
+                                    est = 0;
+                                }
+                                else
+                                {
+                                    est = 1;
+                                }
+                                estadoRb.SelectedIndex = est;
+                                precioKgC.Text = miMat.precioCompraK + "";
+                                precioKgV.Text = miMat.precioVentaK + "";
+                                cargarUnidadesBodegas();
+                                unidadDD.SelectedValue = miMat.cod_Unidad;
+                            }
+                            else
+                            {
+                                BLMaterial miMat = consultarMaterialRegular(id);
+                                codigoMTB.Text = miMat.codigoM;
+                                codigoMTB.Enabled = false;
+                                nombreTB.Text = miMat.nombreMaterial;
+                                Boolean ess = miMat.estado_Material;
+                                //estadoRb.Visible = false;
+                                estado.Visible = false;
+                                precioKgC.Text = miMat.precioCompraK + "";
+                                precioKgV.Text = miMat.precioVentaK + "";
+                                cargarUnidadesBodegas();
+                                unidadDD.SelectedValue = miMat.cod_Unidad;
+                            }
                         }
                         else
                         {
-                            est = 1;
+                            cargarUnidadesBodegas();
+                            BLCuenta sesi = (BLCuenta)Session["cuentaLogin"];
+                            if (sesi.rol.Equals("r"))
+                            {
+                                estadoRb.Visible = false;
+                                estadoLb.Visible = false;
+                            }
                         }
-                        estadoRb.SelectedIndex = est;
-                        precioKgC.Text = miMat.precioCompraK + "";
-                        precioKgV.Text = miMat.precioVentaK + "";
-                        cargarUnidadesBodegas();
-                        unidadDD.SelectedValue = miMat.cod_Unidad;
                     }
-                    else
+                    catch (Exception exx)
                     {
-                        cargarUnidadesBodegas();
+                        lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> " + exx.Message + "<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                        lblError.Visible = true;
                     }
-                    //}
-                    //catch (Exception exx)
-                    //{
-                    //    lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> " + exx.Message + "<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
-                    //    lblError.Visible = true;
-                    //}
                 }
             }
             else
@@ -75,17 +98,32 @@ namespace ProyectoAMCRL
 
         private BLMaterial consultarMaterialAdmin(String id)
         {
-            //try
-            //{
-            BLManejadorMateriales man = new BLManejadorMateriales();
-            return man.consultarMaterialAdmin(id);
-            //}
-            //catch (Exception)
-            //{
-            //    lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> No se puede consultar la bodega<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
-            //    lblError.Visible = true;
-            //    return null;
-            //}
+            try
+            {
+                BLManejadorMateriales man = new BLManejadorMateriales();
+                return man.consultarMaterialAdmin(id);
+            }
+            catch (Exception)
+            {
+                lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> No se puede consultar la bodega<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                lblError.Visible = true;
+                return null;
+            }
+        }
+
+        private BLMaterial consultarMaterialRegular(String id)
+        {
+            try
+            {
+                BLManejadorMateriales man = new BLManejadorMateriales();
+                return man.consultarMaterialRegular(id);
+            }
+            catch (Exception)
+            {
+                lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> No se puede consultar la bodega<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                lblError.Visible = true;
+                return null;
+            }
         }
 
 
@@ -97,26 +135,6 @@ namespace ProyectoAMCRL
 
 
 
-        //private void cargarMaterialAPantalla(BLMaterial material)
-        //{
-        //    if (material != null)
-        //    {
-        //        nombreTB.Text = material.nombreMaterial;
-        //        precioKgTB.Text = material.precioKilo.ToString();
-        //        codigoMTB.Text = material.codigoM.ToString();
-        //        seleccionarUnidadMaterial(material.unidadBase.codigo);
-        //        codigoMTB.Width = nombreTB.Width;
-        //        codigoMTB.CssClass = "form-control";
-        //        codigoMTB.BackColor = System.Drawing.Color.LightYellow;
-        //        codigoMTB.Enabled = false;
-        //    }
-        //    else
-        //    {
-        //        lblError.Text = "<br /><br /><div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>" + "Material no encontrado" + "</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
-        //        lblError.Visible = true;
-        //    }
-
-        //}
 
         private void seleccionarUnidadMaterial(String codUnidad)
         {
@@ -136,16 +154,21 @@ namespace ProyectoAMCRL
             String codUnidad = unidadDD.SelectedItem.Value;
 
             String m = "";
+
             char tipo = labelAccion.Text.Equals("Actualización de material") ? 'a' : 'r';
-            Boolean estado = (estadoRb.Items[0].Selected == true) ? true:false;
+            Boolean estado = (estadoRb.Items[0].Selected == true) ? true : false;
 
-
-
-            m = manejador.registrarActualizarMaterialBL(cod, nom, precioC, precioV, codUnidad, tipo, estado);
+            BLCuenta cuenta = (BLCuenta)Session["cuentaLogin"];
+            if (cuenta.rol.Equals("a"))
+            {
+                m = manejador.registrarActualizarMaterialBL(cod, nom, precioC, precioV, codUnidad, tipo, estado);
+            } else
+            {
+                m = manejador.registrarActualizarMaterialBL(cod, nom, precioC, precioV, codUnidad, tipo, true);
+            }
 
             if (m.Contains("correctamente"))
             {
-
                 lblError.Text = "<br /><br /><div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>" + m + "</strong><button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                 lblError.Visible = true;
             }

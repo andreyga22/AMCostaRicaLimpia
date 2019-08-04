@@ -54,7 +54,7 @@
                 </div>
                 <br />
                 <div class="form-group" id="estado" runat="server">
-                    <label for="estadoRb">Estado</label>
+                    <label runat="server" id="estadoLb" for="estadoRb">Estado</label>
                     <asp:RadioButtonList ID="estadoRb" runat="server" class="form-control" RepeatDirection="Horizontal">
                         <asp:ListItem Selected="True">Activado</asp:ListItem>
                         <asp:ListItem>Desactivado</asp:ListItem>
