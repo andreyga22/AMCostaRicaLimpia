@@ -97,16 +97,13 @@ namespace ProyectoAMCRL
             gridInventario.DataBind();
 
 
-            //if (ViewState["sorting"].ToString() == "ASC")
-            //{
-            //    int index = GetColumnIndex(datat, e.SortExpression);
-            //    gridInventario.HeaderRow.Cells[index].CssClass = "SortedAscendingHeaderStyle";
-            //}
-            //else
-            //{
-            //    int index = GetColumnIndex(datat, e.SortExpression);
-            //    gridInventario.HeaderRow.Cells[index].CssClass = "SortedDescendingHeaderStyle";
-            //}
+            if(ViewState["sorting"].ToString() == "ASC") {
+                int index = GetColumnIndex(datat, e.SortExpression);
+                gridInventario.HeaderRow.Cells[index].CssClass = "SortedAscendingHeaderStyle";
+            } else {
+                int index = GetColumnIndex(datat, e.SortExpression);
+                gridInventario.HeaderRow.Cells[index].CssClass = "SortedDescendingHeaderStyle";
+            }
         }
 
         protected void gridInventario_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -201,6 +198,18 @@ namespace ProyectoAMCRL
 
                 }
             }
+        }
+
+        /// <summary>
+        /// Devuelve el indice de una columna en un datatable enviado, utilizando el nombre como parametro.
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        private int GetColumnIndex(DataTable dt, string name) {
+
+            return dt.Columns.IndexOf(name);
+
         }
     }
 }
