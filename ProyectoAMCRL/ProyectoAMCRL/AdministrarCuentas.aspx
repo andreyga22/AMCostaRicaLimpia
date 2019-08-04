@@ -36,7 +36,7 @@
         <br />
 
         <div class="row justify-content-center">
-            <div class="col-12">
+            <div class="col-12 table-responsive">
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                     <ContentTemplate>
                         <asp:GridView class="table table-hover table-bordered table-striped" ID="gridCuentas" runat="server" AllowSorting="True" AllowPaging="True"  PageSize="5" OnPageIndexChanging="gridCuentas_PageIndexChanging" OnSorting="gridCuentas_Sorting" OnSelectedIndexChanged="gridCuentas_SelectedIndexChanged" OnRowDataBound="gridCuentas_RowDataBound">

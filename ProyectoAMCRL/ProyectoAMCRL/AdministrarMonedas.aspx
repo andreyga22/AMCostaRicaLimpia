@@ -31,7 +31,7 @@
         <br />
 
         <div class="row justify-content-center">
-            <div class="col-12">
+            <div class="col-12 table-responsive">
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                     <ContentTemplate>
                         <asp:GridView class="table table-hover table-bordered table-striped" ID="gridMonedas" runat="server" AllowSorting="True" AllowPaging="True"  PageSize="5" OnPageIndexChanging="gridMonedas_PageIndexChanging" OnSorting="gridMonedas_Sorting" OnSelectedIndexChanged="gridMonedas_SelectedIndexChanged" OnRowDataBound="gridMonedas_RowDataBound" OnKeyDown="">
