@@ -85,15 +85,6 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.Label lblSinSocios;
         
         /// <summary>
-        /// lblSinAsociados control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSinAsociados;
-        
-        /// <summary>
         /// UpdatePanel1 control.
         /// </summary>
         /// <remarks>
@@ -110,6 +101,15 @@ namespace ProyectoAMCRL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gridSocios;
+        
+        /// <summary>
+        /// lblSinAsociados control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSinAsociados;
         
         /// <summary>
         /// UpdatePanel3 control.
