@@ -32,15 +32,15 @@ namespace BL
 
         public DataTable buscarAdmin(string busqueda)
         {
-            //try
-            //{
-            return new DAOManejadorMateriales().buscarUsuarioAdmin(busqueda);
-            //}
-            //catch (Exception)
-            //{
-            //    throw;
-            //}
+            try
+            {
+                return new DAOManejadorMateriales().buscarUsuarioAdmin(busqueda);
         }
+            catch (Exception)
+            {
+                throw;
+            }
+}
 
         public DataSet listarMaterialesEnBodegaBL(String idBodega)
         {
@@ -88,7 +88,7 @@ namespace BL
             m.cod_Unidad = unidadBaseCodigo;
 
             return manejador.registrarActualizarMaterialDAO(m, tipo);
-            
+
         }
 
         /// <summary>
@@ -114,22 +114,31 @@ namespace BL
             }
         }
 
-        /// <summary>
-        /// Método para consultar un material
-        /// </summary>
-        /// <param name="id">Identificador con el que se va a buscar el material</param>
-        /// <returns>Retorna el BLMaterial que se buscaba</returns>
+
         public BLMaterial consultarMaterialAdmin(String id)
         {
-            //try
-            //{
+            try
+            {
                 TOMaterial to = new DAOManejadorMateriales().buscarMaterialAdmin(id);
                 return new BLMaterial(to.codigoM, to.nombreMaterial, to.precioVentaK, to.cod_Unidad, to.precioCompraK, to.estado_Material);
-            //}
-            //catch (Exception)
-            //{
-            //    throw;
-            //}
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public BLMaterial consultarMaterialRegular(String id)
+        {
+            try
+            {
+                TOMaterial to = new DAOManejadorMateriales().buscarMaterialRegular(id);
+                return new BLMaterial(to.codigoM, to.nombreMaterial, to.precioVentaK, to.cod_Unidad, to.precioCompraK, to.estado_Material);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         /// <summary>
