@@ -13,8 +13,8 @@
 
 
         <div class="row">
-            <div class="col-lg-4">
-                <div class="card bg-light" style="width: 18rem; height: 14rem;">
+            <div class="col-sm-6">
+                <div class="card bg-light">
                     <div class="card-body">
                         <h5 class="card-title text-secondary">Últimos clientes registrados</h5>
                         <br />
@@ -29,8 +29,8 @@
                 </div>
             </div>
 
-            <div class="col-lg-4">
-                <div class="card bg-light" style="width: 18rem; height: 14rem;">
+            <div class="col-sm-6">
+                <div class="card bg-light">
                     <div class="card-body">
                         <h5 class="card-title text-secondary">Últimos proveedores registrados</h5>
                         <asp:LinkButton Style="color: dodgerblue" ID="subProv1" runat="server" OnClick="click_SeleccProveed1"></asp:LinkButton>
@@ -43,12 +43,15 @@
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="col-lg-4">
-                <div class="card bg-light" style="width: 18rem; height: 14rem;">
+        <br />
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card bg-light">
                     <div class="card-body">
                         <h5 class="card-title text-secondary">Materiales principales</h5>
-                        <br />
                         <asp:LinkButton Style="color: dodgerblue" ID="subMat1" runat="server" OnClick="click_SeleccMat1"></asp:LinkButton>
                         <br />
                         <asp:LinkButton Style="color: dodgerblue" ID="subMat2" runat="server" OnClick="click_SeleccMat2"></asp:LinkButton>
@@ -59,14 +62,9 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-        <br />
-        <br />
-        <br />
-        <div class="row">
-            <div class="col-lg-4">
-                <div class="card  bg-light" style="width: 18rem; height: 14rem;">
+            <div class="col-sm-6">
+                <div class="card bg-light">
                     <div class="card-body">
                         <h5 class="card-title text-secondary">Facturas del mes</h5>
                         <br />
@@ -76,13 +74,14 @@
                     </div>
                 </div>
             </div>
-
-            <div class="col-lg-4">
-                <div class="card bg-light" style="width: 18rem; height: 14rem;">
+        </div>
+         <br />
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card bg-light">
                     <div class="card-body">
                         <h5 class="card-title text-secondary">Últimas facturas</h5>
 
-                        <br />
                         <asp:LinkButton Style="color: dodgerblue" ID="sub1Fac" runat="server" OnClick="click_SeleccFact1"></asp:LinkButton>
                         <br />
                         <asp:LinkButton Style="color: dodgerblue" ID="sub2Fac" runat="server" OnClick="click_SeleccFact2"></asp:LinkButton>
@@ -93,20 +92,5 @@
                 </div>
             </div>
         </div>
-
-        <%--   <div class="col-lg-4">
-                <div class="card bg-light" style="width: 18rem; height: 14rem;">
-                    <div class="card-body">
-                        <h5 class="card-title text-secondary">Otros</h5>
-                        <p class="card-text">Maneje monedas y unidades de medida del sistema.</p>
-                        <a href="Monedas.aspx" class="card-link text-primary">Monedas</a>
-                        <br />
-                        <a href="AdministrarUnidadesMedida.aspx" class="card-link text-primary">Unidades de medida</a>
-                        <br />
-                    </div>
-                </div>
-            </div>--%>
-    </div>
-
-
+        </div>
 </asp:Content>

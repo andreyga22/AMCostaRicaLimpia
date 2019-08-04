@@ -1,23 +1,4 @@
-﻿body {
-    /*background-image: url('images/fondo.jpg');
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;*/
-}
-
-.jumbotron {
-    /*border-radius: 0.3rem !important;*/
-    /*background-color: white !important;*/
-    /*box-shadow: 0 8px 16px -6px black;*/
-}
-
-/*.container .row .col-lg-4 .col-lg-8 {
-    position: absolute;
-    height: 100%;
-    overflow: auto;
-}*/
-
-html, body {
+﻿html, body {
     height: 100%;
 }
 

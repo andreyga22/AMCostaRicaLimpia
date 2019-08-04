@@ -7,14 +7,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>AM Costa Rica Limpia</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link href="Content/bootstrap.min.css" rel="stylesheet" />
-    <script src="Scripts/jquery-3.3.1.min.js"></script>
-    <script src="Scripts/bootstrap.min.js"></script>
-    <script src="Scripts/popper.min.js"></script>
     <link href="masterstylecss.css" rel="stylesheet" />
-
-
-
 
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
@@ -27,7 +20,7 @@
 
             <div class="bg-success border-right" id="sidebar-wrapper">
                 <div style="color: #94BD8B" class="sidebar-heading">
-                    <asp:ImageButton ID="logo" runat="server" ImageUrl="~/images/logomel2.png" Height="85px" Width="80px" />
+                    <asp:ImageButton ID="logo" runat="server" ImageUrl="~/images/logomel2.png" Height="85px" Width="80px" OnClick="logo_Click" />
                 </div>
 
                 <div class="list-group list-group-flush">
@@ -75,7 +68,7 @@
                             <asp:LinkButton Style="color: white; font-size: small" class="list-group-item list-group-item-action bg-success" Text="Ajustes de inventario" runat="server" ID="LinkButton11" OnClick="LinkButton11_Click" />
                         </li>
                         <li>
-                            <asp:LinkButton Style="color: white; font-size: small" class="list-group-item list-group-item-action bg-success" Text="Administrar Bodégas" runat="server" ID="LinkButton6" OnClick="LinkButton6_Click" />
+                            <asp:LinkButton Style="color: white; font-size: small" class="list-group-item list-group-item-action bg-success" Text="Administrar Bodegas" runat="server" ID="LinkButton6" OnClick="LinkButton6_Click" />
                         </li>
                         <li>
                             <asp:LinkButton Style="color: white; font-size: small" class="list-group-item list-group-item-action bg-success" Text="Administrar Materiales" runat="server" ID="LinkButton12" OnClick="LinkButton12_Click" />

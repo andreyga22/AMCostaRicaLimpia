@@ -64,7 +64,7 @@
                     </ContentTemplate>
                 </asp:UpdatePanel>
             </div>
-
+            <br />
             <div class="col-4 offset-1">
                 <h5 style="padding-left: 8px" class="font-weight-bold">Asociados</h5>
             </div>
@@ -77,6 +77,7 @@
             <asp:Label ID="lblSinAsociados" autopostback="true" ForeColor="Red" runat="server" Text="Aún no existen asociaciones"></asp:Label>
         </div>
         </div>
+        <br />
         <div class="row">
             <div class="col-5">
                 <asp:UpdatePanel ID="UpdatePanel1" autopostback="true" runat="server">

@@ -107,5 +107,6 @@ namespace ProyectoAMCRL
         protected void logo_Click(object sender, ImageClickEventArgs e) {
             Response.Redirect("Principal.aspx");
         }
+
     }
 }

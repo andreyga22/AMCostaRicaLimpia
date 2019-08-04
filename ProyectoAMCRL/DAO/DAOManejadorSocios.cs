@@ -582,8 +582,8 @@ namespace DAO
 
         public TOSocioNegocio buscarSocio(string id, String tipoSocio)
         {
-            //try
-            //{
+            try
+            {
                 TOSocioNegocio socioTO = new TOSocioNegocio(); ;
 
                 String sql = "SELECT SOCIO_NEGOCIO.CEDULA, SOCIO_NEGOCIO.NOMBRE, SOCIO_NEGOCIO.APELLIDO1, SOCIO_NEGOCIO.APELLIDO2, SOCIO_NEGOCIO.ROL_SOCIO, SOCIO_NEGOCIO.ESTADO_SOCIO," +
@@ -650,15 +650,15 @@ namespace DAO
                         return null;
                     }
                 }
-            //}
-            //catch
-            //{
-            //    throw;
-            //}
-            //finally
-            //{
-            //    conexion.Close();
-            //}
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                conexion.Close();
+            }
         }
 
         public List<TOSocioNegocio> lista_Socios(String busqueda)
