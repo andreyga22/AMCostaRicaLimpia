@@ -27,6 +27,8 @@ namespace DAO
             return ds;
         }
 
+        
+
         public DataSet obtenerMaterialesEnBodegaActual(String id_bodega)
         {
 
@@ -454,6 +456,7 @@ namespace DAO
                     try
                     {
                         sqlTran.Rollback();
+                        throw;
                     }
                     catch (Exception)
                     {

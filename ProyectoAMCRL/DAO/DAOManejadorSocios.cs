@@ -130,6 +130,7 @@ namespace DAO
                     {
                         // Attempt to roll back the transaction.
                         sqlTran.Rollback();
+                        throw;
                     }
                     catch (Exception)
                     {
