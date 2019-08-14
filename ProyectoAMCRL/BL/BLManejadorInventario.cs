@@ -25,5 +25,13 @@ namespace BL {
         {
             return manejador.buscarBodegas();
         }
+
+        public List<String> buscarBodegasVenta() {
+            return manejador.buscarBodegasVenta();
+        }
+
+        public List<String> buscarBodegasCompra() {
+            return manejador.buscarBodegasCompra();
+        }
     }
 }

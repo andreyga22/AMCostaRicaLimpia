@@ -30,6 +30,14 @@ namespace BL
             }
         }
 
+        public int consultarSigFactura() {
+            try {
+                return new DAOManejadorFacturas().consultarSigFactura();
+            } catch (Exception) {
+                throw;
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -253,12 +261,12 @@ namespace BL
 
         public BLFactura convert(TOFactura to)
         {
-            return new BLFactura(to.cod_Factura, to.cedula, to.id_Bodega, to.id_Moneda, to.monto_Total, to.tipo, to.fecha, to.nombreCompleto);
+            return new BLFactura(to.cod_Factura, to.cedula, to.id_Bodega, to.id_Moneda, to.total, to.tipo, to.fecha, to.nombreCompleto);
         }
 
         public TOFactura convert(BLFactura bl)
         {
-            return new TOFactura(bl.cod_Factura, bl.cedula, bl.id_Bodega, bl.id_Moneda, bl.monto_Total, bl.tipo, bl.fecha, bl.nombreCompleto);
+            return new TOFactura(bl.cod_Factura, bl.cedula, bl.id_Bodega, bl.id_Moneda, bl.total, bl.tipo, bl.fecha, bl.nombreCompleto);
         }
 
 

@@ -195,7 +195,7 @@ namespace ProyectoAMCRL
                 datepickerT.Text = blFactura.fecha.Day + "/" + blFactura.fecha.Month + "/" + blFactura.fecha.Year;
                 datepickerT.CssClass = "form-control font-weight-bolder";
                 labelValorDatoConsecutivo.Text = Convert.ToString(blFactura.cod_Factura);
-                totalLabel.Text = Convert.ToString(blFactura.monto_Total);
+                totalLabel.Text = Convert.ToString(blFactura.total);
 
                 //filaAgregarDetalles.Visible = false;
                 buscarSocioBTN.Visible = false;
