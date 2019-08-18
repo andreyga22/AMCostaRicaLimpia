@@ -57,8 +57,8 @@ namespace ProyectoAMCRL
                             distritoTB.Text = socio.direccion.distrito;
                             sennas.Text = socio.direccion.otras_sennas;
 
-                            telTB.Text = Convert.ToString(socio.contactos.telefono_hab);
-                            tel2TB.Text = Convert.ToString(socio.contactos.telefono_pers);
+                            telTB.Text = socio.contactos.telefono_hab;
+                            tel2TB.Text = socio.contactos.telefono_pers;
                             correoTB.Text = socio.contactos.email;
                             estadolb.Visible = false;
                             estadoRb.Visible = false;
@@ -109,8 +109,8 @@ namespace ProyectoAMCRL
                             distritoTB.Text = socio.direccion.distrito;
                             sennas.Text = socio.direccion.otras_sennas;
 
-                            telTB.Text = Convert.ToString(socio.contactos.telefono_hab);
-                            tel2TB.Text = Convert.ToString(socio.contactos.telefono_pers);
+                            telTB.Text = socio.contactos.telefono_hab;
+                            tel2TB.Text = socio.contactos.telefono_pers;
                             correoTB.Text = socio.contactos.email;
 
                             LinkAsoc.Visible = true;
@@ -143,8 +143,8 @@ namespace ProyectoAMCRL
                     BLSocioNegocio socioTemp = manejador.buscarCedula(cedula);
                     socio.direccion = new BLDireccion(provinciaTB.Text.ToString(), cantonTB.Text.ToString(),
                     distritoTB.Text.ToString(), sennas.Text.ToString(), socioTemp.direccion.cod_direccion);
-                    socio.contactos = new BLContactos(int.Parse(telTB.Text.ToString()),
-                    int.Parse(tel2TB.Text.ToString()), correoTB.Text.ToString());
+                    socio.contactos = new BLContactos(telTB.Text.Trim(),
+                    tel2TB.Text.Trim(), correoTB.Text.ToString());
                     socio.direccion.cod_direccion = manejador.buscarDir(idTB.Text.ToString());
                     String estado = estadoRb.SelectedValue;
                     Boolean estadoB = true;
@@ -176,8 +176,8 @@ namespace ProyectoAMCRL
                     socio.rol = rolRadios.SelectedValue.ToString();
                     socio.direccion = new BLDireccion(provinciaTB.Text.ToString(), cantonTB.Text.ToString(),
                     distritoTB.Text.ToString(), sennas.Text.ToString(), 0);
-                    socio.contactos = new BLContactos(int.Parse(telTB.Text.ToString()),
-                    int.Parse(tel2TB.Text.ToString()), correoTB.Text.ToString());
+                    socio.contactos = new BLContactos(telTB.Text.Trim(),
+                    tel2TB.Text.Trim(), correoTB.Text.ToString());
                     //if (activaCb.Checked)
                     //{
                     //    socio.estado_socio = true;

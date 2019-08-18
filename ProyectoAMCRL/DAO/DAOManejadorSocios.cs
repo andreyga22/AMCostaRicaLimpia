@@ -490,8 +490,8 @@ namespace DAO
                 {
                     while (reader.Read())
                     {
-                        contacto.telefono_hab = Convert.ToInt32(reader.GetDecimal(0));
-                        contacto.telefono_pers = Convert.ToInt32(reader.GetDecimal(1));
+                        contacto.telefono_hab = reader.GetString(0);
+                        contacto.telefono_pers = reader.GetString(1);
                         contacto.email = reader.GetString(2);
 
                     }
@@ -628,7 +628,7 @@ namespace DAO
                             String telPString = telPObject.ToString();
                             int telP = Int32.Parse(telPString);
                             String correo = (String)reader.GetSqlString(8).ToString();
-                            TOContactos contactos = new TOContactos(telH, telP, correo);
+                            TOContactos contactos = new TOContactos(telHString, telPString, correo);
                             socioTO.contactos = contactos;
 
                             //DIRECCION

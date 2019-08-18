@@ -157,13 +157,13 @@ namespace ProyectoAMCRL
                 BLSocioNegocio socio = manejSocios.buscarSocio(blFactura.cedula, tipoSocio);
                 List<BLDetalleFactura> detallesFactura = manejFact.listaDetalle(blFactura.cod_Factura);
                 BLContactos contac = manejSocios.buscarContactos(blFactura.cedula);
-                if (contac.telefono_pers != 0)
+                if (contac.telefono_pers != null || contac.telefono_pers == "")
                 {
                     labelTel.Text = contac.telefono_pers + "";
                 }
                 else
                 {
-                    if (contac.telefono_hab != 0)
+                    if (contac.telefono_hab != null || contac.telefono_pers == "")
                     {
                         labelTel.Text = contac.telefono_hab + "";
                     }

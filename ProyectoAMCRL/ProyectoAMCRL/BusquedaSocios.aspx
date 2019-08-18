@@ -4,43 +4,6 @@
     <script src="jquery-3.4.0.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <link href="ownStyles.css" rel="stylesheet" />
-    <script>
-
-        <%-- $(document).ready(function () {
-            $("#nombreCb").click(function () {
-                if (document.getElementById("nombreCb").checked == true) {
-                    $("#divNombre").show();
-                } else {
-                    $("#divNombre").hide();
-                }
-            });
-        });--%>
-
-        //$(document).ready(function () {
-        //    $("#rolCb").click(function () {
-        //        if (document.getElementById("rolCb").checked == true) {
-        //            $(".rolDiv").show();
-        //        } else {
-        //            $(".rolDiv").hide();
-        //        }
-        //    });
-        //});
-
-        //$(document).keydown(function (keyPressed) {
-        //    if (keyPressed.keyCode == 13) {
-        //        alert("ENTER PRESIONADO");
-        //    }
-        //});
-
-        //function ocultarFiltros() {
-            <%--$("#divNombre").hide();--%>
-        //    $(".rolDiv").hide();
-
-        //}
-
-        window.onload = ocultarFiltros;
-
-    </script>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="breadcrumbBodyHolder" runat="server">
