@@ -24,8 +24,10 @@ namespace ProyectoAMCRL
                     try
                     {
                         if (Convert.ToString(Session["tipoFactura"]).Equals("compra")) {
+                            tipoLb.Text = "Factura de Compra";
                             cargarBodegasCompra();
                         } else {
+                            tipoLb.Text = "Factura de Venta";
                             cargarBodegasVenta();
                         }
                         cargarMonedas();
@@ -33,7 +35,7 @@ namespace ProyectoAMCRL
                         cargarNumFactura();
                         cargarFecha();
                         cargarMaterialesDrop();
-
+                        refrescarGrid();
                     }
                     catch (Exception exx)
                     {
@@ -289,13 +291,16 @@ namespace ProyectoAMCRL
                                                     lis.Add(lista);
                                                     Session["listaCompra"] = lis;
                                                     refrescarGrid();
+                                                    lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong> Linea agregada.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                                                    lblError.Visible = true;
                                                 } else {
                                                     lis = new List<List<string>>();
                                                     lis.Add(lista);
                                                     Session["listaCompra"] = lis;
                                                     bodegasDd.Enabled = false;
                                                     refrescarGrid();
-
+                                                    lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong> Linea agregada.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                                                    lblError.Visible = true;
                                                 }
                                                 calcularTotales();
                                             }
@@ -318,12 +323,15 @@ namespace ProyectoAMCRL
                                                                         lis.Add(lista);
                                                                         Session["listaCompra"] = lis;
                                                                         refrescarGrid();
+                                                                        lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong> Linea agregada.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                                                                        lblError.Visible = true;
                                                                     } else {
                                                                         lis = new List<List<string>>();
                                                                         lis.Add(lista);
                                                                         Session["listaCompra"] = lis;
                                                                         refrescarGrid();
-
+                                                                        lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong> Linea agregada.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                                                                        lblError.Visible = true;
                                                                     }
                                                                     calcularTotales();
                                                                 } else {
@@ -361,12 +369,15 @@ namespace ProyectoAMCRL
                                                                 lis.Add(lista);
                                                                 Session["listaCompra"] = lis;
                                                                 refrescarGrid();
+                                                                lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong> Linea agregada.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                                                                lblError.Visible = true;
                                                             } else {
                                                                 lis = new List<List<string>>();
                                                                 lis.Add(lista);
                                                                 Session["listaCompra"] = lis;
                                                                 refrescarGrid();
-
+                                                                lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong> Linea agregada.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                                                                lblError.Visible = true;
                                                             }
                                                             calcularTotales();
                                                         }
@@ -396,12 +407,15 @@ namespace ProyectoAMCRL
                                                                 lis.Add(lista);
                                                                 Session["listaCompra"] = lis;
                                                                 refrescarGrid();
+                                                                lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong> Linea agregada.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                                                                lblError.Visible = true;
                                                             } else {
                                                                 lis = new List<List<string>>();
                                                                 lis.Add(lista);
                                                                 Session["listaCompra"] = lis;
                                                                 refrescarGrid();
-
+                                                                lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong> Linea agregada.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                                                                lblError.Visible = true;
                                                             }
                                                             calcularTotales();
                                                         }
@@ -448,12 +462,15 @@ namespace ProyectoAMCRL
                                                 lis.Add(lista);
                                                 Session["listaCompra"] = lis;
                                                 refrescarGrid();
+                                                lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong> Linea agregada.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                                                lblError.Visible = true;
                                             } else {
                                                 lis = new List<List<string>>();
                                                 lis.Add(lista);
                                                 Session["listaCompra"] = lis;
                                                 refrescarGrid();
-
+                                                lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong> Linea agregada.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                                                lblError.Visible = true;
                                             }
                                             calcularTotales();
                                         }
@@ -476,12 +493,15 @@ namespace ProyectoAMCRL
                                                                     lis.Add(lista);
                                                                     Session["listaCompra"] = lis;
                                                                     refrescarGrid();
+                                                                    lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong> Linea agregada.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                                                                    lblError.Visible = true;
                                                                 } else {
                                                                     lis = new List<List<string>>();
                                                                     lis.Add(lista);
                                                                     Session["listaCompra"] = lis;
                                                                     refrescarGrid();
-
+                                                                    lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong> Linea agregada.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                                                                    lblError.Visible = true;
                                                                 }
                                                                 calcularTotales();
                                                             } else {
@@ -499,6 +519,7 @@ namespace ProyectoAMCRL
                                                 }
                                             } else {
                                                 lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> El impuesto contiene caracteres que no son números.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                                                //lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> No se pudo cargar los datos de bodega. Revise su conexión a internet.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                                                 lblError.Visible = true;
                                             }
                                         }
@@ -519,12 +540,15 @@ namespace ProyectoAMCRL
                                                             lis.Add(lista);
                                                             Session["listaCompra"] = lis;
                                                             refrescarGrid();
+                                                            lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong> Linea agregada.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                                                            lblError.Visible = true;
                                                         } else {
                                                             lis = new List<List<string>>();
                                                             lis.Add(lista);
                                                             Session["listaCompra"] = lis;
                                                             refrescarGrid();
-
+                                                            lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong> Linea agregada.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                                                            lblError.Visible = true;
                                                         }
                                                         calcularTotales();
                                                     }
@@ -554,11 +578,15 @@ namespace ProyectoAMCRL
                                                             lis.Add(lista);
                                                             Session["listaCompra"] = lis;
                                                             refrescarGrid();
+                                                            lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong> Linea agregada.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                                                            lblError.Visible = true;
                                                         } else {
                                                             lis = new List<List<string>>();
                                                             lis.Add(lista);
                                                             Session["listaCompra"] = lis;
                                                             refrescarGrid();
+                                                            lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong> Linea agregada.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                                                            lblError.Visible = true;
                                                         }
                                                         calcularTotales();
                                                     }

@@ -22,6 +22,24 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl bread;
         
         /// <summary>
+        /// ScriptManager1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
+        
+        /// <summary>
+        /// UpdatePanel9 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel9;
+        
+        /// <summary>
         /// lblError control.
         /// </summary>
         /// <remarks>
@@ -31,13 +49,13 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.Literal lblError;
         
         /// <summary>
-        /// ScriptManager1 control.
+        /// UpdatePanel7 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.ScriptManager ScriptManager1;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel7;
         
         /// <summary>
         /// empresaLb control.
@@ -65,15 +83,6 @@ namespace ProyectoAMCRL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label tipoLb;
-        
-        /// <summary>
-        /// UpdatePanel7 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel7;
         
         /// <summary>
         /// Label1 control.
