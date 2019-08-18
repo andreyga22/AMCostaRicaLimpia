@@ -11,6 +11,10 @@ namespace BL
 {
     public class BLManejadorMoneda
     {
+
+        public List<String> listaMonedas() {
+            return new DAOManejadorMoneda().listaMonedas();
+        }
         public BLMoneda buscarMonedaId(string id_Moneda)
         {
             DAOManejadorMoneda dao = new DAOManejadorMoneda();

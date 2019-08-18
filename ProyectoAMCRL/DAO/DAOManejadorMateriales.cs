@@ -15,6 +15,64 @@ namespace DAO
         private List<TOMaterial> materiales = new List<TOMaterial>();
         private SqlConnection conexion = new SqlConnection(Properties.Settings.Default.conexionHost);
 
+        public Double consultarStock(String bode, String mate) {
+            try {
+
+
+                SqlCommand buscar = new SqlCommand("SELECT kilos_stock from stock WHERE (cod_material = @cod_material) and (id_bodega = @id_bodega);", conexion);
+                buscar.Parameters.AddWithValue("@id_bodega", bode);
+                buscar.Parameters.AddWithValue("@cod_material", mate);
+
+                if (conexion.State != ConnectionState.Open) {
+                    conexion.Open();
+                }
+                double canti = 0;
+                SqlDataReader reader = buscar.ExecuteReader();
+                if (reader.HasRows) {
+                    while (reader.Read()) {
+                        canti = Convert.ToDouble( reader.GetDecimal(0));
+                    }
+                }
+
+                if (conexion.State != ConnectionState.Closed) {
+                    conexion.Close();
+                }
+                return canti;
+            } catch (Exception exx) {
+                throw;
+            } finally {
+                conexion.Close();
+            }
+        }
+
+        public List<String> buscarMat() {
+            try {
+                List<String> lista = new List<String>();
+
+                SqlCommand cmd = conexion.CreateCommand();
+                string sql = "Select cod_material from material where estado_material = 1 order by cod_material asc;";
+                cmd.CommandText = sql;
+                cmd.Connection = conexion;
+                if (conexion.State != ConnectionState.Open) {
+                    conexion.Open();
+                }
+                using (SqlDataReader reader = cmd.ExecuteReader()) {
+                    while (reader.Read()) {
+                        lista.Add(reader.GetString(0));
+                    }
+                }
+                if (conexion.State != ConnectionState.Closed) {
+                    conexion.Close();
+                }
+                return lista;
+            } catch (Exception) {
+                throw;
+            } finally {
+                conexion.Close();
+            }
+
+        }
+
         public DataSet obtenerMateriales()
         {
 
@@ -26,6 +84,8 @@ namespace DAO
 
             return ds;
         }
+
+        
 
         public DataSet obtenerMaterialesEnBodegaActual(String id_bodega)
         {
@@ -454,6 +514,7 @@ namespace DAO
                     try
                     {
                         sqlTran.Rollback();
+                        throw;
                     }
                     catch (Exception)
                     {

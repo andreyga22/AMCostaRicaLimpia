@@ -172,7 +172,7 @@ namespace DAO
                         to.cod_Factura = (Int16)reader.GetDecimal(0);
                         to.cedula = reader.GetString(1);
                         to.id_Moneda = reader.GetString(2);
-                        to.monto_Total = (Double)reader.GetDecimal(3);
+                        to.total = (Double)reader.GetDecimal(3);
                         to.fecha = reader.GetDateTime(4);
                         to.tipo = reader.GetString(5);
 
@@ -222,7 +222,7 @@ namespace DAO
                         to.cod_Factura = (Int16)reader.GetDecimal(0);
                         to.cedula = reader.GetString(1);
                         to.id_Moneda = reader.GetString(2);
-                        to.monto_Total = (Double)reader.GetDecimal(3);
+                        to.total = (Double)reader.GetDecimal(3);
                         to.fecha = reader.GetDateTime(4);
                         to.tipo = reader.GetString(5);
 
@@ -242,6 +242,28 @@ namespace DAO
             }
             finally
             {
+                conexion.Close();
+            }
+        }
+
+        public int consultarSigFactura() {
+            try {
+                int num = 0;
+                String qry = "SELECT IDENT_CURRENT ('Factura') AS ID;";
+                SqlCommand comm = new SqlCommand(qry, conexion);
+                if (conexion.State != ConnectionState.Open) {
+                    conexion.Open();
+                }
+
+                num = Convert.ToInt32(comm.ExecuteScalar());
+
+                if (conexion.State != ConnectionState.Closed) {
+                    conexion.Close();
+                }
+                return num;
+            } catch (Exception exx) {
+                throw;
+            } finally {
                 conexion.Close();
             }
         }
@@ -275,7 +297,7 @@ namespace DAO
                         venta.cedula = Convert.ToString(table.Rows[x]["CEDULA"]);
                         venta.id_Bodega = Convert.ToString(table.Rows[x]["ID_BODEGA"]);
                         venta.id_Moneda = Convert.ToString(table.Rows[x]["ID_MONEDA"]);
-                        venta.monto_Total = Convert.ToDouble(table.Rows[x]["MONTO_TOTAL"]);
+                        venta.total = Convert.ToDouble(table.Rows[x]["MONTO_TOTAL"]);
                         venta.fecha = Convert.ToDateTime(table.Rows[x]["FECHA_FACTURA"]);
                         venta.tipo = Convert.ToString(table.Rows[x]["TIPO"]);
                         venta.nombreCompleto = Convert.ToString(table.Rows[x]["NOMBRE"]) + " " + Convert.ToString(table.Rows[x]["APELLIDO1"]) + " " + Convert.ToString(table.Rows[x]["APELLIDO2"]);
@@ -328,7 +350,7 @@ namespace DAO
                     venta.cedula = Convert.ToString(table.Rows[x]["CEDULA"]);
                     venta.id_Bodega = Convert.ToString(table.Rows[x]["ID_BODEGA"]);
                     venta.id_Moneda = Convert.ToString(table.Rows[x]["ID_MONEDA"]);
-                    venta.monto_Total = Convert.ToDouble(table.Rows[x]["MONTO_TOTAL"]);
+                    venta.total = Convert.ToDouble(table.Rows[x]["MONTO_TOTAL"]);
                     venta.fecha = Convert.ToDateTime(table.Rows[x]["FECHA_FACTURA"]);
                     venta.tipo = Convert.ToString(table.Rows[x]["TIPO"]);
                     venta.nombreCompleto = Convert.ToString(table.Rows[x]["NOMBRE"]) + " " + Convert.ToString(table.Rows[x]["APELLIDO1"]) + " " + Convert.ToString(table.Rows[x]["APELLIDO2"]);

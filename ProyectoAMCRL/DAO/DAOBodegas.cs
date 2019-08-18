@@ -23,8 +23,8 @@ namespace DAO {
         public void guardarModificarBodegaAdmin(TOBodega bod) {
 
 
-            using(conexion) {
-                if(conexion.State != ConnectionState.Open) {
+            using (conexion) {
+                if (conexion.State != ConnectionState.Open) {
                     conexion.Open();
                 }
 
@@ -36,7 +36,7 @@ namespace DAO {
                 sentencia.Transaction = sqlTran;
 
                 try {
-                    if(bod.direccion.cod_direccion == 0) {
+                    if (bod.direccion.cod_direccion == 0) {
                         sentencia.CommandText =
                 "insert into direccion(provincia, canton, distrito, otras_sennas) values(@prov, @cant, @dist, @otras);" +
             " SELECT SCOPE_IDENTITY();";
@@ -54,14 +54,34 @@ namespace DAO {
                         sentencia.Parameters.AddWithValue("@codigo", bod.codigo);
                         sentencia.Parameters.AddWithValue("@nombre", bod.nombre);
                         sentencia.Parameters.AddWithValue("@estado", bod.estado);
-
                         sentencia.Parameters.AddWithValue("@cod_dir", resul);
-
-
                         sentencia.ExecuteNonQuery();
 
+                        //guardar todos los materiales en la nueva bodega.
+                        List<String> lista = new List<String>();
+                        sentencia.CommandText = "Select cod_material from material;";
+                        DataTable table = new DataTable();
+                        SqlDataAdapter adapter = new SqlDataAdapter();
+                        adapter.SelectCommand = sentencia;
+                        adapter.Fill(table);
+                        for (int x = 0; x < table.Rows.Count; x++) {
+
+                            lista.Add(Convert.ToString(table.Rows[x]["COD_MATERIAL"]));
+                        }
+                        sentencia.CommandText =
+                            "insert into stock(cod_material, id_bodega, kilos_stock) values(@cod_material, @id_bodega, 0);";
+                        sentencia.Parameters.AddWithValue("@id_bodega", bod.codigo);
+                        sentencia.Parameters.AddWithValue("@cod_material", "");
+
+                        foreach (String item in lista) {
+
+                            sentencia.Parameters["@cod_material"].Value = item;
+                            sentencia.ExecuteNonQuery();
+
+                        }
+
                         sqlTran.Commit();
-                        if(conexion.State != ConnectionState.Closed) {
+                        if (conexion.State != ConnectionState.Closed) {
                             conexion.Close();
                         }
 
@@ -87,7 +107,7 @@ namespace DAO {
 
                         sentencia.ExecuteNonQuery();
                         sqlTran.Commit();
-                        if(conexion.State != ConnectionState.Closed) {
+                        if (conexion.State != ConnectionState.Closed) {
                             conexion.Close();
                         }
                     }
@@ -103,14 +123,17 @@ namespace DAO {
 
                     // Commit the transaction.
 
-                } catch(Exception) {
+                } catch (Exception exx) {
                     try {
                         // Attempt to roll back the transaction.
                         sqlTran.Rollback();
-                    } catch(Exception) {
+                        throw;
+                    } catch (Exception) {
 
                         throw;
                     }
+                } finally {
+                    conexion.Close();
                 }
             }
         }
@@ -157,11 +180,33 @@ namespace DAO {
 
                         sentencia.Parameters.AddWithValue("@cod_dir", resul);
 
-
                         sentencia.ExecuteNonQuery();
 
+                        //guardar todos los materiales en la nueva bodega.
+                        List<String> lista = new List<String>();
+                        sentencia.CommandText = "Select cod_material from material;";
+                        DataTable table = new DataTable();
+                        SqlDataAdapter adapter = new SqlDataAdapter();
+                        adapter.SelectCommand = sentencia;
+                        adapter.Fill(table);
+                        for (int x = 0; x < table.Rows.Count; x++) {
+
+                            lista.Add(Convert.ToString(table.Rows[x]["COD_MATERIAL"]));
+                        }
+                        sentencia.CommandText =
+                            "insert into stock(cod_material, id_bodega, kilos_stock) values(@cod_material, @id_bodega, 0);";
+                        sentencia.Parameters.AddWithValue("@id_bodega", bod.codigo);
+                        sentencia.Parameters.AddWithValue("@cod_material", "");
+
+                        foreach (String item in lista) {
+
+                            sentencia.Parameters["@cod_material"].Value = item;
+                            sentencia.ExecuteNonQuery();
+
+                        }
+
                         sqlTran.Commit();
-                        if(conexion.State != ConnectionState.Closed) {
+                        if (conexion.State != ConnectionState.Closed) {
                             conexion.Close();
                         }
 
@@ -216,38 +261,6 @@ namespace DAO {
             }
         }
 
-        //public int consultarUltimaDireccion(string otras) {
-
-        //    try {
-        //        int resul = 0;
-
-        //        string select = "select cod_direccion from direccion where otras_sennas = @otras;";
-        //        SqlCommand sentencia = new SqlCommand(select, conexion);
-        //        sentencia.Parameters.AddWithValue("@otras", otras);
-
-        //        if(conexion.State != ConnectionState.Open) {
-        //            conexion.Open();
-        //        }
-
-        //        SqlDataReader reader = sentencia.ExecuteReader();
-        //        if(reader.HasRows) {
-        //            while(reader.Read()) {
-        //                resul = reader.GetInt32(0);
-        //            }
-        //        }
-
-        //        if(conexion.State != ConnectionState.Closed) {
-        //            conexion.Close();
-        //        }
-        //        return resul;
-        //    } catch(SqlException) {
-        //        throw;
-        //    } catch(Exception) {
-        //        throw;
-        //    } finally {
-        //        conexion.Close();
-        //    }
-        //}
 
             /// <summary>
             /// Devuelve una lista con los principales datos de las bodegas.
@@ -280,32 +293,6 @@ namespace DAO {
             }
         }
 
-        //public List<TOBodegaTabla> listaBodegaUsuarioAdmin() {
-        //    try {
-        //        string select = "select b.ID_BODEGA, b.NOMBRE_BOD, d.DISTRITO, b.ESTADO_BODEGA from bodega b join direccion d on b.COD_DIRECCION = d.COD_DIRECCION;";
-        //        SqlCommand sentencia = new SqlCommand(select, conexion);
-        //        DataTable table = new DataTable();
-        //        SqlDataAdapter adapter = new SqlDataAdapter();
-        //        adapter.SelectCommand = sentencia;
-        //        adapter.Fill(table);
-        //        List<TOBodegaTabla> lista = new List<TOBodegaTabla>();
-
-        //        for(int x = 0; x < table.Rows.Count; x++) {
-        //            TOBodegaTabla bodega = new TOBodegaTabla();
-        //            bodega.codigo = Convert.ToString(table.Rows[x]["ID_BODEGA"]);
-        //            bodega.nombre = Convert.ToString(table.Rows[x]["NOMBRE_BOD"]);
-        //            bodega.distrito = Convert.ToString(table.Rows[x]["DISTRITO"]);
-        //            bodega.estado = Convert.ToBoolean(table.Rows[x]["ESTADO_BODEGA"]);
-        //            lista.Add(bodega);
-        //        }
-
-        //        return lista;
-        //    } catch(SqlException) {
-        //        throw;
-        //    } catch(Exception) {
-        //        throw;
-        //    }
-        //}
 
         /// <summary>
         /// Permite el filtro de los datos por medio de una palabra clave.

@@ -7,53 +7,40 @@ using TO;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace DAO
-{
-    public class DAOManejadorMoneda
-    {
+namespace DAO {
+    public class DAOManejadorMoneda {
 
         private SqlConnection conexion = new SqlConnection(Properties.Settings.Default.conexionHost);
 
-        public TOMoneda buscarMonedaId(string idMoneda)
-        {
-            try
-            {
+        public TOMoneda buscarMonedaId(string idMoneda) {
+            try {
                 TOMoneda to = new TOMoneda();
                 String qry = "select * from moneda where id_Moneda = @id";
                 SqlCommand comm = new SqlCommand(qry, conexion);
                 comm.Parameters.AddWithValue("@id", idMoneda);
-                if (conexion.State != ConnectionState.Open)
-                {
+                if (conexion.State != ConnectionState.Open) {
                     conexion.Open();
                 }
                 SqlDataReader reader = comm.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
+                if (reader.HasRows) {
+                    while (reader.Read()) {
                         to.idMoneda = reader.GetString(0);
                         to.detalleMoneda = reader.GetString(1);
                         to.equivalencia_Colon = (Double)reader.GetDecimal(2);
                     }
                 }
-                if (conexion.State != ConnectionState.Closed)
-                {
+                if (conexion.State != ConnectionState.Closed) {
                     conexion.Close();
                 }
                 return to;
-            }
-            catch (Exception)
-            {
+            } catch (Exception) {
                 throw;
-            }
-            finally
-            {
+            } finally {
                 conexion.Close();
             }
         }
 
-        public DataSet listarMonedasDAO()
-        {
+        public DataSet listarMonedasDAO() {
             List<TOMoneda> monedas = new List<TOMoneda>();
 
             String sql = "SELECT * FROM MONEDA";
@@ -73,7 +60,7 @@ namespace DAO
                 SqlCommand buscar = new SqlCommand("SELECT id_moneda, detalle_moneda, equivalencia_colon, estado FROM Moneda WHERE id_moneda = @id;", conexion);
                 buscar.Parameters.AddWithValue("@id", id);
 
-                if(conexion.State != ConnectionState.Open) {
+                if (conexion.State != ConnectionState.Open) {
                     conexion.Open();
                 }
 
@@ -83,7 +70,7 @@ namespace DAO
                 adapter.Fill(table);
                 TOMoneda und = new TOMoneda();
 
-                for(int x = 0; x < table.Rows.Count; x++) {
+                for (int x = 0; x < table.Rows.Count; x++) {
 
                     und.idMoneda = Convert.ToString(table.Rows[x]["ID_MONEDA"]);
                     und.detalleMoneda = Convert.ToString(table.Rows[x]["DETALLE_MONEDA"]);
@@ -92,13 +79,13 @@ namespace DAO
 
                 }
 
-                if(conexion.State != ConnectionState.Closed) {
+                if (conexion.State != ConnectionState.Closed) {
                     conexion.Close();
                 }
 
                 return und;
 
-            } catch(Exception) {
+            } catch (Exception) {
                 throw;
             } finally {
                 conexion.Close();
@@ -113,7 +100,7 @@ namespace DAO
                 SqlCommand buscar = new SqlCommand("SELECT id_moneda, detalle_moneda, equivalencia_colon FROM Moneda WHERE id_moneda = @id;", conexion);
                 buscar.Parameters.AddWithValue("@id", id);
 
-                if(conexion.State != ConnectionState.Open) {
+                if (conexion.State != ConnectionState.Open) {
                     conexion.Open();
                 }
 
@@ -123,7 +110,7 @@ namespace DAO
                 adapter.Fill(table);
                 TOMoneda und = new TOMoneda();
 
-                for(int x = 0; x < table.Rows.Count; x++) {
+                for (int x = 0; x < table.Rows.Count; x++) {
 
                     und.idMoneda = Convert.ToString(table.Rows[x]["ID_MONEDA"]);
                     und.detalleMoneda = Convert.ToString(table.Rows[x]["DETALLE_MONEDA"]);
@@ -131,13 +118,13 @@ namespace DAO
 
                 }
 
-                if(conexion.State != ConnectionState.Closed) {
+                if (conexion.State != ConnectionState.Closed) {
                     conexion.Close();
                 }
 
                 return und;
 
-            } catch(Exception) {
+            } catch (Exception) {
                 throw;
             } finally {
                 conexion.Close();
@@ -148,23 +135,23 @@ namespace DAO
 
         public DataTable buscarAdmin(string palabra) {
             try {
-                using(conexion) {
+                using (conexion) {
                     SqlCommand cmd = conexion.CreateCommand();
                     string sql = "select id_moneda as Código, detalle_moneda as 'Detalle', equivalencia_colon as 'Equivalencia Colón', Estado as 'Estado' from Moneda";
-                    if(!string.IsNullOrEmpty(palabra)) {
+                    if (!string.IsNullOrEmpty(palabra)) {
                         sql += " WHERE (id_moneda LIKE '%' + @pal + '%')  or (detalle_moneda LIKE '%' + @pal + '%') or (equivalencia_colon LIKE '%' + @pal + '%');";
                         cmd.Parameters.AddWithValue("@pal", palabra);
                     }
                     cmd.CommandText = sql;
                     cmd.Connection = conexion;
-                    using(SqlDataAdapter sda = new SqlDataAdapter(cmd)) {
+                    using (SqlDataAdapter sda = new SqlDataAdapter(cmd)) {
                         DataTable dt = new DataTable();
                         sda.Fill(dt);
 
                         return dt;
                     }
                 }
-            } catch(Exception) {
+            } catch (Exception) {
                 throw;
             } finally {
                 conexion.Close();
@@ -173,23 +160,23 @@ namespace DAO
 
         public DataTable buscarRegular(string palabra) {
             try {
-                using(conexion) {
+                using (conexion) {
                     SqlCommand cmd = conexion.CreateCommand();
                     string sql = "select id_moneda as Código, detalle_moneda as 'Detalle', equivalencia_colon as 'Equivalencia Colón' from Moneda where estado = 1";
-                    if(!string.IsNullOrEmpty(palabra)) {
+                    if (!string.IsNullOrEmpty(palabra)) {
                         sql += " and ((id_moneda LIKE '%' + @pal + '%')  or (detalle_moneda LIKE '%' + @pal + '%') or (equivalencia_colon LIKE '%' + @pal + '%'));";
                         cmd.Parameters.AddWithValue("@pal", palabra);
                     }
                     cmd.CommandText = sql;
                     cmd.Connection = conexion;
-                    using(SqlDataAdapter sda = new SqlDataAdapter(cmd)) {
+                    using (SqlDataAdapter sda = new SqlDataAdapter(cmd)) {
                         DataTable dt = new DataTable();
                         sda.Fill(dt);
 
                         return dt;
                     }
                 }
-            } catch(Exception) {
+            } catch (Exception) {
                 throw;
             } finally {
                 conexion.Close();
@@ -198,8 +185,8 @@ namespace DAO
 
         public void guardarActualizarRegular(TOMoneda mon) {
 
-            using(conexion) {
-                if(conexion.State != ConnectionState.Open) {
+            using (conexion) {
+                if (conexion.State != ConnectionState.Open) {
                     conexion.Open();
                 }
 
@@ -220,16 +207,17 @@ namespace DAO
                     sentencia.ExecuteNonQuery();
 
                     sqlTran.Commit();
-                    if(conexion.State != ConnectionState.Closed) {
+                    if (conexion.State != ConnectionState.Closed) {
                         conexion.Close();
                     }
 
 
-                } catch(Exception) {
+                } catch (Exception) {
                     try {
                         // Attempt to roll back the transaction.
                         sqlTran.Rollback();
-                    } catch(Exception) {
+                        throw;
+                    } catch (Exception) {
 
                         throw;
                     } finally {
@@ -242,8 +230,8 @@ namespace DAO
 
         public void guardarActualizarAdmin(TOMoneda mon) {
 
-            using(conexion) {
-                if(conexion.State != ConnectionState.Open) {
+            using (conexion) {
+                if (conexion.State != ConnectionState.Open) {
                     conexion.Open();
                 }
 
@@ -265,16 +253,17 @@ namespace DAO
                     sentencia.ExecuteNonQuery();
 
                     sqlTran.Commit();
-                    if(conexion.State != ConnectionState.Closed) {
+                    if (conexion.State != ConnectionState.Closed) {
                         conexion.Close();
                     }
 
 
-                } catch(Exception) {
+                } catch (Exception) {
                     try {
                         // Attempt to roll back the transaction.
                         sqlTran.Rollback();
-                    } catch(Exception) {
+                        throw;
+                    } catch (Exception) {
 
                         throw;
                     } finally {
@@ -284,6 +273,34 @@ namespace DAO
             }
         }
 
+
+        public List<String> listaMonedas() {
+            try {
+                List<String> lista = new List<String>();
+
+                SqlCommand cmd = conexion.CreateCommand();
+                string sql = "Select id_moneda from Moneda where estado = 1;";
+                cmd.CommandText = sql;
+                cmd.Connection = conexion;
+                if (conexion.State != ConnectionState.Open) {
+                    conexion.Open();
+                }
+                using (SqlDataReader reader = cmd.ExecuteReader()) {
+                    while (reader.Read()) {
+                        lista.Add(reader.GetString(0));
+                    }
+                }
+                if (conexion.State != ConnectionState.Closed) {
+                    conexion.Close();
+                }
+                return lista;
+            } catch (Exception) {
+                throw;
+            } finally {
+                conexion.Close();
+            }
+
+        }
 
     }
 }

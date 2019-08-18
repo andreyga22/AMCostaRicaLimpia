@@ -119,5 +119,61 @@ namespace DAO
             }
 
         }
+
+        public List<String> buscarBodegasVenta() {
+            try {
+                List<String> lista = new List<String>();
+
+                SqlCommand cmd = conexion.CreateCommand();
+                string sql = "Select id_bodega from Bodega;";
+                cmd.CommandText = sql;
+                cmd.Connection = conexion;
+                if (conexion.State != ConnectionState.Open) {
+                    conexion.Open();
+                }
+                using (SqlDataReader reader = cmd.ExecuteReader()) {
+                    while (reader.Read()) {
+                        lista.Add(reader.GetString(0));
+                    }
+                }
+                if (conexion.State != ConnectionState.Closed) {
+                    conexion.Close();
+                }
+                return lista;
+            } catch (Exception) {
+                throw;
+            } finally {
+                conexion.Close();
+            }
+
+        }
+
+        public List<String> buscarBodegasCompra() {
+            try {
+                List<String> lista = new List<String>();
+
+                SqlCommand cmd = conexion.CreateCommand();
+                string sql = "Select id_bodega from Bodega where estado_bodega = 1;";
+                cmd.CommandText = sql;
+                cmd.Connection = conexion;
+                if (conexion.State != ConnectionState.Open) {
+                    conexion.Open();
+                }
+                using (SqlDataReader reader = cmd.ExecuteReader()) {
+                    while (reader.Read()) {
+                        lista.Add(reader.GetString(0));
+                    }
+                }
+                if (conexion.State != ConnectionState.Closed) {
+                    conexion.Close();
+                }
+                return lista;
+            } catch (Exception) {
+                throw;
+            } finally {
+                conexion.Close();
+            }
+
+        }
     }
 }

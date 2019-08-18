@@ -18,6 +18,18 @@ namespace BL
             return manejador.obtenerMateriales();
         }
 
+        public Double consultarStock(String bode, String mate) {
+            try {
+                return manejador.consultarStock(bode, mate);
+            } catch (Exception exx) {
+                throw;
+            }
+        }
+
+        public List<String> buscarMat() {
+            return manejador.buscarMat();
+        }
+
         public DataTable buscar(string busqueda)
         {
             try

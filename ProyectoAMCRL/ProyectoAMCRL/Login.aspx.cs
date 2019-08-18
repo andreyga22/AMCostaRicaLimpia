@@ -25,6 +25,11 @@ namespace ProyectoAMCRL {
             Session["SortedView"] = null;
             Session["idUnidad"] = null;
             Session["idSocio"] = null;
+            Session["tipoFactura"] = null;
+            Session["idBodegaCompra"] = null;
+            Session["idMonedaCompra"] = null;
+            Session["idSocioCompra"] = null;
+            Session["materialSeleccionado"] = null;
         }
 
         /// <summary>
@@ -34,20 +39,25 @@ namespace ProyectoAMCRL {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void btnEntrar_Click(object sender, EventArgs e) {
-            BLManejadorCuentas man = new BLManejadorCuentas();
-            string securepass = FormsAuthentication.HashPasswordForStoringInConfigFile(contraTb.Text.Trim(), "MD5");
-            BLCuenta cuenta = man.login(usuarioTb.Text.Trim(), securepass);
-            if(cuenta != null) {
-                if(cuenta.estado) {
-                    Session["cuentaLogin"] = cuenta;
-                    Response.Redirect("Principal.aspx");
+            try {
+                BLManejadorCuentas man = new BLManejadorCuentas();
+                string securepass = FormsAuthentication.HashPasswordForStoringInConfigFile(contraTb.Text.Trim(), "MD5");
+                BLCuenta cuenta = man.login(usuarioTb.Text.Trim(), securepass);
+                if (cuenta != null) {
+                    if (cuenta.estado) {
+                        Session["cuentaLogin"] = cuenta;
+                        Response.Redirect("Principal.aspx");
+                    } else {
+                        lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> Su cuenta se encuentra deshabilitada. Contacte con un administrador del sistema.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                        lblError.Visible = true;
+                    }
+
                 } else {
-                    lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> Su cuenta se encuentra deshabilitada. Contacte con un administrador del sistema.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                    lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> Credenciales incorrectos.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                     lblError.Visible = true;
                 }
-
-            } else {
-                lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> Credenciales incorrectos.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+            } catch (Exception exx) {
+                lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> No se pudo conectar a internet. Revise su conexión y consulte a su proveedor de internet.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                 lblError.Visible = true;
             }
         }
