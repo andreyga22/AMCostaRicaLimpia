@@ -17,8 +17,8 @@ namespace ProyectoAMCRL
         {
             if (Session["cuentaLogin"] != null)
             {
-                //List<List<String>> li = new List<List<string>>();
-                //Session["listaCompra"] = li;
+                Session["idBodegaCompra"] = bodegasDd.SelectedValue;
+                Session["idMonedaCompra"] = monedaDd.SelectedValue;
                 if (!IsPostBack)
                 {
                     try
@@ -742,7 +742,6 @@ namespace ProyectoAMCRL
         private void calcularTotales() {
             BLManejadorMoneda mon = new BLManejadorMoneda();
             BLMoneda mone = mon.consultarAdmin(monedaDd.SelectedValue);
-            //codigo, cantidad, precio, impueto, descuento, precio linea
             double totalLibre = 0;
             double impuesto = 0;
             double descuento = 0;
@@ -772,6 +771,56 @@ namespace ProyectoAMCRL
                 totalTb.Text = Convert.ToString(total);
                 totalConvert.Text = Convert.ToString(conversion);
             }
+        }
+
+        protected void generarBtn_Click(object sender, EventArgs e) {
+            //Session["tipoFactura"] = null;
+            //Session["idBodegaCompra"] = null;
+            //Session["idMonedaCompra"] = null;
+            //Session["idSocioCompra"] = null;
+            //Session["materialSeleccionado"] = null;
+            //codigo, cantidad, precio, impueto, descuento, precio linea
+            
+
+            List<BLDetalleFactura> det = new List<BLDetalleFactura>();
+            List<List<String>> lil = (List < List < String >> )Session["listaCompra"];
+            if (lil != null) {
+                foreach (List<String> item in lil) {
+                    BLDetalleFactura deta = new BLDetalleFactura();
+                    deta.codigoMaterial = item[0];
+                    deta.cantidad = Convert.ToDouble(item[1]);
+                    deta.precio = Convert.ToDouble(item[2]);
+                    deta.impuesto = Convert.ToDouble(item[3]);
+                    deta.descuento = Convert.ToDouble(item[4]);
+                    deta.monto_Linea = Convert.ToDouble(item[5]);
+                    det.Add(deta);
+                }
+                if ((BLSocioNegocio)Session["idSocioCompra"] != null) {
+                    String idbod = Convert.ToString(Session["idBodegaCompra"]);
+                    String idmon = Convert.ToString(Session["idMonedaCompra"]);
+                    String idcajero = ((BLCuenta)Session["cuentaLogin"]).id_usuario;
+                    String idsocio = ((BLSocioNegocio)Session["idSocioCompra"]).cedula;
+                    String tipofac = Convert.ToString(Session["tipoFactura"]);
+                    BLFactura fac = new BLFactura(0, idbod, idmon, idcajero, idsocio, Convert.ToDouble(subtotalTb.Text.Trim()), Convert.ToDouble(impuestoTot.Text.Trim()), Convert.ToDouble(descuentoTot.Text.Trim()), Convert.ToDouble(totalTb.Text.Trim()), Convert.ToDouble(totalConvert.Text.Trim()), DateTime.Now, tipofac);
+                    try {
+                        BLManejadorFacturas man = new BLManejadorFacturas();
+                        man.guardarFactura(det, fac);
+                    } catch (Exception exx) {
+                        lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> No se puede guardar la factura en el sistema. Revise su conexión a internet e intentelo nuevamente.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                        lblError.Visible = true;
+                    }
+                } else {
+                    lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> Debe seleccionar un socio para la compra o venta.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                    lblError.Visible = true;
+                }
+                //Crearpdf
+            } else {
+
+            }
+
+            
+
+            
         }
     }
 }

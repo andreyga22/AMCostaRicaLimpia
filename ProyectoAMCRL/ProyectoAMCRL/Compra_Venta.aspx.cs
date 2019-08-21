@@ -175,8 +175,8 @@ namespace ProyectoAMCRL
                 foreach (BLDetalleFactura bl in detallesFactura)
                 {
                     String lineaDetalle = "";
-                    lineaDetalle = bl.nombreMaterial + "&" +
-                    bl.monto_Linea + "&" + bl.kilos_Linea + "&" + " KILOS";
+                    lineaDetalle = bl.codigoMaterial + "&" +
+                    bl.monto_Linea + "&" + bl.cantidad + "&" + " KILOS";
 
                     detalles.Add(lineaDetalle);
                     //pegarLineasTablaFacturaCargada();

@@ -49,15 +49,6 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.Literal lblError;
         
         /// <summary>
-        /// UpdatePanel7 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel7;
-        
-        /// <summary>
         /// empresaLb control.
         /// </summary>
         /// <remarks>
@@ -67,6 +58,42 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.Label empresaLb;
         
         /// <summary>
+        /// fechaLb control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label fechaLb;
+        
+        /// <summary>
+        /// Label2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label2;
+        
+        /// <summary>
+        /// numFacturaLb control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label numFacturaLb;
+        
+        /// <summary>
+        /// Label9 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label9;
+        
+        /// <summary>
         /// telEmpLb control.
         /// </summary>
         /// <remarks>
@@ -74,6 +101,15 @@ namespace ProyectoAMCRL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label telEmpLb;
+        
+        /// <summary>
+        /// Label10 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label10;
         
         /// <summary>
         /// tipoLb control.
@@ -103,33 +139,6 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.DropDownList bodegasDd;
         
         /// <summary>
-        /// Label2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label2;
-        
-        /// <summary>
-        /// numFacturaLb control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label numFacturaLb;
-        
-        /// <summary>
-        /// fechaLb control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label fechaLb;
-        
-        /// <summary>
         /// Label6 control.
         /// </summary>
         /// <remarks>
@@ -148,13 +157,13 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.Label cajeroLb;
         
         /// <summary>
-        /// UpdatePanel4 control.
+        /// Label11 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel4;
+        protected global::System.Web.UI.WebControls.Label Label11;
         
         /// <summary>
         /// NombreCP control.
@@ -166,6 +175,15 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.Label NombreCP;
         
         /// <summary>
+        /// Label12 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label12;
+        
+        /// <summary>
         /// cedulaCP control.
         /// </summary>
         /// <remarks>
@@ -173,6 +191,15 @@ namespace ProyectoAMCRL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label cedulaCP;
+        
+        /// <summary>
+        /// Label13 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label13;
         
         /// <summary>
         /// telCP control.
@@ -265,13 +292,13 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.GridView gridSocios;
         
         /// <summary>
-        /// UpdatePanel5 control.
+        /// UpdatePanel1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel5;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         
         /// <summary>
         /// materialesDd control.
@@ -281,6 +308,15 @@ namespace ProyectoAMCRL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList materialesDd;
+        
+        /// <summary>
+        /// nombreMat control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox nombreMat;
         
         /// <summary>
         /// cantDisponibleTb control.
@@ -355,15 +391,6 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.Button agregarBtn;
         
         /// <summary>
-        /// UpdatePanel1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
-        
-        /// <summary>
         /// gridFactura control.
         /// </summary>
         /// <remarks>
@@ -371,15 +398,6 @@ namespace ProyectoAMCRL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gridFactura;
-        
-        /// <summary>
-        /// UpdatePanel8 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel8;
         
         /// <summary>
         /// Label3 control.
@@ -454,15 +472,6 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.TextBox totalTb;
         
         /// <summary>
-        /// Label8 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label8;
-        
-        /// <summary>
         /// monedaDd control.
         /// </summary>
         /// <remarks>
@@ -479,5 +488,14 @@ namespace ProyectoAMCRL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox totalConvert;
+        
+        /// <summary>
+        /// generarBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button generarBtn;
     }
 }
