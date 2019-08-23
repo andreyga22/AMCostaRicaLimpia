@@ -30,6 +30,18 @@ namespace BL
             }
         }
 
+        public void guardarFactura(List<BLDetalleFactura> det, BLFactura man) {
+            try {
+                List<TODetalleFactura> det2 = new List<TODetalleFactura>();
+                foreach (BLDetalleFactura item in det) {
+                    det2.Add(convert2(item));
+                }
+                new DAOManejadorFacturas().guardarFactura(det2, convert2(man));
+            } catch (Exception exx) {
+                throw;
+            }
+        }
+
         public int consultarSigFactura() {
             try {
                 return new DAOManejadorFacturas().consultarSigFactura();
@@ -269,6 +281,14 @@ namespace BL
             return new TOFactura(bl.cod_Factura, bl.cedula, bl.id_Bodega, bl.id_Moneda, bl.total, bl.tipo, bl.fecha, bl.nombreCompleto);
         }
 
+        public BLFactura convert2(TOFactura to) {
+            return new BLFactura(to.cod_Factura, to.id_Bodega, to.id_Moneda, to.cajero, to.cedula, to.subtotal, to.impuesto, to.descuento, to.total, to.montoInternacional, to.fecha, to.tipo);
+        }
+
+        public TOFactura convert2(BLFactura bl) {
+            return new TOFactura(bl.cod_Factura, bl.id_Bodega, bl.id_Moneda, bl.cajero, bl.cedula, bl.subtotal, bl.impuesto, bl.descuento, bl.total, bl.montoInternacional, bl.fecha, bl.tipo);
+        }
+
 
         public BLDetalleFactura convertDetalle(TODetalleFactura to)
         {
@@ -277,7 +297,15 @@ namespace BL
 
         public TODetalleFactura convertDetalle(BLDetalleFactura bl)
         {
-            return new TODetalleFactura(bl.cod_Linea, bl.cod_Factura, bl.nombreMaterial, bl.monto_Linea, bl.kilos_Linea, bl.cod_Stock);
+            return new TODetalleFactura(bl.cod_Linea, bl.cod_Factura, bl.codigoMaterial, bl.monto_Linea, bl.cantidad, bl.cod_Stock);
+        }
+
+        public BLDetalleFactura convert2(TODetalleFactura to) {
+            return new BLDetalleFactura(to.cod_Linea, to.cod_Factura, to.nombreMaterial, to.monto_Linea, to.kilos_Linea, to.precio, to.impuesto, to.descuento);
+        }
+
+        public TODetalleFactura convert2(BLDetalleFactura bl) {
+            return new TODetalleFactura(bl.cod_Linea, bl.cod_Factura, bl.codigoMaterial, bl.monto_Linea, bl.cantidad, bl.precio, bl.impuesto, bl.descuento);
         }
 
         public string registrarVentaBL(String cedula, String idBodega, String moneda, String fecha, List<String> detalles)

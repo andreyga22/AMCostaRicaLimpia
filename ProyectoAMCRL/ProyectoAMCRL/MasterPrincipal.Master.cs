@@ -34,16 +34,19 @@ namespace ProyectoAMCRL
 
         protected void compraLB_Click(object sender, EventArgs e)
         {
+            
             //Session.Add("modo", "compra");
             Session["tipoFactura"] = "compra";
-            Response.Redirect("CompraVenta2.aspx");
+            Response.Write("<script>window.open ('CompraVenta2.aspx','_blank');</script>");
+            //Response.Redirect("CompraVenta2.aspx");
         }
 
         protected void ventaLB_Click(object sender, EventArgs e)
         {
             //Session.Add("modo", "venta");
             Session["tipoFactura"] = "venta";
-             Response.Redirect("CompraVenta2.aspx");
+            Response.Write("<script>window.open ('CompraVenta2.aspx','_blank');</script>");
+            //Response.Redirect("CompraVenta2.aspx");
         }
 
         protected void cerrarSesion(object sender, EventArgs e)

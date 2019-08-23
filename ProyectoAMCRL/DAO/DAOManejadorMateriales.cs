@@ -45,6 +45,27 @@ namespace DAO
             }
         }
 
+        public String buscarNombre(String codMat) {
+            try {
+                SqlCommand cmd = conexion.CreateCommand();
+                cmd.CommandText = "select nombre_material from material where cod_material = @cod_material;";
+                cmd.Parameters.AddWithValue("@cod_material", codMat);
+                if (conexion.State != ConnectionState.Open) {
+                    conexion.Open();
+                }
+
+                String nom = Convert.ToString(cmd.ExecuteScalar());
+
+                if (conexion.State != ConnectionState.Closed) {
+                    conexion.Close();
+                }
+                return nom;
+            } catch (Exception ex) {
+                throw;
+            } finally {
+                conexion.Close();
+            }
+        }
         public List<String> buscarMat() {
             try {
                 List<String> lista = new List<String>();

@@ -10,13 +10,16 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="masterstylecss.css" rel="stylesheet" />
 
+    
+
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
+
+    
 
 </head>
 <body>
     <form runat="server">
-
         <div class="d-flex" id="wrapper">
 
             <div class="bg-success border-right" id="sidebar-wrapper">
@@ -42,6 +45,7 @@
                     <ul class="collapse list-unstyled" id="comprasSubmenu">
                         <li>
                             <asp:LinkButton Style="color: white; font-size: small" class="list-group-item list-group-item-action bg-success" Text="Registrar compra" runat="server" ID="LinkButton1" OnClick="compraLB_Click" />
+                        <%--<asp:HyperLink ID="btnCompra" Style="color: white; font-size: small" class="list-group-item list-group-item-action bg-success" OnClick="compraLB_Click" runat="server" Target="_blank">Registrar compra</asp:HyperLink>--%>
                         </li>
                         <li>
                             <asp:LinkButton Style="color: white; font-size: small" class="list-group-item list-group-item-action bg-success" Text="Búsqueda facturas" runat="server" ID="LinkButton2" OnClick="btnBusqFactComp_Click" />

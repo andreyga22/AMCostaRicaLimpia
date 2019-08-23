@@ -8,16 +8,18 @@ namespace TO
 {
     public class TOFactura {
         public int cod_Factura { get; set; }
+        public String cedula { get; set; }
         public String id_Bodega { get; set; }
         public String id_Moneda { get; set; }
-        public String cajero { get; set; }
-        public String cedula { get; set; }
-        public double subtotal { get; set; }
-        public double impuesto { get; set; }
-        public double descuento { get; set; }
         public double total { get; set; }
         public DateTime fecha { get; set; }
         public String tipo { get; set; }
+        public String cajero { get; set; }
+
+        public double subtotal { get; set; }
+        public double impuesto { get; set; }
+        public double descuento { get; set; }
+        public double montoInternacional { get; set; }
         public String nombreCompleto { get; set; }
 
         public TOFactura() { }
@@ -45,7 +47,7 @@ namespace TO
         }
 
 
-        public TOFactura(int cod_factura, String id_bodega, String id_moneda, String cajero, String cedula, double subtotal, double impuesto, double descuento, double total, DateTime fecha, String tipo) {
+        public TOFactura(int cod_factura, String id_bodega, String id_moneda, String cajero, String cedula, double subtotal, double impuesto, double descuento, double total, double montoInternacional, DateTime fecha, String tipo) {
             this.cod_Factura = cod_factura;
             this.id_Bodega = id_bodega;
             this.id_Moneda = id_moneda;
@@ -57,6 +59,7 @@ namespace TO
             this.total = total;
             this.fecha = fecha;
             this.tipo = tipo;
+            this.montoInternacional = montoInternacional;
         }
     }
 }
