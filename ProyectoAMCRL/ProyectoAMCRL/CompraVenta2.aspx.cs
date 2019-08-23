@@ -1,8 +1,11 @@
 ﻿using BL;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -72,7 +75,7 @@ namespace ProyectoAMCRL
             List<String> lista = manejador.buscarBodegasVenta();
             //bodDD.Items.Insert(0, new ListItem("--SELECCIONE UNA BODEGA--"));
             foreach (Object bodega in lista) {
-                bodegasDd.Items.Add(new ListItem(bodega.ToString()));
+                bodegasDd.Items.Add(new System.Web.UI.WebControls.ListItem(bodega.ToString()));
             }
             Session["idBodegaCompra"] = bodegasDd.Items[0].Value;
         }
@@ -81,7 +84,7 @@ namespace ProyectoAMCRL
             List<String> lista = manejador.buscarBodegasCompra();
             //bodDD.Items.Insert(0, new ListItem("--SELECCIONE UNA BODEGA--"));
             foreach (Object bodega in lista) {
-                bodegasDd.Items.Add(new ListItem(bodega.ToString()));
+                bodegasDd.Items.Add(new System.Web.UI.WebControls.ListItem(bodega.ToString()));
             }
             Session["idBodegaCompra"] = bodegasDd.Items[0].Value;
         }
@@ -90,7 +93,7 @@ namespace ProyectoAMCRL
             BLManejadorMoneda manejador = new BLManejadorMoneda();
             List<String> lista = manejador.listaMonedas();
             foreach (Object moneda in lista) {
-                monedaDd.Items.Add(new ListItem(moneda.ToString()));
+                monedaDd.Items.Add(new System.Web.UI.WebControls.ListItem(moneda.ToString()));
             }
             Session["idMonedaCompra"] = monedaDd.Items[0].Value;
         }
@@ -100,7 +103,7 @@ namespace ProyectoAMCRL
             List<String> lista = manejador.buscarMat();
             //bodDD.Items.Insert(0, new ListItem("--SELECCIONE UNA BODEGA--"));
             foreach (Object material in lista) {
-                materialesDd.Items.Add(new ListItem(material.ToString()));
+                materialesDd.Items.Add(new System.Web.UI.WebControls.ListItem(material.ToString()));
             }
             Session["materialSeleccionado"] = materialesDd.Items[0].Value;
             actualizarCantidad();
@@ -818,6 +821,7 @@ namespace ProyectoAMCRL
                     try {
                         BLManejadorFacturas man = new BLManejadorFacturas();
                         man.guardarFactura(det, fac);
+                        generarPDF("15", DateTime.Now);
                     } catch (Exception exx) {
                         lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> No se puede guardar la factura en el sistema. Revise su conexión a internet e intentelo nuevamente.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                         lblError.Visible = true;
@@ -826,7 +830,7 @@ namespace ProyectoAMCRL
                     lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> Debe seleccionar un socio para la compra o venta.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                     lblError.Visible = true;
                 }
-                //Crearpdf
+                
             } else {
 
             }
@@ -835,5 +839,49 @@ namespace ProyectoAMCRL
 
             
         }
+
+        private void generarPDF(String numeroFactura, DateTime fecha) {
+            using (System.IO.MemoryStream memoryStream = new System.IO.MemoryStream())
+            {
+                Document documento = new Document(PageSize.A4, 10, 10, 10, 10);
+                String path = Server.MapPath("~/Facturas/");
+                PdfWriter.GetInstance(documento, new FileStream(path + "/" + numeroFactura  + ".pdf", FileMode.Create));
+                documento.Open();
+
+                Chunk chunk = new Chunk("Prueba Chunk ");
+                documento.Add(chunk);
+
+                Phrase phrase = new Phrase("Prueba frase.");
+                documento.Add(phrase);
+
+                Paragraph para = new Paragraph("Prueba Parrafo.");
+                documento.Add(para);
+
+                string text = "PDF creado con exito!!";
+                Paragraph paragraph = new Paragraph();
+                paragraph.SpacingBefore = 10;
+                paragraph.SpacingAfter = 10;
+                paragraph.Alignment = Element.ALIGN_LEFT;
+                paragraph.Font = FontFactory.GetFont(FontFactory.HELVETICA, 12f, BaseColor.GREEN);
+                paragraph.Add(text);
+                documento.Add(paragraph);
+
+                documento.Close();
+                byte[] bytes = memoryStream.ToArray();
+                memoryStream.Close();
+                Response.Clear();
+                Response.ContentType = "application/pdf";
+
+                string nombrepdf = "PruebaProyecto";
+                Response.AddHeader("Content-Disposition", "attachment; filename=" + nombrepdf + ".pdf");
+                Response.ContentType = "application/pdf";
+                Response.Buffer = true;
+                Response.Cache.SetCacheability(System.Web.HttpCacheability.NoCache);
+                Response.BinaryWrite(bytes);
+                Response.End();
+                Response.Close();
+            }
+        }
     }
+
 }
