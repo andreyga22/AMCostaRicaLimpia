@@ -48,6 +48,7 @@
                             <SortedDescendingHeaderStyle CssClass="SortedDescendingHeaderStyle" />
                             <PagerStyle HorizontalAlign="Right" />
                         </asp:GridView>
+                        <asp:Button ID="printbtn" runat="server" OnClick="printbtn_Click" Text="Generar PDF" />
                         <br />
                     </ContentTemplate>
                 </asp:UpdatePanel>

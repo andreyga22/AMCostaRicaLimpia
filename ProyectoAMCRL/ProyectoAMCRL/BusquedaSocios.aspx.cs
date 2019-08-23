@@ -9,6 +9,10 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
 using KeyEventArgs = System.Windows.Forms.KeyEventArgs;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System.IO;
+using iTextSharp.text.html.simpleparser;
 
 namespace ProyectoAMCRL
 {
@@ -156,6 +160,51 @@ namespace ProyectoAMCRL
         {
             Session["idSocio"] = null;
             Response.Redirect("RegistroSociosUI.aspx");
+        }
+
+
+        protected void printbtn_Click(object sender, EventArgs e)
+        {
+            using (System.IO.MemoryStream memoryStream = new System.IO.MemoryStream())
+            {
+                Document documento = new Document(PageSize.A4, 10, 10, 10, 10);
+                String path = Server.MapPath("~/Facturas/");
+                PdfWriter.GetInstance(documento, new FileStream(path + "/PruebaProyecto.pdf", FileMode.Create));
+                documento.Open();
+
+                Chunk chunk = new Chunk("Prueba Chunk ");
+                documento.Add(chunk);
+
+                Phrase phrase = new Phrase("Prueba frase.");
+                documento.Add(phrase);
+
+                Paragraph para = new Paragraph("Prueba Parrafo.");
+                documento.Add(para);
+
+                string text = "PDF creado con exito!!";
+                Paragraph paragraph = new Paragraph();
+                paragraph.SpacingBefore = 10;
+                paragraph.SpacingAfter = 10;
+                paragraph.Alignment = Element.ALIGN_LEFT;
+                paragraph.Font = FontFactory.GetFont(FontFactory.HELVETICA, 12f, BaseColor.GREEN);
+                paragraph.Add(text);
+                documento.Add(paragraph);
+
+                documento.Close();
+                byte[] bytes = memoryStream.ToArray();
+                memoryStream.Close();
+                Response.Clear();
+                Response.ContentType = "application/pdf";
+
+                string nombrepdf = "PruebaProyecto";
+                Response.AddHeader("Content-Disposition", "attachment; filename=" + nombrepdf + ".pdf");
+                Response.ContentType = "application/pdf";
+                Response.Buffer = true;
+                Response.Cache.SetCacheability(System.Web.HttpCacheability.NoCache);
+                Response.BinaryWrite(bytes);
+                Response.End();
+                Response.Close();
+            }
         }
     }
 }
