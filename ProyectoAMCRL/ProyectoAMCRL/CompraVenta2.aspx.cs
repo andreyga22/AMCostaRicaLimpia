@@ -30,11 +30,13 @@ namespace ProyectoAMCRL
                             tipoLb.Text = "Factura de Venta";
                             cargarBodegasVenta();
                         }
+
                         cargarMonedas();
                         cargarCajero();
                         cargarNumFactura();
                         cargarFecha();
                         cargarMaterialesDrop();
+                        cargarNombre(materialesDd.SelectedValue);
                         refrescarGrid();
                     }
                     catch (Exception exx)
@@ -262,6 +264,13 @@ namespace ProyectoAMCRL
         protected void materialesDd_SelectedIndexChanged(object sender, EventArgs e) {
             Session["materialSeleccionado"] = materialesDd.SelectedValue;
             actualizarCantidad();
+            cargarNombre(materialesDd.SelectedValue);
+        }
+
+        private void cargarNombre(String codMat) {
+            BLManejadorMateriales man = new BLManejadorMateriales();
+            String nombre = man.buscarNombre(codMat);
+            nombreMat.Text = nombre;
         }
 
         protected void agregarBtn_Click(object sender, EventArgs e) {
@@ -670,6 +679,10 @@ namespace ProyectoAMCRL
                 }
                 gridFactura.DataSource = datat;
                 gridFactura.DataBind();
+            }
+            foreach (GridViewRow row in gridFactura.Rows) {
+                LinkButton lb = (LinkButton)row.Cells[0].Controls[0];
+                lb.Text = "Eliminar";
             }
         }
 

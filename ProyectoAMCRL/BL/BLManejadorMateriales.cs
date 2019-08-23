@@ -18,6 +18,14 @@ namespace BL
             return manejador.obtenerMateriales();
         }
 
+        public String buscarNombre(String codMat) {
+            try {
+                return manejador.buscarNombre(codMat);
+            } catch (Exception ex) {
+                throw;
+            }
+        }
+
         public Double consultarStock(String bode, String mate) {
             try {
                 return manejador.consultarStock(bode, mate);
