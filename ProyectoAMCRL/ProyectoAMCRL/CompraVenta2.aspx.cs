@@ -5,9 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
@@ -46,6 +48,8 @@ namespace ProyectoAMCRL
                     {
                         lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> No se pudo cargar los datos de bodega. Revise su conexión a internet.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                         lblError.Visible = true;
+                        lblError2.Text = lblError.Text;
+                        lblError2.Visible = true;
                     }
                 }
             }
@@ -281,13 +285,18 @@ namespace ProyectoAMCRL
             double preciolinea = 0;
             double impuesto = 0;
             double descuento = 0;
+            NumberFormatInfo format = new NumberFormatInfo();
+            // Set the 'splitter' for thousands
+            //format.NumberGroupSeparator = ".";
+            // Set the decimal seperator
+            format.NumberDecimalSeparator = ",";
             if (!consultarSiExisteEnTabla(Convert.ToString(Session["materialSeleccionado"]))) {
-                if (!String.IsNullOrEmpty(cantidadVC.Text.Trim()) && double.TryParse(cantidadVC.Text.Trim(), out cantidadCVt)) {
+                if (!String.IsNullOrEmpty(cantidadVC.Text.Trim()) && double.TryParse(cantidadVC.Text.Trim(), NumberStyles.Any, format, out cantidadCVt)) {
                     if (!(cantidadCVt <= 0)) {
                         if (Convert.ToString(Session["tipoFactura"]).Equals("venta")) {
                             if (!(cantidadCVt > consultarStock())) {
                                 if (!String.IsNullOrEmpty(precioCV.Text.Trim())) {
-                                    if (double.TryParse(precioCV.Text.Trim(), out preciolinea)) {
+                                    if (double.TryParse(precioCV.Text.Trim(), NumberStyles.Any, format, out preciolinea)) {
                                         if (!(preciolinea <= 0)) {
                                             //sin descuento ni impuesto
                                             if (String.IsNullOrEmpty(impuestoTb.Text.Trim()) && String.IsNullOrEmpty(descuentoTb.Text.Trim())) {
@@ -305,6 +314,8 @@ namespace ProyectoAMCRL
                                                     refrescarGrid();
                                                     lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong> Linea agregada.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                                                     lblError.Visible = true;
+                                                    lblError2.Text = lblError.Text;
+                                                    lblError2.Visible = true;
                                                 } else {
                                                     lis = new List<List<string>>();
                                                     lis.Add(lista);
@@ -313,15 +324,17 @@ namespace ProyectoAMCRL
                                                     refrescarGrid();
                                                     lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong> Linea agregada.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                                                     lblError.Visible = true;
+                                                    lblError2.Text = lblError.Text;
+                                                    lblError2.Visible = true;
                                                 }
                                                 calcularTotales();
                                             }
                                             //impuesto + descuento
                                             if (!String.IsNullOrEmpty(impuestoTb.Text.Trim()) && !String.IsNullOrEmpty(descuentoTb.Text.Trim())) {
-                                                if (double.TryParse(impuestoTb.Text.Trim(), out impuesto)) {
+                                                if (double.TryParse(impuestoTb.Text.Trim(), NumberStyles.Any, format, out impuesto)) {
                                                     if (!(impuesto < 0) && !(impuesto > 100)) {
                                                         if (!String.IsNullOrEmpty(descuentoTb.Text.Trim())) {
-                                                            if (double.TryParse(descuentoTb.Text.Trim(), out descuento)) {
+                                                            if (double.TryParse(descuentoTb.Text.Trim(), NumberStyles.Any, format, out descuento)) {
                                                                 if (!(descuento < 0) && !(descuento > 100)) {
                                                                     List<String> lista = new List<string>();
                                                                     lista.Add(Convert.ToString(Session["materialSeleccionado"]));
@@ -337,6 +350,8 @@ namespace ProyectoAMCRL
                                                                         refrescarGrid();
                                                                         lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong> Linea agregada.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                                                                         lblError.Visible = true;
+                                                                        lblError2.Text = lblError.Text;
+                                                                        lblError2.Visible = true;
                                                                     } else {
                                                                         lis = new List<List<string>>();
                                                                         lis.Add(lista);
@@ -344,29 +359,39 @@ namespace ProyectoAMCRL
                                                                         refrescarGrid();
                                                                         lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong> Linea agregada.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                                                                         lblError.Visible = true;
+                                                                        lblError2.Text = lblError.Text;
+                                                                        lblError2.Visible = true;
                                                                     }
                                                                     calcularTotales();
                                                                 } else {
                                                                     lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> El descuento debe ser un porcentaje entre 0 y 100.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                                                                     lblError.Visible = true;
+                                                                    lblError2.Text = lblError.Text;
+                                                                    lblError2.Visible = true;
                                                                 }
                                                             } else {
                                                                 lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> El descuento contiene caracteres que no son números.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                                                                 lblError.Visible = true;
+                                                                lblError2.Text = lblError.Text;
+                                                                lblError2.Visible = true;
                                                             }
                                                         }
                                                     } else {
                                                         lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> El impuesto debe ser un porcentaje entre 0 y 100.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                                                         lblError.Visible = true;
+                                                        lblError2.Text = lblError.Text;
+                                                        lblError2.Visible = true;
                                                     }
                                                 } else {
                                                     lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> El impuesto contiene caracteres que no son números.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                                                     lblError.Visible = true;
+                                                    lblError2.Text = lblError.Text;
+                                                    lblError2.Visible = true;
                                                 }
                                             }
                                             //solo descuento
                                             if (!String.IsNullOrEmpty(descuentoTb.Text.Trim()) && String.IsNullOrEmpty(impuestoTb.Text.Trim())) {
-                                                if (double.TryParse(descuentoTb.Text.Trim(), out descuento)) {
+                                                if (double.TryParse(descuentoTb.Text.Trim(), NumberStyles.Any, format, out descuento)) {
                                                     if (!(descuento < 0) && !(descuento > 100)) {
                                                         if (String.IsNullOrEmpty(impuestoTb.Text.Trim())) {
                                                             List<String> lista = new List<string>();
@@ -383,6 +408,8 @@ namespace ProyectoAMCRL
                                                                 refrescarGrid();
                                                                 lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong> Linea agregada.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                                                                 lblError.Visible = true;
+                                                                lblError2.Text = lblError.Text;
+                                                                lblError2.Visible = true;
                                                             } else {
                                                                 lis = new List<List<string>>();
                                                                 lis.Add(lista);
@@ -390,21 +417,27 @@ namespace ProyectoAMCRL
                                                                 refrescarGrid();
                                                                 lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong> Linea agregada.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                                                                 lblError.Visible = true;
+                                                                lblError2.Text = lblError.Text;
+                                                                lblError2.Visible = true;
                                                             }
                                                             calcularTotales();
                                                         }
                                                     } else {
                                                         lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> El descuento debe ser un porcentaje entre 0 y 100.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                                                         lblError.Visible = true;
+                                                        lblError2.Text = lblError.Text;
+                                                        lblError2.Visible = true;
                                                     }
                                                 } else {
                                                     lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> El descuento contiene caracteres que no son números.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                                                     lblError.Visible = true;
+                                                    lblError2.Text = lblError.Text;
+                                                    lblError2.Visible = true;
                                                 }
                                             }
                                             //solo impuesto
                                             if (!String.IsNullOrEmpty(impuestoTb.Text.Trim()) && String.IsNullOrEmpty(descuentoTb.Text.Trim())) {
-                                                if (double.TryParse(impuestoTb.Text.Trim(), out impuesto)) {
+                                                if (double.TryParse(impuestoTb.Text.Trim(), NumberStyles.Any, format, out impuesto)) {
                                                     if (!(impuesto < 0) && !(impuesto > 100)) {
                                                         if (String.IsNullOrEmpty(descuentoTb.Text.Trim())) {
                                                             List<String> lista = new List<string>();
@@ -421,6 +454,8 @@ namespace ProyectoAMCRL
                                                                 refrescarGrid();
                                                                 lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong> Linea agregada.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                                                                 lblError.Visible = true;
+                                                                lblError2.Text = lblError.Text;
+                                                                lblError2.Visible = true;
                                                             } else {
                                                                 lis = new List<List<string>>();
                                                                 lis.Add(lista);
@@ -428,37 +463,51 @@ namespace ProyectoAMCRL
                                                                 refrescarGrid();
                                                                 lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong> Linea agregada.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                                                                 lblError.Visible = true;
+                                                                lblError2.Text = lblError.Text;
+                                                                lblError2.Visible = true;
                                                             }
                                                             calcularTotales();
                                                         }
                                                     } else {
                                                         lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> El impuesto debe ser un porcentaje entre 0 y 100.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                                                         lblError.Visible = true;
+                                                        lblError2.Text = lblError.Text;
+                                                        lblError2.Visible = true;
                                                     }
                                                 } else {
                                                     lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> El impuesto contiene caracteres que no son números.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                                                     lblError.Visible = true;
+                                                    lblError2.Text = lblError.Text;
+                                                    lblError2.Visible = true;
                                                 }
                                             }
                                         } else {
                                             lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> El precio es un número menor o igual a 0. Utilice solo números positivos.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                                             lblError.Visible = true;
+                                            lblError2.Text = lblError.Text;
+                                            lblError2.Visible = true;
                                         }
                                     } else {
                                         lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> El precio contienen caracteres que no son números.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                                         lblError.Visible = true;
+                                        lblError2.Text = lblError.Text;
+                                        lblError2.Visible = true;
                                     }
                                 } else {
                                     lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> El precio no puede ir en blanco. El precio minimo es 1.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                                     lblError.Visible = true;
+                                    lblError2.Text = lblError.Text;
+                                    lblError2.Visible = true;
                                 }
                             } else {
                                 lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> No se puede vender una cantidad mayor al stock de bodega de este material.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                                 lblError.Visible = true;
+                                lblError2.Text = lblError.Text;
+                                lblError2.Visible = true;
                             }
                         } else {
                             if (!String.IsNullOrEmpty(precioCV.Text.Trim())) {
-                                if (double.TryParse(precioCV.Text.Trim(), out preciolinea)) {
+                                if (double.TryParse(precioCV.Text.Trim(), NumberStyles.Any, format, out preciolinea)) {
                                     if (!(preciolinea <= 0)) {
                                         //sin descuento ni impuesto
                                         if (String.IsNullOrEmpty(impuestoTb.Text.Trim()) && String.IsNullOrEmpty(descuentoTb.Text.Trim())) {
@@ -476,6 +525,8 @@ namespace ProyectoAMCRL
                                                 refrescarGrid();
                                                 lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong> Linea agregada.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                                                 lblError.Visible = true;
+                                                lblError2.Text = lblError.Text;
+                                                lblError2.Visible = true;
                                             } else {
                                                 lis = new List<List<string>>();
                                                 lis.Add(lista);
@@ -483,15 +534,17 @@ namespace ProyectoAMCRL
                                                 refrescarGrid();
                                                 lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong> Linea agregada.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                                                 lblError.Visible = true;
+                                                lblError2.Text = lblError.Text;
+                                                lblError2.Visible = true;
                                             }
                                             calcularTotales();
                                         }
                                         //impuesto + descuento
                                         if (!String.IsNullOrEmpty(impuestoTb.Text.Trim()) && !String.IsNullOrEmpty(descuentoTb.Text.Trim())) {
-                                            if (double.TryParse(impuestoTb.Text.Trim(), out impuesto)) {
+                                            if (double.TryParse(impuestoTb.Text.Trim(), NumberStyles.Any, format, out impuesto)) {
                                                 if (!(impuesto < 0) && !(impuesto > 100)) {
                                                     if (!String.IsNullOrEmpty(descuentoTb.Text.Trim())) {
-                                                        if (double.TryParse(descuentoTb.Text.Trim(), out descuento)) {
+                                                        if (double.TryParse(descuentoTb.Text.Trim(), NumberStyles.Any, format, out descuento)) {
                                                             if (!(descuento < 0) && !(descuento > 100)) {
                                                                 List<String> lista = new List<string>();
                                                                 lista.Add(Convert.ToString(Session["materialSeleccionado"]));
@@ -507,6 +560,8 @@ namespace ProyectoAMCRL
                                                                     refrescarGrid();
                                                                     lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong> Linea agregada.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                                                                     lblError.Visible = true;
+                                                                    lblError2.Text = lblError.Text;
+                                                                    lblError2.Visible = true;
                                                                 } else {
                                                                     lis = new List<List<string>>();
                                                                     lis.Add(lista);
@@ -514,30 +569,40 @@ namespace ProyectoAMCRL
                                                                     refrescarGrid();
                                                                     lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong> Linea agregada.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                                                                     lblError.Visible = true;
+                                                                    lblError2.Text = lblError.Text;
+                                                                    lblError2.Visible = true;
                                                                 }
                                                                 calcularTotales();
                                                             } else {
                                                                 lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> El descuento debe ser un porcentaje entre 0 y 100.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                                                                 lblError.Visible = true;
+                                                                lblError2.Text = lblError.Text;
+                                                                lblError2.Visible = true;
                                                             }
                                                         } else {
                                                             lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> El descuento contiene caracteres que no son números.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                                                             lblError.Visible = true;
+                                                            lblError2.Text = lblError.Text;
+                                                            lblError2.Visible = true;
                                                         }
                                                     }
                                                 } else {
                                                     lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> El impuesto debe ser un porcentaje entre 0 y 100.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                                                     lblError.Visible = true;
+                                                    lblError2.Text = lblError.Text;
+                                                    lblError2.Visible = true;
                                                 }
                                             } else {
                                                 lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> El impuesto contiene caracteres que no son números.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                                                 //lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> No se pudo cargar los datos de bodega. Revise su conexión a internet.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                                                 lblError.Visible = true;
+                                                lblError2.Text = lblError.Text;
+                                                lblError2.Visible = true;
                                             }
                                         }
                                         //solo descuento
                                         if (!String.IsNullOrEmpty(descuentoTb.Text.Trim()) && String.IsNullOrEmpty(impuestoTb.Text.Trim())) {
-                                            if (double.TryParse(descuentoTb.Text.Trim(), out descuento)) {
+                                            if (double.TryParse(descuentoTb.Text.Trim(), NumberStyles.Any, format, out descuento)) {
                                                 if (!(descuento < 0) && !(descuento > 100)) {
                                                     if (String.IsNullOrEmpty(impuestoTb.Text.Trim())) {
                                                         List<String> lista = new List<string>();
@@ -554,6 +619,8 @@ namespace ProyectoAMCRL
                                                             refrescarGrid();
                                                             lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong> Linea agregada.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                                                             lblError.Visible = true;
+                                                            lblError2.Text = lblError.Text;
+                                                            lblError2.Visible = true;
                                                         } else {
                                                             lis = new List<List<string>>();
                                                             lis.Add(lista);
@@ -561,21 +628,27 @@ namespace ProyectoAMCRL
                                                             refrescarGrid();
                                                             lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong> Linea agregada.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                                                             lblError.Visible = true;
+                                                            lblError2.Text = lblError.Text;
+                                                            lblError2.Visible = true;
                                                         }
                                                         calcularTotales();
                                                     }
                                                 } else {
                                                     lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> El descuento debe ser un porcentaje entre 0 y 100.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                                                     lblError.Visible = true;
+                                                    lblError2.Text = lblError.Text;
+                                                    lblError2.Visible = true;
                                                 }
                                             } else {
                                                 lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> El descuento contiene caracteres que no son números.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                                                 lblError.Visible = true;
+                                                lblError2.Text = lblError.Text;
+                                                lblError2.Visible = true;
                                             }
                                         }
                                         //solo impuesto
                                         if (!String.IsNullOrEmpty(impuestoTb.Text.Trim()) && String.IsNullOrEmpty(descuentoTb.Text.Trim())) {
-                                            if (double.TryParse(impuestoTb.Text.Trim(), out impuesto)) {
+                                            if (double.TryParse(impuestoTb.Text.Trim(), NumberStyles.Any, format, out impuesto)) {
                                                 if (!(impuesto < 0) && !(impuesto > 100)) {
                                                     if (String.IsNullOrEmpty(descuentoTb.Text.Trim())) {
                                                         List<String> lista = new List<string>();
@@ -592,6 +665,8 @@ namespace ProyectoAMCRL
                                                             refrescarGrid();
                                                             lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong> Linea agregada.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                                                             lblError.Visible = true;
+                                                            lblError2.Text = lblError.Text;
+                                                            lblError2.Visible = true;
                                                         } else {
                                                             lis = new List<List<string>>();
                                                             lis.Add(lista);
@@ -605,36 +680,52 @@ namespace ProyectoAMCRL
                                                 } else {
                                                     lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> El impuesto debe ser un porcentaje entre 0 y 100.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                                                     lblError.Visible = true;
+                                                    lblError2.Text = lblError.Text;
+                                                    lblError2.Visible = true;
                                                 }
                                             } else {
                                                 lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> El impuesto contiene caracteres que no son números.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                                                 lblError.Visible = true;
+                                                lblError2.Text = lblError.Text;
+                                                lblError2.Visible = true;
                                             }
                                         }
                                     } else {
                                         lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> El precio es un número menor o igual a 0. Utilice solo números positivos.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                                         lblError.Visible = true;
+                                        lblError2.Text = lblError.Text;
+                                        lblError2.Visible = true;
                                     }
                                 } else {
                                     lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> El precio contienen caracteres que no son números.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                                     lblError.Visible = true;
+                                    lblError2.Text = lblError.Text;
+                                    lblError2.Visible = true;
                                 }
                             } else {
                                 lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> El precio no puede ir en blanco. El precio minimo es 1.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                                 lblError.Visible = true;
+                                lblError2.Text = lblError.Text;
+                                lblError2.Visible = true;
                             }
                         }
                     } else {
                         lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> La cantidad de compra/venta es menor a 0. Utilice solo números positivos<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                         lblError.Visible = true;
+                        lblError2.Text = lblError.Text;
+                        lblError2.Visible = true;
                     }
                 } else {
                     lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> El control cantidad esta vacío o tiene caracteres que no son número.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                     lblError.Visible = true;
+                    lblError2.Text = lblError.Text;
+                    lblError2.Visible = true;
                 }
             } else {
                 lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> Ya se encuentro el material seleccionado en la lista de compra/venta.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                 lblError.Visible = true;
+                lblError2.Text = lblError.Text;
+                lblError2.Visible = true;
             }
             List<List<String>> lil = (List<List<String>>)Session["listaCompra"];
             if (lil != null) {
@@ -722,17 +813,22 @@ namespace ProyectoAMCRL
             double totalConImp = 0;
             double totalConDesc = 0;
             double cant = 0;
-            if (!String.IsNullOrEmpty(cantidadVC.Text.Trim()) && double.TryParse(cantidadVC.Text.Trim(), out cant)) {
+            NumberFormatInfo format = new NumberFormatInfo();
+            // Set the 'splitter' for thousands
+            //format.NumberGroupSeparator = ".";
+            // Set the decimal seperator
+            format.NumberDecimalSeparator = ",";
+            if (!String.IsNullOrEmpty(cantidadVC.Text.Trim()) && double.TryParse(cantidadVC.Text.Trim(), NumberStyles.Any, format, out cant)) {
             }
             double precio = 0;
-            if (!String.IsNullOrEmpty(precioCV.Text.Trim()) && double.TryParse(precioCV.Text.Trim(), out precio)) {
+            if (!String.IsNullOrEmpty(precioCV.Text.Trim()) && double.TryParse(precioCV.Text.Trim(), NumberStyles.Any, format, out precio)) {
             }
 
             double imp = 0;
-            if (!String.IsNullOrEmpty(impuestoTb.Text.Trim()) && double.TryParse(impuestoTb.Text.Trim(), out imp)) {
+            if (!String.IsNullOrEmpty(impuestoTb.Text.Trim()) && double.TryParse(impuestoTb.Text.Trim(), NumberStyles.Any, format, out imp)) {
             }
             double desc = 0;
-            if (!String.IsNullOrEmpty(descuentoTb.Text.Trim()) && double.TryParse(descuentoTb.Text.Trim(), out desc)) {
+            if (!String.IsNullOrEmpty(descuentoTb.Text.Trim()) && double.TryParse(descuentoTb.Text.Trim(), NumberStyles.Any, format, out desc)) {
             }
 
             total = (cant * precio);
@@ -821,14 +917,22 @@ namespace ProyectoAMCRL
                     try {
                         BLManejadorFacturas man = new BLManejadorFacturas();
                         man.guardarFactura(det, fac);
-                        generarPDF("15", DateTime.Now);
+                        lblError.Text = "<div class=\"alert alert-success alert - dismissible fade show\" role=\"alert\"> <strong>¡Éxito! </strong> La factura se creó correctamente<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
+                        lblError.Visible = true;
+                        lblError2.Text = lblError.Text;
+                        lblError2.Visible = true;
+                        //generarPDF("15", DateTime.Now);
                     } catch (Exception exx) {
                         lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> No se puede guardar la factura en el sistema. Revise su conexión a internet e intentelo nuevamente.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                         lblError.Visible = true;
+                        lblError2.Text = lblError.Text;
+                        lblError2.Visible = true;
                     }
                 } else {
                     lblError.Text = "<div class=\"alert alert-danger alert - dismissible fade show\" role=\"alert\"> <strong>¡Error! </strong> Debe seleccionar un socio para la compra o venta.<button type = \"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>";
                     lblError.Visible = true;
+                    lblError2.Text = lblError.Text;
+                    lblError2.Visible = true;
                 }
                 
             } else {
@@ -882,6 +986,24 @@ namespace ProyectoAMCRL
                 Response.Close();
             }
         }
+
+        protected void nuevoMat_Click(object sender, EventArgs e) {
+            Response.Write("<script>window.open ('RegistroMateriales.aspx','_blank');</script>");
+        }
+
+        protected void nuevoSoc_Click(object sender, EventArgs e) {
+            Response.Write("<script>window.open ('RegistroSociosUI.aspx','_blank');</script>");
+        }
+
+        protected void refrescarMate_Click(object sender, EventArgs e) {
+            materialesDd.Items.Clear();
+            cargarMaterialesDrop();
+        }
+
+        private void quitarCant() {
+            Session["cantidadVentana"] = 0;
+        }
+
     }
 
 }

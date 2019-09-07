@@ -32,21 +32,28 @@ namespace ProyectoAMCRL
             Response.Redirect("AdministrarCuentas.aspx");
         }
 
-        protected void compraLB_Click(object sender, EventArgs e)
-        {
-            
-            //Session.Add("modo", "compra");
-            Session["tipoFactura"] = "compra";
-            Response.Write("<script>window.open ('CompraVenta2.aspx','_blank');</script>");
-            //Response.Redirect("CompraVenta2.aspx");
+        protected void compraLB_Click(object sender, EventArgs e) {
+            if(Convert.ToInt32(Session["cantidadVentana"]) == 0) {
+                Session["cantidadVentana"] = 1;
+                //Session.Add("modo", "compra");
+                Session["tipoFactura"] = "compra";
+                Response.Write("<script>window.open ('CompraVenta2.aspx','_blank');</script>");
+                //Response.Redirect("CompraVenta2.aspx");
+            } else {
+                Response.Write("<script>alert('Ya existe una instancia de Venta o compra en la sesión. Cierre esa instancia y vuelva a intentarlo');</script>");
+            }
         }
 
-        protected void ventaLB_Click(object sender, EventArgs e)
-        {
-            //Session.Add("modo", "venta");
-            Session["tipoFactura"] = "venta";
-            Response.Write("<script>window.open ('CompraVenta2.aspx','_blank');</script>");
-            //Response.Redirect("CompraVenta2.aspx");
+        protected void ventaLB_Click(object sender, EventArgs e) {
+            if(Convert.ToInt32(Session["cantidadVentana"]) == 0) {
+                Session["cantidadVentana"] = 1;
+                //Session.Add("modo", "venta");
+                Session["tipoFactura"] = "venta";
+                Response.Write("<script>window.open ('CompraVenta2.aspx','_blank');</script>");
+                //Response.Redirect("CompraVenta2.aspx");
+            } else {
+                Response.Write("<script>alert('Ya existe una instancia de Venta o compra en la sesión. Cierre esa instancia y vuelva a intentarlo');</script>");
+            }
         }
 
         protected void cerrarSesion(object sender, EventArgs e)

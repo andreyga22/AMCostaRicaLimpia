@@ -238,13 +238,13 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.LinkButton agregarCP;
         
         /// <summary>
-        /// UpdatePanel6 control.
+        /// UpdatePanel2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel6;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel2;
         
         /// <summary>
         /// refrescarbtn control.
@@ -256,13 +256,22 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.Button refrescarbtn;
         
         /// <summary>
-        /// UpdatePanel2 control.
+        /// nuevoSoc control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel2;
+        protected global::System.Web.UI.WebControls.Button nuevoSoc;
+        
+        /// <summary>
+        /// UpdatePanel4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel4;
         
         /// <summary>
         /// txtPalabra control.
@@ -292,6 +301,15 @@ namespace ProyectoAMCRL {
         protected global::System.Web.UI.WebControls.GridView gridSocios;
         
         /// <summary>
+        /// nuevoMat control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button nuevoMat;
+        
+        /// <summary>
         /// UpdatePanel1 control.
         /// </summary>
         /// <remarks>
@@ -308,6 +326,15 @@ namespace ProyectoAMCRL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList materialesDd;
+        
+        /// <summary>
+        /// refrescarMate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton refrescarMate;
         
         /// <summary>
         /// nombreMat control.
@@ -389,6 +416,15 @@ namespace ProyectoAMCRL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button agregarBtn;
+        
+        /// <summary>
+        /// lblError2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal lblError2;
         
         /// <summary>
         /// gridFactura control.
