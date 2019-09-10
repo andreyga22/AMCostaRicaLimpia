@@ -7,12 +7,36 @@
     <link href="Content/font-awesome.min.css" rel="stylesheet" />
     <script src="Scripts/jquery-3.4.1.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>  
-    <script>
-        $(document).ready(function () {
-            $(window).unload(function () {
-                alert("Goodbye!");
+    <%--<script type="text/javascript">
+        window.onbeforeunload = function() {
+            '<%Session["cantidadVentana"] = 0; %>';
+            return "Did you save your stuff?";
+        }
+    </script>--%>
+    <%--<script>
+        $(window).bind('beforeunload', function (event) {
+            setTimeout(function () {
+                '<%Session["cantidadVentana"] = 0; %>';
+                //alert('Hi againe!');
             });
-        });  
+            return '';
+        }).bind('unload', function (event) {
+            '<%Session["cantidadVentana"] = 1; %>';
+            //alert('Goodby!');
+        });
+    </script>--%>
+    <script>
+        $(function () {
+            $(window).bind('beforeunload', function () {
+                setTimeout(function () {
+                    setTimeout(function () {
+                        //$(document.body).css('background-color', 'red');
+                        '<%Session["cantidadVentana"] = 0; %>';
+                    }, 1000);
+                }, 1);
+                return 'are you sure';
+            });
+        });
     </script>
 
 </asp:Content>
@@ -21,7 +45,7 @@
     </li>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="body" runat="server">
-
+    <%--<asp:Button ID="hidden" runat="server" visible="false" Text="0" />--%>
     <div class="container">
         <asp:ScriptManager ID="ScriptManager1" runat="server" enablepagemethods="true"></asp:ScriptManager>
         <asp:UpdatePanel ID="UpdatePanel9" runat="server">
@@ -32,8 +56,8 @@
                 <%--</ContentTemplate>
         </asp:UpdatePanel>--%>
 
-                <p>When you click <a href="http://www.javatpoint.com/">this link</a>, or close the window,  
- unload event will be triggered.</p>  
+              <%--  <p>When you click <a href="http://www.javatpoint.com/">this link</a>, or close the window,  
+ unload event will be triggered.</p>  --%>
 
                 <br />
                 <%--<asp:UpdatePanel ID="UpdatePanel7" runat="server">

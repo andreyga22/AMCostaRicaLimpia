@@ -37,8 +37,11 @@ namespace ProyectoAMCRL
                 Session["cantidadVentana"] = 1;
                 //Session.Add("modo", "compra");
                 Session["tipoFactura"] = "compra";
-                Response.Write("<script>window.open ('CompraVenta2.aspx','_blank');</script>");
+                //Response.Write("<script>window.open ('CompraVenta2.aspx','_blank');</script>");
                 //Response.Redirect("CompraVenta2.aspx");
+                //Response.Redirect("CompraVenta2.aspx");
+                Page.ClientScript.RegisterStartupScript(
+ this.GetType(), "OpenWindow", "window.open('CompraVenta2.aspx','_newtab');", true);
             } else {
                 Response.Write("<script>alert('Ya existe una instancia de Venta o compra en la sesión. Cierre esa instancia y vuelva a intentarlo');</script>");
             }
@@ -49,7 +52,10 @@ namespace ProyectoAMCRL
                 Session["cantidadVentana"] = 1;
                 //Session.Add("modo", "venta");
                 Session["tipoFactura"] = "venta";
-                Response.Write("<script>window.open ('CompraVenta2.aspx','_blank');</script>");
+                //Response.Redirect("CompraVenta2.aspx");
+                //Response.Write("<script>window.open ('CompraVenta2.aspx','_blank');</script>");
+                Page.ClientScript.RegisterStartupScript(
+  this.GetType(), "OpenWindow", "window.open('CompraVenta2.aspx','_newtab');", true);
                 //Response.Redirect("CompraVenta2.aspx");
             } else {
                 Response.Write("<script>alert('Ya existe una instancia de Venta o compra en la sesión. Cierre esa instancia y vuelva a intentarlo');</script>");
@@ -58,6 +64,7 @@ namespace ProyectoAMCRL
 
         protected void cerrarSesion(object sender, EventArgs e)
         {
+            Session.Abandon();
             Response.Redirect("Login.aspx");
         }
 

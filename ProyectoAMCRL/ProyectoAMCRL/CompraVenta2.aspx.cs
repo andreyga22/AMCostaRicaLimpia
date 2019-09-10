@@ -22,6 +22,7 @@ namespace ProyectoAMCRL
         {
             if (Session["cuentaLogin"] != null)
             {
+                //hidden.Text = Convert.ToString(Session["cantidadVentana"]);
                 Session["idBodegaCompra"] = bodegasDd.SelectedValue;
                 Session["idMonedaCompra"] = monedaDd.SelectedValue;
                 if (!IsPostBack)
@@ -988,20 +989,20 @@ namespace ProyectoAMCRL
         }
 
         protected void nuevoMat_Click(object sender, EventArgs e) {
-            Response.Write("<script>window.open ('RegistroMateriales.aspx','_blank');</script>");
+            Page.ClientScript.RegisterStartupScript(
+  this.GetType(), "OpenWindow", "window.open('RegistroMateriales.aspx');", true);
+            //Response.Write("<script>window.open ('RegistroMateriales.aspx','_blank');</script>");
         }
 
         protected void nuevoSoc_Click(object sender, EventArgs e) {
-            Response.Write("<script>window.open ('RegistroSociosUI.aspx','_blank');</script>");
+            Page.ClientScript.RegisterStartupScript(
+  this.GetType(), "OpenWindow", "window.open('RegistroSociosUI.aspx');", true);
+            //Response.Write("<script>window.open ('RegistroSociosUI.aspx','_blank');</script>");
         }
 
         protected void refrescarMate_Click(object sender, EventArgs e) {
             materialesDd.Items.Clear();
             cargarMaterialesDrop();
-        }
-
-        private void quitarCant() {
-            Session["cantidadVentana"] = 0;
         }
 
     }

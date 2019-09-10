@@ -18,18 +18,18 @@ namespace ProyectoAMCRL {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e) {
-            Session["accionCuenta"] = null;
-            Session["idBodega"] = null;
-            Session["idCuenta"] = null;
-            Session["cuentaLogin"] = null;
-            Session["SortedView"] = null;
-            Session["idUnidad"] = null;
-            Session["idSocio"] = null;
-            Session["tipoFactura"] = null;
-            Session["idBodegaCompra"] = null;
-            Session["idMonedaCompra"] = null;
-            Session["idSocioCompra"] = null;
-            Session["materialSeleccionado"] = null;
+            //Session["accionCuenta"] = null;
+            //Session["idBodega"] = null;
+            //Session["idCuenta"] = null;
+            //Session["cuentaLogin"] = null;
+            //Session["SortedView"] = null;
+            //Session["idUnidad"] = null;
+            //Session["idSocio"] = null;
+            //Session["tipoFactura"] = null;
+            //Session["idBodegaCompra"] = null;
+            //Session["idMonedaCompra"] = null;
+            //Session["idSocioCompra"] = null;
+            //Session["materialSeleccionado"] = null;
         }
 
         /// <summary>
